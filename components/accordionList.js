@@ -53,9 +53,23 @@ export default class AccordionView extends Component {
             <Icon name="home" color="black" size={26} />
           </View>
           <View style={styles.credsCard}>
-            <Text style={styles.credTitle}>DemoID</Text>
-            <View style={styles.credIcon}>
-              <Icon name="home" color="black" size={26} />
+            <View style={styles.credsCardHeader}>
+              <Text style={styles.credTitle}>DemoID</Text>
+              <View style={styles.credIcon}>
+                <Icon name="home" color="black" size={26} />
+              </View>
+            </View>
+            <View style={styles.credsCardID}>
+              <Text style={styles.credTitle}>DemoID</Text>
+              <Text style={{backgroundColor: 'white', marginLeft: 'auto'}}>
+                Demo ID
+              </Text>
+            </View>
+            <View style={styles.credsCardPassword}>
+              <Text style={styles.credTitle}>DemoID</Text>
+              <Text style={{backgroundColor: 'white', marginLeft: 'auto'}}>
+                Demopassword
+              </Text>
             </View>
           </View>
           <View style={styles.moneyCard}>
@@ -145,10 +159,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
   },
+  credsCardHeader: {
+    flexDirection: 'row',
+    padding: 5,
+  },
   credsCard: {
     marginTop: 10,
     padding: 10,
-    flexDirection: 'row',
+
     backgroundColor: 'black',
     width: '100%',
     borderRadius: 5,
@@ -160,8 +178,18 @@ const styles = StyleSheet.create({
   credTitle: {
     backgroundColor: 'white',
   },
+  credsCardID: {
+    padding: 5,
+    flexDirection: 'row',
+  },
+  credsCardPassword: {
+    padding: 5,
+    flexDirection: 'row',
+  },
   moneyCard: {
+    marginTop: 10,
     padding: 10,
+    borderRadius: 5,
     backgroundColor: 'black',
     width: '100%',
   },
