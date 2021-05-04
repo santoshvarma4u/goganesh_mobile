@@ -6,7 +6,7 @@ function PassbookScreen(props) {
   return (
     <View style={styles.containerMain}>
       <View>
-        <HeaderComponent title="IDs" />
+        <HeaderComponent />
       </View>
       <View style={styles.offersContainer}>
         <View style={styles.topOffers}>

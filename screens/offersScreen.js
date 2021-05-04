@@ -4,9 +4,8 @@ import HeaderComponent from '../components/headerComponent';
 function OffersScreen(props) {
   return (
     <View style={styles.containerMain}>
-      <View>
-        <HeaderComponent title="IDs" />
-      </View>
+      <HeaderComponent />
+      <View></View>
       <View style={styles.offersContainer}>
         <View style={styles.topOffers}>
           <Text>Offers</Text>

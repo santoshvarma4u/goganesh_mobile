@@ -1,8 +1,8 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
-
-import {FlatListSlider} from 'react-native-flatlist-slider';
 import HeaderComponent from '../components/headerComponent';
+import {FlatListSlider} from 'react-native-flatlist-slider';
+
 const images = [
   {
     image:
@@ -20,7 +20,7 @@ const images = [
 function HomeScreen() {
   return (
     <View style={styles.containerMain}>
-      <HeaderComponent title="Home" />
+      <HeaderComponent />
       <View style={styles.upperContainer}>
         <View style={styles.centralCardView}>
           <View style={styles.depositCard}>
