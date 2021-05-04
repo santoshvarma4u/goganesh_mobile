@@ -3,6 +3,7 @@ import {Text, View, FlatList, Dimensions, StyleSheet} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Searchbar} from 'react-native-paper';
 import ListViewComponent from '../components/ListViewComponent';
+import AccordionView from '../components/accordionList';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import HeaderComponent from '../components/headerComponent';
 const IDRoute = () => <View style={{flex: 1, backgroundColor: 'black'}} />;
@@ -21,68 +22,15 @@ const MyIDRoute = () => {
           />
         </View>
         <ScrollView style={styles.list}>
-          <FlatList
-            data={message}
-            keyExtractor={message => {
-              message.id.toString();
-            }}
-            renderItem={({item}) => (
-              <ListViewComponent url={item.url} sitename={item.sitename} />
-            )}
-            ItemSeparatorComponent={() => (
-              <View
-                style={{
-                  width: '100%',
-                  height: 1,
-                  padding: 5,
-                  backgroundColor: 'black',
-                }}
-              />
-            )}
-          />
+          <View>
+            <AccordionView />
+          </View>
         </ScrollView>
       </View>
     </View>
   );
 };
 
-const message = [
-  {
-    url: 'www.google.com',
-    sitename: 'Google',
-    id: 1,
-  },
-  {
-    url: 'www.google.com',
-    sitename: 'Google',
-    id: 2,
-  },
-  {
-    url: 'www.google.com',
-    sitename: 'Google',
-    id: 3,
-  },
-  {
-    url: 'www.google.com',
-    sitename: 'Google',
-    id: 3,
-  },
-  {
-    url: 'www.google.com',
-    sitename: 'Google',
-    id: 3,
-  },
-  {
-    url: 'www.google.com',
-    sitename: 'Google',
-    id: 3,
-  },
-  {
-    url: 'www.google.com',
-    sitename: 'Google',
-    id: 3,
-  },
-];
 function IDs(props) {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
@@ -125,6 +73,9 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   searchBar: {
+    padding: 10,
+  },
+  list: {
     padding: 10,
   },
 });

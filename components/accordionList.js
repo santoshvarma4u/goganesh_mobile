@@ -1,90 +1,196 @@
-import React, {useState, useRef} from 'react';
-import {
-  View,
-  Text,
-  TouchableWithoutFeedback,
-  StyleSheet,
-  Animated,
-  Easing,
-} from 'react-native';
-import {MaterialIcons} from '@expo/vector-icons';
+import React, {Component} from 'react';
+import Accordion from 'react-native-collapsible/Accordion';
+import {Text, View, Image, StyleSheet} from 'react-native';
+import {Icon} from 'react-native-elements';
 
-const AccordionListItem = ({title, children}) => {
-  const [open, setOpen] = useState(false);
-  const animatedController = useRef(new Animated.Value(0)).current;
-  const [bodySectionHeight, setBodySectionHeight] = useState();
+const SECTIONS = [
+  {
+    title: 'First',
+    content: 'Lorem ipsum...',
+  },
+  {
+    title: 'Second',
+    content: 'Lorem ipsum...',
+  },
+];
 
-  const bodyHeight = animatedController.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, bodySectionHeight],
-  });
-
-  const arrowAngle = animatedController.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0rad', `${Math.PI}rad`],
-  });
-
-  const toggleListItem = () => {
-    if (open) {
-      Animated.timing(animatedController, {
-        duration: 300,
-        toValue: 0,
-        easing: Easing.bezier(0.4, 0.0, 0.2, 1),
-      }).start();
-    } else {
-      Animated.timing(animatedController, {
-        duration: 300,
-        toValue: 1,
-        easing: Easing.bezier(0.4, 0.0, 0.2, 1),
-      }).start();
-    }
-    setOpen(!open);
+export default class AccordionView extends Component {
+  state = {
+    activeSections: [],
   };
 
-  return (
-    <>
-      <TouchableWithoutFeedback onPress={() => toggleListItem()}>
-        <View style={styles.titleContainer}>
-          <Text>{title}</Text>
-          <Animated.View style={{transform: [{rotateZ: arrowAngle}]}}>
-            <MaterialIcons name="keyboard-arrow-down" size={20} color="black" />
-          </Animated.View>
+  _renderSectionTitle = section => {
+    return (
+      <View style={styles.content}>
+        <Text>lkabcljanlcanlscnlakisnclanslca</Text>
+      </View>
+    );
+  };
+
+  _renderHeader = section => {
+    return (
+      <View style={styles.cardContent}>
+        <View style={styles.containerUpperCard}>
+          <Image style={styles.image}></Image>
+          <View>
+            <Text style={styles.url}>{section.title}</Text>
+            <Text style={styles.siteName}>as;nclabudcbu</Text>
+          </View>
         </View>
-      </TouchableWithoutFeedback>
-      <Animated.View style={[styles.bodyBackground, {height: bodyHeight}]}>
-        <View
-          style={styles.bodyContainer}
-          onLayout={event =>
-            setBodySectionHeight(event.nativeEvent.layout.height)
-          }>
-          {children}
+      </View>
+    );
+  };
+
+  _renderContent = section => {
+    return (
+      <View style={styles.cardContent}>
+        <View style={styles.containerCollapse}>
+          <View style={styles.icons}>
+            <Icon name="home" color="black" size={26} />
+            <Icon name="home" color="black" size={26} />
+            <Icon name="home" color="black" size={26} />
+            <Icon name="home" color="black" size={26} />
+            <Icon name="home" color="black" size={26} />
+          </View>
+          <View style={styles.credsCard}>
+            <Text style={styles.credTitle}>DemoID</Text>
+            <View style={styles.credIcon}>
+              <Icon name="home" color="black" size={26} />
+            </View>
+          </View>
+          <View style={styles.moneyCard}>
+            <View style={styles.moneyCardContentGrid}>
+              <View style={styles.moneyRow1}>
+                <View style={styles.moneyCardIcon}>
+                  <Icon name="home" color="black" size={26} />
+                </View>
+
+                <Text style={styles.moneyCardText}>name</Text>
+                <Text style={styles.moneyCardPrice}>100</Text>
+              </View>
+
+              <View style={styles.moneyRow2}>
+                <View style={styles.moneyCardIcon}>
+                  <Icon name="home" color="black" size={26} />
+                </View>
+                <Text style={styles.moneyCardText}>name</Text>
+                <Text style={styles.moneyCardPrice}>100</Text>
+              </View>
+              <View style={styles.moneyRow3}>
+                <View style={styles.moneyCardIcon}>
+                  <Icon name="home" color="black" size={26} />
+                </View>
+                <Text style={styles.moneyCardText}>name</Text>
+                <Text style={styles.moneyCardPrice}>100</Text>
+              </View>
+            </View>
+          </View>
         </View>
-      </Animated.View>
-    </>
-  );
-};
-export default AccordionListItem;
+      </View>
+    );
+  };
+
+  _updateSections = activeSections => {
+    this.setState({activeSections});
+  };
+
+  render() {
+    return (
+      <Accordion
+        sections={SECTIONS}
+        activeSections={this.state.activeSections}
+        renderSectionTitle={this._renderSectionTitle}
+        renderHeader={this._renderHeader}
+        renderContent={this._renderContent}
+        onChange={this._updateSections}
+      />
+    );
+  }
+}
 
 const styles = StyleSheet.create({
-  bodyBackground: {
-    backgroundColor: '#EFEFEF',
-    overflow: 'hidden',
+  cardContent: {
+    flex: 1,
+    backgroundColor: 'white',
+    borderRadius: 10,
   },
-  titleContainer: {
-    display: 'flex',
+  containerUpperCard: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '1rem',
-    paddingLeft: '1.5rem',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderColor: '#EFEFEF',
+    padding: 10,
+    width: '100%',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    backgroundColor: 'white',
   },
-  bodyContainer: {
-    padding: '1rem',
-    paddingLeft: '1.5rem',
-    position: 'absolute',
-    bottom: 0,
+  containerCollapse: {
+    padding: 10,
+    width: '100%',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    backgroundColor: 'white',
+  },
+  image: {
+    width: 75,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: 'black',
+    marginRight: 10,
+  },
+  url: {
+    fontWeight: '500',
+  },
+  siteName: {},
+  icons: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  credsCard: {
+    marginTop: 10,
+    padding: 10,
+    flexDirection: 'row',
+    backgroundColor: 'black',
+    width: '100%',
+    borderRadius: 5,
+  },
+  credIcon: {
+    backgroundColor: 'white',
+    marginLeft: 'auto',
+  },
+  credTitle: {
+    backgroundColor: 'white',
+  },
+  moneyCard: {
+    padding: 10,
+    backgroundColor: 'black',
+    width: '100%',
+  },
+  moneyCardText: {
+    backgroundColor: 'white',
+    flexDirection: 'row-reverse',
+  },
+  moneyCardPrice: {
+    backgroundColor: 'pink',
+    marginLeft: 'auto',
+    right: 0,
+  },
+  moneyCardIcon: {
+    backgroundColor: 'white',
+  },
+  moneyRow1: {
+    flexDirection: 'row',
+    padding: 5,
+  },
+  moneyRow2: {
+    flexDirection: 'row',
+    padding: 5,
+  },
+  moneyRow3: {
+    flexDirection: 'row',
+    padding: 5,
+  },
+
+  moneyCardContentGrid: {
+    padding: 5,
   },
 });
