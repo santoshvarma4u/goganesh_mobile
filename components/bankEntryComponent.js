@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import {View, Modal, Text, Pressable, Image, StyleSheet} from 'react-native';
 import {Icon} from 'react-native-elements';
+import {cos} from 'react-native-reanimated';
 
 function BankEntryComponent({icon}) {
   const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -31,10 +33,9 @@ function BankEntryComponent({icon}) {
 
 const styles = StyleSheet.create({
   centeredView: {
-    flex: 0.75,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
   },
   modalView: {
     margin: 20,
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
-    borderRadius: 20,
+    borderRadius: 10,
     padding: 10,
     elevation: 2,
   },
@@ -64,8 +65,6 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
   },
   modalText: {
     marginBottom: 15,
