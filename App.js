@@ -10,19 +10,13 @@ import PassbookScreen from './screens/passbookScreen';
 import {Icon} from 'react-native-elements';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {HeaderComponent} from './components/headerComponent';
-import {
-  HomeStackNavigator,
-  OffersStackNavigator,
-  PassbookStackNavigator,
-  IDsStackNavigator,
-  BottomTabNavigator,
-} from './navigation/navigation';
+import {MyDrawer, BottomTabNavigator} from './navigation/navigation';
 
 export default class App extends Component {
   render() {
     return (
       <NavigationContainer>
-        <BottomTabNavigator />
+        <MyDrawer />
       </NavigationContainer>
     );
   }

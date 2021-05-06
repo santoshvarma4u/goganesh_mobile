@@ -1,10 +1,9 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import HeaderComponent from '../components/headerComponent';
-function OffersScreen(props) {
+function OffersScreen({navigation}) {
   return (
     <View style={styles.containerMain}>
-      <HeaderComponent />
       <View></View>
       <View style={styles.offersContainer}>
         <View style={styles.topOffers}>

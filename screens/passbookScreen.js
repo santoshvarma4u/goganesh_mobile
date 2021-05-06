@@ -2,12 +2,10 @@ import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import HeaderComponent from '../components/headerComponent';
 import ListViewComponent from '../components/ListViewComponent';
-function PassbookScreen(props) {
+function PassbookScreen({navigation}) {
   return (
     <View style={styles.containerMain}>
-      <View>
-        <HeaderComponent />
-      </View>
+      <View></View>
       <View style={styles.offersContainer}>
         <View style={styles.topOffers}>
           <Text>Transactions</Text>

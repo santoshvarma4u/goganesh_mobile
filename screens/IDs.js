@@ -31,7 +31,7 @@ const MyIDRoute = () => {
   );
 };
 
-function IDs(props) {
+function IDs({navigation}) {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: 'first', title: 'Create IDs', color: 'black'},
@@ -45,7 +45,6 @@ function IDs(props) {
 
   return (
     <View style={{flex: 1, backgroundColor: '#e39b11'}}>
-      <HeaderComponent />
       <TabView
         navigationState={{index, routes}}
         renderScene={renderScene}

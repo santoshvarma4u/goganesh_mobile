@@ -21,12 +21,16 @@ import {
 
 function CustomSidebarMenu({...props}) {
   return (
-    <DrawerContentScrollView>
-      <DrawerItemList>
-        <ListItem>
-          <Text>asnblj</Text>
-        </ListItem>
-      </DrawerItemList>
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props} />
+      <DrawerItem
+        label="Profile"
+        onPress={() => props.navigation.navigate('Profile')}
+      />
+      <DrawerItem
+        label="Payments"
+        onPress={() => props.navigation.navigate('Payments')}
+      />
     </DrawerContentScrollView>
   );
 }

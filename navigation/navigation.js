@@ -2,13 +2,20 @@ import React from 'react';
 import {Icon} from 'react-native-elements';
 import OffersScreen from '../screens/offersScreen';
 import IDs from '../screens/IDs';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator, HeaderBackButton} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/homeScree';
+import ProfileScreen from '../screens/profileScreen';
+import PaymentsScreen from '../screens/paymentDetailsScreen';
+
 import PassbookScreen from '../screens/passbookScreen';
 import CustomSidebarMenu from '../screens/sidemenu';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+
+import {DrawerActions} from '@react-navigation/native';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 const HomeStackNavigator = () => {
   return (
@@ -16,7 +23,60 @@ const HomeStackNavigator = () => {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{headerShown: false}}
+        options={({navigation}) => ({
+          headerStyle: {backgroundColor: '#e39b11'},
+          headerTitle: 'Home',
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            {marginLeft: 'auto'},
+            (
+              <Icon
+                name="menu"
+                onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+              />
+            )
+          ),
+          headerRight: () => (
+            <Icon
+              name="notifications"
+              onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={({navigation}) => ({
+          headerTitle: 'Profile',
+          headerStyle: {backgroundColor: '#e39b11'},
+          headerTitleAlign: 'center',
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => {
+                navigation.navigate('Home');
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Payments"
+        component={PaymentsScreen}
+        options={({navigation}) => ({
+          headerTitle: 'Payments',
+          headerStyle: {backgroundColor: '#e39b11'},
+          headerTitleAlign: 'center',
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => {
+                navigation.navigate('Home');
+              }}
+            />
+          ),
+        })}
       />
     </Stack.Navigator>
   );
@@ -27,7 +87,9 @@ const OffersStackNavigator = () => {
       <Stack.Screen
         name="Offers"
         component={OffersScreen}
-        options={{headerShown: false}}
+        options={() => ({
+          headerStyle: {backgroundColor: '#e39b11'},
+        })}
       />
     </Stack.Navigator>
   );
@@ -38,7 +100,9 @@ const PassbookStackNavigator = () => {
       <Stack.Screen
         name="Passbook"
         component={PassbookScreen}
-        options={{headerShown: false}}
+        options={() => ({
+          headerStyle: {backgroundColor: '#e39b11'},
+        })}
       />
     </Stack.Navigator>
   );
@@ -46,15 +110,29 @@ const PassbookStackNavigator = () => {
 const IDsStackNavigator = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="IDs" component={IDs} options={{headerShown: false}} />
+      <Stack.Screen
+        name="IDs"
+        component={IDs}
+        options={() => ({
+          headerStyle: {backgroundColor: '#e39b11'},
+        })}
+      />
     </Stack.Navigator>
   );
 };
+
+function MyDrawer() {
+  return (
+    <Drawer.Navigator drawerContent={props => <CustomSidebarMenu {...props} />}>
+      <Drawer.Screen name="Home" component={BottomTabNavigator} />
+    </Drawer.Navigator>
+  );
+}
+
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        drawerContent={props => <CustomSidebarMenu {...props} />}
         name="Home"
         component={HomeStackNavigator}
         options={{
@@ -96,4 +174,5 @@ export {
   PassbookStackNavigator,
   IDsStackNavigator,
   BottomTabNavigator,
+  MyDrawer,
 };

@@ -1,8 +1,10 @@
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, Left, Button, StyleSheet} from 'react-native';
 import HeaderComponent from '../components/headerComponent';
+import {Icon, Header} from 'react-native-elements';
 import {FlatListSlider} from 'react-native-flatlist-slider';
-
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {DrawerActions} from '@react-navigation/native';
 const images = [
   {
     image:
@@ -17,10 +19,9 @@ const images = [
   },
 ];
 
-function HomeScreen() {
+function HomeScreen({navigation}) {
   return (
     <View style={styles.containerMain}>
-      <HeaderComponent />
       <View style={styles.upperContainer}>
         <View style={styles.centralCardView}>
           <View style={styles.depositCard}>

@@ -13,10 +13,7 @@ import CustomSidebarMenu from '../screens/sidemenu';
 class HeaderComponent extends React.Component {
   hamburger = () => {
     return (
-      <TouchableOpacity
-        onPress={() => {
-          this.props.navigation.dispatch(DrawerActions.openDrawer());
-        }}>
+      <TouchableOpacity>
         <Icon name="menu" color="black" size={26} />
       </TouchableOpacity>
     );
