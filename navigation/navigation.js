@@ -7,6 +7,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/homeScree';
 import ProfileScreen from '../screens/profileScreen';
 import PaymentsScreen from '../screens/paymentDetailsScreen';
+import CreateIDScreen from '../screens/createIDScreen';
 
 import PassbookScreen from '../screens/passbookScreen';
 import CustomSidebarMenu from '../screens/sidemenu';
@@ -115,6 +116,23 @@ const IDsStackNavigator = () => {
         component={IDs}
         options={() => ({
           headerStyle: {backgroundColor: '#e39b11'},
+        })}
+      />
+      <Stack.Screen
+        name="CreateID"
+        component={CreateIDScreen}
+        options={({navigation}) => ({
+          headerTitle: 'Payments',
+          headerStyle: {backgroundColor: '#e39b11'},
+          headerTitleAlign: 'center',
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => {
+                navigation.navigate('IDs');
+              }}
+            />
+          ),
         })}
       />
     </Stack.Navigator>

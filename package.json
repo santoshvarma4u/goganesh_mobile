@@ -23,6 +23,7 @@
     "react-native-carousel-view": "^0.5.1",
     "react-native-collapsible": "^1.6.0",
     "react-native-elements": "^3.4.1",
+    "react-native-exception-handler": "^2.10.10",
     "react-native-flatlist-slider": "^1.0.5",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-pager-view": "^5.1.7",

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Accordion from 'react-native-collapsible/Accordion';
-import {Text, View, Image, StyleSheet} from 'react-native';
+import {Text, Button, View, Image, StyleSheet} from 'react-native';
 import {Icon} from 'react-native-elements';
 
 const SECTIONS = [
@@ -68,6 +68,7 @@ export default class AccordionView extends Component {
   _renderContent = section => {
     return (
       <View style={styles.cardContent}>
+        {console.log(1)}
         <View style={styles.containerCollapse}>
           <View style={styles.icons}>
             <Icon name="home" color="black" size={26} />

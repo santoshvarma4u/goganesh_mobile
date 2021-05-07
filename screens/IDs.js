@@ -4,11 +4,31 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {Searchbar} from 'react-native-paper';
 import ListViewComponent from '../components/ListViewComponent';
 import AccordionView from '../components/accordionList';
+import AccordionListItem from '../components/accordianListNew';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import HeaderComponent from '../components/headerComponent';
 const IDRoute = () => <View style={{flex: 1, backgroundColor: 'black'}} />;
 
-const MyIDRoute = () => {
+const DATA = [
+  {
+    title: 'First',
+    content: 'Lorem ipsum...',
+  },
+  {
+    title: 'Second',
+    content: 'Lorem ipsum...',
+  },
+  {
+    title: 'First',
+    content: 'Lorem ipsum...',
+  },
+  {
+    title: 'Second',
+    content: 'Lorem ipsum...',
+  },
+];
+
+const MyIDRoute = props => {
   const [searchQuery, setSearchQuery] = React.useState('');
   const onChangeSearch = query => setSearchQuery(query);
   return (
@@ -21,11 +41,15 @@ const MyIDRoute = () => {
             value={searchQuery}
           />
         </View>
-        <ScrollView style={styles.list}>
-          <View>
-            <AccordionView />
-          </View>
-        </ScrollView>
+
+        <View style={styles.list}>
+          <FlatList
+            style={{padding: 10}}
+            data={DATA}
+            renderItem={() => <AccordionListItem />}
+            keyExtractor={item => item.id}
+          />
+        </View>
       </View>
     </View>
   );

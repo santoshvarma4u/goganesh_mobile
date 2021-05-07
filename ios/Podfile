@@ -12,6 +12,8 @@ target 'demoPractice' do
     :hermes_enabled => false
   )
 
+  pod 'ReactNativeExceptionHandler', :path => '../node_modules/react-native-exception-handler'
+
   target 'demoPracticeTests' do
     inherit! :complete
     # Pods for testing
