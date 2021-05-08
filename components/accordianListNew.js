@@ -6,7 +6,7 @@ import {Text, Button, View, Image, StyleSheet} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 
-const AccordianListNew = () => {
+const AccordianListNew = props => {
   const [expanded, setExpanded] = React.useState(true);
   const navigation = useNavigation();
   const handlePress = () => setExpanded(!expanded);
@@ -14,11 +14,10 @@ const AccordianListNew = () => {
   function ListTitle() {
     return (
       <View style={styles.ListTitle}>
-        {console.log(navigation)}
         <Image style={styles.image}></Image>
         <View>
-          <Text style={styles.url}> asa </Text>
-          <Text style={styles.siteName}>asa</Text>
+          <Text style={styles.url}>{props.data.siteurl}</Text>
+          <Text style={styles.siteName}>{props.data.sitename}</Text>
         </View>
       </View>
     );
@@ -84,7 +83,7 @@ const AccordianListNew = () => {
             title="create ID"
             style={{padding: 5}}
             onPress={() => {
-              navigation.navigate('CreateID');
+              navigation.navigate('CreateID', {sdid: props.data.sdid});
             }}></Button>
         </View>
       </View>

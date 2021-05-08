@@ -122,7 +122,7 @@ const IDsStackNavigator = () => {
         name="CreateID"
         component={CreateIDScreen}
         options={({navigation}) => ({
-          headerTitle: 'Payments',
+          headerTitle: 'Create ID',
           headerStyle: {backgroundColor: '#e39b11'},
           headerTitleAlign: 'center',
           headerLeft: props => (

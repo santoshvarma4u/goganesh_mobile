@@ -1,7 +1,33 @@
-import React from 'react';
-import {Image, TextInput, Button, View, Text, StyleSheet} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  Image,
+  TextInput,
+  TouchableWithoutFeedback,
+  Button,
+  View,
+  Text,
+  StyleSheet,
+} from 'react-native';
 import {Formik} from 'formik';
-function CreateIDScreen({navigation}) {
+import {Icon} from 'react-native-elements';
+import IDsApi from '../api/IDs';
+
+function CreateIDScreen({route, navigation}) {
+  const {sdid} = route.params;
+
+  const [planDetails, setPlanDetails] = useState({
+    planHeader: 'Bronze Plan',
+    MinRefill: '1,000',
+    MinWidthdrawl: '1,000',
+    MinMaintainBalance: '1,000',
+    MaxWithDrawl: '50,000 per day',
+  });
+
+  const submitID = async () => {
+    const result = await IDsApi.createID(14, sdid, 'gold', false, 'xxxxxxxxx');
+    if (!result.ok) return alert('failed');
+    alert('success');
+  };
   return (
     <View style={styles.containerMain}>
       <View></View>
@@ -12,33 +38,122 @@ function CreateIDScreen({navigation}) {
           <Text style={{alignItems: 'center'}}>url</Text>
         </View>
         <View style={styles.planCards}>
-          <View style={styles.bronzeCard}></View>
-          <View style={styles.silverCard}></View>
-          <View style={styles.goldCard}></View>
+          <TouchableWithoutFeedback
+            onPress={() =>
+              setPlanDetails({
+                planHeader: 'Bronze Plan',
+                MinRefill: '1,000',
+                MinWidthdrawl: '1,000',
+                MinMaintainBalance: '1,000',
+                MaxWithDrawl: '50,000 per day',
+              })
+            }>
+            <View style={styles.bronzeCard}>
+              <Image
+                style={{
+                  borderRadius: 20,
+                  width: 45,
+                  height: 45,
+                  backgroundColor: 'white',
+                }}></Image>
+              <Text style={{padding: 5}}>Min ID</Text>
+              <Text>1000</Text>
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback
+            onPress={() =>
+              setPlanDetails({
+                planHeader: 'Silver Plan',
+                MinRefill: '10,000',
+                MinWidthdrawl: '10,000',
+                MinMaintainBalance: '10.000',
+                MaxWithDrawl: '2,00,000 per day',
+              })
+            }>
+            <View style={styles.silverCard}>
+              <Image
+                style={{
+                  borderRadius: 20,
+                  width: 45,
+                  height: 45,
+                  backgroundColor: 'white',
+                }}></Image>
+              <Text style={{padding: 5}}>Min ID</Text>
+              <Text>1000</Text>
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback
+            onPress={() =>
+              setPlanDetails({
+                planHeader: 'Gold Plan',
+                MinRefill: '1,00,000',
+                MinWidthdrawl: '1,00,000',
+                MinMaintainBalance: '100000',
+                MaxWithDrawl: '5,00,000 per day',
+              })
+            }>
+            <View style={styles.goldCard}>
+              <Image
+                style={{
+                  borderRadius: 20,
+                  width: 45,
+                  height: 45,
+                  backgroundColor: 'white',
+                }}></Image>
+              <Text style={{padding: 5}}>Min ID</Text>
+              <Text>1000</Text>
+            </View>
+          </TouchableWithoutFeedback>
         </View>
-        <View style={styles.planDeatils}></View>
+        <View style={styles.planDeatils}>
+          <Text style={{color: 'black', marginLeft: 20, marginTop: 10}}>
+            {planDetails.planHeader}
+          </Text>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={{color: 'black', marginLeft: 20, marginTop: 10}}>
+              Min Refill
+            </Text>
+            <Text style={styles.planDetailsText}>{planDetails.MinRefill}</Text>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={{color: 'black', marginLeft: 20, marginTop: 10}}>
+              Min Withdrawl
+            </Text>
+            <Text style={styles.planDetailsText}>{planDetails.MinRefill}</Text>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={{color: 'black', marginLeft: 20, marginTop: 10}}>
+              Min Maintaining Balnce
+            </Text>
+            <Text style={styles.planDetailsText}>{planDetails.MinRefill}</Text>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={{color: 'black', marginLeft: 20, marginTop: 10}}>
+              Max Withdrawl
+            </Text>
+            <Text style={styles.planDetailsText}>
+              {planDetails.MaxWithDrawl}
+            </Text>
+          </View>
+        </View>
         <View style={styles.planDeatils}>
           <Formik
             initialValues={{
-              bankName: '',
-              AccountNumber: '',
-              IFSC: '',
-              AccountHolderName: '',
-              branchCode: '',
+              UserName: '',
+              DepositCoins: '',
             }}
-            onSubmit={values => console.log(values)}>
+            onSubmit={submitID}>
             {({handleChange, handleSubmit}) => (
               <>
                 <TextInput
                   style={styles.modalText}
                   placeholder="User Name"
-                  onChangeText={handleChange('bankName')}></TextInput>
+                  onChangeText={handleChange('UserName')}></TextInput>
 
                 <TextInput
                   style={styles.modalText}
                   placeholder="Deposit Coins"
-                  onChangeText={handleChange('bankName')}></TextInput>
-
+                  onChangeText={handleChange('DepositCoins')}></TextInput>
                 <Button title="submit" onPress={handleSubmit}></Button>
               </>
             )}
@@ -97,6 +212,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     height: '100%',
+    alignItems: 'center',
     width: 20,
   },
   goldCard: {
@@ -104,7 +220,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     padding: 10,
     borderRadius: 10,
-
+    alignItems: 'center',
     height: '100%',
     width: 20,
   },
@@ -112,15 +228,22 @@ const styles = StyleSheet.create({
     flex: 0.33,
     backgroundColor: 'blue',
     padding: 10,
+    alignItems: 'center',
     borderRadius: 10,
     height: '100%',
     width: 20,
   },
   modalText: {
     borderRadius: 10,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     fontSize: 20,
     marginBottom: 15,
+  },
+  planDetailsText: {
+    color: 'black',
+    marginLeft: 'auto',
+    marginTop: 10,
+    padding: 5,
   },
 });
 export default CreateIDScreen;

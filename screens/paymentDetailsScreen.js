@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
 
   modalText: {
     borderRadius: 10,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     fontSize: 20,
     marginBottom: 15,
   },

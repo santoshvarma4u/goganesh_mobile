@@ -1,5 +1,13 @@
-import React from 'react';
-import {Text, View, FlatList, Dimensions, StyleSheet} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  Text,
+  ActivityIndicator,
+  View,
+  Button,
+  FlatList,
+  Dimensions,
+  StyleSheet,
+} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Searchbar} from 'react-native-paper';
 import ListViewComponent from '../components/ListViewComponent';
@@ -7,49 +15,49 @@ import AccordionView from '../components/accordionList';
 import AccordionListItem from '../components/accordianListNew';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import HeaderComponent from '../components/headerComponent';
+import IDsApi from '../api/IDs';
+import useAPI from '../hooks/useAPI';
 const IDRoute = () => <View style={{flex: 1, backgroundColor: 'black'}} />;
 
-const DATA = [
-  {
-    title: 'First',
-    content: 'Lorem ipsum...',
-  },
-  {
-    title: 'Second',
-    content: 'Lorem ipsum...',
-  },
-  {
-    title: 'First',
-    content: 'Lorem ipsum...',
-  },
-  {
-    title: 'Second',
-    content: 'Lorem ipsum...',
-  },
-];
-
 const MyIDRoute = props => {
+  const getIDs = useAPI(IDsApi.getIDs);
+  useEffect(() => {
+    getIDs.request();
+  }, []);
+
   const [searchQuery, setSearchQuery] = React.useState('');
   const onChangeSearch = query => setSearchQuery(query);
   return (
     <View style={styles.containerMain}>
-      <View>
-        <View style={styles.searchBar}>
-          <Searchbar
-            placeholder="Search"
-            onChangeText={onChangeSearch}
-            value={searchQuery}
-          />
-        </View>
+      <View style={styles.searchBar}>
+        <Searchbar
+          placeholder="Search"
+          onChangeText={onChangeSearch}
+          value={searchQuery}
+        />
+      </View>
 
-        <View style={styles.list}>
-          <FlatList
-            style={{padding: 10}}
-            data={DATA}
-            renderItem={() => <AccordionListItem />}
-            keyExtractor={item => item.id}
-          />
-        </View>
+      <View style={styles.list}>
+        {getIDs.error && (
+          <>
+            <Text style={{backgroundColor: 'white'}}> failed </Text>
+            <Button
+              title="retry"
+              onPress={() => {
+                loadIDs();
+              }}></Button>
+          </>
+        )}
+        <ActivityIndicator
+          animating={getIDs.loading}
+          size="large"
+          color="white"
+        />
+        <FlatList
+          data={getIDs.data}
+          renderItem={({item}) => <AccordionListItem data={item} />}
+          keyExtractor={item => item.sdid.toString()}
+        />
       </View>
     </View>
   );
@@ -96,10 +104,12 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   searchBar: {
-    padding: 10,
+    padding: 5,
   },
   list: {
-    padding: 10,
+    padding: 5,
+    paddingBottom: 40,
+    backgroundColor: 'black',
   },
 });
 
