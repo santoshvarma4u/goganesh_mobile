@@ -7,6 +7,8 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/homeScree';
 import ProfileScreen from '../screens/profileScreen';
 import PaymentsScreen from '../screens/paymentDetailsScreen';
+import PaymentOptionsScreen from '../screens/paymentOptionScreen';
+import DepositScreen from '../screens/depositScreen';
 import CreateIDScreen from '../screens/createIDScreen';
 
 import PassbookScreen from '../screens/passbookScreen';
@@ -130,6 +132,40 @@ const IDsStackNavigator = () => {
               {...props}
               onPress={() => {
                 navigation.navigate('IDs');
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="PaymentOptions"
+        component={PaymentOptionsScreen}
+        options={({navigation}) => ({
+          headerTitle: 'Payment Options',
+          headerStyle: {backgroundColor: '#e39b11'},
+          headerTitleAlign: 'center',
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => {
+                navigation.navigate('CreateID');
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Deposit"
+        component={DepositScreen}
+        options={({navigation}) => ({
+          headerTitle: 'Deposit',
+          headerStyle: {backgroundColor: '#e39b11'},
+          headerTitleAlign: 'center',
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => {
+                navigation.navigate('PaymentOptions');
               }}
             />
           ),

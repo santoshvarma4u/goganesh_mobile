@@ -11,10 +11,10 @@ import {
 import {Formik} from 'formik';
 import {Icon} from 'react-native-elements';
 import IDsApi from '../api/IDs';
-
-function CreateIDScreen({route, navigation}) {
+import {useNavigation} from '@react-navigation/native';
+function CreateIDScreen({route}) {
   const {sdid} = route.params;
-
+  const navigation = useNavigation();
   const [planDetails, setPlanDetails] = useState({
     planHeader: 'Bronze Plan',
     MinRefill: '1,000',
@@ -142,7 +142,12 @@ function CreateIDScreen({route, navigation}) {
               UserName: '',
               DepositCoins: '',
             }}
-            onSubmit={submitID}>
+            onSubmit={() => {
+              navigation.navigate('PaymentOptions', {
+                sdid: sdid,
+                planMoney: planDetails.MinRefill,
+              });
+            }}>
             {({handleChange, handleSubmit}) => (
               <>
                 <TextInput

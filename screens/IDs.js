@@ -17,9 +17,9 @@ import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import HeaderComponent from '../components/headerComponent';
 import IDsApi from '../api/IDs';
 import useAPI from '../hooks/useAPI';
-const IDRoute = () => <View style={{flex: 1, backgroundColor: 'black'}} />;
+const MyIDRoute = () => <View style={{flex: 1, backgroundColor: 'black'}} />;
 
-const MyIDRoute = props => {
+const IDRoute = props => {
   const getIDs = useAPI(IDsApi.getIDs);
   useEffect(() => {
     getIDs.request();
@@ -44,7 +44,7 @@ const MyIDRoute = props => {
             <Button
               title="retry"
               onPress={() => {
-                loadIDs();
+                getIDs.request();
               }}></Button>
           </>
         )}
