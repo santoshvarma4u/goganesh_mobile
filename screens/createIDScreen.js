@@ -24,7 +24,7 @@ function CreateIDScreen({route}) {
   });
 
   const submitID = async () => {
-    const result = await IDsApi.createID(14, sdid, 'gold', false, 'xxxxxxxxx');
+    const result = await IDsApi.createID(1, sdid, 'gold', false, 'xxxxxxxxx');
     if (!result.ok) return alert('failed');
     alert('success');
   };
@@ -146,6 +146,7 @@ function CreateIDScreen({route}) {
               navigation.navigate('PaymentOptions', {
                 sdid: sdid,
                 planMoney: planDetails.MinRefill,
+                planType: planDetails.planHeader,
               });
             }}>
             {({handleChange, handleSubmit}) => (

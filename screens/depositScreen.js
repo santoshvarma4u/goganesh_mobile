@@ -10,11 +10,24 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {Divider} from 'react-native-elements';
 import * as ImagePicker from 'react-native-image-picker';
+import IDsApi from '../api/IDs';
 function DepositScreen({route}) {
-  const {sdid, planMoney, paymentType} = route.params;
+  const {sdid, planType, planMoney, paymentType} = route.params;
 
   const navigation = useNavigation();
   const [filePath, setFilePath] = useState({});
+  const submitData = async () => {
+    const result = await IDsApi.createID(
+      1,
+      sdid,
+      planType,
+      paymentType,
+      false,
+      'xxxxxxxxx',
+    );
+    if (!result.ok) return alert('failed');
+    alert('success');
+  };
 
   const chooseFile = () => {
     let options = {
@@ -49,47 +62,105 @@ function DepositScreen({route}) {
       }
     });
   };
+  if (paymentType === 'Bank') {
+    return (
+      <View style={styles.containerMain}>
+        <View style={styles.offersContainer}>
+          <View style={styles.depositTitle}>
+            <Text>Send Payment and Upload ScreenShot</Text>
+          </View>
+          <View style={styles.depositDetailsCardForBank}>
+            <Text style={styles.depositTitile}>
+              Send INR {planMoney} to GANESH on {paymentType}
+            </Text>
+            <Divider style={{backgroundColor: 'black', height: 5}} />
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.depositTitile}>
+                {paymentType} Account Number
+              </Text>
+              <Text style={styles.phoneNumber}>XXXXXXXX</Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.depositTitile}>{paymentType} IFSC Code </Text>
+              <Text style={styles.phoneNumber}>XXXXXXXX</Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.depositTitile}>Amount To Deposit</Text>
+              <Text style={styles.phoneNumber}>{planMoney}</Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.depositTitile}>
+                {paymentType} Display name
+              </Text>
+              <Text style={styles.phoneNumber}>Ganesh traders</Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.depositTitile}>{paymentType} Bank Name </Text>
+              <Text style={styles.phoneNumber}>ICICI Current Account</Text>
+            </View>
+          </View>
+          <View style={styles.depostScreenshotCard}>
+            <TouchableOpacity
+              activeOpacity={0.5}
+              style={styles.buttonStyle}
+              onPress={() => chooseFile()}>
+              <Text style={styles.textStyle}>Choose Image</Text>
+            </TouchableOpacity>
 
-  return (
-    <View style={styles.containerMain}>
-      <View></View>
-      <View style={styles.offersContainer}>
-        <View style={styles.depositTitle}>
-          <Text>Send Payment and Upload ScreenShot</Text>
-        </View>
-        <View style={styles.depositDetailsCard}>
-          <Text style={styles.depositTitile}>
-            Send INR {planMoney} to GANESH on {paymentType}
-          </Text>
-          <Divider style={{backgroundColor: 'black', height: 5}} />
-          <View style={{flexDirection: 'row'}}>
-            <Text style={styles.depositTitile}>{paymentType} Number</Text>
-            <Text style={styles.phoneNumber}>XXXXXXXX</Text>
+            <Image
+              source={{uri: filePath.uri}}
+              style={{padding: 5, width: 150, height: 200}}
+            />
+            <Text style={styles.textStyle}>{filePath.uri}</Text>
+            <Button title="submit" onPress={() => submitData()} />
           </View>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={styles.depositTitile}>Amount To Deposit</Text>
-            <Text style={styles.phoneNumber}>{planMoney}</Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={styles.depositTitile}>{paymentType} Display name</Text>
-            <Text style={styles.phoneNumber}>anslknalsnl</Text>
-          </View>
-        </View>
-        <View style={styles.depostScreenshotCard}>
-          <TouchableOpacity
-            activeOpacity={0.5}
-            style={styles.buttonStyle}
-            onPress={() => chooseFile()}>
-            <Text style={styles.textStyle}>Choose Image</Text>
-          </TouchableOpacity>
-
-          <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
-          <Text style={styles.textStyle}>{filePath.uri}</Text>
-          <Button title="submit" />
         </View>
       </View>
-    </View>
-  );
+    );
+  } else {
+    console.log('222');
+    return (
+      <View style={styles.containerMain}>
+        <View style={styles.offersContainer}>
+          <View style={styles.depositTitle}>
+            <Text>Send Payment and Upload ScreenShot</Text>
+          </View>
+          <View style={styles.depositDetailsCard}>
+            <Text style={styles.depositTitile}>
+              Send INR {planMoney} to GANESH on {paymentType}
+            </Text>
+            <Divider style={{backgroundColor: 'black', height: 5}} />
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.depositTitile}>{paymentType} Number</Text>
+              <Text style={styles.phoneNumber}>XXXXXXXX</Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.depositTitile}>Amount To Deposit</Text>
+              <Text style={styles.phoneNumber}>{planMoney}</Text>
+            </View>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.depositTitile}>
+                {paymentType} Display name
+              </Text>
+              <Text style={styles.phoneNumber}>anslknalsnl</Text>
+            </View>
+          </View>
+          <View style={styles.depostScreenshotCard}>
+            <TouchableOpacity
+              activeOpacity={0.5}
+              style={styles.buttonStyle}
+              onPress={() => chooseFile()}>
+              <Text style={styles.textStyle}>Choose Image</Text>
+            </TouchableOpacity>
+
+            <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
+            <Text style={styles.textStyle}>{filePath.uri}</Text>
+            <Button title="submit" onPress={() => submitData()} />
+          </View>
+        </View>
+      </View>
+    );
+  }
 }
 const styles = StyleSheet.create({
   containerMain: {
@@ -106,7 +177,6 @@ const styles = StyleSheet.create({
   },
   offersContainer: {
     flex: 1,
-    flexDirection: 'column',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     backgroundColor: 'black',
@@ -119,8 +189,15 @@ const styles = StyleSheet.create({
     width: '90%',
     borderRadius: 10,
   },
+  depositDetailsCardForBank: {
+    flex: 0.3,
+    marginTop: 20,
+    backgroundColor: 'white',
+    width: '90%',
+    borderRadius: 10,
+  },
   depostScreenshotCard: {
-    flex: 0.7,
+    flex: 0.65,
     padding: 10,
     alignItems: 'center',
     marginTop: 20,
@@ -146,7 +223,7 @@ const styles = StyleSheet.create({
     padding: 5,
     width: 150,
     height: 300,
-    margin: 5,
+    marginBottom: -15,
   },
 });
 export default DepositScreen;

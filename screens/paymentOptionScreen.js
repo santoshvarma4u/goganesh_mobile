@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 function PaymentOptionScreen({route}) {
-  const {sdid, planMoney} = route.params;
-
+  const {sdid, planMoney, planType} = route.params;
+  console.log(planType);
   const navigation = useNavigation();
 
   return (
@@ -96,6 +96,7 @@ function PaymentOptionScreen({route}) {
                 sdid: sdid,
                 planMoney: planMoney,
                 paymentType: 'UPI Manual Transfer',
+                planType: planType,
               });
             }}>
             <View style={styles.paymentMethod}>
