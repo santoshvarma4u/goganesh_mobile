@@ -7,27 +7,12 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import {Divider} from 'react-native-elements';
-import * as ImagePicker from 'react-native-image-picker';
-import IDsApi from '../../../Network/IDs/IDs';
+import DepositController from '../Controller/depositController';
 function DepositScreen({route}) {
   const {sdid, planType, planMoney, paymentType} = route.params;
 
-  const navigation = useNavigation();
   const [filePath, setFilePath] = useState({});
-  const submitData = async () => {
-    const result = await IDsApi.createID(
-      1,
-      sdid,
-      planType,
-      paymentType,
-      false,
-      'xxxxxxxxx',
-    );
-    if (!result.ok) return alert('failed');
-    alert('success');
-  };
 
   const chooseFile = () => {
     let options = {
@@ -62,6 +47,7 @@ function DepositScreen({route}) {
       }
     });
   };
+
   if (paymentType === 'Bank') {
     return (
       <View style={styles.containerMain}>
@@ -112,13 +98,24 @@ function DepositScreen({route}) {
               style={{padding: 5, width: 150, height: 200}}
             />
             <Text style={styles.textStyle}>{filePath.uri}</Text>
-            <Button title="submit" onPress={() => submitData()} />
+            <Button
+              title="submit"
+              onPress={() =>
+                DepositController.submitData(
+                  1,
+                  sdid,
+                  planType,
+                  paymentType,
+                  false,
+                  'xxxxx',
+                )
+              }
+            />
           </View>
         </View>
       </View>
     );
   } else {
-    console.log('222');
     return (
       <View style={styles.containerMain}>
         <View style={styles.offersContainer}>
@@ -155,7 +152,19 @@ function DepositScreen({route}) {
 
             <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
             <Text style={styles.textStyle}>{filePath.uri}</Text>
-            <Button title="submit" onPress={() => submitData()} />
+            <Button
+              title="submit"
+              onPress={() =>
+                DepositController.submitData(
+                  1,
+                  sdid,
+                  planType,
+                  paymentType,
+                  false,
+                  'xxxxx',
+                )
+              }
+            />
           </View>
         </View>
       </View>
