@@ -9,8 +9,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {Formik} from 'formik';
-import {Icon} from 'react-native-elements';
-import IDsApi from '../api/IDs';
+import IDsApi from '../../../Network/IDs/IDs';
 import {useNavigation} from '@react-navigation/native';
 function CreateIDScreen({route}) {
   const {sdid} = route.params;

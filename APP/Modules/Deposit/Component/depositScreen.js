@@ -10,7 +10,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {Divider} from 'react-native-elements';
 import * as ImagePicker from 'react-native-image-picker';
-import IDsApi from '../api/IDs';
+import IDsApi from '../../../Network/IDs/IDs';
 function DepositScreen({route}) {
   const {sdid, planType, planMoney, paymentType} = route.params;
 

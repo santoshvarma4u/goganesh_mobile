@@ -10,8 +10,7 @@ import {
   Button,
 } from 'react-native';
 import {Formik} from 'formik';
-import BankEntryComponent from '../components/bankEntryComponent';
-import {Avatar, Chip, Icon, Overlay} from 'react-native-elements';
+import {Icon} from 'react-native-elements';
 function PaymentsScreen({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
   return (

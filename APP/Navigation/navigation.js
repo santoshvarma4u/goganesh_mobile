@@ -1,18 +1,18 @@
 import React from 'react';
 import {Icon} from 'react-native-elements';
-import OffersScreen from '../screens/offersScreen';
-import IDs from '../screens/IDs';
+import OffersScreen from '../Modules/Offers/Component/offersScreen';
+import IDs from '../Modules/IDs/Component/IDs';
 import {createStackNavigator, HeaderBackButton} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeScreen from '../screens/homeScree';
-import ProfileScreen from '../screens/profileScreen';
-import PaymentsScreen from '../screens/paymentDetailsScreen';
-import PaymentOptionsScreen from '../screens/paymentOptionScreen';
-import DepositScreen from '../screens/depositScreen';
-import CreateIDScreen from '../screens/createIDScreen';
+import HomeScreen from '../Modules/Home/Component/homeScree';
+import ProfileScreen from '../Modules/Profile/Component/profileScreen';
+import PaymentsScreen from '../Modules/PaymentDetails/Component/paymentDetailsScreen';
+import PaymentOptionsScreen from '../Modules/PaymentOptions/Component/paymentOptionScreen';
+import DepositScreen from '../Modules/Deposit/Component/depositScreen';
+import CreateIDScreen from '../Modules/CreateID/Component/createIDScreen';
 
-import PassbookScreen from '../screens/passbookScreen';
-import CustomSidebarMenu from '../screens/sidemenu';
+import PassbookScreen from '../Modules/Passbook/Component/passbookScreen';
+import CustomSidebarMenu from '../Modules/SideMenu/Component/sidemenu';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import {DrawerActions} from '@react-navigation/native';

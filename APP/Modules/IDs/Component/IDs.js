@@ -8,15 +8,13 @@ import {
   Dimensions,
   StyleSheet,
 } from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import styles from './Styles';
 import {Searchbar} from 'react-native-paper';
-import ListViewComponent from '../components/ListViewComponent';
-import AccordionView from '../components/accordionList';
-import AccordionListItem from '../components/accordianListNew';
+import AccordionListItem from '../../Common/accordianListNew';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import HeaderComponent from '../components/headerComponent';
-import IDsApi from '../api/IDs';
-import useAPI from '../hooks/useAPI';
+import IDsApi from '../../../Network/IDs/IDs';
+import useAPI from '../../../Hooks/useAPI';
+
 const MyIDRoute = () => <View style={{flex: 1, backgroundColor: 'black'}} />;
 
 const IDRoute = props => {
@@ -96,21 +94,5 @@ function IDs({navigation}) {
     </View>
   );
 }
-const styles = StyleSheet.create({
-  containerMain: {
-    flex: 1,
-    padding: 15,
-    backgroundColor: 'black',
-    paddingTop: 20,
-  },
-  searchBar: {
-    padding: 5,
-  },
-  list: {
-    padding: 5,
-    paddingBottom: 40,
-    backgroundColor: 'black',
-  },
-});
 
 export default IDs;
