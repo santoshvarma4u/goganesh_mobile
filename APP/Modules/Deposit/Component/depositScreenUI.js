@@ -10,6 +10,7 @@ import {
 import {Divider} from 'react-native-elements';
 import styles from './Styles';
 import DepositController from '../Controller/depositController';
+import * as ImagePicker from 'react-native-image-picker';
 function DepositScreen({route}) {
   const {sdid, planType, planMoney, paymentType} = route.params;
 

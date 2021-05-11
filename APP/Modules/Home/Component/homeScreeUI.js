@@ -16,7 +16,7 @@ const images = [
   },
 ];
 
-function HomeScreen({navigation}) {
+function HomeScreen() {
   return (
     <View style={styles.containerMain}>
       <View style={styles.upperContainer}>

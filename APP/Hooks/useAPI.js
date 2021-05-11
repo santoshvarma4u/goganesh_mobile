@@ -1,10 +1,9 @@
-import react, {useState} from 'react';
+import react, {useState, useEffect} from 'react';
 
 export default useAPI = apiFunction => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-
   const request = async () => {
     setLoading(true);
     const response = await apiFunction();
@@ -18,6 +17,7 @@ export default useAPI = apiFunction => {
     console.log(response.data.details.data);
     setData(response.data.details.data);
   };
+  useEffect(request, []);
 
   return {request, data, error, loading};
 };

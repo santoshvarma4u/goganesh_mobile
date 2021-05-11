@@ -1,0 +1,85 @@
+import {StyleSheet} from 'react-native';
+import Colors from '../../../Theams/Colors';
+export default StyleSheet.create({
+  containerMain: {
+    backgroundColor: '#e39b11',
+    flex: 1,
+  },
+  createIDContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    backgroundColor: 'black',
+    alignItems: 'center',
+  },
+  planCards: {
+    flex: 0.2,
+    marginTop: 20,
+    padding: 5,
+    backgroundColor: 'white',
+    width: '90%',
+    flexDirection: 'row',
+    borderRadius: 10,
+  },
+  planDeatils: {
+    flex: 0.35,
+    marginTop: 20,
+    padding: 5,
+    backgroundColor: 'white',
+    width: '90%',
+
+    borderRadius: 10,
+  },
+  topIcon: {
+    backgroundColor: 'white',
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imageIcon: {
+    backgroundColor: 'orange',
+    height: 70,
+    width: 70,
+    borderRadius: 35,
+  },
+  bronzeCard: {
+    flex: 0.33,
+    backgroundColor: 'orange',
+    padding: 10,
+    borderRadius: 10,
+    height: '100%',
+    alignItems: 'center',
+    width: 20,
+  },
+  goldCard: {
+    flex: 0.33,
+    backgroundColor: 'red',
+    padding: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+    height: '100%',
+    width: 20,
+  },
+  silverCard: {
+    flex: 0.33,
+    backgroundColor: 'blue',
+    padding: 10,
+    alignItems: 'center',
+    borderRadius: 10,
+    height: '100%',
+    width: 20,
+  },
+  modalText: {
+    borderRadius: 10,
+    backgroundColor: 'white',
+    fontSize: 20,
+    marginBottom: 15,
+  },
+  planDetailsText: {
+    color: 'black',
+    marginLeft: 'auto',
+    marginTop: 10,
+    padding: 5,
+  },
+});

@@ -1,17 +1,17 @@
 import React from 'react';
 import {Icon} from 'react-native-elements';
-import OffersScreen from '../Modules/Offers/Component/offersScreen';
-import IDs from '../Modules/IDs/Component/IDs';
+import OffersScreen from '../Modules/Offers/Container/offersIndex';
+import IDsScreenPage from '../Modules/IDs/Container/IDsIndex';
 import {createStackNavigator, HeaderBackButton} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeScreen from '../Modules/Home/Component/homeScree';
-import ProfileScreen from '../Modules/Profile/Component/profileScreen';
-import PaymentsScreen from '../Modules/PaymentDetails/Component/paymentDetailsScreen';
-import PaymentOptionsScreen from '../Modules/PaymentOptions/Component/paymentOptionScreen';
-import DepositScreen from '../Modules/Deposit/Component/depositScreen';
-import CreateIDScreen from '../Modules/CreateID/Component/createIDScreen';
+import HomeScreen from '../Modules/Home/Container/homeIndex';
+import ProfileScreen from '../Modules/Profile/Container/profileIndex';
+import PaymentsScreen from '../Modules/PaymentDetails/Container/paymentDetailsIndex';
+import PaymentOptionsScreen from '../Modules/PaymentOptions/Container/paymentOptionsIndex';
+import DepositScreen from '../Modules/Deposit/Container/depositIndex';
+import CreateIDScreen from '../Modules/CreateID/Container/createIDIndex';
 
-import PassbookScreen from '../Modules/Passbook/Component/passbookScreen';
+import PassbookScreen from '../Modules/Passbook/Container/passbookIndex';
 import CustomSidebarMenu from '../Modules/SideMenu/Component/sidemenu';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
@@ -115,7 +115,7 @@ const IDsStackNavigator = () => {
     <Stack.Navigator>
       <Stack.Screen
         name="IDs"
-        component={IDs}
+        component={IDsScreenPage}
         options={() => ({
           headerStyle: {backgroundColor: '#e39b11'},
         })}
@@ -222,11 +222,4 @@ const BottomTabNavigator = () => {
   );
 };
 
-export {
-  HomeStackNavigator,
-  OffersStackNavigator,
-  PassbookStackNavigator,
-  IDsStackNavigator,
-  BottomTabNavigator,
-  MyDrawer,
-};
+export {MyDrawer};

@@ -10,18 +10,14 @@ import {
 } from 'react-native';
 import styles from './Styles';
 import {Searchbar} from 'react-native-paper';
-import AccordionListItem from '../../Common/accordianListNew';
+import AccordionListItem from './accordianListNew';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import IDsApi from '../../../Network/IDs/IDs';
-import useAPI from '../../../Hooks/useAPI';
+import IdController from '../Controller/IdController';
 
 const MyIDRoute = () => <View style={{flex: 1, backgroundColor: 'black'}} />;
 
 const IDRoute = props => {
-  const getIDs = useAPI(IDsApi.getIDs);
-  useEffect(() => {
-    getIDs.request();
-  }, []);
+  const getIDs = IdController.useGetIDs();
 
   const [searchQuery, setSearchQuery] = React.useState('');
   const onChangeSearch = query => setSearchQuery(query);

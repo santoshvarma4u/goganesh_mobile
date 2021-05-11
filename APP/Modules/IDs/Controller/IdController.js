@@ -1,6 +1,7 @@
+import React from 'react';
 import IDsApi from '../../../Network/IDs/IDs';
 import useAPI from '../../../Hooks/useAPI';
 
-const getIDs = useAPI(IDsApi.getIDs);
+const useGetIDs = () => useAPI(IDsApi.getIDs);
 
-export default {getIDs};
+export default {useGetIDs};

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {List} from 'react-native-paper';
-import Accordion from 'react-native-collapsible/Accordion';
+
 import {Text, Button, View, Image, StyleSheet} from 'react-native';
 
 import {Icon} from 'react-native-elements';
