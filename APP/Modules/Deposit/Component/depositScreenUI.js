@@ -109,7 +109,7 @@ function DepositScreen({route}) {
                   planType,
                   paymentType,
                   false,
-                  'xxxxx',
+                  filePath,
                 )
               }
             />
@@ -163,7 +163,7 @@ function DepositScreen({route}) {
                   planType,
                   paymentType,
                   false,
-                  'xxxxx',
+                  filePath,
                 )
               }
             />

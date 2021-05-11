@@ -10,15 +10,20 @@ const submitData = async (
   requestStatus,
   payreciept,
 ) => {
-  const result = await IDsApi.createID(
-    uid,
-    sdid,
-    planType,
-    paymentType,
-    requestStatus,
-    payreciept,
-  );
-  if (!result.ok) return alert('failed');
+  const data = new FormData();
+  data.append('uid', uid);
+  data.append('sdid', sdid);
+  data.append('paymentType', paymentType);
+  data.append('requestStatus', requestStatus);
+  data.append('payreciept', {
+    uri: payreciept.uri,
+    type: payreciept.type,
+    name: payreciept.fileName,
+  });
+  data.append('planType', planType);
+
+  const result = await IDsApi.createID(data);
+  if (!result.ok) return alert(result.problem);
   alert('success');
 };
 

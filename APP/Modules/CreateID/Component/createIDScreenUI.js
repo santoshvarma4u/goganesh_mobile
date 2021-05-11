@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import styles from './Styles';
 import {Formik} from 'formik';
-import IDsApi from '../../../Network/IDs/IDs';
 import {useNavigation} from '@react-navigation/native';
 
 function CreateIDScreen({route}) {
@@ -24,11 +23,6 @@ function CreateIDScreen({route}) {
     MaxWithDrawl: '50,000 per day',
   });
 
-  const submitID = async () => {
-    const result = await IDsApi.createID(1, sdid, 'gold', false, 'xxxxxxxxx');
-    if (!result.ok) return alert('failed');
-    alert('success');
-  };
   return (
     <View style={styles.containerMain}>
       <View></View>
