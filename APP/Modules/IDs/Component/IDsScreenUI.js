@@ -13,6 +13,7 @@ import {Searchbar} from 'react-native-paper';
 import AccordionListItem from './accordianListNew';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import IdController from '../Controller/IdController';
+import Colors from "../../../Theams/Colors";
 
 const MyIDRoute = () => <View style={{flex: 1, backgroundColor: 'black'}} />;
 
@@ -39,14 +40,17 @@ const IDRoute = props => {
               title="retry"
               onPress={() => {
                 getIDs.request();
-              }}></Button>
+              }}
+            />
           </>
         )}
-        <ActivityIndicator
-          animating={getIDs.loading}
-          size="large"
-          color="white"
-        />
+        {getIDs.loading ? (
+          <ActivityIndicator
+            animating={getIDs.loading}
+            size="large"
+            color="white"
+          />
+        ) : null}
         <FlatList
           data={getIDs.data}
           renderItem={({item}) => <AccordionListItem data={item} />}
@@ -60,7 +64,7 @@ const IDRoute = props => {
 function IDs({navigation}) {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    {key: 'first', title: 'Create IDs', color: 'black'},
+    {key: 'first', title: 'Create ID', color: 'black'},
     {key: 'second', title: 'My IDs'},
   ]);
 
@@ -70,7 +74,7 @@ function IDs({navigation}) {
   });
 
   return (
-    <View style={{flex: 1, backgroundColor: '#e39b11'}}>
+    <View style={{flex: 1, backgroundColor: Colors.appPrimaryColor}}>
       <TabView
         navigationState={{index, routes}}
         renderScene={renderScene}

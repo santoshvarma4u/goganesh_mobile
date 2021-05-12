@@ -1,5 +1,6 @@
 import React from 'react';
 import {Icon} from 'react-native-elements';
+import {View} from 'react-native';
 import OffersScreen from '../Modules/Offers/Container/offersIndex';
 import IDsScreenPage from '../Modules/IDs/Container/IDsIndex';
 import {createStackNavigator, HeaderBackButton} from '@react-navigation/stack';
@@ -16,6 +17,7 @@ import CustomSidebarMenu from '../Modules/SideMenu/Component/sidemenu';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import {DrawerActions} from '@react-navigation/native';
+import Colors from "../Theams/Colors";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -27,23 +29,31 @@ const HomeStackNavigator = () => {
         name="Home"
         component={HomeScreen}
         options={({navigation}) => ({
-          headerStyle: {backgroundColor: '#e39b11'},
-          headerTitle: 'Home',
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitle: '',
           headerTitleAlign: 'center',
           headerLeft: () => (
             {marginLeft: 'auto'},
             (
-              <Icon
-                name="menu"
-                onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-              />
+              <View style={{marginLeft: 10}}>
+                <Icon
+                  name="menu"
+                  size={28}
+                  onPress={() =>
+                    navigation.dispatch(DrawerActions.openDrawer())
+                  }
+                />
+              </View>
             )
           ),
           headerRight: () => (
-            <Icon
-              name="notifications"
-              onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-            />
+            <View style={{marginRight: 10}}>
+              <Icon
+                name="notifications"
+                size={28}
+                onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+              />
+            </View>
           ),
         })}
       />
@@ -52,7 +62,7 @@ const HomeStackNavigator = () => {
         component={ProfileScreen}
         options={({navigation}) => ({
           headerTitle: 'Profile',
-          headerStyle: {backgroundColor: '#e39b11'},
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
           headerLeft: props => (
             <HeaderBackButton
@@ -69,7 +79,7 @@ const HomeStackNavigator = () => {
         component={PaymentsScreen}
         options={({navigation}) => ({
           headerTitle: 'Payments',
-          headerStyle: {backgroundColor: '#e39b11'},
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
           headerLeft: props => (
             <HeaderBackButton
@@ -88,10 +98,10 @@ const OffersStackNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Offers"
+        name="Top Offers"
         component={OffersScreen}
         options={() => ({
-          headerStyle: {backgroundColor: '#e39b11'},
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
         })}
       />
     </Stack.Navigator>
@@ -104,7 +114,7 @@ const PassbookStackNavigator = () => {
         name="Passbook"
         component={PassbookScreen}
         options={() => ({
-          headerStyle: {backgroundColor: '#e39b11'},
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
         })}
       />
     </Stack.Navigator>
@@ -117,7 +127,7 @@ const IDsStackNavigator = () => {
         name="IDs"
         component={IDsScreenPage}
         options={() => ({
-          headerStyle: {backgroundColor: '#e39b11'},
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
         })}
       />
       <Stack.Screen
@@ -125,7 +135,7 @@ const IDsStackNavigator = () => {
         component={CreateIDScreen}
         options={({navigation}) => ({
           headerTitle: 'Create ID',
-          headerStyle: {backgroundColor: '#e39b11'},
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
           headerLeft: props => (
             <HeaderBackButton
@@ -141,8 +151,8 @@ const IDsStackNavigator = () => {
         name="PaymentOptions"
         component={PaymentOptionsScreen}
         options={({navigation}) => ({
-          headerTitle: 'Payment Options',
-          headerStyle: {backgroundColor: '#e39b11'},
+          headerTitle: 'Payment Method',
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
           headerLeft: props => (
             <HeaderBackButton
@@ -159,7 +169,7 @@ const IDsStackNavigator = () => {
         component={DepositScreen}
         options={({navigation}) => ({
           headerTitle: 'Deposit',
-          headerStyle: {backgroundColor: '#e39b11'},
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
           headerLeft: props => (
             <HeaderBackButton
@@ -189,9 +199,14 @@ const BottomTabNavigator = () => {
       <Tab.Screen
         name="Home"
         component={HomeStackNavigator}
+        tabBarOptions={{
+          activeTintColor: Colors.appPrimaryColor,
+        }}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: () => <Icon name="home" color="black" size={26} />,
+          tabBarIcon: ({tintColor}) => (
+            <Icon name="home" color={tintColor} size={26} />
+          ),
         }}
       />
       <Tab.Screen
@@ -207,7 +222,7 @@ const BottomTabNavigator = () => {
         component={PassbookStackNavigator}
         options={{
           tabBarLabel: 'Passbook',
-          tabBarIcon: () => <Icon name="local-offer" color="black" size={26} />,
+          tabBarIcon: () => <Icon name="payments" color="black" size={26} />,
         }}
       />
       <Tab.Screen
@@ -215,7 +230,9 @@ const BottomTabNavigator = () => {
         component={IDsStackNavigator}
         options={{
           tabBarLabel: 'IDs',
-          tabBarIcon: () => <Icon name="local-offer" color="black" size={26} />,
+          tabBarIcon: () => (
+            <Icon name="switch-account" color="black" size={26} />
+          ),
         }}
       />
     </Tab.Navigator>

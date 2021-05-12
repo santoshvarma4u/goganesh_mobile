@@ -2,16 +2,19 @@ import {StyleSheet} from 'react-native';
 import Colors from '../../../Theams/Colors';
 export default StyleSheet.create({
   containerMain: {
-    backgroundColor: '#e39b11',
+    backgroundColor: Colors.appPrimaryColor,
     flex: 1,
   },
   depositTitile: {
     marginTop: 10,
     marginLeft: 10,
+    color: Colors.appWhiteColor,
   },
   phoneNumber: {
     marginLeft: 'auto',
     marginTop: 10,
+    color: Colors.appWhiteColor,
+    marginRight: 10,
   },
   offersContainer: {
     flex: 1,
@@ -21,9 +24,9 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   depositDetailsCard: {
-    flex: 0.25,
+    flex: 0.3,
     marginTop: 20,
-    backgroundColor: 'white',
+    backgroundColor: Colors.appBlackColor,
     width: '90%',
     borderRadius: 10,
   },
@@ -35,27 +38,35 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
   depostScreenshotCard: {
-    flex: 0.65,
+    flex: 0.4,
     padding: 10,
     alignItems: 'center',
     marginTop: 20,
-    backgroundColor: 'white',
+    backgroundColor: Colors.appBlackColor,
     width: '90%',
+    flexDirection: 'column',
     borderRadius: 10,
   },
 
   depositTitle: {
-    backgroundColor: 'white',
-    padding: 10,
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    margin: 15,
   },
   textStyle: {
-    padding: 10,
-    color: 'black',
+    color: Colors.appPrimaryColor,
+    fontSize: 16,
+  },
+  textStyle2: {
+    color: Colors.appWhiteColor,
+    fontSize: 16,
+    marginLeft: 3,
   },
   buttonStyle: {
     alignItems: 'center',
     flexDirection: 'row',
-    backgroundColor: 'orange',
+    borderRadius: 10,
+    color: Colors.appPrimaryColor,
   },
   imageStyle: {
     padding: 5,

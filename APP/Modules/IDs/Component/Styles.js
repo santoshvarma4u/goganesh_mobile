@@ -5,7 +5,6 @@ export default StyleSheet.create({
     flex: 1,
     padding: 15,
     backgroundColor: Colors.backgroundColor,
-    paddingTop: 20,
   },
   searchBar: {
     padding: 5,

@@ -3,7 +3,7 @@ import Colors from '../../../Theams/Colors';
 
 export default StyleSheet.create({
   containerMain: {
-    backgroundColor: '#e39b11',
+    backgroundColor: Colors.appPrimaryColor,
     flex: 1,
   },
 

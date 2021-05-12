@@ -3,13 +3,13 @@ import Colors from '../../../Theams/Colors';
 
 export default StyleSheet.create({
   containerMain: {
-    backgroundColor: '#e39b11',
+    backgroundColor: Colors.appPrimaryColor,
     flex: 1,
   },
   centreCard: {
     backgroundColor: 'black',
     width: '35%',
-    height: '70%',
+    height: '90%',
     position: 'absolute',
     borderRadius: 20,
     flexDirection: 'column',
@@ -17,23 +17,36 @@ export default StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 40,
   },
+  image: {
+    height: 50,
+    width: 150,
+  },
   createAnnouncement: {
     flex: 0.2,
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     width: '80%',
-    marginTop: 20,
+    marginTop: 40,
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: 'black',
   },
+  tipsText: {
+    color: Colors.appPrimaryColor,
+  },
+  tipsSubText: {
+    color: 'white',
+    marginVertical:20
+  },
+
   createText: {
     marginTop: 20,
     flex: 0.05,
     flexDirection: 'row',
     alignItems: 'center',
     width: '80%',
+    paddingVertical: 10,
     justifyContent: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#343232',
   },
   promotionCard: {
     flex: 0.3,
@@ -45,13 +58,18 @@ export default StyleSheet.create({
   },
   text: {
     marginTop: 20,
+    marginBottom: 10,
     color: 'white',
+  },
+  createTextOnly: {
+    color: 'white',
+    marginHorizontal: 10,
   },
   centralCardView: {
     flex: 1,
     backgroundColor: 'black',
     width: '50%',
-    height: '50%',
+    height: '70%',
     flexDirection: 'row',
     marginHorizontal: 45,
     borderRadius: 20,
@@ -76,7 +94,7 @@ export default StyleSheet.create({
     backgroundColor: 'black',
   },
   upperContainer: {
-    backgroundColor: '#e39b11',
+    backgroundColor: Colors.appPrimaryColor,
     flex: 0.3,
     flexDirection: 'row',
     alignItems: 'center',
@@ -87,13 +105,13 @@ export default StyleSheet.create({
     backgroundColor: 'black',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    flex: 0.7,
+    flex: 0.8,
     alignItems: 'center',
   },
   lowerBox1: {
-    flex: 0.3,
+    flex: 0.4,
     flexDirection: 'column',
-    marginTop: 20,
+    marginTop: 50,
     backgroundColor: 'white',
     width: '80%',
     borderRadius: 10,

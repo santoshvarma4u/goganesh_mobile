@@ -3,7 +3,7 @@ import Colors from '../../../Theams/Colors';
 
 export default StyleSheet.create({
   containerMain: {
-    backgroundColor: '#e39b11',
+    backgroundColor: Colors.appPrimaryColor,
     flex: 1,
   },
 
@@ -18,21 +18,23 @@ export default StyleSheet.create({
   paymentOptions: {
     flex: 0.9,
     marginTop: 20,
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     width: '90%',
     borderRadius: 10,
     alignItems: 'center',
   },
   PaymentTitle: {
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     padding: 10,
+    color: 'white',
   },
   paymentMethod: {
-    backgroundColor: 'black',
+    backgroundColor: '#171616',
     width: '90%',
     flex: 0.15,
-
+    paddingVertical: 10,
     flexDirection: 'row',
+    alignItems: 'center',
     borderRadius: 10,
     marginTop: 10,
   },
@@ -43,9 +45,8 @@ export default StyleSheet.create({
   paymentIcon: {
     height: 60,
     width: 60,
-    borderRadius: 30,
     backgroundColor: 'white',
-    marginTop: 10,
     marginLeft: 10,
+    resizeMode: 'stretch',
   },
 });
