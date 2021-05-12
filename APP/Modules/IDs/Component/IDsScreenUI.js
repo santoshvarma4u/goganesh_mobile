@@ -18,7 +18,7 @@ const MyIDRoute = () => <View style={{flex: 1, backgroundColor: 'black'}} />;
 
 const IDRoute = props => {
   const getIDs = IdController.useGetIDs();
-
+  console.log(getIDs.loading);
   const [searchQuery, setSearchQuery] = React.useState('');
   const onChangeSearch = query => setSearchQuery(query);
   return (

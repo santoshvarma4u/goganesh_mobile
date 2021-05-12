@@ -10,7 +10,8 @@ import PaymentsScreen from '../Modules/PaymentDetails/Container/paymentDetailsIn
 import PaymentOptionsScreen from '../Modules/PaymentOptions/Container/paymentOptionsIndex';
 import DepositScreen from '../Modules/Deposit/Container/depositIndex';
 import CreateIDScreen from '../Modules/CreateID/Container/createIDIndex';
-
+import SignInContainer from '../Modules/Login/Containers/Signin/SignInindex';
+import SignUpContainer from '../Modules/Login/Containers/Signin/SignUpContainer';
 import PassbookScreen from '../Modules/Passbook/Container/passbookIndex';
 import CustomSidebarMenu from '../Modules/SideMenu/Component/sidemenu';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -19,6 +20,70 @@ import {DrawerActions} from '@react-navigation/native';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
+
+function AuthNavigator() {
+  return (
+    <Stack.Navigator initialRouteName="SignIn">
+      <Stack.Screen
+        name="SignIn"
+        component={SignInContainer}
+        options={({navigation}) => ({
+          headerStyle: {backgroundColor: '#e39b11'},
+          headerTitle: 'Home',
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            {marginLeft: 'auto'},
+            (
+              <Icon
+                name="menu"
+                onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+              />
+            )
+          ),
+          headerRight: () => (
+            <Icon
+              name="notifications"
+              onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="SignUp"
+        component={SignUpContainer}
+        options={({navigation}) => ({
+          headerStyle: {backgroundColor: '#e39b11'},
+          headerTitle: 'Home',
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            {marginLeft: 'auto'},
+            (
+              <Icon
+                name="menu"
+                onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+              />
+            )
+          ),
+          headerRight: () => (
+            <Icon
+              name="notifications"
+              onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+            />
+          ),
+        })}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function AppContainer() {
+  return (
+    <Stack.Navigator initialRouteName="Splash" headerMode="none">
+      <Stack.Screen name="Auth" component={AuthNavigator} />
+      <Stack.Screen name="App" component={BottomTabNavigator} />
+    </Stack.Navigator>
+  );
+}
 
 const HomeStackNavigator = () => {
   return (
@@ -222,4 +287,4 @@ const BottomTabNavigator = () => {
   );
 };
 
-export {MyDrawer};
+export {AppContainer};

@@ -1,19 +1,18 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
-import ListViewComponent from './ListViewComponent';
 import styles from './Styles';
-function PassbookScreen({navigation}) {
+function OffersScreen({navigation}) {
   return (
     <View style={styles.containerMain}>
       <View></View>
       <View style={styles.offersContainer}>
         <View style={styles.topOffers}>
-          <Text>Transactions</Text>
+          <Text>Offers</Text>
         </View>
-        <ListViewComponent />
+        <View style={styles.offersCard}></View>
       </View>
     </View>
   );
 }
 
-export default PassbookScreen;
+export default OffersScreen;
