@@ -19,7 +19,7 @@ import Splash from '../Modules/Splash/Container/splashIndex';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import {DrawerActions} from '@react-navigation/native';
-import Colors from "../Theams/Colors";
+import Colors from '../Theams/Colors';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -31,7 +31,7 @@ function AuthNavigator() {
         name="SignIn"
         component={SignInContainer}
         options={({navigation}) => ({
-          headerStyle: {backgroundColor: '#e39b11'},
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitle: 'SignIn',
           headerTitleAlign: 'center',
         })}
@@ -40,7 +40,7 @@ function AuthNavigator() {
         name="SignUp"
         component={SignUpContainer}
         options={({navigation}) => ({
-          headerStyle: {backgroundColor: '#e39b11'},
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitle: 'SignUp',
           headerTitleAlign: 'center',
         })}
