@@ -11,9 +11,11 @@ import PaymentsScreen from '../Modules/PaymentDetails/Container/paymentDetailsIn
 import PaymentOptionsScreen from '../Modules/PaymentOptions/Container/paymentOptionsIndex';
 import DepositScreen from '../Modules/Deposit/Container/depositIndex';
 import CreateIDScreen from '../Modules/CreateID/Container/createIDIndex';
-
+import SignInContainer from '../Modules/Login/Containers/Signin/SignInindex';
+import SignUpContainer from '../Modules/Login/Containers/Signin/SignUpContainer';
 import PassbookScreen from '../Modules/Passbook/Container/passbookIndex';
 import CustomSidebarMenu from '../Modules/SideMenu/Component/sidemenu';
+import Splash from '../Modules/Splash/Container/splashIndex';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import {DrawerActions} from '@react-navigation/native';
@@ -21,6 +23,41 @@ import Colors from "../Theams/Colors";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
+
+function AuthNavigator() {
+  return (
+    <Stack.Navigator initialRouteName="SignIn">
+      <Stack.Screen
+        name="SignIn"
+        component={SignInContainer}
+        options={({navigation}) => ({
+          headerStyle: {backgroundColor: '#e39b11'},
+          headerTitle: 'SignIn',
+          headerTitleAlign: 'center',
+        })}
+      />
+      <Stack.Screen
+        name="SignUp"
+        component={SignUpContainer}
+        options={({navigation}) => ({
+          headerStyle: {backgroundColor: '#e39b11'},
+          headerTitle: 'SignUp',
+          headerTitleAlign: 'center',
+        })}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function AppContainer() {
+  return (
+    <Stack.Navigator initialRouteName="Splash" headerMode="none">
+      <Stack.Screen name="Spalsh" component={Splash} />
+      <Stack.Screen name="Auth" component={AuthNavigator} />
+      <Stack.Screen name="App" component={MyDrawer} />
+    </Stack.Navigator>
+  );
+}
 
 const HomeStackNavigator = () => {
   return (
@@ -239,4 +276,4 @@ const BottomTabNavigator = () => {
   );
 };
 
-export {MyDrawer};
+export {AppContainer};

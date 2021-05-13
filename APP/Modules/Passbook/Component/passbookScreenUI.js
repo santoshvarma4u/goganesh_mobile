@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
-import ListViewComponent from '../../Common/ListViewComponent';
+import ListViewComponent from './ListViewComponent';
 import styles from './Styles';
 function PassbookScreen({navigation}) {
   return (

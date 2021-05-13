@@ -1,4 +1,4 @@
-import apiClient from '../api/server';
+import {apiClient} from '../api/server';
 
 const idendPoint = '/site';
 const siteRequestEndPoint = '/siteRequest';
