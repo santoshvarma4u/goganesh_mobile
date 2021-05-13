@@ -14,6 +14,7 @@ import SignInContainer from '../Modules/Login/Containers/Signin/SignInindex';
 import SignUpContainer from '../Modules/Login/Containers/Signin/SignUpContainer';
 import PassbookScreen from '../Modules/Passbook/Container/passbookIndex';
 import CustomSidebarMenu from '../Modules/SideMenu/Component/sidemenu';
+import Splash from '../Modules/Splash/Container/splashIndex';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import {DrawerActions} from '@react-navigation/native';
@@ -29,23 +30,8 @@ function AuthNavigator() {
         component={SignInContainer}
         options={({navigation}) => ({
           headerStyle: {backgroundColor: '#e39b11'},
-          headerTitle: 'Home',
+          headerTitle: 'SignIn',
           headerTitleAlign: 'center',
-          headerLeft: () => (
-            {marginLeft: 'auto'},
-            (
-              <Icon
-                name="menu"
-                onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-              />
-            )
-          ),
-          headerRight: () => (
-            <Icon
-              name="notifications"
-              onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-            />
-          ),
         })}
       />
       <Stack.Screen
@@ -53,23 +39,8 @@ function AuthNavigator() {
         component={SignUpContainer}
         options={({navigation}) => ({
           headerStyle: {backgroundColor: '#e39b11'},
-          headerTitle: 'Home',
+          headerTitle: 'SignUp',
           headerTitleAlign: 'center',
-          headerLeft: () => (
-            {marginLeft: 'auto'},
-            (
-              <Icon
-                name="menu"
-                onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-              />
-            )
-          ),
-          headerRight: () => (
-            <Icon
-              name="notifications"
-              onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-            />
-          ),
         })}
       />
     </Stack.Navigator>
@@ -79,8 +50,9 @@ function AuthNavigator() {
 function AppContainer() {
   return (
     <Stack.Navigator initialRouteName="Splash" headerMode="none">
+      <Stack.Screen name="Spalsh" component={Splash} />
       <Stack.Screen name="Auth" component={AuthNavigator} />
-      <Stack.Screen name="App" component={BottomTabNavigator} />
+      <Stack.Screen name="App" component={MyDrawer} />
     </Stack.Navigator>
   );
 }

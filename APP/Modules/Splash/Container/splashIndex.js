@@ -1,8 +1,8 @@
 import React, {PureComponent} from 'react';
-import {View} from 'react-native';
-
-import styles from './Styles';
-import {SplashScreen} from '../Component/splashScreenUI';
+import {View, StyleSheet} from 'react-native';
+import Storage from '../../Common/Storage';
+import StorageKeys from '../../Common/StorageKeys';
+import SplashScreen from '../Component/splashScreenUI';
 
 export default class Splash extends PureComponent {
   componentDidMount = () => {
@@ -10,7 +10,7 @@ export default class Splash extends PureComponent {
   };
 
   learnMorePress = async () => {
-    let JWT = await Storage.getItemSync(StorageKeys.JWT);
+    let JWT = await Storage.getItemSync(StorageKeys.NAME);
     setTimeout(() => {
       if (JWT) {
         this.props.navigation.navigate('App');
@@ -19,11 +19,23 @@ export default class Splash extends PureComponent {
       }
     }, 1000);
   };
+
   render() {
     return (
-      <View style={[styles.container]}>
+      <View style={styles.splashContainer}>
         <SplashScreen />
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  image: {
+    width: 250,
+    height: 108,
+  },
+  splashContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+});

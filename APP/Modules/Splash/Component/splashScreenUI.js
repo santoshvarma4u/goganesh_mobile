@@ -1,11 +1,10 @@
 import React from 'react';
 import {View, Image, Text} from 'react-native';
-import images from '../../../Themes/Images';
+import images from '../../../Theams/Images';
 
 import styles from './Styles';
-import {Metrics} from '../../../Themes';
 
-export const SplashView = props => {
+const SplashView = props => {
   return (
     <View style={styles.splashContainer}>
       <View style={{flex: 1}}>
@@ -14,3 +13,5 @@ export const SplashView = props => {
     </View>
   );
 };
+
+export default SplashView;

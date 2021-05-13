@@ -1,4 +1,4 @@
-import apiClient from '../api/server';
+import {apiClient} from '../api/server';
 
 const usersEndPoint = '/users';
 const getUsers = () => apiClient.get(usersEndPoint);

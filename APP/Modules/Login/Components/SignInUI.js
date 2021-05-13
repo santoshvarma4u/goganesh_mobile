@@ -19,7 +19,7 @@ function SignIn() {
     if (otpverifyStatus === 'Success') {
       const checkUser = await LoginController.checkUser(number);
       if (checkUser.data.message === 'user not found') {
-        navigation.navigate('SignUp');
+        navigation.navigate('SignUp', {phoneNumber: number});
       } else navigation.navigate('App');
     }
   };
