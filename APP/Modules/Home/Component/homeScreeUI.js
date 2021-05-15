@@ -1,26 +1,28 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Text, View, Left, Button, StyleSheet, Image} from 'react-native';
-import {FlatListSlider} from 'react-native-flatlist-slider';
+
 import styles from './Styles';
-import {Icon} from "react-native-elements";
-
+import {Icon} from 'react-native-elements';
+import HomeController from '../Controller/homeController';
 import images from '../../../Theams/Images';
-import Colors from "../../../Theams/Colors";
-const sliderImages = [
-  {
-    image:
-      'https://images.unsplash.com/photo-1567226475328-9d6baaf565cf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
-    desc: 'Silent Waters in the mountains in midst of Himilayas',
-  },
-  {
-    image:
-      'https://images.unsplash.com/photo-1455620611406-966ca6889d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1130&q=80',
-    desc:
-      'Red fort in India New Delhi is a magnificient masterpeiece of humans',
-  },
-];
-
+import Colors from '../../../Theams/Colors';
+import {SliderBox} from 'react-native-image-slider-box';
 function HomeScreen() {
+  const [sliderImgs, setSliderImgs] = useState([]);
+  const {data, success} = HomeController.useGetPromoImages();
+
+  useEffect(() => {
+    if (success) {
+      setSliderImgs(
+        data.map(i => `http://192.168.29.221:3000/${i.promoImage}`),
+      );
+    }
+  }, [data, success]);
+
+  console.log('====================================');
+  console.log(data);
+  console.log('====================================');
+
   return (
     <View style={styles.containerMain}>
       <View style={styles.upperContainer}>
@@ -36,22 +38,21 @@ function HomeScreen() {
           </View>
         </View>
         <View style={styles.centreCard}>
-          <Image style={styles.image} source={images.logo}></Image>
+          <Image style={styles.image} source={images.logo} />
           <Text style={styles.text}>Wallet Balance</Text>
           <Text style={styles.text}>0 INR</Text>
         </View>
       </View>
       <View style={styles.lowerContainer}>
         <View style={styles.lowerBox1}>
-          <FlatListSlider
-            data={sliderImages}
-            timer={4000}
-            onPress={item => alert(JSON.stringify(item))}
-            indicatorContainerStyle={{position: 'absolute', bottom: 10}}
-            indicatorActiveColor={Colors.appPrimaryColor}
-            indicatorInActiveColor={'#ffffff'}
-            indicatorActiveWidth={30}
-            animation
+          <SliderBox
+            images={sliderImgs}
+            dotColor={Colors.appPrimaryColor}
+            inactiveDotColor={Colors.appPrimaryColor}
+            paginationBoxVerticalPadding={20}
+            ImageComponentStyle={{overflow: 'hidden'}}
+            autoplay
+            circleLoop
           />
         </View>
         <View style={styles.createText}>

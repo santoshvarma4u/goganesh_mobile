@@ -10,12 +10,46 @@ import {
 } from 'react-native';
 import styles from './Styles';
 import {Searchbar} from 'react-native-paper';
-import AccordionListItem from './accordianListNew';
+import AccordionListItem from './accordianListIDs';
+import AccordionMyIDs from './accordianListMyIDs';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import IdController from '../Controller/IdController';
-import Colors from "../../../Theams/Colors";
+import Colors from '../../../Theams/Colors';
 
-const MyIDRoute = () => <View style={{flex: 1, backgroundColor: 'black'}} />;
+const MyIDRoute = props => {
+  const getMyIDs = IdController.getUserSpecificIDs();
+  console.log(getMyIDs.loading);
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const onChangeSearch = query => setSearchQuery(query);
+  return (
+    <View style={styles.containerMain}>
+      <View style={styles.list}>
+        {getMyIDs.error && (
+          <>
+            <Text style={{backgroundColor: 'white'}}> failed </Text>
+            <Button
+              title="retry"
+              onPress={() => {
+                getMyIDs.request();
+              }}
+            />
+          </>
+        )}
+        {getMyIDs.loading ? (
+          <ActivityIndicator
+            animating={getMyIDs.loading}
+            size="large"
+            color="white"
+          />
+        ) : null}
+        <FlatList
+          data={getMyIDs.data}
+          renderItem={({item}) => <AccordionMyIDs data={item} />}
+        />
+      </View>
+    </View>
+  );
+};
 
 const IDRoute = props => {
   const getIDs = IdController.useGetIDs();

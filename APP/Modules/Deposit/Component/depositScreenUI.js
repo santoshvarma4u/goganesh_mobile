@@ -12,8 +12,39 @@ import styles from './Styles';
 import DepositController from '../Controller/depositController';
 import * as ImagePicker from 'react-native-image-picker';
 import Colors from '../../../Theams/Colors';
+import Storage from '../../Common/Storage';
+import StorageKeys from '../../Common/StorageKeys';
+import {useNavigation} from '@react-navigation/native';
+import {CommonActions} from '@react-navigation/native';
 function DepositScreen({route}) {
-  const {sdid, planType, planMoney, paymentType} = route.params;
+  const resetAction = CommonActions.reset({
+    index: 0,
+    routes: [{name: 'Home'}],
+  });
+  const [uid, setUid] = useState('');
+  const {
+    sdid,
+    planType,
+    planMoney,
+    paymentType,
+    userName,
+    depositCoins,
+  } = route.params;
+  const navigation = useNavigation();
+  console.log(route.params);
+
+  useEffect(() => {
+    getUID();
+  }, []);
+
+  const getUID = async () => {
+    try {
+      let UID = await Storage.getItemSync(StorageKeys.ID);
+      console.log('userid in deposit screen' + UID);
+      setUid(UID);
+    } catch (error) {}
+  };
+  console.log(uid);
 
   const [filePath, setFilePath] = useState({});
 
@@ -107,13 +138,18 @@ function DepositScreen({route}) {
               title="submit"
               onPress={() =>
                 DepositController.submitData(
-                  1,
+                  parseInt(uid),
                   sdid,
                   planType,
                   paymentType,
                   false,
                   filePath,
-                )
+                  userName,
+                  depositCoins,
+                ).then(data => {
+                  console.log(data);
+                  navigation.dispatch(resetAction);
+                })
               }
             />
           </View>
@@ -178,13 +214,18 @@ function DepositScreen({route}) {
             }}
             onPress={() =>
               DepositController.submitData(
-                1,
+                parseInt(uid),
                 sdid,
                 planType,
                 paymentType,
                 false,
                 filePath,
-              )
+                userName,
+                depositCoins,
+              ).then(data => {
+                console.log(data);
+                navigation.dispatch(resetAction);
+              })
             }>
             <Text>Submit</Text>
           </TouchableOpacity>

@@ -15,7 +15,7 @@ import styles from './Styles';
 import {Formik} from 'formik';
 import {useNavigation} from '@react-navigation/native';
 import images from '../../../Theams/Images';
-import Colors from "../../../Theams/Colors";
+import Colors from '../../../Theams/Colors';
 
 function CreateIDScreen({route}) {
   const {sdid, url, sitename} = route.params;
@@ -173,11 +173,14 @@ function CreateIDScreen({route}) {
                 UserName: '',
                 DepositCoins: '',
               }}
-              onSubmit={() => {
+              onSubmit={values => {
+                console.log(values);
                 navigation.navigate('PaymentOptions', {
                   sdid: sdid,
                   planMoney: planDetails.MinRefill,
                   planType: planDetails.planHeader,
+                  userName: values.UserName,
+                  depositCoins: values.DepositCoins,
                 });
               }}>
               {({handleChange, handleSubmit}) => (

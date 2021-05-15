@@ -10,7 +10,9 @@ export default class Splash extends PureComponent {
   };
 
   learnMorePress = async () => {
-    let JWT = await Storage.getItemSync(StorageKeys.NAME);
+    let JWT = await Storage.getItemSync(StorageKeys.JWT);
+    let ID = await Storage.getItemSync(StorageKeys.ID);
+    console.log(ID);
     setTimeout(() => {
       if (JWT) {
         this.props.navigation.navigate('App');

@@ -7,9 +7,7 @@ const createID = data => {
   const headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
   };
-  console.log('====================================');
-  console.log(data);
-  console.log('====================================');
+
   return apiClient.post(siteRequestEndPoint, data, headers);
 };
 export default {

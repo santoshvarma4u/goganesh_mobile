@@ -19,6 +19,7 @@ export default StyleSheet.create({
     marginTop: 20,
     backgroundColor: 'white',
     width: '90%',
+    overflow: 'hidden',
     borderRadius: 10,
   },
   topOffers: {

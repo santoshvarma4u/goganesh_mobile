@@ -35,7 +35,7 @@ export default StyleSheet.create({
   },
   tipsSubText: {
     color: 'white',
-    marginVertical:20
+    marginVertical: 20,
   },
 
   createText: {
@@ -112,8 +112,8 @@ export default StyleSheet.create({
     flex: 0.4,
     flexDirection: 'column',
     marginTop: 50,
-    backgroundColor: 'white',
     width: '80%',
+    overflow: 'hidden',
     borderRadius: 10,
   },
   carouselCards: {

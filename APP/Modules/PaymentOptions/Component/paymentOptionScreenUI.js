@@ -15,8 +15,8 @@ import {white} from 'react-native-paper/lib/typescript/styles/colors';
 import images from '../../../Theams/Images';
 
 function PaymentOptionScreen({route}) {
-  const {sdid, planMoney, planType} = route.params;
-  console.log(planType);
+  const {sdid, planMoney, planType, userName, depositCoins} = route.params;
+
   const navigation = useNavigation();
 
   return (
@@ -34,6 +34,9 @@ function PaymentOptionScreen({route}) {
                 sdid: sdid,
                 planMoney: planMoney,
                 paymentType: 'Paytm UPI',
+                planType: planType,
+                userName: userName,
+                depositCoins: depositCoins,
               });
             }}>
             <View style={styles.paymentMethod}>
@@ -46,7 +49,10 @@ function PaymentOptionScreen({route}) {
               navigation.navigate('Deposit', {
                 sdid: sdid,
                 planMoney: planMoney,
+                planType: planType,
                 paymentType: 'Paytm Wallet',
+                userName: userName,
+                depositCoins: depositCoins,
               });
             }}>
             <View style={styles.paymentMethod}>
@@ -60,6 +66,10 @@ function PaymentOptionScreen({route}) {
                 sdid: sdid,
                 planMoney: planMoney,
                 paymentType: 'Google Pay',
+
+                planType: planType,
+                userName: userName,
+                depositCoins: depositCoins,
               });
             }}>
             <View style={styles.paymentMethod}>
@@ -74,6 +84,9 @@ function PaymentOptionScreen({route}) {
                 sdid: sdid,
                 planMoney: planMoney,
                 paymentType: 'Phone Pay',
+                userName: userName,
+                planType: planType,
+                depositCoins: depositCoins,
               });
             }}>
             <View style={styles.paymentMethod}>
@@ -87,6 +100,9 @@ function PaymentOptionScreen({route}) {
                 sdid: sdid,
                 planMoney: planMoney,
                 paymentType: 'Bank',
+                userName: userName,
+                planType: planType,
+                depositCoins: depositCoins,
               });
             }}>
             <View style={styles.paymentMethod}>
@@ -101,6 +117,8 @@ function PaymentOptionScreen({route}) {
                 planMoney: planMoney,
                 paymentType: 'UPI Manual Transfer',
                 planType: planType,
+                userName: userName,
+                depositCoins: depositCoins,
               });
             }}>
             <View style={styles.paymentMethod}>

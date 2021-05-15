@@ -9,6 +9,8 @@ const submitData = async (
   paymentType,
   requestStatus,
   payreciept,
+  userName,
+  depositCoins,
 ) => {
   const data = new FormData();
   data.append('uid', uid);
@@ -21,6 +23,8 @@ const submitData = async (
     name: payreciept.fileName,
   });
   data.append('planType', planType);
+  data.append('userName', userName);
+  data.append('depositCoins', depositCoins);
 
   const result = await IDsApi.createID(data);
   if (!result.ok) return alert(result.problem);
