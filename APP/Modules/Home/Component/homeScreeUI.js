@@ -19,9 +19,6 @@ function HomeScreen() {
     }
   }, [data, success]);
 
-  console.log('====================================');
-  console.log(data);
-  console.log('====================================');
 
   return (
     <View style={styles.containerMain}>

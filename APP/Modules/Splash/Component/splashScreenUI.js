@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Image, Text} from 'react-native';
 import images from '../../../Theams/Images';
-
+import Storage from '../../Common/Storage';
 import styles from './Styles';
 
 const SplashView = props => {

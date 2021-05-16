@@ -1,37 +1,52 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, RefreshControl, Text, FlatList, StyleSheet} from 'react-native';
 
-function ListViewComponent(item) {
+function ListViewComponent(props) {
+  console.log('123456789876543');
+  console.log(props.data);
+
   return (
     <View style={styles.container}>
-      <Image style={styles.image}></Image>
-      <View>
-        <Text style={styles.url}>{item.url}</Text>
-        <Text style={styles.siteName}>{item.sitename}</Text>
-      </View>
+      <FlatList
+        data={props.data}
+        renderItem={({item}) => (
+          <View styles={styles.trasactions}>
+            <View style={styles.trasactionsCard}>
+              <Text style={{backgroundColor: 'grey'}}>
+                {item.paymentMethod}
+              </Text>
+              <Text style={{backgroundColor: 'grey'}}>
+                Amount : {item.paymentAmount}
+              </Text>
+              <Text style={{backgroundColor: 'grey'}}>
+                Type :{item.paymentType}
+              </Text>
+            </View>
+          </View>
+        )}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: 'row',
     padding: 10,
     width: '100%',
     borderRadius: 20,
     backgroundColor: 'white',
   },
-  image: {
-    width: 75,
-    height: 70,
-    borderRadius: 35,
+  trasactions: {
+    backgroundColor: 'orange',
+  },
+  trasactionsCard: {
     backgroundColor: 'black',
-    marginRight: 10,
+    borderRadius: 10,
+    marginBottom: 5,
+    padding: 10,
   },
-  url: {
-    fontWeight: '500',
-  },
-  siteName: {},
 });
 
 export default ListViewComponent;

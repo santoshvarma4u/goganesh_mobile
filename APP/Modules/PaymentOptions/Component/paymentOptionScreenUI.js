@@ -15,7 +15,14 @@ import {white} from 'react-native-paper/lib/typescript/styles/colors';
 import images from '../../../Theams/Images';
 
 function PaymentOptionScreen({route}) {
-  const {sdid, planMoney, planType, userName, depositCoins} = route.params;
+  const {
+    sdid,
+    planMoney,
+    planType,
+    userName,
+    depositCoins,
+    requestStatus,
+  } = route.params;
 
   const navigation = useNavigation();
 
@@ -37,6 +44,7 @@ function PaymentOptionScreen({route}) {
                 planType: planType,
                 userName: userName,
                 depositCoins: depositCoins,
+                requestStatus: requestStatus,
               });
             }}>
             <View style={styles.paymentMethod}>
@@ -53,6 +61,7 @@ function PaymentOptionScreen({route}) {
                 paymentType: 'Paytm Wallet',
                 userName: userName,
                 depositCoins: depositCoins,
+                requestStatus: requestStatus,
               });
             }}>
             <View style={styles.paymentMethod}>
@@ -66,7 +75,7 @@ function PaymentOptionScreen({route}) {
                 sdid: sdid,
                 planMoney: planMoney,
                 paymentType: 'Google Pay',
-
+                requestStatus: requestStatus,
                 planType: planType,
                 userName: userName,
                 depositCoins: depositCoins,
@@ -87,6 +96,7 @@ function PaymentOptionScreen({route}) {
                 userName: userName,
                 planType: planType,
                 depositCoins: depositCoins,
+                requestStatus: requestStatus,
               });
             }}>
             <View style={styles.paymentMethod}>
@@ -103,6 +113,7 @@ function PaymentOptionScreen({route}) {
                 userName: userName,
                 planType: planType,
                 depositCoins: depositCoins,
+                requestStatus: requestStatus,
               });
             }}>
             <View style={styles.paymentMethod}>
@@ -119,6 +130,7 @@ function PaymentOptionScreen({route}) {
                 planType: planType,
                 userName: userName,
                 depositCoins: depositCoins,
+                requestStatus: requestStatus,
               });
             }}>
             <View style={styles.paymentMethod}>

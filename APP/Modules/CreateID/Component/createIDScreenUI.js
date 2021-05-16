@@ -18,7 +18,8 @@ import images from '../../../Theams/Images';
 import Colors from '../../../Theams/Colors';
 
 function CreateIDScreen({route}) {
-  const {sdid, url, sitename} = route.params;
+  const {sdid, url, sitename, requestStatus} = route.params;
+
   const navigation = useNavigation();
   const [planDetails, setPlanDetails] = useState({
     planHeader: 'Bronze Plan',
@@ -181,6 +182,7 @@ function CreateIDScreen({route}) {
                   planType: planDetails.planHeader,
                   userName: values.UserName,
                   depositCoins: values.DepositCoins,
+                  requestStatus: requestStatus,
                 });
               }}>
               {({handleChange, handleSubmit}) => (

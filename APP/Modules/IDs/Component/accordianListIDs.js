@@ -154,8 +154,7 @@ const AccordianListNew = props => {
           onPress={() => {
             navigation.navigate('CreateID', {
               sdid: props.data.sdid,
-              url: props.data.siteurl,
-              sitename: props.data.sitename,
+              requestStatus: 'new',
             });
           }}>
           <Text style={{alignItems: 'center'}}>Create ID</Text>

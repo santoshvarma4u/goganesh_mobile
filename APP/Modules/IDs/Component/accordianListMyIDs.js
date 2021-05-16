@@ -8,13 +8,14 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  TextInput,
 } from 'react-native';
 
 import {Icon} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import images from '../../../Theams/Images';
 import Colors from '../../../Theams/Colors';
-
+import {Formik} from 'formik';
 const AccordianListNew = props => {
   const [expanded, setExpanded] = React.useState(true);
   const navigation = useNavigation();
@@ -73,7 +74,12 @@ const AccordianListNew = props => {
               justifyContent: 'center',
               borderRadius: 5,
             }}
-            onPress={() => {}}>
+            onPress={() => {
+              navigation.navigate('CreateID', {
+                sdid: props.data.sd.sdid,
+                requestStatus: 'old',
+              });
+            }}>
             <Text style={{alignItems: 'center'}}>Deposit</Text>
           </TouchableOpacity>
           <TouchableOpacity

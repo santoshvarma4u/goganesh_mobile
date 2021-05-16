@@ -29,6 +29,7 @@ function DepositScreen({route}) {
     paymentType,
     userName,
     depositCoins,
+    requestStatus,
   } = route.params;
   const navigation = useNavigation();
   console.log(route.params);
@@ -40,7 +41,7 @@ function DepositScreen({route}) {
   const getUID = async () => {
     try {
       let UID = await Storage.getItemSync(StorageKeys.ID);
-      console.log('userid in deposit screen' + UID);
+
       setUid(UID);
     } catch (error) {}
   };
@@ -48,6 +49,39 @@ function DepositScreen({route}) {
 
   const [filePath, setFilePath] = useState({});
 
+  const submitPayment = () => {
+    console.log('request STaus' + requestStatus);
+    if (requestStatus === 'new') {
+      console.log('newwwww');
+      DepositController.submitData(
+        parseInt(uid),
+        sdid,
+        planType,
+        paymentType,
+        false,
+        filePath,
+        userName,
+        depositCoins,
+      ).then(data => {
+        console.log(data);
+        navigation.dispatch(resetAction);
+      });
+    } else {
+      console.log('finen dposit woeking');
+      const paymentMethod = paymentType;
+      DepositController.submitDataForMyID(
+        parseInt(uid),
+        sdid,
+        paymentMethod,
+        depositCoins,
+        'CR',
+        filePath,
+      ).then(data => {
+        console.log(data);
+        navigation.dispatch(resetAction);
+      });
+    }
+  };
   const chooseFile = () => {
     let options = {
       title: 'Select Image',
@@ -134,24 +168,7 @@ function DepositScreen({route}) {
               style={{padding: 5, width: 150, height: 200}}
             />
             <Text style={styles.textStyle}>{filePath.uri}</Text>
-            <Button
-              title="submit"
-              onPress={() =>
-                DepositController.submitData(
-                  parseInt(uid),
-                  sdid,
-                  planType,
-                  paymentType,
-                  false,
-                  filePath,
-                  userName,
-                  depositCoins,
-                ).then(data => {
-                  console.log(data);
-                  navigation.dispatch(resetAction);
-                })
-              }
-            />
+            <Button title="submit" onPress={() => submitPayment()} />
           </View>
         </View>
       </View>
@@ -212,21 +229,7 @@ function DepositScreen({route}) {
               borderRadius: 10,
               marginTop: 50,
             }}
-            onPress={() =>
-              DepositController.submitData(
-                parseInt(uid),
-                sdid,
-                planType,
-                paymentType,
-                false,
-                filePath,
-                userName,
-                depositCoins,
-              ).then(data => {
-                console.log(data);
-                navigation.dispatch(resetAction);
-              })
-            }>
+            onPress={() => submitPayment()}>
             <Text>Submit</Text>
           </TouchableOpacity>
         </View>
