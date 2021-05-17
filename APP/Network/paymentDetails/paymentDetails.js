@@ -12,8 +12,9 @@ const getUID = async () => {
 
 const getUserBankDetails = async () => {
   let uid = await getUID();
-  const userSiteDetails = `/userBankDetails/${uid}`;
-  return apiClient.get(userSiteDetails);
+
+  const userBankDetails = `/userBankDetails/${uid}`;
+  return apiClient.get(userBankDetails);
 };
 
 const createUserBankDetails = async data => {
@@ -26,7 +27,15 @@ const createUserBankDetails = async data => {
   console.log(data);
   return apiClient.post(userBankDetails, data, headers);
 };
+
+const updateUserBankDetails = async data => {
+  const uid = data.uid;
+  const userBankDetails = `/userBankDetails/${uid}`;
+
+  return apiClient.patch(userBankDetails, data);
+};
 export default {
   getUserBankDetails,
   createUserBankDetails,
+  updateUserBankDetails,
 };

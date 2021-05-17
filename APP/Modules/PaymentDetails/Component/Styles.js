@@ -16,6 +16,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     padding: 5,
   },
+  bankAccountDetails: {},
   addBankButton: {
     backgroundColor: '#F194FF',
     borderRadius: 10,
@@ -43,11 +44,20 @@ export default StyleSheet.create({
     width: '90%',
     borderRadius: 10,
   },
+  bankDetailsView: {
+    flex: 0.75,
+    padding: 5,
+    marginTop: 20,
+    backgroundColor: 'white',
+    width: '90%',
+    borderRadius: 10,
+  },
   bankCardDetails: {
     marginTop: 10,
     backgroundColor: 'black',
     borderRadius: 10,
     padding: 10,
+    width: '100%',
     flexDirection: 'row',
   },
   centeredView: {
@@ -76,6 +86,9 @@ export default StyleSheet.create({
   },
   textStyle: {
     color: 'white',
+  },
+  trasactionsCard: {
+    backgroundColor: 'orange',
   },
 
   modalText: {

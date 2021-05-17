@@ -1,5 +1,5 @@
 import paymentsDetailsApi from '../../../Network/paymentDetails/paymentDetails';
-
+import useAPI from '../../../Hooks/useAPI';
 import StorageKeys from '../../../Modules/Common/StorageKeys';
 import Storage from '../../../Modules/Common/Storage';
 
@@ -29,4 +29,24 @@ const submitBankData = async bankData => {
   alert('success');
 };
 
-export default {submitBankData};
+const updateBankData = async (bankData, currentIndex) => {
+  let userid = await getUID();
+  const data = {
+    uid: userid,
+    bid: currentIndex,
+    bankName: bankData.bankName,
+    accountHolderName: bankData.AccountHolderName,
+    IFSC: bankData.IFSC,
+    accountNumber: parseInt(bankData.AccountNumber),
+    branchCode: bankData.branchCode,
+  };
+
+  console.log(data);
+  const result = await paymentsDetailsApi.updateUserBankDetails(data);
+  if (!result.ok) return alert(result.problem);
+  alert('success');
+};
+
+const getBankData = () => useAPI(paymentsDetailsApi.getUserBankDetails);
+
+export default {submitBankData, updateBankData, getBankData};
