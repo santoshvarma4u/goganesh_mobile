@@ -12,20 +12,15 @@ function OffersScreen({navigation}) {
   useEffect(() => {
     if (success) {
       setOfferImages(
-        data.map(i => `http://192.168.29.221:3000/${i.oferrimage}`),
+        data.map(i => `http://139.59.11.217:3000/${i.oferrimage}`),
       );
     }
   }, [data, success]);
 
-  console.log('1110987654345678945678');
-  console.log(data);
   return (
     <View style={styles.containerMain}>
-      <View></View>
+      <View />
       <View style={styles.offersContainer}>
-        <View style={styles.topOffers}>
-          <Text>Offers</Text>
-        </View>
         <View style={styles.offersCard}>
           <SliderBox
             images={offerImages}
@@ -37,8 +32,6 @@ function OffersScreen({navigation}) {
             circleLoop
           />
         </View>
-        <View style={styles.offersCard}></View>
-        <View style={styles.offersCard}></View>
       </View>
     </View>
   );

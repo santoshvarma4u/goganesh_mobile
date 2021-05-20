@@ -13,12 +13,9 @@ function HomeScreen() {
 
   useEffect(() => {
     if (success) {
-      setSliderImgs(
-        data.map(i => `http://192.168.29.221:3000/${i.promoImage}`),
-      );
+      setSliderImgs(data.map(i => `http://139.59.11.217:3000/${i.promoImage}`));
     }
   }, [data, success]);
-
 
   return (
     <View style={styles.containerMain}>
@@ -36,8 +33,6 @@ function HomeScreen() {
         </View>
         <View style={styles.centreCard}>
           <Image style={styles.image} source={images.logo} />
-          <Text style={styles.text}>Wallet Balance</Text>
-          <Text style={styles.text}>0 INR</Text>
         </View>
       </View>
       <View style={styles.lowerContainer}>
@@ -54,7 +49,7 @@ function HomeScreen() {
         </View>
         <View style={styles.createText}>
           <Icon name="add" color="white" size={20} />
-          <Text style={styles.createTextOnly}>Create</Text>
+          <Text style={styles.createTextOnly}>Create ID</Text>
         </View>
         {/*<View style={styles.promotionCard} />*/}
         <View style={styles.createAnnouncement}>

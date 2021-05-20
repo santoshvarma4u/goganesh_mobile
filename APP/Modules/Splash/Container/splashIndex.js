@@ -3,6 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import SplashScreen from '../Component/splashScreenUI';
+import {CommonActions} from '@react-navigation/native';
 
 export default class Splash extends PureComponent {
   componentDidMount = () => {
@@ -15,9 +16,17 @@ export default class Splash extends PureComponent {
     console.log(ID);
     setTimeout(() => {
       if (JWT) {
-        this.props.navigation.navigate('App');
+        const resetAction = CommonActions.reset({
+          index: 0,
+          routes: [{name: 'App'}],
+        });
+        this.props.navigation.dispatch(resetAction);
       } else {
-        this.props.navigation.navigate('Auth');
+        const resetAction = CommonActions.reset({
+          index: 0,
+          routes: [{name: 'Auth'}],
+        });
+        this.props.navigation.dispatch(resetAction);
       }
     }, 1000);
   };

@@ -16,6 +16,7 @@ import * as Yup from 'yup';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import SignupController from '../Controllers/SignupController';
+import Colors from '../../../Theams/Colors';
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
     .min(2, 'name is Too Short!')
@@ -49,8 +50,11 @@ function SingUp({route}) {
       return alert('phone number not matched');
     }
     const userResponse = await SignupController.doRegisterUser(values);
-    if (userResponse.ok) alert('Registered Successfully');
-    else alert('User already Exists with same phone number');
+    if (userResponse.ok) {
+      alert('Registered Successfully');
+    } else {
+      alert('User already Exists with same phone number');
+    }
 
     let name = await Storage.getItemSync(StorageKeys.NAME);
     console.log(name);
@@ -59,10 +63,6 @@ function SingUp({route}) {
   return (
     <View style={styles.containerMain}>
       <View style={styles.profileContainer}>
-        <View style={styles.profileDetails}>
-          <Text style={{padding: 10}}>Go Ganesh</Text>
-          <Text style={{padding: 10}}>Registration Form</Text>
-        </View>
         <View style={styles.bankDetails}>
           <View style={styles.bankCardDetails}>
             <Formik
@@ -86,26 +86,50 @@ function SingUp({route}) {
                   <TextInput
                     style={styles.modalText}
                     placeholder="Enter Your name"
-                    onChangeText={handleChange('name')}></TextInput>
+                    onChangeText={handleChange('name')}
+                  />
                   <TextInput
                     style={styles.modalText}
                     placeholder="Enter Your phone Number"
                     keyboardType="numeric"
                     placeholder={phoneNumber}
-                    onChangeText={handleChange('phone')}></TextInput>
+                    onChangeText={handleChange('phone')}
+                  />
                   <TextInput
                     style={styles.modalText}
                     placeholder={'Password'}
                     type="password"
                     secureTextEntry
-                    onChangeText={handleChange('password')}></TextInput>
+                    onChangeText={handleChange('password')}
+                  />
                   <TextInput
                     style={styles.modalText}
                     placeholder="Confirm Password"
                     type="password"
                     secureTextEntry
-                    onChangeText={handleChange('confirmPassword')}></TextInput>
-                  <Button title="submit" onPress={handleSubmit}></Button>
+                    onChangeText={handleChange('confirmPassword')}
+                  />
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor: Colors.appPrimaryColor,
+                      paddingHorizontal: 60,
+                      paddingVertical: 10,
+                      marginTop: 40,
+                      borderRadius: 10,
+                      alignItems: 'center',
+                    }}
+                    onPress={handleSubmit}
+                    underlayColor="transparent">
+                    <Text
+                      style={{
+                        color: '#fff',
+                        fontSize: 16,
+                        alignItems: 'center',
+                      }}>
+                      Submit
+                    </Text>
+                  </TouchableOpacity>
+
                   {errors.name && touched.name && (
                     <Text style={{backgroundColor: 'white'}}>
                       {errors.name}

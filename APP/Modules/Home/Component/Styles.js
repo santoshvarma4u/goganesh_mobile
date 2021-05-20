@@ -44,7 +44,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     width: '80%',
-    paddingVertical: 10,
+    paddingVertical: 15,
     justifyContent: 'center',
     backgroundColor: '#343232',
   },
