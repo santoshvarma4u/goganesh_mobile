@@ -17,10 +17,9 @@ import IdController from '../Controller/IdController';
 import Colors from '../../../Theams/Colors';
 
 const MyIDRoute = props => {
-
-  
-
   const getMyIDs = IdController.getUserSpecificIDs();
+  const [refresh, setRefresh] = useState(false);
+
   console.log(getMyIDs.loading);
   const [searchQuery, setSearchQuery] = React.useState('');
   const onChangeSearch = query => setSearchQuery(query);
@@ -47,6 +46,11 @@ const MyIDRoute = props => {
         ) : null}
         <FlatList
           data={getMyIDs.data}
+          refreshing={refresh}
+          onRefresh={() => {
+            getMyIDs.request();
+            setRefresh(false);
+          }}
           renderItem={({item}) => <AccordionMyIDs data={item} />}
         />
       </View>
@@ -57,6 +61,7 @@ const MyIDRoute = props => {
 const IDRoute = props => {
   const getIDs = IdController.useGetIDs();
   console.log(getIDs.loading);
+  const [refresh, setRefresh] = useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
   const onChangeSearch = query => setSearchQuery(query);
   return (
@@ -90,6 +95,11 @@ const IDRoute = props => {
         ) : null}
         <FlatList
           data={getIDs.data}
+          onRefresh={() => {
+            getIDs.request();
+            setRefresh(false);
+          }}
+          refreshing={refresh}
           renderItem={({item}) => <AccordionListItem data={item} />}
           keyExtractor={item => item.sdid.toString()}
         />
