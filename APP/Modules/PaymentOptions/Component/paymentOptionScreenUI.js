@@ -23,7 +23,7 @@ function PaymentOptionScreen({route}) {
     depositCoins,
     requestStatus,
   } = route.params;
-
+  console.log('on paymentss options  id screen' + requestStatus);
   const navigation = useNavigation();
 
   return (
