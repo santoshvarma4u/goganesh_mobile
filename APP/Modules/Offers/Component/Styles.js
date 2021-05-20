@@ -16,7 +16,7 @@ export default StyleSheet.create({
   },
   offersCard: {
     flex: 0.25,
-    marginTop: 20,
+    marginTop: 50,
     backgroundColor: 'white',
     width: '90%',
     overflow: 'hidden',

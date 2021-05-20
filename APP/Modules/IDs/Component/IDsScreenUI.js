@@ -7,6 +7,7 @@ import {
   FlatList,
   Dimensions,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 import styles from './Styles';
 import {Searchbar} from 'react-native-paper';
@@ -17,9 +18,6 @@ import IdController from '../Controller/IdController';
 import Colors from '../../../Theams/Colors';
 
 const MyIDRoute = props => {
-
-  
-
   const getMyIDs = IdController.getUserSpecificIDs();
   console.log(getMyIDs.loading);
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -29,13 +27,24 @@ const MyIDRoute = props => {
       <View style={styles.list}>
         {getMyIDs.error && (
           <>
-            <Text style={{backgroundColor: 'white'}}> failed </Text>
-            <Button
-              title="retry"
+            <Text style={{alignItems: 'center', color: Colors.appPrimaryColor}}>
+              No IDs Found
+            </Text>
+            <TouchableOpacity
+              style={{
+                backgroundColor: Colors.appPrimaryColor,
+                paddingHorizontal: 60,
+                paddingVertical: 10,
+                borderRadius: 10,
+                marginTop: 40,
+                alignItems: 'center',
+              }}
               onPress={() => {
                 getMyIDs.request();
               }}
-            />
+              underlayColor="transparent">
+              <Text style={{color: '#fff', fontSize: 16}}>Retry</Text>
+            </TouchableOpacity>
           </>
         )}
         {getMyIDs.loading ? (

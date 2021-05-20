@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 import Colors from '../../../Theams/Colors';
 export default StyleSheet.create({
   containerMain: {
-    backgroundColor: '#e39b11',
+    backgroundColor: Colors.appPrimaryColor,
     flex: 1,
   },
   offersContainer: {
@@ -10,11 +10,14 @@ export default StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: 'black',
     alignItems: 'center',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   },
   SignINCard: {
-    marginTop: 20,
+    marginTop: 60,
     backgroundColor: 'white',
     width: '90%',
+    flexDirection: 'row',
     borderRadius: 10,
   },
   SignInTitle: {
@@ -22,7 +25,7 @@ export default StyleSheet.create({
     padding: 10,
   },
   input: {
-    height: 50,
+    height: 40,
     margin: 12,
     borderRadius: 10,
   },
@@ -30,11 +33,20 @@ export default StyleSheet.create({
     width: 30,
     height: 45,
   },
-
   borderStyleHighLighted: {
-    borderColor: '#03DAC6',
+    borderColor: Colors.appPrimaryColor,
   },
-
+  sendOtpButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    height: 30,
+    padding: 5,
+    backgroundColor: Colors.appPrimaryColor,
+    color: Colors.appWhiteColor,
+    marginRight: 20,
+    marginTop: 15,
+  },
   underlineStyleBase: {
     width: 50,
     height: 45,
@@ -46,7 +58,7 @@ export default StyleSheet.create({
     marginTop: 20,
   },
   underlineStyleHighLighted: {
-    borderColor: '#03DAC6',
+    borderColor: Colors.appPrimaryColor,
   },
   profileContainer: {
     flex: 1,
@@ -80,15 +92,15 @@ export default StyleSheet.create({
     flex: 0.75,
     padding: 15,
     marginTop: 20,
-    backgroundColor: 'white',
+    backgroundColor: Colors.appBlackColor,
     width: '90%',
     borderRadius: 10,
   },
   bankCardDetails: {
-    marginTop: 10,
-    backgroundColor: 'black',
+    backgroundColor: Colors.appBlackColor,
     borderRadius: 10,
     padding: 10,
+    marginTop:40
   },
   centeredView: {
     width: '100%',
@@ -121,7 +133,8 @@ export default StyleSheet.create({
   modalText: {
     borderRadius: 10,
     backgroundColor: 'white',
-    fontSize: 20,
+    fontSize: 16,
+    paddingHorizontal: 15,
     marginBottom: 15,
   },
 });
