@@ -6,7 +6,14 @@ export default StyleSheet.create({
     backgroundColor: Colors.appPrimaryColor,
     flex: 1,
   },
-
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    padding: 10,
+    width: '100%',
+    borderRadius: 20,
+    backgroundColor: 'white',
+  },
   offersContainer: {
     flex: 1,
     flexDirection: 'column',
@@ -25,6 +32,15 @@ export default StyleSheet.create({
   },
   topOffers: {
     backgroundColor: 'white',
+    padding: 10,
+  },
+  trasactions: {
+    backgroundColor: 'orange',
+  },
+  trasactionsCard: {
+    backgroundColor: 'black',
+    borderRadius: 10,
+    marginBottom: 5,
     padding: 10,
   },
 });

@@ -196,6 +196,7 @@ function CreateIDScreen({route}) {
 
                   <TextInput
                     style={styles.modalText}
+                    keyboardType="numeric"
                     placeholder="Deposit Coins *"
                     placeholderTextColor="#d5d1d1"
                     onChangeText={handleChange('DepositCoins')}

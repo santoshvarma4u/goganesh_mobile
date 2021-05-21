@@ -3,9 +3,10 @@ import {
   Text,
   View,
   Button,
-  StyleSheet,
+  ActivityIndicator,
   TouchableOpacity,
   Image,
+  Modal,
 } from 'react-native';
 import {Divider, Icon} from 'react-native-elements';
 import styles from './Styles';
@@ -17,6 +18,9 @@ import StorageKeys from '../../Common/StorageKeys';
 import {useNavigation} from '@react-navigation/native';
 import {CommonActions} from '@react-navigation/native';
 function DepositScreen({route}) {
+  const [progress, setProgress] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+
   const resetAction = CommonActions.reset({
     index: 0,
     routes: [{name: 'Home'}],
@@ -50,7 +54,6 @@ function DepositScreen({route}) {
   const [filePath, setFilePath] = useState({});
 
   const submitPayment = () => {
-    console.log('request STaus' + requestStatus);
     if (requestStatus === 'new') {
       console.log('newwwww');
       DepositController.submitData(
@@ -63,8 +66,10 @@ function DepositScreen({route}) {
         userName,
         depositCoins,
       ).then(data => {
-        console.log(data);
-        navigation.dispatch(resetAction);
+        setProgress(false);
+        setModalVisible(false);
+        alert('success');
+        // navigation.dispatch(resetAction);
       });
     } else {
       console.log('finen dposit woeking');
@@ -124,6 +129,7 @@ function DepositScreen({route}) {
             Send Payment and Upload ScreenShot
           </Text>
         </View>
+
         <View style={styles.offersContainer}>
           <View style={styles.depositDetailsCardForBank}>
             <Text style={styles.depositTitile}>
@@ -168,8 +174,15 @@ function DepositScreen({route}) {
               style={{padding: 5, width: 150, height: 200}}
             />
             <Text style={styles.textStyle}>{filePath.uri}</Text>
-            <Button title="submit" onPress={() => submitPayment()} />
+            <Button
+              title="submit"
+              onPress={() => {
+                setProgress(true);
+                submitPayment();
+              }}
+            />
           </View>
+          <ActivityIndicator animating={progress} size="large" color="white" />
         </View>
       </View>
     );
@@ -182,6 +195,7 @@ function DepositScreen({route}) {
               Send Payment & Upload ScreenShot
             </Text>
           </View>
+
           <View style={styles.depositDetailsCard}>
             <Text style={styles.depositTitile}>
               Send INR {planMoney} to Go Ganesh on {paymentType}
@@ -229,9 +243,13 @@ function DepositScreen({route}) {
               borderRadius: 10,
               marginTop: 50,
             }}
-            onPress={() => submitPayment()}>
+            onPress={() => {
+              setProgress(true);
+              submitPayment();
+            }}>
             <Text>Submit</Text>
           </TouchableOpacity>
+          <ActivityIndicator animating={progress} size="large" color="white" />
         </View>
       </View>
     );

@@ -1,11 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
-import ListViewComponent from './ListViewComponent';
+import {Text, View, FlatList} from 'react-native';
+
 import PassBoookController from '../Controller/passBookController';
 
 import styles from './Styles';
 function PassbookScreen({navigation}) {
-  const {data, success} = PassBoookController.useGetUserTransasctions();
+  const [refresh, setRefresh] = useState(false);
+  const {
+    data,
+    success,
+    request,
+  } = PassBoookController.useGetUserTransasctions();
   useEffect(() => {
     if (success) {
       console.log(data);
@@ -20,7 +25,34 @@ function PassbookScreen({navigation}) {
         <View style={styles.topOffers}>
           <Text>Transactions</Text>
         </View>
-        <ListViewComponent data={data} />
+        <View style={styles.container}>
+          <FlatList
+            onRefresh={() => {
+              request();
+              setRefresh(false);
+            }}
+            refreshing={refresh}
+            data={data}
+            renderItem={({item}) => (
+              <View styles={styles.trasactions}>
+                <View style={styles.trasactionsCard}>
+                  <Text style={{backgroundColor: 'grey'}}>
+                    {item.paymentMethod}
+                  </Text>
+                  <Text style={{backgroundColor: 'grey'}}>
+                    Amount : {item.paymentAmount}
+                  </Text>
+                  <Text style={{backgroundColor: 'grey'}}>
+                    Type :{item.paymentType}
+                  </Text>
+                  <Text style={{backgroundColor: 'grey'}}>
+                    Type :{item.paymentStatus}
+                  </Text>
+                </View>
+              </View>
+            )}
+          />
+        </View>
       </View>
     </View>
   );

@@ -13,7 +13,9 @@ function HomeScreen() {
 
   useEffect(() => {
     if (success) {
-      setSliderImgs(data.map(i => `http://139.59.11.217:3000/${i.promoImage}`));
+      setSliderImgs(
+        data.map(i => `http://192.168.29.221:3000/${i.promoImage}`),
+      );
     }
   }, [data, success]);
 
@@ -37,6 +39,7 @@ function HomeScreen() {
       </View>
       <View style={styles.lowerContainer}>
         <View style={styles.lowerBox1}>
+          
           <SliderBox
             images={sliderImgs}
             dotColor={Colors.appPrimaryColor}
