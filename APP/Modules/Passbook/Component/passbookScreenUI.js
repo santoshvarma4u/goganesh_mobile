@@ -20,7 +20,7 @@ function PassbookScreen({navigation}) {
   }, []);
   return (
     <View style={styles.containerMain}>
-      <View></View>
+      <View />
       <View style={styles.offersContainer}>
         <View style={styles.topOffers}>
           <Text>Transactions</Text>

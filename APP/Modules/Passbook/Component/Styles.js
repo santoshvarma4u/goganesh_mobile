@@ -31,7 +31,6 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
   topOffers: {
-    backgroundColor: 'white',
     padding: 10,
   },
   trasactions: {

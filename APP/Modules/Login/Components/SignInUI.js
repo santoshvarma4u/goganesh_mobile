@@ -24,7 +24,6 @@ function SignIn() {
 
   // otp
   const verifyOtp = async () => {
-    // console.log(otpSession, otp);
     const verifyOtpSession = await LoginController.verifyOtp(otpSession, otp);
     setOtpVerifyStatus(verifyOtpSession.Status);
     if (otpverifyStatus === 'Success') {

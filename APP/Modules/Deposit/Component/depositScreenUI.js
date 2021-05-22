@@ -61,7 +61,6 @@ function DepositScreen({route}) {
   const submitPayment = () => {
     setProgress(true);
     if (requestStatus === 'new') {
-      console.log('newwwww');
       DepositController.submitData(
         parseInt(uid),
         sdid,
@@ -253,21 +252,27 @@ function DepositScreen({route}) {
               </Text>
               <View style={styles.depostScreenshotCard}>
                 <View style={{margin: 20}}>
-                  <Icon
-                    name="perm-media"
-                    color={Colors.appPrimaryColor}
-                    size={34}
-                  />
+                  {filePath.uri ? (
+                    <Image
+                      source={{uri: filePath.uri}}
+                      style={styles.imageStyle}
+                    />
+                  ) : (
+                    <Icon
+                      name="add-to-photos"
+                      color={Colors.appPrimaryColor}
+                      size={48}
+                    />
+                  )}
                 </View>
                 <TouchableOpacity
                   activeOpacity={0.5}
                   style={styles.buttonStyle}
                   onPress={() => chooseFile()}>
-                  <Text style={styles.textStyle}>Upload</Text>
+                  <Text style={styles.textStyleButton}>Upload</Text>
                   <Text style={styles.textStyle2}>payment screenshot here</Text>
                 </TouchableOpacity>
-                <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
-                <Text style={styles.textStyle}>{filePath.uri}</Text>
+                {/*<Text style={styles.textStyle}>{filePath.uri}</Text>*/}
               </View>
               <TouchableOpacity
                 style={{
@@ -278,16 +283,19 @@ function DepositScreen({route}) {
                   marginTop: 50,
                 }}
                 onPress={() => {
-                  setProgress(true);
                   submitPayment();
                 }}>
                 <Text>Submit</Text>
               </TouchableOpacity>
-              <ActivityIndicator
-                animating={progress}
-                size="large"
-                color="white"
-              />
+              {progress ? (
+                <ActivityIndicator
+                  animating={true}
+                  size="large"
+                  color="white"
+                />
+              ) : (
+                ''
+              )}
             </View>
           );
         })}

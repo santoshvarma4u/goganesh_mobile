@@ -4,6 +4,7 @@ import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import SplashScreen from '../Component/splashScreenUI';
 import {CommonActions} from '@react-navigation/native';
+//import reactotron from 'reactotron-react-native';
 
 export default class Splash extends PureComponent {
   componentDidMount = () => {
@@ -14,6 +15,7 @@ export default class Splash extends PureComponent {
     let JWT = await Storage.getItemSync(StorageKeys.JWT);
     let ID = await Storage.getItemSync(StorageKeys.ID);
     console.log(ID);
+  //  reactotron.log(JWT);
     setTimeout(() => {
       if (JWT) {
         const resetAction = CommonActions.reset({

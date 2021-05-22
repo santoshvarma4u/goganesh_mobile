@@ -6,7 +6,9 @@ const doRegisterUser = async data => {
   try {
     console.log(data);
     const result = await usersApi.createUser(data);
-    if (!result.ok) return result;
+    if (!result.ok) {
+      return result;
+    }
     console.log('.................................');
     console.log(result.data.data.id);
     Storage.setItemSync(StorageKeys.ID, JSON.stringify(result.data.data.id));

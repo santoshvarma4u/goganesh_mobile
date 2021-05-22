@@ -42,7 +42,7 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
   depostScreenshotCard: {
-    flex: 0.4,
+    flex: 0.7,
     padding: 10,
     alignItems: 'center',
     marginTop: 20,
@@ -57,7 +57,7 @@ export default StyleSheet.create({
     alignItems: 'flex-start',
     margin: 15,
   },
-  textStyle: {
+  textStyleButton: {
     color: Colors.appPrimaryColor,
     fontSize: 16,
   },
@@ -70,6 +70,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     borderRadius: 10,
+    marginTop:15,
     color: Colors.appPrimaryColor,
   },
   imageStyle: {

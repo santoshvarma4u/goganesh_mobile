@@ -15,6 +15,8 @@ import images from '../../../Theams/Images';
 import Colors from '../../../Theams/Colors';
 import {SliderBox} from 'react-native-image-slider-box';
 import {useNavigation} from '@react-navigation/native';
+import {env} from '../../../Network/api/server';
+import reactotron from 'reactotron-react-native';
 function HomeScreen() {
   const navigation = useNavigation();
   const [sliderImgs, setSliderImgs] = useState([]);
@@ -22,7 +24,14 @@ function HomeScreen() {
 
   useEffect(() => {
     if (success) {
-      setSliderImgs(data.map(i => `http://139.59.11.217:3000/${i.promoImage}`));
+      data.map(i => {
+        reactotron.log(`${env}${i.promoImage}`);
+      });
+      setSliderImgs(
+        data.map(i => {
+          `${env}${i.promoImage}`;
+        }),
+      );
     }
   }, [data, success]);
 
@@ -52,9 +61,9 @@ function HomeScreen() {
             inactiveDotColor={Colors.appPrimaryColor}
             paginationBoxVerticalPadding={20}
             ImageComponentStyle={{overflow: 'hidden'}}
+            resizeMode={'contain'}
             autoplay
             circleLoop
-            resizeMode={'contain'}
           />
         </View>
         <TouchableOpacity

@@ -28,7 +28,9 @@ const submitData = async (
   console.log(data);
 
   const result = await IDsApi.createID(data, progress => console.log(progress));
-  if (!result.ok) return alert(result.problem);
+  if (!result.ok) {
+    return alert(result.problem);
+  }
   return;
 };
 
