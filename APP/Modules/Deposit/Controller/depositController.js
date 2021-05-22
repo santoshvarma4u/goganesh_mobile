@@ -18,8 +18,7 @@ const submitData = async (
   data.append('paymentType', paymentType);
   data.append('requestStatus', requestStatus);
   data.append('payreciept', {
-    uri:
-      'https://effigis.com/wp-content/uploads/2015/02/DigitalGlobe_WorldView2_50cm_8bit_Pansharpened_RGB_DRA_Rome_Italy_2009DEC10_8bits_sub_r_1.jpg',
+    uri: payreciept.uri,
     type: payreciept.type,
     name: payreciept.fileName,
   });

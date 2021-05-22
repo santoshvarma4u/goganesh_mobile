@@ -1,8 +1,8 @@
 import {authApiClient} from '../api/server';
-import {apiClient} from '../api/server';
+import {apiLoginClient} from '../api/server';
 
 const loginCheck = phonenumber =>
-  apiClient.post('/users/login', {phone: phonenumber});
+  apiLoginClient.post('/users/login', {phone: phonenumber});
 
 export const sendOtp = phone => {
   const apiKey = 'efaf38a4-6742-11ea-9fa5-0200cd936042';
