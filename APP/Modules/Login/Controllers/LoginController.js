@@ -1,6 +1,7 @@
 import authApi from '../../../Network/auth/auth';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
+import authKey from '../../../Modules/Common/JWT';
 const checkUser = async phoneNumber => {
   try {
     const result = await authApi.loginCheck(phoneNumber);
@@ -14,6 +15,7 @@ const checkUser = async phoneNumber => {
       );
       Storage.setItemSync(StorageKeys.NAME, result.data.details.data.full_name);
       Storage.setItemSync(StorageKeys.JWT, result.data.details.data.token);
+      authKey.token = result.data.details.data.token;
     }
 
     return result;

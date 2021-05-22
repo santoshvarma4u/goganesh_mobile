@@ -4,7 +4,7 @@ import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import SplashScreen from '../Component/splashScreenUI';
 import {CommonActions} from '@react-navigation/native';
-//import reactotron from 'reactotron-react-native';
+import authKey from '../../../Modules/Common/JWT';
 
 export default class Splash extends PureComponent {
   componentDidMount = () => {
@@ -14,8 +14,9 @@ export default class Splash extends PureComponent {
   learnMorePress = async () => {
     let JWT = await Storage.getItemSync(StorageKeys.JWT);
     let ID = await Storage.getItemSync(StorageKeys.ID);
+    authKey.token = JWT;
     console.log(ID);
-  //  reactotron.log(JWT);
+    //  reactotron.log(JWT);
     setTimeout(() => {
       if (JWT) {
         const resetAction = CommonActions.reset({

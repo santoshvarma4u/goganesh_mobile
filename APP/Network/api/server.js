@@ -1,6 +1,5 @@
 import {create} from 'apisauce';
-import Storage from '../../../APP/Modules/Common/Storage';
-import StorageKeys from '../../../APP/Modules/Common/StorageKeys';
+import authKey from '../../Modules/Common/JWT';
 
 const live = 'http://139.59.11.217:3000/';
 const local = 'http://192.168.0.106:3000/';
@@ -11,7 +10,7 @@ const apiClient = create({
   baseURL: env,
   headers: {
     Accept: 'x-www-form-urlencoded',
-    authorization: Storage.getItemSync(StorageKeys.JWT),
+    authorization: authKey.token,
   },
 });
 
