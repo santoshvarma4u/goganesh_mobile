@@ -25,7 +25,17 @@ const createDepositPayment = data => {
 
   return apiClient.post(paymentEndPoint, data, headers);
 };
+
+const createWithdrawPayment = data => {
+  const headers = {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  };
+  let paymentWithDrawEndPoint = '/payment/withdraw/';
+  console.log(data);
+  return apiClient.post(paymentWithDrawEndPoint, data);
+};
 export default {
   createDepositPayment,
   getUserTransactions,
+  createWithdrawPayment,
 };

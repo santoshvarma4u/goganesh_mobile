@@ -7,8 +7,11 @@ import {
   FlatList,
   Dimensions,
   StyleSheet,
+  ScrollView,
+  TextInput,
   TouchableOpacity,
 } from 'react-native';
+import {useWhyDidYouUpdate} from 'ahooks';
 import styles from './Styles';
 import {Searchbar} from 'react-native-paper';
 import AccordionListItem from './accordianListIDs';
@@ -18,10 +21,16 @@ import IdController from '../Controller/IdController';
 import Colors from '../../../Theams/Colors';
 
 const MyIDRoute = props => {
+  const banks = [];
   const getMyIDs = IdController.getUserSpecificIDs();
+
+  const getUserBanks = IdController.getBankData();
+  // getUserBanks.data.forEach(data => {
+  //   banks.push({label: data.bankName, value: data.bid});
+  // });
+
   const [refresh, setRefresh] = useState(false);
 
-  console.log(getMyIDs.loading);
   const [searchQuery, setSearchQuery] = React.useState('');
   const onChangeSearch = query => setSearchQuery(query);
   return (
@@ -56,14 +65,20 @@ const MyIDRoute = props => {
             color="white"
           />
         ) : null}
+        <TextInput />
         <FlatList
           data={getMyIDs.data}
           refreshing={refresh}
+          removeClippedSubviews={false}
+          keyboardShouldPersistTaps={'always'}
+          keyExtractor={(item, index) => index}
           onRefresh={() => {
             getMyIDs.request();
             setRefresh(false);
           }}
-          renderItem={({item}) => <AccordionMyIDs data={item} />}
+          renderItem={({item}) => (
+            <AccordionMyIDs data={item} banks={getUserBanks.data} />
+          )}
         />
       </View>
     </View>
@@ -76,6 +91,12 @@ const IDRoute = props => {
   const [refresh, setRefresh] = useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
   const onChangeSearch = query => setSearchQuery(query);
+  let a = getIDs.data;
+  useWhyDidYouUpdate('idroute', {
+    ...props,
+    a,
+  });
+
   return (
     <View style={styles.containerMain}>
       <View style={styles.searchBar}>

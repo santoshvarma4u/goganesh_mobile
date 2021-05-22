@@ -54,6 +54,7 @@ function DepositScreen({route}) {
   const [filePath, setFilePath] = useState({});
 
   const submitPayment = () => {
+    setProgress(true);
     if (requestStatus === 'new') {
       console.log('newwwww');
       DepositController.submitData(
@@ -177,7 +178,6 @@ function DepositScreen({route}) {
             <Button
               title="submit"
               onPress={() => {
-                setProgress(true);
                 submitPayment();
               }}
             />

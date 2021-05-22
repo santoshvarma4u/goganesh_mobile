@@ -135,8 +135,6 @@ function PaymentsScreen({navigation}) {
                       PaymentDetailsController.updateBankData(
                         values,
                         currentIndex + 1,
-                        
-                        
                       ).then(() => {
                         setModalVisible(!editModelVisible);
                       });
