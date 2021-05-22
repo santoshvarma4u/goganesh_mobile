@@ -19,7 +19,9 @@ import {useNavigation} from '@react-navigation/native';
 import {CommonActions} from '@react-navigation/native';
 function DepositScreen({route}) {
   const [progress, setProgress] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
+
+  const payeeDetils = DepositController.getPayeeDetails();
+  console.log('here');
 
   const resetAction = CommonActions.reset({
     index: 0,
@@ -36,8 +38,11 @@ function DepositScreen({route}) {
     requestStatus,
   } = route.params;
   const navigation = useNavigation();
-  console.log(route.params);
 
+  const payee = payeeDetils.data.filter(
+    data => data.paymenttype == paymentType,
+  );
+  console.log(payee);
   useEffect(() => {
     getUID();
   }, []);
@@ -67,10 +72,20 @@ function DepositScreen({route}) {
         userName,
         depositCoins,
       ).then(data => {
+        DepositController.submitIntialDeposit(
+          parseInt(uid),
+          sdid,
+          paymentType,
+          depositCoins,
+          'CR',
+          filePath,
+        ).then(data => {
+          console.log('both initial deposit and site request done!');
+        });
         setProgress(false);
-        setModalVisible(false);
+
         alert('success');
-        // navigation.dispatch(resetAction);
+        navigation.dispatch(resetAction);
       });
     } else {
       console.log('finen dposit woeking');
@@ -125,132 +140,157 @@ function DepositScreen({route}) {
   if (paymentType === 'Bank') {
     return (
       <View style={styles.containerMain}>
-        <View style={styles.depositTitle}>
-          <Text style={{color: 'white'}}>
-            Send Payment and Upload ScreenShot
-          </Text>
-        </View>
+        {payee.map((data, index) => {
+          return (
+            <View style={styles.containerMain}>
+              <View style={styles.depositTitle}>
+                <Text style={{color: 'white'}}>
+                  Send Payment and Upload ScreenShot
+                </Text>
+              </View>
 
-        <View style={styles.offersContainer}>
-          <View style={styles.depositDetailsCardForBank}>
-            <Text style={styles.depositTitile}>
-              Send INR {planMoney} to GANESH on {paymentType}
-            </Text>
-            <Divider style={{backgroundColor: 'black', height: 5}} />
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.depositTitile}>
-                {paymentType} Account Number
-              </Text>
-              <Text style={styles.phoneNumber}>XXXXXXXX</Text>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.depositTitile}>{paymentType} IFSC Code </Text>
-              <Text style={styles.phoneNumber}>XXXXXXXX</Text>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.depositTitile}>Amount To Deposit</Text>
-              <Text style={styles.phoneNumber}>{planMoney}</Text>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.depositTitile}>
-                {paymentType} Display name
-              </Text>
-              <Text style={styles.phoneNumber}>Ganesh traders</Text>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.depositTitile}>{paymentType} Bank Name </Text>
-              <Text style={styles.phoneNumber}>ICICI Current Account</Text>
-            </View>
-          </View>
-          <View style={styles.depostScreenshotCard}>
-            <TouchableOpacity
-              activeOpacity={0.5}
-              style={styles.buttonStyle}
-              onPress={() => chooseFile()}>
-              <Text style={styles.textStyle}>Choose Image</Text>
-            </TouchableOpacity>
+              <View style={styles.offersContainer}>
+                <View style={styles.depositDetailsCardForBank}>
+                  <Text style={styles.depositTitile}>
+                    Send INR {planMoney} to GANESH on {paymentType}
+                  </Text>
+                  <Divider style={{backgroundColor: 'black', height: 5}} />
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={styles.depositTitile}>
+                      {paymentType} Account Number
+                    </Text>
+                    <Text style={styles.phoneNumber}> {data.paymentkey}</Text>
+                  </View>
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={styles.depositTitile}>
+                      {paymentType} IFSC Code
+                    </Text>
+                    <Text style={styles.phoneNumber}>{data.IFSC}</Text>
+                  </View>
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={styles.depositTitile}>Amount To Deposit</Text>
+                    <Text style={styles.phoneNumber}>{planMoney}</Text>
+                  </View>
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={styles.depositTitile}>
+                      {paymentType} Display name
+                    </Text>
+                    <Text style={styles.phoneNumber}>{data.paymentname}</Text>
+                  </View>
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={styles.depositTitile}>
+                      {paymentType} Account Type{' '}
+                    </Text>
+                    <Text style={styles.phoneNumber}>{data.accountType}</Text>
+                  </View>
+                </View>
+                <View style={styles.depostScreenshotCard}>
+                  <TouchableOpacity
+                    activeOpacity={0.5}
+                    style={styles.buttonStyle}
+                    onPress={() => chooseFile()}>
+                    <Text style={styles.textStyle}>Choose Image</Text>
+                  </TouchableOpacity>
 
-            <Image
-              source={{uri: filePath.uri}}
-              style={{padding: 5, width: 150, height: 200}}
-            />
-            <Text style={styles.textStyle}>{filePath.uri}</Text>
-            <Button
-              title="submit"
-              onPress={() => {
-                submitPayment();
-              }}
-            />
-          </View>
-          <ActivityIndicator animating={progress} size="large" color="white" />
-        </View>
+                  <Image
+                    source={{uri: filePath.uri}}
+                    style={{padding: 5, width: 150, height: 200}}
+                  />
+                  <Text style={styles.textStyle}>{filePath.uri}</Text>
+                  <Button
+                    title="submit"
+                    onPress={() => {
+                      submitPayment();
+                    }}
+                  />
+                </View>
+                <ActivityIndicator
+                  animating={progress}
+                  size="large"
+                  color="white"
+                />
+              </View>
+            </View>
+          );
+        })}
       </View>
     );
   } else {
     return (
       <View style={styles.containerMain}>
-        <View style={styles.offersContainer}>
-          <View style={styles.depositTitle}>
-            <Text style={{color: 'white'}}>
-              Send Payment & Upload ScreenShot
-            </Text>
-          </View>
+        {payee.map((data, index) => {
+          return (
+            <View style={styles.offersContainer}>
+              <View style={styles.depositTitle}>
+                <Text style={{color: 'white'}}>
+                  Send Payment & Upload ScreenShot
+                </Text>
+              </View>
 
-          <View style={styles.depositDetailsCard}>
-            <Text style={styles.depositTitile}>
-              Send INR {planMoney} to Go Ganesh on {paymentType}
-            </Text>
-            <Divider style={{backgroundColor: 'black', height: 5}} />
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.depositTitile}>{paymentType} Number</Text>
-              <Text style={styles.phoneNumber}>XXXXXXXX</Text>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.depositTitile}>Amount To Deposit</Text>
-              <Text style={styles.phoneNumber}>{planMoney}</Text>
-            </View>
-            <View style={{flexDirection: 'row'}}>
+              <View style={styles.depositDetailsCard}>
+                <Text style={styles.depositTitile}>
+                  Send INR {planMoney} to Go Ganesh on {data.paymentkey}
+                </Text>
+
+                <Divider style={{backgroundColor: 'black', height: 5}} />
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={styles.depositTitile}>{paymentType} Number</Text>
+                  <Text style={styles.phoneNumber}>{data.paymentkey}</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={styles.depositTitile}>Amount To Deposit</Text>
+                  <Text style={styles.phoneNumber}>{planMoney}</Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={styles.depositTitile}>
+                    {paymentType} Display name
+                  </Text>
+                  <Text style={styles.phoneNumber}>{data.paymentname}</Text>
+                </View>
+              </View>
               <Text style={styles.depositTitile}>
-                {paymentType} Display name
+                Attach Payment Screenshot
               </Text>
-              <Text style={styles.phoneNumber}>Go Ganesh</Text>
-            </View>
-          </View>
-          <Text style={styles.depositTitile}>Attach Payment Screenshot</Text>
-          <View style={styles.depostScreenshotCard}>
-            <View style={{margin: 20}}>
-              <Icon
-                name="perm-media"
-                color={Colors.appPrimaryColor}
-                size={34}
+              <View style={styles.depostScreenshotCard}>
+                <View style={{margin: 20}}>
+                  <Icon
+                    name="perm-media"
+                    color={Colors.appPrimaryColor}
+                    size={34}
+                  />
+                </View>
+                <TouchableOpacity
+                  activeOpacity={0.5}
+                  style={styles.buttonStyle}
+                  onPress={() => chooseFile()}>
+                  <Text style={styles.textStyle}>Upload</Text>
+                  <Text style={styles.textStyle2}>payment screenshot here</Text>
+                </TouchableOpacity>
+                <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
+                <Text style={styles.textStyle}>{filePath.uri}</Text>
+              </View>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: Colors.appPrimaryColor,
+                  paddingVertical: 10,
+                  paddingHorizontal: 100,
+                  borderRadius: 10,
+                  marginTop: 50,
+                }}
+                onPress={() => {
+                  setProgress(true);
+                  submitPayment();
+                }}>
+                <Text>Submit</Text>
+              </TouchableOpacity>
+              <ActivityIndicator
+                animating={progress}
+                size="large"
+                color="white"
               />
             </View>
-            <TouchableOpacity
-              activeOpacity={0.5}
-              style={styles.buttonStyle}
-              onPress={() => chooseFile()}>
-              <Text style={styles.textStyle}>Upload</Text>
-              <Text style={styles.textStyle2}>payment screenshot here</Text>
-            </TouchableOpacity>
-            <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
-            <Text style={styles.textStyle}>{filePath.uri}</Text>
-          </View>
-          <TouchableOpacity
-            style={{
-              backgroundColor: Colors.appPrimaryColor,
-              paddingVertical: 10,
-              paddingHorizontal: 100,
-              borderRadius: 10,
-              marginTop: 50,
-            }}
-            onPress={() => {
-              setProgress(true);
-              submitPayment();
-            }}>
-            <Text>Submit</Text>
-          </TouchableOpacity>
-          <ActivityIndicator animating={progress} size="large" color="white" />
-        </View>
+          );
+        })}
       </View>
     );
   }

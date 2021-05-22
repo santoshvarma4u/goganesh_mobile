@@ -22,7 +22,7 @@ function HomeScreen() {
 
   useEffect(() => {
     if (success) {
-      setSliderImgs(data.map(i => `http://192.168.0.106:3000/${i.promoImage}`));
+      setSliderImgs(data.map(i => `http://139.59.11.217:3000/${i.promoImage}`));
     }
   }, [data, success]);
 
@@ -54,6 +54,7 @@ function HomeScreen() {
             ImageComponentStyle={{overflow: 'hidden'}}
             autoplay
             circleLoop
+            resizeMode={'contain'}
           />
         </View>
         <TouchableOpacity
