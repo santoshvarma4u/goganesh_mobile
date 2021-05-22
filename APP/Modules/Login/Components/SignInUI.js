@@ -24,18 +24,17 @@ function SignIn() {
 
   // otp
   const verifyOtp = async () => {
-    console.log(otpSession, otp);
-    navigation.navigate('SignUp', {phoneNumber: number});
-    // const verifyOtpSession = await LoginController.verifyOtp(otpSession, otp);
-    // setOtpVerifyStatus(verifyOtpSession.Status);
-    // if (otpverifyStatus === 'Success') {
-    //   const checkUser = await LoginController.checkUser(number);
-    //   if (checkUser.data.message === 'user not found') {
-    //     navigation.navigate('SignUp', {phoneNumber: number});
-    //   } else {
-    //     navigation.navigate('App');
-    //   }
-    // }
+    // console.log(otpSession, otp);
+    const verifyOtpSession = await LoginController.verifyOtp(otpSession, otp);
+    setOtpVerifyStatus(verifyOtpSession.Status);
+    if (otpverifyStatus === 'Success') {
+      const checkUser = await LoginController.checkUser(number);
+      if (checkUser.data.message === 'user not found') {
+        navigation.navigate('SignUp', {phoneNumber: number});
+      } else {
+        navigation.navigate('App');
+      }
+    }
   };
   const sendOtpAndRedirect = async () => {
     console.log('ok sendOtpAndRedirect');
@@ -59,6 +58,7 @@ function SignIn() {
               value={number}
               placeholder="Enter Phone Number"
               keyboardType="numeric"
+              maxLength={10}
             />
           </View>
           <TouchableOpacity

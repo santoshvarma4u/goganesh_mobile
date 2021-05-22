@@ -1,9 +1,20 @@
 import authApi from '../../../Network/auth/auth';
-
+import Storage from '../../Common/Storage';
+import StorageKeys from '../../Common/StorageKeys';
 const checkUser = async phoneNumber => {
   try {
     const result = await authApi.loginCheck(phoneNumber);
+
     if (!result.ok) return result;
+
+    if (result?.data?.details) {
+      Storage.setItemSync(
+        StorageKeys.ID,
+        JSON.stringify(result.data.details.data.uid),
+      );
+      Storage.setItemSync(StorageKeys.NAME, result.data.details.data.full_name);
+      Storage.setItemSync(StorageKeys.JWT, result.data.details.data.token);
+    }
 
     return result;
   } catch (error) {
