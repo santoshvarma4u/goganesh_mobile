@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, Left, Button, StyleSheet, Image} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Button,
+  StyleSheet,
+  Image,
+} from 'react-native';
 
 import styles from './Styles';
 import {Icon} from 'react-native-elements';
@@ -7,7 +14,9 @@ import HomeController from '../Controller/homeController';
 import images from '../../../Theams/Images';
 import Colors from '../../../Theams/Colors';
 import {SliderBox} from 'react-native-image-slider-box';
+import {useNavigation} from '@react-navigation/native';
 function HomeScreen() {
+  const navigation = useNavigation();
   const [sliderImgs, setSliderImgs] = useState([]);
   const {data, success} = HomeController.useGetPromoImages();
 
@@ -47,10 +56,20 @@ function HomeScreen() {
             circleLoop
           />
         </View>
-        <View style={styles.createText}>
-          <Icon name="add" color="white" size={20} />
+        <TouchableOpacity
+          style={{
+            width: '80%',
+            margin: 20,
+            height: 40,
+            padding: 8,
+            alignItems: 'center',
+            backgroundColor: Colors.appPrimaryColor,
+            justifyContent: 'center',
+            borderRadius: 5,
+          }}
+          onPress={() => navigation.navigate("ID's")}>
           <Text style={styles.createTextOnly}>Create ID</Text>
-        </View>
+        </TouchableOpacity>
         {/*<View style={styles.promotionCard} />*/}
         <View style={styles.createAnnouncement}>
           <Text style={styles.tipsText}>Tips & Announcements</Text>

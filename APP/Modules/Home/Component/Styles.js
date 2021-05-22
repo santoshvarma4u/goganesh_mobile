@@ -62,7 +62,7 @@ export default StyleSheet.create({
     color: 'white',
   },
   createTextOnly: {
-    color: 'white',
+    color: 'black',
     marginHorizontal: 10,
   },
   centralCardView: {
