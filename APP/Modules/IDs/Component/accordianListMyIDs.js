@@ -18,6 +18,7 @@ import images from '../../../Theams/Images';
 import Colors from '../../../Theams/Colors';
 import {Formik} from 'formik';
 import IdController from '../Controller/IdController';
+import reactotron from "reactotron-react-native";
 
 const AccordianListNew = props => {
   let banks = [];
@@ -25,15 +26,14 @@ const AccordianListNew = props => {
   const [amount, onAmountChange] = React.useState(null);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
-  const [items, setItems] = useState(banks);
+  const [items, setItems] = useState([]);
   useEffect(() => {
-    props.banks.forEach((el, index) => {
+    props.banks.map(item => {
       banks.push({
-        label: props.banks[index].bankName,
-        value: props.banks[index].bid,
+        label: item.bankName,
+        value: item.bid,
       });
     });
-
     setItems(banks);
   }, []);
 

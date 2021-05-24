@@ -69,9 +69,9 @@ const MyIDRoute = props => {
         <FlatList
           data={getMyIDs.data}
           refreshing={refresh}
-          removeClippedSubviews={false}
+          removeClippedSubviews={true}
           keyboardShouldPersistTaps={'always'}
-          keyExtractor={(item, index) => index}
+          keyExtractor={(item, index) => index.toString()}
           onRefresh={() => {
             getMyIDs.request();
             setRefresh(false);

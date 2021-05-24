@@ -26,7 +26,7 @@ function SignIn() {
   const verifyOtp = async () => {
     const verifyOtpSession = await LoginController.verifyOtp(otpSession, otp);
     setOtpVerifyStatus(verifyOtpSession.Status);
-    if (otpverifyStatus === 'Success') {
+    if (verifyOtpSession.Status === 'Success') {
       const checkUser = await LoginController.checkUser(number);
       if (checkUser.data.message === 'user not found') {
         navigation.navigate('SignUp', {phoneNumber: number});
