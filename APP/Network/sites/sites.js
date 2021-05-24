@@ -1,4 +1,4 @@
-import {apiClient} from '../api/server';
+import apiClient from '../api/server';
 import StorageKeys from '../../Modules/Common/StorageKeys';
 import Storage from '../../Modules/Common/Storage';
 

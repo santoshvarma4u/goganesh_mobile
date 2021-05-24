@@ -1,26 +1,35 @@
 import authApi from '../../../Network/auth/auth';
+import NetworkAPI from '../../../Network/api/server';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import authKey from '../../../Modules/Common/JWT';
 const checkUser = async phoneNumber => {
   try {
+    console.log('====================================');
+    console.log('check user called');
+    console.log('====================================');
     const result = await authApi.loginCheck(phoneNumber);
 
     if (!result.ok) {
+      console.log(result);
       return result;
     }
 
-    if (result?.data?.details) {
-      Storage.setItemSync(
+    // console.log(result.data);
+    if (result?.data && result.data.message === 'user not found') {
+      return result;
+    } else {
+      await Storage.setItemSync(
         StorageKeys.ID,
-        JSON.stringify(result.data.details.data.uid),
+        JSON.stringify(result.data.data.uid),
       );
-      Storage.setItemSync(StorageKeys.NAME, result.data.details.data.full_name);
-      Storage.setItemSync(StorageKeys.JWT, result.data.details.data.token);
-      authKey.token = result.data.details.data.token;
+      await Storage.setItemSync(StorageKeys.NAME, result.data.data.full_name);
+      await Storage.setItemSync(StorageKeys.JWT, result.data.data.token);
+      authKey.token = result.data.data.token;
+      NetworkAPI.apiClient.setHeader('authorization', authKey.token);
+      console.log('authkey from login ceck user', authKey.token);
+      return result;
     }
-
-    return result;
   } catch (error) {
     console.log(error);
   }

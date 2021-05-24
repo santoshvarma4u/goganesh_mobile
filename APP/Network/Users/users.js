@@ -1,9 +1,9 @@
-import {apiClient} from '../api/server';
+import NetworkAPI from '../api/server';
 
 const usersEndPoint = '/users';
-const getUsers = () => apiClient.get(usersEndPoint);
+const getUsers = () => NetworkAPI.apiClient.get(usersEndPoint);
 const createUser = data => {
-  return apiClient.post(usersEndPoint, data);
+  return NetworkAPI.apiLoginClient.post(usersEndPoint, data);
 };
 export default {
   getUsers,

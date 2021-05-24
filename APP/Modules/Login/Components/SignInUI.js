@@ -15,6 +15,9 @@ import LoginController from '../Controllers/LoginController';
 import Colors from '../../../Theams/Colors';
 import LinearGradient from 'react-native-linear-gradient';
 import images from '../../../Theams/Images';
+import authKey from '../../../Modules/Common/JWT';
+import Storage from '../../Common/Storage';
+import StorageKeys from '../../Common/StorageKeys';
 function SignIn() {
   const navigation = useNavigation();
   const [number, onChangeNumber] = React.useState('');
@@ -23,6 +26,12 @@ function SignIn() {
   const [otpverifyStatus, setOtpVerifyStatus] = React.useState('');
 
   // otp
+  const getToken = async () => {
+    let tok = await Storage.getItemSync(StorageKeys.JWT);
+    console.log('ppiuytrtiopoiuytyui', tok);
+    return tok;
+  };
+
   const verifyOtp = async () => {
     const verifyOtpSession = await LoginController.verifyOtp(otpSession, otp);
     setOtpVerifyStatus(verifyOtpSession.Status);
@@ -31,6 +40,7 @@ function SignIn() {
       if (checkUser.data.message === 'user not found') {
         navigation.navigate('SignUp', {phoneNumber: number});
       } else {
+        authKey.token = await getToken();
         navigation.navigate('App');
       }
     }

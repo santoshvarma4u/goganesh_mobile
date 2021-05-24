@@ -1,4 +1,4 @@
-import {apiClient} from '../api/server';
+import NetworkAPI from '../api/server';
 import StorageKeys from '../../Modules/Common/StorageKeys';
 import Storage from '../../Modules/Common/Storage';
 const paymentEndPoint = '/payment';
@@ -14,7 +14,7 @@ const getUID = async () => {
 const getUserTransactions = async () => {
   let uid = await getUID();
   const paymentEndPointOfUser = `/payment/${uid}`;
-  return apiClient.get(paymentEndPointOfUser);
+  return NetworkAPI.apiClient.get(paymentEndPointOfUser);
 };
 const createDepositPayment = data => {
   const headers = {
@@ -23,7 +23,7 @@ const createDepositPayment = data => {
   console.log('-----000;;;00;;0;');
   console.log(data);
 
-  return apiClient.post(paymentEndPoint, data, headers);
+  return NetworkAPI.apiClient.post(paymentEndPoint, data, headers);
 };
 
 const createWithdrawPayment = data => {
@@ -32,7 +32,7 @@ const createWithdrawPayment = data => {
   };
   let paymentWithDrawEndPoint = '/payment/withdraw/';
   console.log(data);
-  return apiClient.post(paymentWithDrawEndPoint, data);
+  return NetworkAPI.apiClient.post(paymentWithDrawEndPoint, data);
 };
 export default {
   createDepositPayment,

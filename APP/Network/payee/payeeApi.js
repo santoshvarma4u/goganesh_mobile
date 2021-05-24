@@ -1,7 +1,7 @@
-import {apiClient} from '../api/server';
+import NetworkAPI from '../api/server';
 
 const payeeEndPoint = '/paymentMaster';
-const getPayeeDetails = () => apiClient.get(payeeEndPoint);
+const getPayeeDetails = () => NetworkAPI.apiClient.get(payeeEndPoint);
 
 export default {
   getPayeeDetails,

@@ -1,10 +1,10 @@
-import {apiClient} from '../api/server';
+import NetworkAPI from '../api/server';
 
 const idendPoint = '/site';
 const siteRequestEndPoint = '/siteRequest';
-const getIDs = () => apiClient.get(idendPoint);
+const getIDs = () => NetworkAPI.apiClient.get(idendPoint);
 const createID = (data, onUplaodProgress) => {
-  return apiClient.post(siteRequestEndPoint, data, {
+  return NetworkAPI.apiClient.post(siteRequestEndPoint, data, {
     onUploadProgress: progress =>
       onUplaodProgress(progress.loaded / progress.total),
   });

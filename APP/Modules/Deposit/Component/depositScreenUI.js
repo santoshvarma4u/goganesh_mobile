@@ -294,7 +294,7 @@ function DepositScreen({route}) {
                   color="white"
                 />
               ) : (
-                ''
+                <Text>''</Text>
               )}
             </View>
           );

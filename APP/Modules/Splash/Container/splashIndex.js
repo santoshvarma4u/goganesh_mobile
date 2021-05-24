@@ -5,7 +5,7 @@ import StorageKeys from '../../Common/StorageKeys';
 import SplashScreen from '../Component/splashScreenUI';
 import {CommonActions} from '@react-navigation/native';
 import authKey from '../../../Modules/Common/JWT';
-
+import NetworkAPI from '../../../Network/api/server';
 export default class Splash extends PureComponent {
   componentDidMount = () => {
     this.learnMorePress();
@@ -15,7 +15,10 @@ export default class Splash extends PureComponent {
     let JWT = await Storage.getItemSync(StorageKeys.JWT);
     let ID = await Storage.getItemSync(StorageKeys.ID);
     authKey.token = JWT;
-    console.log(ID);
+    if (JWT) {
+      NetworkAPI.apiClient.setHeader('authorization', authKey.token);
+    }
+    console.log('authkey from splasl', authKey.token);
     //  reactotron.log(JWT);
     setTimeout(() => {
       if (JWT) {

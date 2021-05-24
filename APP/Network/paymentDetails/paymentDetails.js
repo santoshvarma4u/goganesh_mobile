@@ -1,4 +1,4 @@
-import {apiClient} from '../api/server';
+import NetworkAPI from '../api/server';
 import StorageKeys from '../../Modules/Common/StorageKeys';
 import Storage from '../../Modules/Common/Storage';
 
@@ -14,7 +14,7 @@ const getUserBankDetails = async () => {
   let uid = await getUID();
 
   const userBankDetails = `/userBankDetails/${uid}`;
-  return apiClient.get(userBankDetails);
+  return NetworkAPI.apiClient.get(userBankDetails);
 };
 
 const createUserBankDetails = async data => {
@@ -25,14 +25,14 @@ const createUserBankDetails = async data => {
   const userBankDetails = '/userBankDetails';
   console.log('=========');
   console.log(data);
-  return apiClient.post(userBankDetails, data, headers);
+  return NetworkAPI.apiClient.post(userBankDetails, data, headers);
 };
 
 const updateUserBankDetails = async data => {
   const uid = data.uid;
   const userBankDetails = `/userBankDetails/${uid}`;
 
-  return apiClient.patch(userBankDetails, data);
+  return NetworkAPI.apiClient.patch(userBankDetails, data);
 };
 export default {
   getUserBankDetails,

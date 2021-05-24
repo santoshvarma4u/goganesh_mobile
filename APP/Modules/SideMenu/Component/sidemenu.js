@@ -10,6 +10,12 @@ import {
 } from '@react-navigation/drawer';
 
 function CustomSidebarMenu({...props}) {
+  const removeUserDetails = async () => {
+    await Storage.removeItemSync(StorageKeys.JWT);
+    await Storage.removeItemSync(StorageKeys.ID);
+    await Storage.removeItemSync(StorageKeys.NAME);
+    await Storage.removeItemSync(StorageKeys.FCMTOKEN);
+  };
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
@@ -24,11 +30,7 @@ function CustomSidebarMenu({...props}) {
       <DrawerItem
         label="Logout"
         onPress={() => {
-          Storage.removeItemSync(StorageKeys.JWT);
-          Storage.removeItemSync(StorageKeys.ID);
-          Storage.removeItemSync(StorageKeys.NAME);
-          Storage.removeItemSync(StorageKeys.FCMTOKEN);
-
+          removeUserDetails();
           props.navigation.navigate('Auth');
         }}
       />
