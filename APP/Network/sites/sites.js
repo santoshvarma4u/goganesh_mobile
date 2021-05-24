@@ -1,4 +1,4 @@
-import apiClient from '../api/server';
+import NetworkAPINetworkAPI from '../api/server';
 import StorageKeys from '../../Modules/Common/StorageKeys';
 import Storage from '../../Modules/Common/Storage';
 
@@ -13,7 +13,7 @@ const getUID = async () => {
 const getUserSiteDetails = async () => {
   let uid = await getUID();
   const userSiteDetails = `/userSiteDetails/${uid}`;
-  return apiClient.get(userSiteDetails);
+  return NetworkAPI.apiClient.get(userSiteDetails);
 };
 export default {
   getUserSiteDetails,
