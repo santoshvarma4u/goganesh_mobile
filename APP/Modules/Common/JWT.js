@@ -3,6 +3,7 @@ import StorageKeys from '../../../APP/Modules/Common/StorageKeys';
 
 let JWT = {
   token: '',
+  usertype: '',
 };
 
 export default JWT;

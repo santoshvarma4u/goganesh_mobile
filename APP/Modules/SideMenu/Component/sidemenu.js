@@ -24,7 +24,7 @@ function CustomSidebarMenu({...props}) {
         onPress={() => props.navigation.navigate('Profile')}
       />
       <DrawerItem
-        label="Payments"
+        label="Banks"
         onPress={() => props.navigation.navigate('Payments')}
       />
       <DrawerItem

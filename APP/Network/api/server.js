@@ -4,9 +4,9 @@ import Storage from '../../Modules/Common/Storage';
 import StorageKeys from '../../Modules/Common/StorageKeys';
 
 const live = 'http://139.59.11.217:3000/';
-const local = 'http://192.168.0.106:3000/';
+const local = 'http://192.168.29.221:3000/';
 
-export const env = live;
+export const env = local;
 
 console.log('hiiiiiiiiiiiiiiii');
 

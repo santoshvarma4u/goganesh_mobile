@@ -40,8 +40,12 @@ function SignIn() {
       if (checkUser.data.message === 'user not found') {
         navigation.navigate('SignUp', {phoneNumber: number});
       } else {
-        authKey.token = await getToken();
-        navigation.navigate('App');
+        if (authKey.usertype == 'user') {
+          authKey.token = await getToken();
+          navigation.navigate('App');
+        } else {
+          alert('access denied');
+        }
       }
     }
   };

@@ -44,7 +44,7 @@ const updateBankData = async (bankData, currentIndex) => {
   console.log(data);
   const result = await paymentsDetailsApi.updateUserBankDetails(data);
   if (!result.ok) return alert(result.problem);
-  alert('success');
+  return result;
 };
 
 const getBankData = () => useAPI(paymentsDetailsApi.getUserBankDetails);

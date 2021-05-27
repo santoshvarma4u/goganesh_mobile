@@ -17,6 +17,7 @@ import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import SignupController from '../Controllers/SignupController';
 import Colors from '../../../Theams/Colors';
+
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
     .min(2, 'name is Too Short!')

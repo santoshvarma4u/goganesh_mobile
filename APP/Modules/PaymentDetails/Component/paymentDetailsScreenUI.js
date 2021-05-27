@@ -17,6 +17,7 @@ import PaymentDetailsController from '../Controller/paymentDetailsController';
 
 function PaymentsScreen({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
+  const [bankVales, setBankVales] = useState({});
   const [refresh, setRefresh] = useState(false);
   const mybanks = PaymentDetailsController.getBankData();
 
@@ -124,19 +125,23 @@ function PaymentsScreen({navigation}) {
                   <Formik
                     enableReinitialize
                     initialValues={{
-                      bankName: '',
-                      AccountNumber: '',
-                      IFSC: '',
-                      AccountHolderName: '',
-                      branchCode: '',
+                      bankName: bankVales.bankName,
+                      AccountNumber: bankVales.accountNumber,
+                      IFSC: bankVales.IFSC,
+                      AccountHolderName: bankVales.accountHolderName,
+                      branchCode: bankVales.branchCode,
                     }}
                     onSubmit={values => {
                       console.log('vlues', values);
                       PaymentDetailsController.updateBankData(
                         values,
-                        currentIndex + 1,
-                      ).then(() => {
-                        setModalVisible(!editModelVisible);
+                        bankVales.bid,
+                      ).then(result => {
+                        if (result.ok) {
+                          alert('Successfully Upadated');
+                          setEditModelVisible(false);
+                          mybanks.request();
+                        }
                       });
                     }}>
                     {({handleChange, handleSubmit}) => (
@@ -144,42 +149,37 @@ function PaymentsScreen({navigation}) {
                         <TextInput
                           style={styles.modalText}
                           placeholder="Bank Name"
-                          defaultValue={mybanks.data[currentIndex].bankName}
+                          defaultValue={bankVales.bankName}
                           onChangeText={handleChange('bankName')}></TextInput>
                         <TextInput
                           style={styles.modalText}
                           placeholder="Account Number"
-                          defaultValue={mybanks.data[
-                            currentIndex
-                          ].accountNumber.toString()}
+                          defaultValue={bankVales.accountNumber.toString()}
+                          keyboardType="numeric"
                           onChangeText={handleChange(
                             'AccountNumber',
                           )}></TextInput>
                         <TextInput
                           style={styles.modalText}
                           placeholder="IFSC code"
-                          defaultValue={mybanks.data[currentIndex].IFSC}
+                          defaultValue={bankVales.IFSC}
                           onChangeText={handleChange('IFSC')}></TextInput>
                         <TextInput
                           style={styles.modalText}
                           placeholder="Account Holder Name"
-                          defaultValue={
-                            mybanks.data[currentIndex].accountHolderName
-                          }
+                          defaultValue={bankVales.accountHolderName}
                           onChangeText={handleChange(
                             'AccountHolderName',
                           )}></TextInput>
                         <TextInput
                           style={styles.modalText}
                           placeholder="Branch Code"
-                          defaultValue={mybanks.data[currentIndex].branchCode}
+                          defaultValue={bankVales.branchCode}
                           onChangeText={handleChange('branchCode')}></TextInput>
                         <Button title="Update" onPress={handleSubmit}></Button>
                         <Pressable
                           style={[styles.button, styles.buttonClose]}
-                          onPress={() =>
-                            setEditModelVisible(!editModelVisible)
-                          }>
+                          onPress={() => setEditModelVisible(false)}>
                           <Text style={styles.textStyle}>Hide Modal</Text>
                         </Pressable>
                       </>
@@ -214,7 +214,7 @@ function PaymentsScreen({navigation}) {
                     style={{color: 'black'}}
                     title="edit"
                     onPress={() => {
-                      setCurrentIndex(index);
+                      setBankVales(item);
                       setEditModelVisible(true);
                     }}></Button>
                 </View>

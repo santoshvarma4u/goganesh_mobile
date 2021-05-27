@@ -16,6 +16,17 @@ import {Formik} from 'formik';
 import {useNavigation} from '@react-navigation/native';
 import images from '../../../Theams/Images';
 import Colors from '../../../Theams/Colors';
+import * as Yup from 'yup';
+// UserName: '',
+// DepositCoins: '',
+const usernameAndDepositSchema = Yup.object().shape({
+  UserName: Yup.string()
+    .min(2, 'username is Too Short!')
+    .max(20, 'username Too Long!'),
+  DepositCoins: Yup.string()
+    .min(1, 'DepositCoins Too Short!')
+    .required('DepositCoins Required'),
+});
 
 function CreateIDScreen({route}) {
   const {sdid, url, sitename, requestStatus} = route.params;
@@ -170,6 +181,7 @@ function CreateIDScreen({route}) {
 
           <View style={styles.planDeatils}>
             <Formik
+              validationSchema={usernameAndDepositSchema}
               initialValues={{
                 UserName: '',
                 DepositCoins: '',
@@ -185,7 +197,7 @@ function CreateIDScreen({route}) {
                   requestStatus: requestStatus,
                 });
               }}>
-              {({handleChange, handleSubmit}) => (
+              {({handleChange, handleSubmit, errors, touched}) => (
                 <>
                   <TextInput
                     style={styles.modalText}
@@ -213,6 +225,17 @@ function CreateIDScreen({route}) {
                     onPress={handleSubmit}>
                     <Text style={{alignItems: 'center'}}>Continue to Pay</Text>
                   </TouchableOpacity>
+                  {errors.UserName && touched.UserName && (
+                    <Text style={{backgroundColor: 'white'}}>
+                      {errors.UserName}
+                    </Text>
+                  )}
+
+                  {errors.DepositCoins && touched.DepositCoins && (
+                    <Text style={{backgroundColor: 'white'}}>
+                      {errors.DepositCoins}
+                    </Text>
+                  )}
                 </>
               )}
             </Formik>

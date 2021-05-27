@@ -19,6 +19,9 @@ const checkUser = async phoneNumber => {
     if (result?.data && result.data.message === 'user not found') {
       return result;
     } else {
+      if (result.data.data.usertype == 'admin') {
+        return result;
+      }
       await Storage.setItemSync(
         StorageKeys.ID,
         JSON.stringify(result.data.data.uid),
