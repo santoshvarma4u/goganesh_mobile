@@ -1,4 +1,4 @@
-import NetworkAPINetworkAPI from '../api/server';
+import NetworkAPI from '../api/server';
 import StorageKeys from '../../Modules/Common/StorageKeys';
 import Storage from '../../Modules/Common/Storage';
 
@@ -11,6 +11,7 @@ const getUID = async () => {
 };
 
 const getUserSiteDetails = async () => {
+  console.log('inside usersitedetails contriller');
   let uid = await getUID();
   const userSiteDetails = `/userSiteDetails/${uid}`;
   return NetworkAPI.apiClient.get(userSiteDetails);

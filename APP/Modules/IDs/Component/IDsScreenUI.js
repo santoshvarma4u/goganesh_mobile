@@ -23,7 +23,7 @@ import Colors from '../../../Theams/Colors';
 const MyIDRoute = props => {
   const banks = [];
   const getMyIDs = IdController.getUserSpecificIDs();
-
+  console.log('myids', getMyIDs.data);
   const getUserBanks = IdController.getBankData();
   // getUserBanks.data.forEach(data => {
   //   banks.push({label: data.bankName, value: data.bid});

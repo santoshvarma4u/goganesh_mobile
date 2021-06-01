@@ -35,7 +35,7 @@ const sendWithDrawRequest = async (
     paymentAmount: paymentAmount,
     paymentMethod: paymentMethod,
     userBankID: bid,
-    paymentAmount: paymentAmount,
+    paymentType: paymentType,
   };
   const result = await transactionsApi.createWithdrawPayment(data);
   if (!result.ok) return alert(result.problem);

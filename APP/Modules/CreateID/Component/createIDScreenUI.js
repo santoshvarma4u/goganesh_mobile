@@ -199,12 +199,26 @@ function CreateIDScreen({route}) {
               }}>
               {({handleChange, handleSubmit, errors, touched}) => (
                 <>
-                  <TextInput
-                    style={styles.modalText}
-                    placeholder="Username *"
-                    placeholderTextColor="#d5d1d1"
-                    onChangeText={handleChange('UserName')}
-                  />
+                  {route.params.username && (
+                    <TextInput
+                      style={styles.modalText}
+                      placeholder="Username *"
+                      placeholderTextColor="#d5d1d1"
+                      defaultValue={route.params.username}
+                      editable={false}
+                      onChangeText={handleChange('UserName')}
+                    />
+                  )}
+
+                  {!route.params.username && (
+                    <TextInput
+                      style={styles.modalText}
+                      placeholder="Username *"
+                      placeholderTextColor="#d5d1d1"
+                      defaultValue={route.params.username}
+                      onChangeText={handleChange('UserName')}
+                    />
+                  )}
 
                   <TextInput
                     style={styles.modalText}

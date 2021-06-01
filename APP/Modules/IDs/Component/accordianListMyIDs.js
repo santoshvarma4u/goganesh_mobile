@@ -18,15 +18,17 @@ import images from '../../../Theams/Images';
 import Colors from '../../../Theams/Colors';
 import {Formik} from 'formik';
 import IdController from '../Controller/IdController';
-import reactotron from "reactotron-react-native";
+import reactotron from 'reactotron-react-native';
 
 const AccordianListNew = props => {
   let banks = [];
+
   const [expanded, setExpanded] = React.useState(true);
   const [amount, onAmountChange] = React.useState(null);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([]);
+
   useEffect(() => {
     props.banks.map(item => {
       banks.push({
@@ -34,11 +36,18 @@ const AccordianListNew = props => {
         value: item.bid,
       });
     });
+    console.log(banks);
     setItems(banks);
   }, []);
 
+  const getIndex = value => {
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].value == value) {
+        return i;
+      }
+    }
+  };
   const [withDrawForm, setWithDrawForm] = useState(false);
-  const [withDrawAmount, setWithDrawAmount] = useState(0);
   const navigation = useNavigation();
   const handlePress = () => setExpanded(!expanded);
 
@@ -98,6 +107,7 @@ const AccordianListNew = props => {
             onPress={() => {
               navigation.navigate('CreateID', {
                 sdid: props.data.sd.sdid,
+                username: props.data.username,
                 requestStatus: 'old',
               });
             }}>
@@ -155,12 +165,13 @@ const AccordianListNew = props => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
+                    let i = getIndex(value);
                     IdController.sendWithDrawRequest(
                       props.data.sd.sdid,
-                      props.banks[value].bankName,
+                      items[i].label,
                       amount,
                       'DR',
-                      props.banks[value].bid,
+                      items[i].value,
                     ).then(data => {
                       alert('success');
                     });

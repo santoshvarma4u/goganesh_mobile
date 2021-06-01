@@ -31,6 +31,7 @@ function PassbookScreen({navigation}) {
               request();
               setRefresh(false);
             }}
+            inverted={true}
             refreshing={refresh}
             data={data}
             renderItem={({item}) => (
