@@ -66,7 +66,7 @@ function DepositScreen({route}) {
         sdid,
         planType,
         paymentType,
-        false,
+        'Pending',
         filePath,
         userName,
         depositCoins,

@@ -20,14 +20,19 @@ import reactotron from 'reactotron-react-native';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import authKey from '../../../Modules/Common/JWT';
+import {LocalNotification} from '../../Common/pushNotifications';
 function HomeScreen(props) {
   const navigation = useNavigation();
   const [sliderImgs, setSliderImgs] = useState([]);
   const {data, success} = HomeController.useGetPromoImages();
 
+  const notify = () => {
+    LocalNotification();
+  };
+
   useEffect(() => {
     console.log('jwt from home screen', authKey.token);
-
+    //LocalNotification();
     if (success) {
       data.map(i => {
         reactotron.log(`${env}${i.promoImage}`);

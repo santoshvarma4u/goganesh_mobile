@@ -37,9 +37,8 @@ const AccordianListNew = props => {
       });
     });
     console.log(banks);
-    setItems(banks);
   }, []);
-
+  //setItems(banks);
   const getIndex = value => {
     for (let i = 0; i < items.length; i++) {
       if (items[i].value == value) {
@@ -124,6 +123,7 @@ const AccordianListNew = props => {
               borderRadius: 5,
             }}
             onPress={() => {
+              setItems(banks);
               setWithDrawForm(true);
             }}>
             <Text style={{alignItems: 'center'}}>Withdraw</Text>

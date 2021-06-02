@@ -29,6 +29,7 @@ const checkUser = async phoneNumber => {
       await Storage.setItemSync(StorageKeys.NAME, result.data.data.full_name);
       await Storage.setItemSync(StorageKeys.JWT, result.data.data.token);
       authKey.token = result.data.data.token;
+      authKey.usertype = result.data.data.usertype;
       NetworkAPI.apiClient.setHeader('authorization', authKey.token);
       console.log('authkey from login ceck user', authKey.token);
       return result;
