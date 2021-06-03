@@ -20,19 +20,22 @@ import reactotron from 'reactotron-react-native';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import authKey from '../../../Modules/Common/JWT';
-import {LocalNotification} from '../../Common/pushNotifications';
+import NetworkAPI from '../../../Network/api/server';
 function HomeScreen(props) {
   const navigation = useNavigation();
   const [sliderImgs, setSliderImgs] = useState([]);
   const {data, success} = HomeController.useGetPromoImages();
 
-  const notify = () => {
-    LocalNotification();
+  const pushFcmToken = async () => {
+    let ID = await Storage.getItemSync(StorageKeys.ID);
+    let FCMTOKEN = await Storage.getItemSync(StorageKeys.FCMTOKEN);
+    console.log('user token sent');
+    NetworkAPI.apiClient.patch(`/users/${ID}`, {fcm_id: FCMTOKEN});
   };
 
   useEffect(() => {
     console.log('jwt from home screen', authKey.token);
-    //LocalNotification();
+    pushFcmToken();
     if (success) {
       data.map(i => {
         reactotron.log(`${env}${i.promoImage}`);

@@ -6,10 +6,37 @@ import SplashScreen from '../Component/splashScreenUI';
 import {CommonActions} from '@react-navigation/native';
 import authKey from '../../../Modules/Common/JWT';
 import NetworkAPI from '../../../Network/api/server';
-import {regToken} from '../../Common/pushNotifications';
+import PushNotification from 'react-native-push-notification';
+
+PushNotification.configure({
+  // (required) Called when a remote or local notification is opened or received
+  onNotification: function (notification) {
+    console.log('LOCAL NOTIFICATION ==>', notification);
+    PushNotification.localNotification(notification);
+  },
+  onRegister: async function (token) {
+    console.log('TOKEN:', token);
+    await Storage.setItemSync(StorageKeys.FCMTOKEN, token.token);
+  },
+  popInitialNotification: true,
+  requestPermissions: true,
+});
+
+PushNotification.createChannel(
+  {
+    channelId: 'fcm_fallback_notification_channel', // (required)
+    channelName: 'My channel', // (required)
+    channelDescription: 'A channel to categorise your notifications', // (optional) default: undefined.
+    playSound: true, // (optional) default: true
+    soundName: 'default', // (optional) See `soundName` parameter of `localNotification` function
+    importance: 4, // (optional) default: 4. Int value of the Android notification importance
+    vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
+  },
+  created => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+);
+
 export default class Splash extends PureComponent {
   componentDidMount = () => {
-    regToken();
     this.learnMorePress();
   };
 
@@ -19,6 +46,7 @@ export default class Splash extends PureComponent {
     let FCMTOKEN = await Storage.getItemSync(StorageKeys.FCMTOKEN);
     authKey.token = JWT;
     if (JWT) {
+      console.log('inside splash check');
       NetworkAPI.apiClient.setHeader('authorization', authKey.token);
       console.log(FCMTOKEN);
       await NetworkAPI.apiClient.patch(`/users/${ID}`, {fcm_id: FCMTOKEN});
