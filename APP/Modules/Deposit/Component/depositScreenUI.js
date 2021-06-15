@@ -21,7 +21,7 @@ function DepositScreen({route}) {
   const [progress, setProgress] = useState(false);
 
   const payeeDetils = DepositController.getPayeeDetails();
-  console.log('here');
+  console.log(payeeDetils.data);
 
   const resetAction = CommonActions.reset({
     index: 0,
@@ -56,9 +56,11 @@ function DepositScreen({route}) {
   };
   console.log(uid);
 
-  const [filePath, setFilePath] = useState({});
+  const [filePath, setFilePath] = useState('');
 
   const submitPayment = () => {
+    if (filePath.length <= 0)
+      return alert('please upload payment reference image');
     setProgress(true);
     if (requestStatus === 'new') {
       DepositController.submitData(

@@ -13,8 +13,9 @@ import {useNavigation} from '@react-navigation/native';
 import styles from './Styles';
 import {white} from 'react-native-paper/lib/typescript/styles/colors';
 import images from '../../../Theams/Images';
-
+import PaymentOptionController from '../Controller/paymentController';
 function PaymentOptionScreen({route}) {
+  const options = [];
   const {
     sdid,
     planMoney,
@@ -25,6 +26,17 @@ function PaymentOptionScreen({route}) {
   } = route.params;
   console.log('on paymentss options  id screen' + requestStatus);
   const navigation = useNavigation();
+
+  const paymentOptions = PaymentOptionController.getPayeeDetails();
+  paymentOptions.data.forEach(payOps => {
+    options.push(payOps.paymenttype);
+  });
+  const checkIfPaymentOptionAvailable = paymentType => {
+    console.log('options avaiblae.', options);
+    if (options.includes(paymentType)) {
+      return true;
+    } else return false;
+  };
 
   return (
     <View style={styles.containerMain}>
@@ -37,15 +49,17 @@ function PaymentOptionScreen({route}) {
         <View style={styles.paymentOptions}>
           <TouchableWithoutFeedback
             onPress={() => {
-              navigation.navigate('Deposit', {
-                sdid: sdid,
-                planMoney: planMoney,
-                paymentType: 'Paytm UPI',
-                planType: planType,
-                userName: userName,
-                depositCoins: depositCoins,
-                requestStatus: requestStatus,
-              });
+              if (checkIfPaymentOptionAvailable('Paytm UPI')) {
+                navigation.navigate('Deposit', {
+                  sdid: sdid,
+                  planMoney: planMoney,
+                  paymentType: 'Paytm UPI',
+                  planType: planType,
+                  userName: userName,
+                  depositCoins: depositCoins,
+                  requestStatus: requestStatus,
+                });
+              } else alert('Payment Option Not Available');
             }}>
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.paytmupi} />
@@ -54,15 +68,17 @@ function PaymentOptionScreen({route}) {
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback
             onPress={() => {
-              navigation.navigate('Deposit', {
-                sdid: sdid,
-                planMoney: planMoney,
-                planType: planType,
-                paymentType: 'Paytm Wallet',
-                userName: userName,
-                depositCoins: depositCoins,
-                requestStatus: requestStatus,
-              });
+              if (checkIfPaymentOptionAvailable('Paytm Wallet')) {
+                navigation.navigate('Deposit', {
+                  sdid: sdid,
+                  planMoney: planMoney,
+                  planType: planType,
+                  paymentType: 'Paytm Wallet',
+                  userName: userName,
+                  depositCoins: depositCoins,
+                  requestStatus: requestStatus,
+                });
+              } else alert('Payment Option Not Available');
             }}>
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.paytm} />
@@ -71,15 +87,17 @@ function PaymentOptionScreen({route}) {
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback
             onPress={() => {
-              navigation.navigate('Deposit', {
-                sdid: sdid,
-                planMoney: planMoney,
-                paymentType: 'Google Pay',
-                requestStatus: requestStatus,
-                planType: planType,
-                userName: userName,
-                depositCoins: depositCoins,
-              });
+              if (checkIfPaymentOptionAvailable('Google Pay')) {
+                navigation.navigate('Deposit', {
+                  sdid: sdid,
+                  planMoney: planMoney,
+                  paymentType: 'Google Pay',
+                  requestStatus: requestStatus,
+                  planType: planType,
+                  userName: userName,
+                  depositCoins: depositCoins,
+                });
+              } else alert('Payment Option Not Available');
             }}>
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.gpay} />
@@ -89,15 +107,17 @@ function PaymentOptionScreen({route}) {
 
           <TouchableWithoutFeedback
             onPress={() => {
-              navigation.navigate('Deposit', {
-                sdid: sdid,
-                planMoney: planMoney,
-                paymentType: 'Phone Pay',
-                userName: userName,
-                planType: planType,
-                depositCoins: depositCoins,
-                requestStatus: requestStatus,
-              });
+              if (checkIfPaymentOptionAvailable('Phone Pay')) {
+                navigation.navigate('Deposit', {
+                  sdid: sdid,
+                  planMoney: planMoney,
+                  paymentType: 'Phone Pay',
+                  userName: userName,
+                  planType: planType,
+                  depositCoins: depositCoins,
+                  requestStatus: requestStatus,
+                });
+              } else alert('Payment Option Not Available');
             }}>
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.phonepe} />
@@ -106,15 +126,17 @@ function PaymentOptionScreen({route}) {
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback
             onPress={() => {
-              navigation.navigate('Deposit', {
-                sdid: sdid,
-                planMoney: planMoney,
-                paymentType: 'Bank',
-                userName: userName,
-                planType: planType,
-                depositCoins: depositCoins,
-                requestStatus: requestStatus,
-              });
+              if (checkIfPaymentOptionAvailable('Bank')) {
+                navigation.navigate('Deposit', {
+                  sdid: sdid,
+                  planMoney: planMoney,
+                  paymentType: 'Bank',
+                  userName: userName,
+                  planType: planType,
+                  depositCoins: depositCoins,
+                  requestStatus: requestStatus,
+                });
+              } else alert('Payment Option Not Available');
             }}>
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.banktransfer} />
@@ -123,15 +145,17 @@ function PaymentOptionScreen({route}) {
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback
             onPress={() => {
-              navigation.navigate('Deposit', {
-                sdid: sdid,
-                planMoney: planMoney,
-                paymentType: 'UPI Manual Transfer',
-                planType: planType,
-                userName: userName,
-                depositCoins: depositCoins,
-                requestStatus: requestStatus,
-              });
+              if (checkIfPaymentOptionAvailable('UPI Manual Transfer')) {
+                navigation.navigate('Deposit', {
+                  sdid: sdid,
+                  planMoney: planMoney,
+                  paymentType: 'UPI Manual Transfer',
+                  planType: planType,
+                  userName: userName,
+                  depositCoins: depositCoins,
+                  requestStatus: requestStatus,
+                });
+              } else alert('Payment Option Not Available');
             }}>
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.allupi} />
@@ -145,4 +169,3 @@ function PaymentOptionScreen({route}) {
 }
 
 export default PaymentOptionScreen;
- 
