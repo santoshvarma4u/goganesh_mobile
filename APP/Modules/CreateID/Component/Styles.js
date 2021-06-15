@@ -1,17 +1,17 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import Colors from '../../../Theams/Colors';
 export default StyleSheet.create({
   containerMain: {
     backgroundColor: Colors.appPrimaryColor,
     flex: 1,
-    paddingBottom: 40,
+    height: Dimensions.get('window').height,
   },
   createIDContainer: {
     flex: 1,
     flexDirection: 'column',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    backgroundColor: 'black',
+    backgroundColor: Colors.appBlackColor,
     alignItems: 'center',
   },
   planCards: {
@@ -23,25 +23,23 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     borderRadius: 10,
+    display: 'none',
   },
   planDeatils: {
-    flex: 0.8,
-    marginTop: 20,
     padding: 5,
     backgroundColor: '#171616',
     width: '90%',
     borderRadius: 10,
+    marginTop: 10,
   },
   topIcon: {
-    backgroundColor: 'black',
-    padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
   imageIcon: {
-    height: 70,
-    width: 70,
-    borderColor: '#1f1f1f',
+    height: 150,
+    width: 150,
+    borderColor: Colors.appBlackColor,
     borderWidth: 0.5,
     borderRadius: 35,
   },

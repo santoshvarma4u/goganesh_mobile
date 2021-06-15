@@ -18,8 +18,11 @@ export default StyleSheet.create({
   },
   bankAccountDetails: {},
   addBankButton: {
-    backgroundColor: '#F194FF',
+    backgroundColor: Colors.appPrimaryColor,
     borderRadius: 10,
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginLeft: 'auto',
   },
   profileDetails: {
@@ -41,15 +44,12 @@ export default StyleSheet.create({
     padding: 15,
     marginTop: 20,
     backgroundColor: 'white',
-    width: '90%',
+    width: '100%',
     borderRadius: 10,
   },
   bankDetailsView: {
-    flex: 0.75,
-    padding: 5,
     marginTop: 20,
     backgroundColor: 'white',
-    width: '90%',
     borderRadius: 10,
   },
   bankCardDetails: {
@@ -63,12 +63,11 @@ export default StyleSheet.create({
   centeredView: {
     width: '100%',
     flex: 1,
-    padding: 10,
     top: 200,
   },
   modalView: {
-    margin: 20,
-    backgroundColor: '#696969',
+    margin: 30,
+    backgroundColor: Colors.appBlackColor,
     borderRadius: 20,
     padding: 25,
   },
@@ -78,17 +77,18 @@ export default StyleSheet.create({
     elevation: 2,
   },
   buttonOpen: {
-    backgroundColor: '#F194FF',
+    backgroundColor: Colors.appPrimaryColor,
   },
   buttonClose: {
-    marginTop: 15,
-    backgroundColor: '#2196F3',
+    marginLeft: 'auto',
   },
   textStyle: {
-    color: 'white',
+    color: Colors.appBlackColor,
   },
   trasactionsCard: {
-    backgroundColor: 'orange',
+    backgroundColor: Colors.appBlackColor,
+    padding: 10,
+    borderRadius: 10,
   },
 
   modalText: {

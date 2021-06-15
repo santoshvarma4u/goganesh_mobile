@@ -14,6 +14,7 @@ import styles from './Styles';
 import {Formik} from 'formik';
 import {Icon} from 'react-native-elements';
 import PaymentDetailsController from '../Controller/paymentDetailsController';
+import Colors from '../../../Theams/Colors';
 
 function PaymentsScreen({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -32,8 +33,8 @@ function PaymentsScreen({navigation}) {
         <View style={styles.profileDetails}>
           <View style={styles.bankCardDetails}>
             <Icon name="money" color="white" />
-            <Text style={{backgroundColor: 'white', padding: 5, left: 10}}>
-              Bank Deatils
+            <Text style={{color: 'white', padding: 5, left: 10}}>
+              Bank Details
             </Text>
             <TouchableOpacity
               style={styles.addBankButton}
@@ -51,6 +52,15 @@ function PaymentsScreen({navigation}) {
                   }}>
                   <View style={styles.centeredView}>
                     <View style={styles.modalView}>
+                      <Pressable
+                        style={[styles.button, styles.buttonClose]}
+                        onPress={() => setModalVisible(!modalVisible)}>
+                        <Icon
+                          name="cancel"
+                          color={Colors.appPrimaryColor}
+                          size={32}
+                        />
+                      </Pressable>
                       <Formik
                         initialValues={{
                           bankName: '',
@@ -71,39 +81,33 @@ function PaymentsScreen({navigation}) {
                             <TextInput
                               style={styles.modalText}
                               placeholder="Bank Name"
-                              onChangeText={handleChange(
-                                'bankName',
-                              )}></TextInput>
+                              onChangeText={handleChange('bankName')}
+                            />
                             <TextInput
                               style={styles.modalText}
                               placeholder="Account Number"
-                              onChangeText={handleChange(
-                                'AccountNumber',
-                              )}></TextInput>
+                              onChangeText={handleChange('AccountNumber')}
+                            />
                             <TextInput
                               style={styles.modalText}
                               placeholder="IFSC code"
-                              onChangeText={handleChange('IFSC')}></TextInput>
+                              onChangeText={handleChange('IFSC')}
+                            />
                             <TextInput
                               style={styles.modalText}
                               placeholder="Account Holder Name"
-                              onChangeText={handleChange(
-                                'AccountHolderName',
-                              )}></TextInput>
+                              onChangeText={handleChange('AccountHolderName')}
+                            />
                             <TextInput
                               style={styles.modalText}
                               placeholder="Branch Code"
-                              onChangeText={handleChange(
-                                'branchCode',
-                              )}></TextInput>
+                              onChangeText={handleChange('branchCode')}
+                            />
                             <Button
+                              style={styles.modalText}
                               title="submit"
-                              onPress={handleSubmit}></Button>
-                            <Pressable
-                              style={[styles.button, styles.buttonClose]}
-                              onPress={() => setModalVisible(!modalVisible)}>
-                              <Text style={styles.textStyle}>Hide Modal</Text>
-                            </Pressable>
+                              onPress={handleSubmit}
+                            />
                           </>
                         )}
                       </Formik>
@@ -122,6 +126,11 @@ function PaymentsScreen({navigation}) {
               }}>
               <View style={styles.centeredView}>
                 <View style={styles.modalView}>
+                  <Pressable
+                    style={[styles.button, styles.buttonClose]}
+                    onPress={() => setEditModelVisible(false)}>
+                    <Text style={styles.textStyle}>Hide Modal</Text>
+                  </Pressable>
                   <Formik
                     enableReinitialize
                     initialValues={{
@@ -150,38 +159,34 @@ function PaymentsScreen({navigation}) {
                           style={styles.modalText}
                           placeholder="Bank Name"
                           defaultValue={bankVales.bankName}
-                          onChangeText={handleChange('bankName')}></TextInput>
+                          onChangeText={handleChange('bankName')}
+                        />
                         <TextInput
                           style={styles.modalText}
                           placeholder="Account Number"
                           defaultValue={bankVales.accountNumber.toString()}
                           keyboardType="numeric"
-                          onChangeText={handleChange(
-                            'AccountNumber',
-                          )}></TextInput>
+                          onChangeText={handleChange('AccountNumber')}
+                        />
                         <TextInput
                           style={styles.modalText}
                           placeholder="IFSC code"
                           defaultValue={bankVales.IFSC}
-                          onChangeText={handleChange('IFSC')}></TextInput>
+                          onChangeText={handleChange('IFSC')}
+                        />
                         <TextInput
                           style={styles.modalText}
                           placeholder="Account Holder Name"
                           defaultValue={bankVales.accountHolderName}
-                          onChangeText={handleChange(
-                            'AccountHolderName',
-                          )}></TextInput>
+                          onChangeText={handleChange('AccountHolderName')}
+                        />
                         <TextInput
                           style={styles.modalText}
                           placeholder="Branch Code"
                           defaultValue={bankVales.branchCode}
-                          onChangeText={handleChange('branchCode')}></TextInput>
-                        <Button title="Update" onPress={handleSubmit}></Button>
-                        <Pressable
-                          style={[styles.button, styles.buttonClose]}
-                          onPress={() => setEditModelVisible(false)}>
-                          <Text style={styles.textStyle}>Hide Modal</Text>
-                        </Pressable>
+                          onChangeText={handleChange('branchCode')}
+                        />
+                        <Button title="Update" onPress={handleSubmit} />
                       </>
                     )}
                   </Formik>
@@ -203,20 +208,37 @@ function PaymentsScreen({navigation}) {
             renderItem={({item, index}) => (
               <View style={styles.bankDetailsView}>
                 <View style={styles.trasactionsCard}>
-                  <Text style={{color: 'black'}}>
-                    Bank Name: {item.bankName}
-                  </Text>
-                  <Text style={{color: 'black'}}>
+                  <View style={{flexDirection: 'row'}}>
+                    <Text
+                      style={{
+                        color: 'white',
+                        fontSize: 16,
+                        paddingVertical: 10,
+                      }}>
+                      Bank Name: {item.bankName}
+                    </Text>
+                    <TouchableOpacity
+                      style={{marginLeft: 'auto'}}
+                      onPress={() => {
+                        setBankVales(item);
+                        setEditModelVisible(true);
+                      }}>
+                      <Icon
+                        name="edit"
+                        color={Colors.appPrimaryColor}
+                        size={24}
+                      />
+                    </TouchableOpacity>
+                  </View>
+
+                  <Text
+                    style={{color: 'white', fontSize: 16, paddingVertical: 10}}>
                     Account Number : {item.accountNumber}
                   </Text>
-                  <Text style={{color: 'black'}}>IFSC :{item.IFSC}</Text>
-                  <Button
-                    style={{color: 'black'}}
-                    title="edit"
-                    onPress={() => {
-                      setBankVales(item);
-                      setEditModelVisible(true);
-                    }}></Button>
+                  <Text
+                    style={{color: 'white', fontSize: 16, paddingVertical: 10}}>
+                    IFSC :{item.IFSC}
+                  </Text>
                 </View>
               </View>
             )}

@@ -115,7 +115,7 @@ const HomeStackNavigator = () => {
         name="Payments"
         component={PaymentsScreen}
         options={({navigation}) => ({
-          headerTitle: 'Payments',
+          headerTitle: 'Bank Details',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
           headerLeft: props => (

@@ -33,7 +33,7 @@ function CreateIDScreen({route}) {
 
   const navigation = useNavigation();
   const [planDetails, setPlanDetails] = useState({
-    planHeader: 'Bronze Plan',
+    planHeader: 'Go Plan',
     MinRefill: '1,000',
     MinWidthdrawl: '1,000',
     MinMaintainBalance: '1,000',
@@ -145,6 +145,15 @@ function CreateIDScreen({route}) {
               }}>
               {planDetails.planHeader}
             </Text>
+            <View
+              style={{
+                borderBottomColor: Colors.appPrimaryColor,
+                borderBottomWidth: 3,
+                marginTop: 5,
+                width: 40,
+                marginLeft: 20,
+              }}
+            />
             <View style={{flexDirection: 'row', marginTop: 10}}>
               <Text style={{color: '#d5d1d1', marginLeft: 20, marginTop: 10}}>
                 Min Refill

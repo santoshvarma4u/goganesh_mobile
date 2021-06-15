@@ -18,7 +18,7 @@ export default StyleSheet.create({
     marginBottom: 40,
   },
   image: {
-    height: 50,
+    height: 150,
     width: 150,
   },
   createAnnouncement: {
