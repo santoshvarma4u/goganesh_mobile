@@ -17,8 +17,22 @@ import {useNavigation} from '@react-navigation/native';
 import images from '../../../Theams/Images';
 import Colors from '../../../Theams/Colors';
 import * as Yup from 'yup';
-// UserName: '',
-// DepositCoins: '',
+import {Checkbox} from 'react-native-paper';
+import HomeController from '../../Home/Controller/homeController';
+import StorageKeys from '../../../Modules/Common/StorageKeys';
+import Storage from '../../../Modules/Common/Storage';
+import {CommonActions} from '@react-navigation/native';
+import DepositController from '../../Deposit/Controller/depositController';
+const getUID = async () => {
+  try {
+    let UID = await Storage.getItemSync(StorageKeys.ID);
+    console.log('userid' + UID);
+    return UID;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const usernameAndDepositSchema = Yup.object().shape({
   UserName: Yup.string()
     .min(2, 'username is Too Short!')
@@ -29,9 +43,13 @@ const usernameAndDepositSchema = Yup.object().shape({
 });
 
 function CreateIDScreen({route}) {
-  const {sdid, url, sitename, requestStatus} = route.params;
-
   const navigation = useNavigation();
+  const {sdid, url, sitename, requestStatus} = route.params;
+  const [checked, setChecked] = React.useState(false);
+  const resetAction = CommonActions.reset({
+    index: 0,
+    routes: [{name: 'Home'}],
+  });
   const [planDetails, setPlanDetails] = useState({
     planHeader: 'Go Plan',
     MinRefill: '1,000',
@@ -40,6 +58,35 @@ function CreateIDScreen({route}) {
     MaxWithDrawl: '50,000 per day',
   });
 
+  const submitRequest = async (sdid, values) => {
+    let uid = await getUID();
+    DepositController.submitData(
+      parseInt(uid),
+      sdid,
+      'Go Plan',
+      'Wallet',
+      'Pending',
+      null,
+      values.UserName,
+      values.DepositCoins,
+    ).then(data => {
+      DepositController.submitIntialDeposit(
+        parseInt(uid),
+        sdid,
+        'Wallet',
+        values.DepositCoins,
+        'CR',
+        null,
+      ).then(data => {
+        console.log('both initial deposit and site request done!');
+      });
+
+      navigation.dispatch(resetAction);
+      alert('success');
+    });
+  };
+
+  const wallet = HomeController.getWalletBalance();
   return (
     <ScrollView>
       <View style={styles.containerMain}>
@@ -197,14 +244,24 @@ function CreateIDScreen({route}) {
               }}
               onSubmit={values => {
                 console.log(values);
-                navigation.navigate('PaymentOptions', {
-                  sdid: sdid,
-                  planMoney: planDetails.MinRefill,
-                  planType: planDetails.planHeader,
-                  userName: values.UserName,
-                  depositCoins: values.DepositCoins,
-                  requestStatus: requestStatus,
-                });
+                if (checked) {
+                  if (parseInt(wallet.data) < values.DepositCoins)
+                    return alert('Insufficient Funds In Wallet');
+                  else {
+                    // const {sdid, url, sitename, requestStatus} = route.params;
+                    submitRequest(sdid, values);
+                  }
+                } else {
+                  console.log('els epaertansdlnall');
+                  navigation.navigate('PaymentOptions', {
+                    sdid: sdid,
+                    planMoney: planDetails.MinRefill,
+                    planType: planDetails.planHeader,
+                    userName: values.UserName,
+                    depositCoins: values.DepositCoins,
+                    requestStatus: requestStatus,
+                  });
+                }
               }}>
               {({handleChange, handleSubmit, errors, touched}) => (
                 <>
@@ -236,6 +293,17 @@ function CreateIDScreen({route}) {
                     placeholderTextColor="#d5d1d1"
                     onChangeText={handleChange('DepositCoins')}
                   />
+                  <View style={{flexDirection: 'row'}}>
+                    <Checkbox
+                      status={checked ? 'checked' : 'unchecked'}
+                      color={Colors.appPrimaryColor}
+                      uncheckedColor="white"
+                      onPress={() => {
+                        setChecked(!checked);
+                      }}
+                    />
+                    <Text style={{color: 'white'}}>Use Amount From Wallet</Text>
+                  </View>
                   <TouchableOpacity
                     style={{
                       padding: 8,

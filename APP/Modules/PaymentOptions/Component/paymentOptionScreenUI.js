@@ -14,6 +14,7 @@ import styles from './Styles';
 import {white} from 'react-native-paper/lib/typescript/styles/colors';
 import images from '../../../Theams/Images';
 import PaymentOptionController from '../Controller/paymentController';
+
 function PaymentOptionScreen({route}) {
   const options = [];
   const {
@@ -24,6 +25,9 @@ function PaymentOptionScreen({route}) {
     depositCoins,
     requestStatus,
   } = route.params;
+  console.log('====================================');
+  console.log('params', route.params);
+  console.log('====================================');
   console.log('on paymentss options  id screen' + requestStatus);
   const navigation = useNavigation();
 

@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
-
+import DialogInput from 'react-native-dialog-input';
 import styles from './Styles';
 import {Icon} from 'react-native-elements';
 import HomeController from '../Controller/homeController';
@@ -24,18 +24,21 @@ import NetworkAPI from '../../../Network/api/server';
 function HomeScreen(props) {
   const navigation = useNavigation();
   const [sliderImgs, setSliderImgs] = useState([]);
+  const [dialogVisible, setDialogVisible] = useState(false);
   const {data, success} = HomeController.useGetPromoImages();
+  const wallet = HomeController.getWalletBalance();
 
   const pushFcmToken = async () => {
     let ID = await Storage.getItemSync(StorageKeys.ID);
     let FCMTOKEN = await Storage.getItemSync(StorageKeys.FCMTOKEN);
     console.log('user token sent');
-    NetworkAPI.apiClient.patch(`/users/${ID}`, {fcm_id: FCMTOKEN});
+    await NetworkAPI.apiClient.patch(`/users/${ID}`, {fcm_id: FCMTOKEN});
   };
 
   useEffect(() => {
     console.log('jwt from home screen', authKey.token);
     pushFcmToken();
+
     if (success) {
       data.map(i => {
         reactotron.log(`${env}${i.promoImage}`);
@@ -53,8 +56,10 @@ function HomeScreen(props) {
       <View style={styles.upperContainer}>
         <View style={styles.centralCardView}>
           <View style={styles.depositCard}>
-            <Text style={styles.text}>DEPOSIT</Text>
-            <Icon name="file-upload" color="white" size={34} />
+            <TouchableOpacity onPress={() => setDialogVisible(true)}>
+              <Text style={styles.text}>DEPOSIT</Text>
+              <Icon name="file-upload" color="white" size={34} />
+            </TouchableOpacity>
           </View>
           <View style={styles.blankCard} />
           <View style={styles.withdrawCard}>
@@ -63,7 +68,10 @@ function HomeScreen(props) {
           </View>
         </View>
         <View style={styles.centreCard}>
-          <Image style={styles.image} source={images.logo} />
+          <TouchableOpacity onPress={() => wallet.request()}>
+            <Image style={styles.image} source={images.logo} />
+            <Text style={{color: 'white', left: 50}}>{wallet.data}</Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.lowerContainer}>
@@ -99,6 +107,27 @@ function HomeScreen(props) {
           <Text style={styles.tipsSubText}>No Data Available</Text>
         </View>
       </View>
+      <DialogInput
+        isDialogVisible={dialogVisible}
+        title={'Enter Amount To Deposit In Wallet'}
+        message={'Amount'}
+        hintInput={'Ex: 1000'}
+        initValueTextInput=""
+        textInputProps={{keyboardType: 'numeric'}}
+        submitInput={inputText => {
+          if (inputText.length <= 0) {
+            return alert('Please enter a valid amount');
+          }
+          setDialogVisible(false);
+          navigation.navigate("ID's", {
+            screen: 'PaymentOptions',
+            params: {
+              depositCoins: inputText,
+              requestStatus: 'wallet',
+            },
+          });
+        }}
+        closeDialog={() => setDialogVisible(false)}></DialogInput>
     </View>
   );
 }

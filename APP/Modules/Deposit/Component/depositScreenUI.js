@@ -63,6 +63,9 @@ function DepositScreen({route}) {
       return alert('please upload payment reference image');
     setProgress(true);
     if (requestStatus === 'new') {
+      console.log('====================================');
+      console.log('requestStatus', requestStatus);
+      console.log('====================================');
       DepositController.submitData(
         parseInt(uid),
         sdid,
@@ -81,11 +84,25 @@ function DepositScreen({route}) {
           'CR',
           filePath,
         ).then(data => {
-          console.log('both initial deposit and site request done!');
+          console.log(data.status);
         });
         setProgress(false);
 
-        alert('success');
+        alert(data.status);
+        navigation.dispatch(resetAction);
+      });
+    } else if (requestStatus === 'wallet') {
+      console.log('finen wallert is  woeking');
+      const paymentMethod = paymentType;
+      DepositController.depositIntoWallet(
+        parseInt(uid),
+        paymentMethod,
+        depositCoins,
+        'CR',
+        true,
+        filePath,
+      ).then(data => {
+        console.log(data);
         navigation.dispatch(resetAction);
       });
     } else {
