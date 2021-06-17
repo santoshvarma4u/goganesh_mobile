@@ -250,9 +250,9 @@ function CreateIDScreen({route}) {
               onSubmit={values => {
                 console.log(values);
                 if (checked) {
-                  if (parseInt(wallet.data) < values.DepositCoins)
+                  if (parseInt(wallet.data) < values.DepositCoins) {
                     return alert('Insufficient Funds In Wallet');
-                  else {
+                  } else {
                     submitRequest(sdid, values);
                   }
                 } else {

@@ -71,9 +71,20 @@ function HomeScreen(props) {
           </View>
         </View>
         <View style={styles.centreCard}>
-          <TouchableOpacity onPress={() => wallet.request()}>
+          <TouchableOpacity
+            onPress={() => wallet.request()}
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: 30,
+            }}>
             <Image style={styles.image} source={images.logo} />
-            <Text style={{color: 'white', left: 50}}>{wallet.data}</Text>
+            <Text style={{color: 'white', alignItems: 'center'}}>
+              Wallet Balance
+            </Text>
+            <Text style={{color: 'white', fontSize: 18, alignItems: 'center'}}>
+              {wallet.data} INR
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -141,15 +152,13 @@ function HomeScreen(props) {
             return alert('Please enter a valid amount');
           }
           setDialogVisible(false);
-          navigation.navigate("ID's", {
-            screen: 'PaymentOptions',
-            params: {
-              depositCoins: inputText,
-              requestStatus: 'wallet',
-            },
+          navigation.navigate('PaymentOptions', {
+            depositCoins: inputText,
+            requestStatus: 'wallet',
           });
         }}
-        closeDialog={() => setDialogVisible(false)}></DialogInput>
+        closeDialog={() => setDialogVisible(false)}
+      />
     </View>
   );
 }

@@ -128,6 +128,40 @@ const HomeStackNavigator = () => {
           ),
         })}
       />
+      <Stack.Screen
+        name="PaymentOptions"
+        component={PaymentOptionsScreen}
+        options={({navigation}) => ({
+          headerTitle: 'Payment Method',
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitleAlign: 'center',
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => {
+                navigation.goBack();
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Deposit"
+        component={DepositScreen}
+        options={({navigation}) => ({
+          headerTitle: 'Deposit',
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitleAlign: 'center',
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => {
+                navigation.navigate('PaymentOptions');
+              }}
+            />
+          ),
+        })}
+      />
     </Stack.Navigator>
   );
 };
@@ -195,7 +229,7 @@ const IDsStackNavigator = () => {
             <HeaderBackButton
               {...props}
               onPress={() => {
-                navigation.navigate('CreateID');
+                navigation.goBack();
               }}
             />
           ),
@@ -224,8 +258,25 @@ const IDsStackNavigator = () => {
 
 function MyDrawer() {
   return (
-    <Drawer.Navigator drawerContent={props => <CustomSidebarMenu {...props} />}>
-      <Drawer.Screen name="Home" component={BottomTabNavigator} />
+    <Drawer.Navigator
+      drawerContent={props => <CustomSidebarMenu {...props} />}
+      drawerContentOptions={{
+        activeBackgroundColor: 'transparent', //here change it
+      }}
+      drawerStyle={{
+        marginVertical: 80,
+        borderTopRightRadius: 30,
+        backgroundColor: Colors.appWhiteColor,
+        borderBottomRightRadius: 30,
+        paddingTop: 0,
+      }}>
+      <Drawer.Screen
+        name="Home"
+        component={BottomTabNavigator}
+        options={{
+          drawerIcon: config => <Icon size={23} name={'home'} />,
+        }}
+      />
     </Drawer.Navigator>
   );
 }
@@ -265,6 +316,7 @@ const BottomTabNavigator = () => {
       <Tab.Screen
         name="ID's"
         component={IDsStackNavigator}
+        initialRouteName="ID's"
         options={{
           tabBarLabel: 'IDs',
           tabBarIcon: () => (

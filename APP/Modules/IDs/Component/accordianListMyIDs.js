@@ -12,6 +12,8 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import FlatListPicker from 'react-native-flatlist-picker';
 import {Icon} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import images from '../../../Theams/Images';
@@ -22,30 +24,23 @@ import reactotron from 'reactotron-react-native';
 
 const AccordianListNew = props => {
   let banks = [];
-
+  const getUserBanks = IdController.getBankData();
+  console.log('user banks', getUserBanks.data);
   const [expanded, setExpanded] = React.useState(true);
   const [amount, onAmountChange] = React.useState(null);
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([]);
+  const [selectedBank, setSelectedBank] = React.useState('');
+  const [selectedBankID, setSelectedBankID] = React.useState('');
 
   useEffect(() => {
-    props.banks.map(item => {
+    console.log('use effect called ');
+    getUserBanks.data.map(item => {
       banks.push({
-        label: item.bankName,
-        value: item.bid,
+        value: item.bankName,
+        key: item.bid,
       });
     });
-    console.log(banks);
-  }, []);
-  //setItems(banks);
-  const getIndex = value => {
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].value == value) {
-        return i;
-      }
-    }
-  };
+  }, [getUserBanks.data, banks]);
+
   const [withDrawForm, setWithDrawForm] = useState(false);
   const navigation = useNavigation();
   const handlePress = () => setExpanded(!expanded);
@@ -123,7 +118,6 @@ const AccordianListNew = props => {
               borderRadius: 5,
             }}
             onPress={() => {
-              setItems(banks);
               setWithDrawForm(true);
             }}>
             <Text style={{alignItems: 'center'}}>Withdraw</Text>
@@ -139,13 +133,26 @@ const AccordianListNew = props => {
                 placeholder="Enter Amount to Withdraw"
                 keyboardType="numeric"
               />
-              <DropDownPicker
-                open={open}
-                value={value}
-                items={items}
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
+              <FlatListPicker
+                data={banks}
+                containerStyle={styles.container}
+                dropdownStyle={{width: 180}}
+                dropdownTextStyle={{fontSize: 15}}
+                pickedTextStyle={{color: 'white', fontWeight: 'bold'}}
+                defaultValue="Select Bank."
+                renderDropdownIcon={() => (
+                  <AntDesign
+                    name="caretdown"
+                    color="white"
+                    size={15}
+                    style={{padding: 15}}
+                  />
+                )}
+                onValueChange={(value, index) => {
+                  setSelectedBank(value);
+                  let bankid = banks.find(o => o.value == value);
+                  setSelectedBankID(bankid.key);
+                }}
               />
               <View style={{flexDirection: 'row'}}>
                 <TouchableOpacity
@@ -165,16 +172,10 @@ const AccordianListNew = props => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    let i = getIndex(value);
-                    IdController.sendWithDrawRequest(
-                      props.data.sd.sdid,
-                      items[i].label,
-                      amount,
-                      'DR',
-                      items[i].value,
-                    ).then(data => {
-                      alert('success');
-                    });
+                    console.log(
+                      'selected bank ',
+                      selectedBank + selectedBankID,
+                    );
                   }}
                   style={{
                     width: 100,
@@ -185,7 +186,7 @@ const AccordianListNew = props => {
                     justifyContent: 'center',
                     borderRadius: 5,
                   }}>
-                  <Text style={{alignItems: 'center'}}>Request Wirhdraw</Text>
+                  <Text style={{alignItems: 'center'}}>Request Withdraw</Text>
                 </TouchableOpacity>
               </View>
             </View>

@@ -12,7 +12,7 @@ export default StyleSheet.create({
     padding: 10,
     width: '100%',
     borderRadius: 20,
-    backgroundColor: 'white',
+    backgroundColor: Colors.backgroundColor,
   },
   offersContainer: {
     flex: 1,
@@ -20,7 +20,6 @@ export default StyleSheet.create({
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     backgroundColor: 'black',
-    alignItems: 'center',
     padding: 10,
   },
   offersCard: {
@@ -31,15 +30,17 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
   topOffers: {
-    padding: 10,
+    marginVertical: 10,
+    color: 'white',
   },
   trasactions: {
     backgroundColor: 'orange',
   },
   trasactionsCard: {
-    backgroundColor: 'black',
+    backgroundColor: Colors.appBlackColor,
     borderRadius: 10,
     marginBottom: 5,
-    padding: 10,
+    paddingVertical: 25,
+    flexDirection:'row'
   },
 });

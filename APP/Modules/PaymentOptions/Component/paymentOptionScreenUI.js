@@ -39,7 +39,9 @@ function PaymentOptionScreen({route}) {
     console.log('options avaiblae.', options);
     if (options.includes(paymentType)) {
       return true;
-    } else return false;
+    } else {
+      return false;
+    }
   };
 
   return (
@@ -63,7 +65,9 @@ function PaymentOptionScreen({route}) {
                   depositCoins: depositCoins,
                   requestStatus: requestStatus,
                 });
-              } else alert('Payment Option Not Available');
+              } else {
+                alert('Payment Option Not Available');
+              }
             }}>
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.paytmupi} />
@@ -82,7 +86,9 @@ function PaymentOptionScreen({route}) {
                   depositCoins: depositCoins,
                   requestStatus: requestStatus,
                 });
-              } else alert('Payment Option Not Available');
+              } else {
+                alert('Payment Option Not Available');
+              }
             }}>
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.paytm} />
@@ -101,7 +107,9 @@ function PaymentOptionScreen({route}) {
                   userName: userName,
                   depositCoins: depositCoins,
                 });
-              } else alert('Payment Option Not Available');
+              } else {
+                alert('Payment Option Not Available');
+              }
             }}>
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.gpay} />
@@ -121,7 +129,9 @@ function PaymentOptionScreen({route}) {
                   depositCoins: depositCoins,
                   requestStatus: requestStatus,
                 });
-              } else alert('Payment Option Not Available');
+              } else {
+                alert('Payment Option Not Available');
+              }
             }}>
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.phonepe} />
@@ -140,7 +150,9 @@ function PaymentOptionScreen({route}) {
                   depositCoins: depositCoins,
                   requestStatus: requestStatus,
                 });
-              } else alert('Payment Option Not Available');
+              } else {
+                alert('Payment Option Not Available');
+              }
             }}>
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.banktransfer} />
@@ -159,7 +171,9 @@ function PaymentOptionScreen({route}) {
                   depositCoins: depositCoins,
                   requestStatus: requestStatus,
                 });
-              } else alert('Payment Option Not Available');
+              } else {
+                alert('Payment Option Not Available');
+              }
             }}>
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.allupi} />

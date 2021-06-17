@@ -21,13 +21,8 @@ import IdController from '../Controller/IdController';
 import Colors from '../../../Theams/Colors';
 
 const MyIDRoute = props => {
-  const banks = [];
   const getMyIDs = IdController.getUserSpecificIDs();
-  console.log('myids', getMyIDs.data);
   const getUserBanks = IdController.getBankData();
-  // getUserBanks.data.forEach(data => {
-  //   banks.push({label: data.bankName, value: data.bid});
-  // });
 
   const [refresh, setRefresh] = useState(false);
 
@@ -74,11 +69,10 @@ const MyIDRoute = props => {
           keyExtractor={(item, index) => index.toString()}
           onRefresh={() => {
             getMyIDs.request();
+            getUserBanks.request();
             setRefresh(false);
           }}
-          renderItem={({item}) => (
-            <AccordionMyIDs data={item} banks={getUserBanks.data} />
-          )}
+          renderItem={({item}) => <AccordionMyIDs data={item} />}
         />
       </View>
     </View>
