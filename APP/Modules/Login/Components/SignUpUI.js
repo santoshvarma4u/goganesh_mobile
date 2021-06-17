@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import styles from './Styles';
 import {Formik} from 'formik';
-import {useNavigation} from '@react-navigation/native';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 import * as Yup from 'yup';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
@@ -58,8 +58,11 @@ function SingUp({route}) {
     }
 
     let name = await Storage.getItemSync(StorageKeys.NAME);
-    console.log(name);
-    navigation.navigate('App');
+    const resetAction = CommonActions.reset({
+      index: 0,
+      routes: [{name: 'App'}],
+    });
+    navigation.dispatch(resetAction);
   };
   return (
     <View style={styles.containerMain}>

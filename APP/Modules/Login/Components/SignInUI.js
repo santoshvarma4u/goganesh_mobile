@@ -8,7 +8,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import styles from './Styles';
 import LoginController from '../Controllers/LoginController';
@@ -24,6 +24,7 @@ function SignIn() {
   const [otp, setOtp] = React.useState('');
   const [otpSession, setOtpSession] = React.useState('');
   const [otpverifyStatus, setOtpVerifyStatus] = React.useState('');
+  const [otpSentStatus, setOtpSentStatus] = React.useState(false);
 
   // otp
   const getToken = async () => {
@@ -42,7 +43,11 @@ function SignIn() {
       } else {
         if (authKey.usertype == 'user') {
           authKey.token = await getToken();
-          navigation.navigate('App');
+          const resetAction = CommonActions.reset({
+            index: 0,
+            routes: [{name: 'App'}],
+          });
+          navigation.dispatch(resetAction);
         } else {
           alert('access denied');
         }
@@ -52,6 +57,7 @@ function SignIn() {
   const sendOtpAndRedirect = async () => {
     console.log('ok sendOtpAndRedirect');
     if (number.length == 10) {
+      setOtpSentStatus(true);
       const optSession = await LoginController.sendOTP(number);
       setOtpSession(optSession.Details);
     } else {
@@ -78,10 +84,17 @@ function SignIn() {
             style={styles.sendOtpButton}
             onPress={sendOtpAndRedirect}
             underlayColor="transparent">
-            <Text style={{color: '#fff'}}>Send OTP</Text>
+            <Text style={{color: '#fff'}}>
+              {' '}
+              {otpSentStatus ? 'Resend OTP' : 'Send OTP'}{' '}
+            </Text>
           </TouchableOpacity>
         </View>
-
+        {otpSentStatus ? (
+          <Text style={{color: '#fff', marginTop: 10}}>
+            OTP Sent Successfully, Please enter OTP below
+          </Text>
+        ) : null}
         <OTPInputView
           style={{width: '80%', height: 120}}
           pinCount={4}
