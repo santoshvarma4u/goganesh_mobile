@@ -48,7 +48,7 @@ function CreateIDScreen({route}) {
   const [checked, setChecked] = React.useState(false);
   const resetAction = CommonActions.reset({
     index: 0,
-    routes: [{name: 'Home'}],
+    routes: [{name: "ID's"}],
   });
   const [planDetails, setPlanDetails] = useState({
     planHeader: 'Go Plan',
@@ -78,11 +78,16 @@ function CreateIDScreen({route}) {
         'CR',
         null,
       ).then(data => {
-        console.log('both initial deposit and site request done!');
+        DepositController.debitFromWallet(
+          parseInt(uid),
+          values.DepositCoins,
+          'DR',
+          'Wallet',
+        ).then(() => {
+          navigation.dispatch(resetAction);
+          alert('success');
+        });
       });
-
-      navigation.dispatch(resetAction);
-      alert('success');
     });
   };
 
@@ -248,7 +253,6 @@ function CreateIDScreen({route}) {
                   if (parseInt(wallet.data) < values.DepositCoins)
                     return alert('Insufficient Funds In Wallet');
                   else {
-                    // const {sdid, url, sitename, requestStatus} = route.params;
                     submitRequest(sdid, values);
                   }
                 } else {

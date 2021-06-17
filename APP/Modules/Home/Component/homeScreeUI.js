@@ -3,8 +3,8 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Button,
-  StyleSheet,
+  Pressable,
+  Modal,
   Image,
 } from 'react-native';
 import DialogInput from 'react-native-dialog-input';
@@ -24,6 +24,7 @@ import NetworkAPI from '../../../Network/api/server';
 function HomeScreen(props) {
   const navigation = useNavigation();
   const [sliderImgs, setSliderImgs] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
   const [dialogVisible, setDialogVisible] = useState(false);
   const {data, success} = HomeController.useGetPromoImages();
   const wallet = HomeController.getWalletBalance();
@@ -63,8 +64,10 @@ function HomeScreen(props) {
           </View>
           <View style={styles.blankCard} />
           <View style={styles.withdrawCard}>
-            <Text style={styles.text}>WITHDRAW</Text>
-            <Icon name="file-download" color="white" size={34} />
+            <TouchableOpacity onPress={() => setModalVisible(true)}>
+              <Text style={styles.text}>WITHDRAW</Text>
+              <Icon name="file-download" color="white" size={34} />
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.centreCard}>
@@ -107,6 +110,25 @@ function HomeScreen(props) {
           <Text style={styles.tipsSubText}>No Data Available</Text>
         </View>
       </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Edit Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(false)}>
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+
       <DialogInput
         isDialogVisible={dialogVisible}
         title={'Enter Amount To Deposit In Wallet'}

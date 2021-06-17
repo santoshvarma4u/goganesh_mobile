@@ -42,9 +42,32 @@ const sendWithDrawRequest = async (
   return;
 };
 
+const sendWalletWithDrawRequest = async (
+  sdid,
+  paymentMethod,
+  paymentAmount,
+  paymentType,
+  bid,
+) => {
+  let userid = await getUID();
+
+  const data = {
+    uid: userid,
+    paymentAmount: paymentAmount,
+    paymentMethod: paymentMethod,
+    userBankID: bid,
+    paymentType: paymentType,
+    isWallet: true,
+  };
+  const result = await transactionsApi.createWalletWithdrawPayment(data);
+  if (!result.ok) return alert(result.problem);
+  return;
+};
+
 export default {
   useGetIDs,
   getUserSpecificIDs,
   getBankData,
   sendWithDrawRequest,
+  sendWalletWithDrawRequest,
 };

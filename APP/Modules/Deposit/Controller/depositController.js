@@ -2,6 +2,7 @@ import useAPI from '../../../Hooks/useAPI';
 import IDsApi from '../../../Network/IDs/IDs';
 import paymentDepositApi from '../../../Network/transactionPassbook/transactionsPassbook';
 import payeeApi from '../../../Network/payee/payeeApi';
+import walletApi from '../../../Network/wallet/wallet';
 const submitData = async (
   uid,
   sdid,
@@ -121,10 +122,32 @@ const submitDataForMyID = async (
 
 const getPayeeDetails = () => useAPI(payeeApi.getPayeeDetails);
 
+const debitFromWallet = async (
+  uid,
+  paymentAmount,
+  paymentType,
+  paymentMethod,
+) => {
+  const data = {
+    uid: uid,
+    paymentAmount: paymentAmount,
+    paymentType: paymentType,
+    paymentMethod: paymentMethod,
+  };
+
+  console.log('====================================');
+  console.log('from controller ', data);
+  console.log('====================================');
+
+  const result = await walletApi.debitFromWallet(data);
+  if (!result.ok) alert(result.problem);
+  else return alert('debited from wallert succes');
+};
 export default {
   submitData,
   submitDataForMyID,
   getPayeeDetails,
   submitIntialDeposit,
   depositIntoWallet,
+  debitFromWallet,
 };

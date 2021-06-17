@@ -17,6 +17,17 @@ export default StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 40,
   },
+  centeredView: {
+    width: '100%',
+    flex: 1,
+    top: 200,
+  },
+  modalView: {
+    margin: 30,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 25,
+  },
   image: {
     height: 150,
     width: 150,

@@ -20,22 +20,23 @@ const createDepositPayment = data => {
   const headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
   };
-  console.log('-----000;;;00;;0;');
-  console.log(data);
 
   return NetworkAPI.apiClient.post(paymentEndPoint, data, headers);
 };
 
 const createWithdrawPayment = data => {
-  const headers = {
-    'Content-Type': 'application/x-www-form-urlencoded',
-  };
   let paymentWithDrawEndPoint = '/payment/withdraw/';
-  console.log(data);
+
+  return NetworkAPI.apiClient.post(paymentWithDrawEndPoint, data);
+};
+
+const createWalletWithdrawPayment = data => {
+  let paymentWithDrawEndPoint = '/payment/withdraw/';
   return NetworkAPI.apiClient.post(paymentWithDrawEndPoint, data);
 };
 export default {
   createDepositPayment,
   getUserTransactions,
   createWithdrawPayment,
+  createWalletWithdrawPayment,
 };
