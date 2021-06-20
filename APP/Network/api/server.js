@@ -6,7 +6,7 @@ import StorageKeys from '../../Modules/Common/StorageKeys';
 const live = 'http://139.59.11.217:3000/';
 const local = 'http://192.168.0.105:3000/';
 
-export const env = live;
+export const env = local;
 
 console.log('hiiiiiiiiiiiiiiii');
 
