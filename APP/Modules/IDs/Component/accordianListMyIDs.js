@@ -11,6 +11,7 @@ import {
   Modal,
   KeyboardAvoidingView,
 } from 'react-native';
+import {Checkbox} from 'react-native-paper';
 import DropDownPicker from 'react-native-dropdown-picker';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FlatListPicker from 'react-native-flatlist-picker';
@@ -20,12 +21,12 @@ import images from '../../../Theams/Images';
 import Colors from '../../../Theams/Colors';
 import {Formik} from 'formik';
 import IdController from '../Controller/IdController';
+import DepositController from '../../Deposit/Controller/depositController';
 import reactotron from 'reactotron-react-native';
 
 const AccordianListNew = props => {
   let banks = [];
-  const getUserBanks = IdController.getBankData();
-  console.log('user banks', getUserBanks.data);
+  const [checked, setChecked] = React.useState(false);
   const [expanded, setExpanded] = React.useState(true);
   const [amount, onAmountChange] = React.useState(null);
   const [selectedBank, setSelectedBank] = React.useState('');
@@ -33,13 +34,14 @@ const AccordianListNew = props => {
 
   useEffect(() => {
     console.log('use effect called ');
-    getUserBanks.data.map(item => {
+    props.bank.data.map(item => {
+      console.log('t', item);
       banks.push({
         value: item.bankName,
         key: item.bid,
       });
     });
-  }, [getUserBanks.data, banks]);
+  }, [props.bank.data, banks]);
 
   const [withDrawForm, setWithDrawForm] = useState(false);
   const navigation = useNavigation();
@@ -133,27 +135,40 @@ const AccordianListNew = props => {
                 placeholder="Enter Amount to Withdraw"
                 keyboardType="numeric"
               />
-              <FlatListPicker
-                data={banks}
-                containerStyle={styles.container}
-                dropdownStyle={{width: 180}}
-                dropdownTextStyle={{fontSize: 15}}
-                pickedTextStyle={{color: 'white', fontWeight: 'bold'}}
-                defaultValue="Select Bank."
-                renderDropdownIcon={() => (
-                  <AntDesign
-                    name="caretdown"
-                    color="white"
-                    size={15}
-                    style={{padding: 15}}
-                  />
-                )}
-                onValueChange={(value, index) => {
-                  setSelectedBank(value);
-                  let bankid = banks.find(o => o.value == value);
-                  setSelectedBankID(bankid.key);
-                }}
-              />
+              <View style={{flexDirection: 'row'}}>
+                <Checkbox
+                  status={checked ? 'checked' : 'unchecked'}
+                  color={Colors.appPrimaryColor}
+                  uncheckedColor="white"
+                  onPress={() => {
+                    setChecked(!checked);
+                  }}
+                />
+                <Text style={{color: 'white'}}>Deposit Into Wallet</Text>
+              </View>
+              {!checked && (
+                <FlatListPicker
+                  data={banks}
+                  containerStyle={styles.container}
+                  dropdownStyle={{width: 180}}
+                  dropdownTextStyle={{fontSize: 15}}
+                  pickedTextStyle={{color: 'white', fontWeight: 'bold'}}
+                  defaultValue="Select Bank."
+                  renderDropdownIcon={() => (
+                    <AntDesign
+                      name="caretdown"
+                      color="white"
+                      size={15}
+                      style={{padding: 15}}
+                    />
+                  )}
+                  onValueChange={(value, index) => {
+                    setSelectedBank(value);
+                    let bankid = banks.find(o => o.value == value);
+                    setSelectedBankID(bankid.key);
+                  }}
+                />
+              )}
               <View style={{flexDirection: 'row'}}>
                 <TouchableOpacity
                   style={{
@@ -176,6 +191,26 @@ const AccordianListNew = props => {
                       'selected bank ',
                       selectedBank + selectedBankID,
                     );
+                    if (checked) {
+                      DepositController.depositIntoWallet(
+                        props.data.uid,
+                        'Wallet',
+                        amount,
+                        'CR',
+                        true,
+                        null,
+                      );
+                    } else {
+                      IdController.sendWithDrawRequest(
+                        props.data.sd.sdid,
+                        selectedBank,
+                        amount,
+                        'DR',
+                        selectedBankID,
+                      ).then(() => {
+                        alert('WithDraw Request Sent Successfully ');
+                      });
+                    }
                   }}
                   style={{
                     width: 100,

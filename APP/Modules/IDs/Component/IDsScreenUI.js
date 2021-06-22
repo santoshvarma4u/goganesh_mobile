@@ -72,7 +72,9 @@ const MyIDRoute = props => {
             getUserBanks.request();
             setRefresh(false);
           }}
-          renderItem={({item}) => <AccordionMyIDs data={item} />}
+          renderItem={({item}) => (
+            <AccordionMyIDs data={item} bank={getUserBanks} />
+          )}
         />
       </View>
     </View>

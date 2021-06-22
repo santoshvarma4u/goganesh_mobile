@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {
   Text,
+  TextInput,
+  Button,
   View,
   TouchableOpacity,
   Pressable,
@@ -9,6 +11,8 @@ import {
 } from 'react-native';
 import DialogInput from 'react-native-dialog-input';
 import styles from './Styles';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {Formik} from 'formik';
 import {Icon} from 'react-native-elements';
 import HomeController from '../Controller/homeController';
 import images from '../../../Theams/Images';
@@ -21,25 +25,28 @@ import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import authKey from '../../../Modules/Common/JWT';
 import NetworkAPI from '../../../Network/api/server';
+import IDController from '../../IDs/Controller/IdController';
+import FlatListPicker from 'react-native-flatlist-picker';
 function HomeScreen(props) {
+  let banks = [];
   const navigation = useNavigation();
   const [sliderImgs, setSliderImgs] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [dialogVisible, setDialogVisible] = useState(false);
+  const [selectedBank, setSelectedBank] = React.useState('');
+  const [selectedBankID, setSelectedBankID] = React.useState('');
   const {data, success} = HomeController.useGetPromoImages();
   const wallet = HomeController.getWalletBalance();
-
+  const getUserBanks = IDController.getBankData();
   const pushFcmToken = async () => {
     let ID = await Storage.getItemSync(StorageKeys.ID);
     let FCMTOKEN = await Storage.getItemSync(StorageKeys.FCMTOKEN);
-    console.log('user token sent');
+    console.log(banks);
     await NetworkAPI.apiClient.patch(`/users/${ID}`, {fcm_id: FCMTOKEN});
   };
 
   useEffect(() => {
-    console.log('jwt from home screen', authKey.token);
     pushFcmToken();
-
     if (success) {
       data.map(i => {
         reactotron.log(`${env}${i.promoImage}`);
@@ -50,7 +57,13 @@ function HomeScreen(props) {
         }),
       );
     }
-  }, [data, success]);
+    getUserBanks.data.map(item => {
+      banks.push({
+        value: item.bankName,
+        key: item.bid,
+      });
+    });
+  }, [data, success, getUserBanks.data]);
 
   return (
     <View style={styles.containerMain}>
@@ -131,11 +144,65 @@ function HomeScreen(props) {
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(false)}>
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </Pressable>
+            <Formik
+              initialValues={{
+                withdrawAmount: '',
+              }}
+              onSubmit={values => {
+                IDController.sendWalletWithDrawRequest(
+                  'Wallet',
+                  values.withdrawAmount,
+                  'DR',
+                  selectedBankID,
+                ).then(() => {
+                  setModalVisible(!modalVisible);
+                  alert('Withdraw Request Sent Successfully');
+                });
+              }}>
+              {({handleChange, handleSubmit}) => (
+                <>
+                  <Text style={styles.modalText}>Enter Amount to Withdraw</Text>
+                  <TextInput
+                    style={styles.modalText}
+                    placeholder="Ex : 200"
+                    keyboardType="numeric"
+                    onChangeText={handleChange('withdrawAmount')}
+                  />
+                  <FlatListPicker
+                    data={banks}
+                    containerStyle={styles.container}
+                    dropdownStyle={{width: 180}}
+                    dropdownTextStyle={{fontSize: 15}}
+                    pickedTextStyle={{color: 'black', fontWeight: 'bold'}}
+                    defaultValue="Select Bank."
+                    renderDropdownIcon={() => (
+                      <AntDesign
+                        name="caretdown"
+                        color="white"
+                        size={15}
+                        style={{padding: 15}}
+                      />
+                    )}
+                    onValueChange={(value, index) => {
+                      setSelectedBank(value);
+                      let bankid = banks.find(o => o.value == value);
+                      setSelectedBankID(bankid.key);
+                    }}
+                  />
+
+                  <Button
+                    style={styles.modalText}
+                    title="submit"
+                    onPress={handleSubmit}
+                  />
+                  <Button
+                    style={styles.modalText}
+                    title="Close"
+                    onPress={() => setModalVisible(false)}
+                  />
+                </>
+              )}
+            </Formik>
           </View>
         </View>
       </Modal>

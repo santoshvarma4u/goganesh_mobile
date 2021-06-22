@@ -69,7 +69,7 @@ function PassbookScreen({navigation}) {
                         : 'Deposited into Wallet'}
                     </Text>
                     <Text style={{color: Colors.appWhiteColor}}>
-                      {Moment(item.creadtedtime).format('LL').toString()}
+                      {Moment(item.creadtedtime).format('lll').toString()}
                     </Text>
                     <Text style={{color: Colors.appWhiteColor}}>
                       {item.paymentMethod}

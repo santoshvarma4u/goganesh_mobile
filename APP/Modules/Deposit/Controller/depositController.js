@@ -28,7 +28,6 @@ const submitData = async (
   data.append('planType', planType);
   data.append('userName', userName);
   data.append('depositCoins', depositCoins);
-  console.log('dataaaaaalallalallalallallalal', data);
 
   const result = await IDsApi.createID(data, progress => console.log(progress));
   if (!result.ok) {
@@ -79,18 +78,20 @@ const depositIntoWallet = async (
   data.append('paymentType', paymentType);
   data.append('paymentMethod', paymentMethod);
   data.append('isWallet', isWallet);
-  data.append('depositpayreciept', {
-    uri: paymentreciept.uri,
-    type: paymentreciept.type,
-    name: paymentreciept.fileName,
-  });
 
+  if (paymentreciept !== null) {
+    data.append('depositpayreciept', {
+      uri: paymentreciept.uri,
+      type: paymentreciept.type,
+      name: paymentreciept.fileName,
+    });
+  }
   data.append('paymentAmount', paymentAmount);
   console.log(data);
 
   const result = await paymentDepositApi.createDepositPayment(data);
   if (!result.ok) return alert(result.problem);
-  alert('success wallet deposit');
+  alert('Reuqest Sent Success');
 };
 
 const submitDataForMyID = async (
@@ -134,10 +135,6 @@ const debitFromWallet = async (
     paymentType: paymentType,
     paymentMethod: paymentMethod,
   };
-
-  console.log('====================================');
-  console.log('from controller ', data);
-  console.log('====================================');
 
   const result = await walletApi.debitFromWallet(data);
   if (!result.ok) alert(result.problem);

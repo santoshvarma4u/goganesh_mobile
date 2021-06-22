@@ -9,7 +9,6 @@ export default useAPI = apiFunction => {
   const request = () => {
     apiFunction()
       .then(response => {
-        console.log(response);
         setLoading(false);
         if (!response.ok) {
           return setError(true);

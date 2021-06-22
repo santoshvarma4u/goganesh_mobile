@@ -43,7 +43,6 @@ const sendWithDrawRequest = async (
 };
 
 const sendWalletWithDrawRequest = async (
-  sdid,
   paymentMethod,
   paymentAmount,
   paymentType,

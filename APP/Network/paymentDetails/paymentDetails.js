@@ -23,8 +23,6 @@ const createUserBankDetails = async data => {
   };
 
   const userBankDetails = '/userBankDetails';
-  console.log('=========');
-  console.log(data);
   return NetworkAPI.apiClient.post(userBankDetails, data, headers);
 };
 

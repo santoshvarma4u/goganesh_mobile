@@ -46,6 +46,7 @@ function CreateIDScreen({route}) {
   const navigation = useNavigation();
   const {sdid, url, sitename, requestStatus} = route.params;
   const [checked, setChecked] = React.useState(false);
+  const wallet = HomeController.getWalletBalance();
   const resetAction = CommonActions.reset({
     index: 0,
     routes: [{name: "ID's"}],
@@ -91,7 +92,6 @@ function CreateIDScreen({route}) {
     });
   };
 
-  const wallet = HomeController.getWalletBalance();
   return (
     <ScrollView>
       <View style={styles.containerMain}>
