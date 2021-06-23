@@ -37,7 +37,7 @@ export default StyleSheet.create({
   depositDetailsCardForBank: {
     flex: 0.3,
     marginTop: 20,
-    backgroundColor: 'white',
+    backgroundColor: Colors.backgroundColor,
     width: '90%',
     borderRadius: 10,
   },
@@ -70,7 +70,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     borderRadius: 10,
-    marginTop:15,
+    marginTop: 15,
     color: Colors.appPrimaryColor,
   },
   imageStyle: {

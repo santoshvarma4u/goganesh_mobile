@@ -59,8 +59,9 @@ function DepositScreen({route}) {
   const [filePath, setFilePath] = useState('');
 
   const submitPayment = () => {
-    if (filePath.length <= 0)
+    if (filePath.length <= 0) {
       return alert('please upload payment reference image');
+    }
     setProgress(true);
     if (requestStatus === 'new') {
       console.log('====================================');
@@ -162,7 +163,7 @@ function DepositScreen({route}) {
           return (
             <View style={styles.containerMain}>
               <View style={styles.depositTitle}>
-                <Text style={{color: 'white'}}>
+                <Text style={{color: Colors.appBlackColor}}>
                   Send Payment and Upload ScreenShot
                 </Text>
               </View>
@@ -240,7 +241,7 @@ function DepositScreen({route}) {
           return (
             <View style={styles.offersContainer}>
               <View style={styles.depositTitle}>
-                <Text style={{color: 'white'}}>
+                <Text style={{color: Colors.appBlackColor}}>
                   Send Payment & Upload ScreenShot
                 </Text>
               </View>

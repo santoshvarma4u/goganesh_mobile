@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import Colors from '../../../Theams/Colors';
 
 export default StyleSheet.create({
@@ -132,5 +132,26 @@ export default StyleSheet.create({
     width: '100%',
     height: '100%',
     backgroundColor: 'green',
+  },
+  buttonClose: {
+    marginLeft: 'auto',
+  },
+  modalText: {
+    borderRadius: 5,
+    backgroundColor: 'white',
+    fontSize: 20,
+    height: 50,
+    marginBottom: 5,
+  },
+  notetext: {
+    borderRadius: 5,
+    backgroundColor: 'white',
+    fontSize: 14,
+    marginBottom: 10,
+  },
+  dropdownStyle: {
+    borderRadius: 10,
+    marginVertical: 20,
+    width: Dimensions.get('window').width - 120,
   },
 });

@@ -35,6 +35,7 @@ function HomeScreen(props) {
   const [dialogVisible, setDialogVisible] = useState(false);
   const [selectedBank, setSelectedBank] = React.useState('');
   const [selectedBankID, setSelectedBankID] = React.useState('');
+  const [userBanks, setUserBanks] = React.useState([]);
   const {data, success} = HomeController.useGetPromoImages();
   const wallet = HomeController.getWalletBalance();
   const getUserBanks = IDController.getBankData();
@@ -63,6 +64,7 @@ function HomeScreen(props) {
         key: item.bid,
       });
     });
+    setUserBanks(banks);
   }, [data, success, getUserBanks.data]);
 
   return (
@@ -161,44 +163,60 @@ function HomeScreen(props) {
               }}>
               {({handleChange, handleSubmit}) => (
                 <>
-                  <Text style={styles.modalText}>Enter Amount to Withdraw</Text>
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={styles.modalText}>
+                      Enter Amount to Withdraw
+                    </Text>
+                    <Pressable
+                      style={[styles.button, styles.buttonClose]}
+                      onPress={() => setModalVisible(false)}>
+                      <Icon
+                        name="cancel"
+                        color={Colors.appPrimaryColor}
+                        size={32}
+                      />
+                    </Pressable>
+                  </View>
+                  <Text style={styles.notetext}>
+                    Note: Please make sure, withdraw amount must be less or
+                    equal to wallet balance!!
+                  </Text>
                   <TextInput
-                    style={styles.modalText}
+                    style={[styles.modalText, {borderBottomWidth: 0.5}]}
                     placeholder="Ex : 200"
                     keyboardType="numeric"
                     onChangeText={handleChange('withdrawAmount')}
                   />
+
                   <FlatListPicker
-                    data={banks}
-                    containerStyle={styles.container}
-                    dropdownStyle={{width: 180}}
+                    data={userBanks}
+                    containerStyle={styles.dropdownStyle}
+                    dropdownStyle={{
+                      marginHorizontal: 10,
+                      width: 250,
+                      marginTop: 10,
+                    }}
                     dropdownTextStyle={{fontSize: 15}}
                     pickedTextStyle={{color: 'black', fontWeight: 'bold'}}
-                    defaultValue="Select Bank."
+                    defaultValue="Select Bank"
                     renderDropdownIcon={() => (
-                      <AntDesign
-                        name="caretdown"
-                        color="white"
-                        size={15}
-                        style={{padding: 15}}
+                      <Icon
+                        name="arrow-drop-down"
+                        color={Colors.appBlackColor}
+                        size={32}
                       />
                     )}
                     onValueChange={(value, index) => {
                       setSelectedBank(value);
-                      let bankid = banks.find(o => o.value == value);
+                      let bankid = userBanks.find(o => o.value == value);
                       setSelectedBankID(bankid.key);
                     }}
                   />
 
                   <Button
                     style={styles.modalText}
-                    title="submit"
+                    title="Send Withdraw Request"
                     onPress={handleSubmit}
-                  />
-                  <Button
-                    style={styles.modalText}
-                    title="Close"
-                    onPress={() => setModalVisible(false)}
                   />
                 </>
               )}
