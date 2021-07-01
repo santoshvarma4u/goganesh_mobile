@@ -5,6 +5,8 @@ import {
   View,
   TouchableWithoutFeedback,
   Image,
+  ScrollView,
+  RefreshControl,
   FlatList,
   Dimensions,
   StyleSheet,
@@ -30,6 +32,16 @@ function PaymentOptionScreen({route}) {
   console.log('====================================');
   console.log('on paymentss options  id screen' + requestStatus);
   const navigation = useNavigation();
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    paymentOptions.request();
+    paymentOptions.data.forEach(payOps => {
+      options.push(payOps.paymenttype);
+    });
+    setRefreshing(false);
+  }, []);
 
   const paymentOptions = PaymentOptionController.getPayeeDetails();
   paymentOptions.data.forEach(payOps => {
@@ -46,11 +58,14 @@ function PaymentOptionScreen({route}) {
 
   return (
     <View style={styles.containerMain}>
-      <View />
-
-      <View style={styles.paymentOptionsContainer}>
+      <ScrollView
+        contentContainerStyle={styles.paymentOptionsContainer}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         <View style={styles.PaymentTitle}>
           <Text style={{color: 'white'}}>Choose Your Payment Method</Text>
+          <Text style={{color: 'white'}}>Pull to Refresh</Text>
         </View>
         <View style={styles.paymentOptions}>
           <TouchableWithoutFeedback
@@ -181,7 +196,7 @@ function PaymentOptionScreen({route}) {
             </View>
           </TouchableWithoutFeedback>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 }
