@@ -27,9 +27,10 @@ import reactotron from 'reactotron-react-native';
 const AccordianListNew = props => {
   let banks = [];
   const [checked, setChecked] = React.useState(false);
+  const [check, setCheckedDemo] = React.useState(0);
   const [expanded, setExpanded] = React.useState(true);
   const [amount, onAmountChange] = React.useState(null);
-  const [selectedBank, setSelectedBank] = React.useState('');
+  const [selectedBank, setSelectedBank] = React.useState('Select Bank');
   const [selectedBankID, setSelectedBankID] = React.useState('');
 
   useEffect(() => {
@@ -153,7 +154,7 @@ const AccordianListNew = props => {
                   dropdownStyle={{width: 180}}
                   dropdownTextStyle={{fontSize: 15}}
                   pickedTextStyle={{color: 'white', fontWeight: 'bold'}}
-                  defaultValue="Select Bank."
+                  defaultValue={selectedBank}
                   renderDropdownIcon={() => (
                     <AntDesign
                       name="caretdown"
@@ -164,6 +165,7 @@ const AccordianListNew = props => {
                   )}
                   onValueChange={(value, index) => {
                     setSelectedBank(value);
+                    setCheckedDemo(1);
                     let bankid = banks.find(o => o.value == value);
                     setSelectedBankID(bankid.key);
                   }}
@@ -201,6 +203,12 @@ const AccordianListNew = props => {
                         null,
                       );
                     } else {
+                      console.log('jjjjjjjjjj', selectedBank + selectedBankID);
+                      console.log('llllllllll', amount + amount);
+                      if (selectedBankID.length == 0 || amount == 0)
+                        return alert(
+                          'Please select a bank or Enter amount to Withdraw',
+                        );
                       IdController.sendWithDrawRequest(
                         props.data.sd.sdid,
                         selectedBank,
