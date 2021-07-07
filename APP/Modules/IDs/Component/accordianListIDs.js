@@ -14,7 +14,7 @@ import {Icon} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import images from '../../../Theams/Images';
 import Colors from '../../../Theams/Colors';
-
+import {env} from '../../../Network/api/server';
 const AccordianListNew = props => {
   const [expanded, setExpanded] = React.useState(true);
   const navigation = useNavigation();
@@ -23,7 +23,10 @@ const AccordianListNew = props => {
   function ListTitle() {
     return (
       <View style={styles.ListTitle}>
-        <Image style={styles.image} source={images.logo} />
+        <Image
+          style={styles.image}
+          source={{uri: `${env}${props.data.siteimage}`}}
+        />
         <View>
           <Text style={styles.url}>{props.data.siteurl}</Text>
           <Text style={styles.siteName}>{props.data.sitename}</Text>

@@ -23,7 +23,7 @@ import {Formik} from 'formik';
 import IdController from '../Controller/IdController';
 import DepositController from '../../Deposit/Controller/depositController';
 import reactotron from 'reactotron-react-native';
-
+import {env} from '../../../Network/api/server';
 const AccordianListNew = props => {
   let banks = [];
   const [checked, setChecked] = React.useState(false);
@@ -51,7 +51,10 @@ const AccordianListNew = props => {
   function ListTitle() {
     return (
       <View style={styles.ListTitle}>
-        <Image style={styles.image} source={images.logo} />
+        <Image
+          style={styles.image}
+          source={{uri: `${env}${props.data.sd.siteimage}`}}
+        />
         <View>
           <Text style={styles.url}>{props.data.sd.siteurl}</Text>
           <Text style={styles.siteName}>{props.data.sd.sitename}</Text>

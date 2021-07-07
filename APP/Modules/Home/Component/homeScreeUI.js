@@ -50,7 +50,7 @@ function HomeScreen(props) {
     pushFcmToken();
     if (success) {
       data.map(i => {
-        reactotron.log(`${env}${i.promoImage}`);
+        console.log(`${env}${i.promoImage}`);
       });
       setSliderImgs(
         data.map(i => {
@@ -151,6 +151,8 @@ function HomeScreen(props) {
                 withdrawAmount: '',
               }}
               onSubmit={values => {
+                if (parseInt(wallet.data) < parseInt(values.withdrawAmount))
+                  return alert('Enter Valid amount');
                 IDController.sendWalletWithDrawRequest(
                   'Wallet',
                   values.withdrawAmount,
