@@ -41,6 +41,21 @@ export default StyleSheet.create({
     borderRadius: 10,
     marginBottom: 5,
     paddingVertical: 25,
-    flexDirection:'row'
+    flexDirection: 'row',
+  },
+  centeredView: {
+    width: '100%',
+    flex: 0.5,
+    padding: 10,
+    top: 180,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: Colors.appPrimaryColor,
+    borderRadius: 10,
+    padding: 15,
+  },
+  modalText: {
+    marginBottom: 10,
   },
 });

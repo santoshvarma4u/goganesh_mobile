@@ -103,6 +103,7 @@ function DepositScreen({route}) {
         true,
         filePath,
       ).then(data => {
+        '';
         console.log(data);
         navigation.dispatch(resetAction);
       });
@@ -258,7 +259,9 @@ function DepositScreen({route}) {
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   <Text style={styles.depositTitile}>Amount To Deposit</Text>
-                  <Text style={styles.phoneNumber}>{planMoney}</Text>
+                  <Text style={styles.phoneNumber}>
+                    {planMoney || depositCoins}
+                  </Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   <Text style={styles.depositTitile}>

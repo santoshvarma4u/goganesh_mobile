@@ -91,7 +91,7 @@ const depositIntoWallet = async (
 
   const result = await paymentDepositApi.createDepositPayment(data);
   if (!result.ok) return alert(result.problem);
-  alert('Reuqest Sent Success');
+  else return alert('Reuqest Sent Success');
 };
 
 const submitDataForMyID = async (

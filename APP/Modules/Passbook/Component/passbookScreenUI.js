@@ -1,5 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, FlatList, Image} from 'react-native';
+import {
+  Text,
+  View,
+  FlatList,
+  Image,
+  Modal,
+  Button,
+  TouchableOpacity,
+} from 'react-native';
+import {env} from '../../../Network/api/server';
 import Moment from 'moment';
 import PassBoookController from '../Controller/passBookController';
 
@@ -8,6 +17,8 @@ import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
 function PassbookScreen({navigation}) {
   const [refresh, setRefresh] = useState(false);
+  const [paymentReciept, setPaymentReciept] = useState('');
+  const [visible, setVisible] = useState(false);
   const {
     data,
     success,
@@ -23,6 +34,7 @@ function PassbookScreen({navigation}) {
   return (
     <View style={styles.containerMain}>
       <View />
+
       <View style={styles.offersContainer}>
         <View style={styles.topOffers}>
           <Text
@@ -94,11 +106,53 @@ function PassbookScreen({navigation}) {
                       ]}>
                       {item.paymentStatus}
                     </Text>
+                    {item.paymentReciept.length > 0 && (
+                      <TouchableOpacity
+                        style={{
+                          padding: 2,
+                          marginTop: 10,
+                          alignItems: 'center',
+                          backgroundColor: Colors.appPrimaryColor,
+                          justifyContent: 'center',
+                          borderRadius: 5,
+                        }}
+                        onPress={() => {
+                          setPaymentReciept(`${env}${item.paymentReciept}`);
+                          setVisible(!visible);
+                        }}>
+                        <Text style={{color: Colors.appBlackColor}}>
+                          Click Here to View
+                        </Text>
+                      </TouchableOpacity>
+                    )}
                   </View>
                 </View>
               </View>
             )}
           />
+          <View style={styles.centeredView}>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={visible}
+              onRequestClose={() => {
+                Alert.alert('Modal has been closed.');
+              }}>
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <View style={{marginTop: 20}}>
+                    <Image
+                      source={{uri: paymentReciept}}
+                      style={{padding: 5, width: 150, height: 200}}
+                    />
+                    <Button
+                      title="Close"
+                      onPress={() => setVisible(!visible)}></Button>
+                  </View>
+                </View>
+              </View>
+            </Modal>
+          </View>
         </View>
       </View>
     </View>

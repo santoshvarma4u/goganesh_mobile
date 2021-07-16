@@ -16,6 +16,7 @@ const getUserSiteDetails = async () => {
   const userSiteDetails = `/userSiteDetails/${uid}`;
   return NetworkAPI.apiClient.get(userSiteDetails);
 };
+
 export default {
   getUserSiteDetails,
 };
