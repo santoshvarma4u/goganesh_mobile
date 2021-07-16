@@ -1,8 +1,21 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import styles from './Styles';
 import {Avatar, Chip, Icon, withBadge} from 'react-native-elements';
+import Storage from '../../Common/Storage';
+import StorageKeys from '../../Common/StorageKeys';
 function ProfileScreen({navigation}) {
+  const [name, setName] = useState(false);
+
+  const getName = async () => {
+    try {
+      let name = await Storage.getItemSync(StorageKeys.NAME);
+      return name;
+    } catch (error) {}
+  };
+  useEffect(() => {
+    const name = getName().then(data => setName(data));
+  }, []);
   return (
     <View style={styles.containerMain}>
       <View style={styles.profileContainer}>
@@ -10,7 +23,7 @@ function ProfileScreen({navigation}) {
           <Icon name="person"></Icon>
         </View>
         <View style={styles.profileDetails}>
-          <Text style={{padding: 10}}>Name</Text>
+          <Text style={{padding: 10}}>Name : {name} </Text>
           <Text style={{padding: 10}}>+91 9959052330</Text>
           <Chip title="Change Password" />
           <Text style={{padding: 10}}>Member Since :</Text>
