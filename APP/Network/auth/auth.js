@@ -1,7 +1,11 @@
 import NetworkAPI from '../api/server';
 
-const loginCheck = phonenumber =>
-  NetworkAPI.apiLoginClient.post('/users/login', {phone: phonenumber});
+const loginCheck = (phonenumber, password) => {
+  return NetworkAPI.apiLoginClient.post('/users/login', {
+    phone: phonenumber,
+    password: password,
+  });
+};
 
 export const sendOtp = phone => {
   const apiKey = 'efaf38a4-6742-11ea-9fa5-0200cd936042';

@@ -3,12 +3,12 @@ import NetworkAPI from '../../../Network/api/server';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import authKey from '../../../Modules/Common/JWT';
-const checkUser = async phoneNumber => {
+const checkUser = async (phoneNumber, password) => {
   try {
     console.log('====================================');
     console.log('check user called');
     console.log('====================================');
-    const result = await authApi.loginCheck(phoneNumber);
+    const result = await authApi.loginCheck(phoneNumber, password);
 
     if (!result.ok) {
       console.log(result);

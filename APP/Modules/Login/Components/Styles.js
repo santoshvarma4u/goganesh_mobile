@@ -27,6 +27,8 @@ export default StyleSheet.create({
   input: {
     height: 40,
     margin: 12,
+    backgroundColor: Colors.appPrimaryColor,
+    color: 'black',
     borderRadius: 10,
   },
   borderStyleBase: {
@@ -100,7 +102,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.appBlackColor,
     borderRadius: 10,
     padding: 10,
-    marginTop:40
+    marginTop: 40,
   },
   centeredView: {
     width: '100%',

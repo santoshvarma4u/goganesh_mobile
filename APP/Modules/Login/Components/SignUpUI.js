@@ -47,14 +47,11 @@ function SingUp({route}) {
   const {phoneNumber} = route.params;
 
   const submitUser = async values => {
-    if (values.phone != phoneNumber) {
-      return alert('phone number not matched');
-    }
     const userResponse = await SignupController.doRegisterUser(values);
     if (userResponse.ok) {
       alert('Registered Successfully');
     } else {
-      alert('User already Exists with same phone number');
+      return alert('User already Exists with same phone number');
     }
 
     let name = await Storage.getItemSync(StorageKeys.NAME);
@@ -96,7 +93,7 @@ function SingUp({route}) {
                     style={styles.modalText}
                     placeholder="Enter Your phone Number"
                     keyboardType="numeric"
-                    placeholder={phoneNumber}
+                    placeholder="Enter Phone Number"
                     onChangeText={handleChange('phone')}
                   />
                   <TextInput
