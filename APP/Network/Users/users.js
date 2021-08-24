@@ -23,8 +23,14 @@ const getWalletBalance = async () => {
   return NetworkAPI.apiClient.get(`/users/balance/${userid}`);
 };
 
+const getAllNotifications = async () => {
+  let userid = await getUID();
+  return NetworkAPI.apiClient.get(`/notification/${userid}`);
+};
+
 export default {
   getUsers,
   createUser,
   getWalletBalance,
+  getAllNotifications,
 };

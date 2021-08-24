@@ -13,6 +13,7 @@ import DepositScreen from '../Modules/Deposit/Container/depositIndex';
 import CreateIDScreen from '../Modules/CreateID/Container/createIDIndex';
 import SignInContainer from '../Modules/Login/Containers/Signin/SignInindex';
 import SignUpContainer from '../Modules/Login/Containers/Signin/SignUpContainer';
+import NotificationScreen from '../Modules/Home/Component/notificationScreenUI';
 import PassbookScreen from '../Modules/Passbook/Container/passbookIndex';
 import CustomSidebarMenu from '../Modules/SideMenu/Component/sidemenu';
 import Splash from '../Modules/Splash/Container/splashIndex';
@@ -88,7 +89,7 @@ const HomeStackNavigator = () => {
               <Icon
                 name="notifications"
                 size={28}
-                onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+                onPress={() => navigation.navigate('Notification')}
               />
             </View>
           ),
@@ -157,6 +158,23 @@ const HomeStackNavigator = () => {
               {...props}
               onPress={() => {
                 navigation.navigate('PaymentOptions');
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Notification"
+        component={NotificationScreen}
+        options={({navigation}) => ({
+          headerTitle: 'Deposit',
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitleAlign: 'center',
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => {
+                navigation.goBack();
               }}
             />
           ),

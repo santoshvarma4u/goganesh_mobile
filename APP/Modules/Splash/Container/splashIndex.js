@@ -7,11 +7,24 @@ import {CommonActions} from '@react-navigation/native';
 import authKey from '../../../Modules/Common/JWT';
 import NetworkAPI from '../../../Network/api/server';
 import PushNotification from 'react-native-push-notification';
+import NotificationsApi from '../../../Network/notifications/notificationAPI';
 
 PushNotification.configure({
   // (required) Called when a remote or local notification is opened or received
-  onNotification: function (notification) {
+  onNotification: async function (notification) {
     console.log('LOCAL NOTIFICATION ==>', notification);
+    let uid = await Storage.getItemSync(StorageKeys.ID);
+    let noti = {
+      uid: uid,
+      notificationTitle: notification.title,
+      notificationMessage: notification.message,
+    };
+    const result = await NotificationsApi.createNotification(noti);
+    if (!result.ok) {
+      console.log(result);
+      return alert(result.problem);
+    }
+    console.log('notifaication saved sucessfully');
     PushNotification.localNotification(notification);
   },
   onRegister: async function (token) {

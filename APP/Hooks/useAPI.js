@@ -10,6 +10,7 @@ export default useAPI = apiFunction => {
     apiFunction()
       .then(response => {
         setLoading(false);
+
         if (!response.ok) {
           return setError(true);
         }

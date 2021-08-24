@@ -45,7 +45,7 @@ const SignupSchema = Yup.object().shape({
 function SingUp({route}) {
   const navigation = useNavigation();
   const {phoneNumber} = route.params;
-
+``
   const submitUser = async values => {
     const userResponse = await SignupController.doRegisterUser(values);
     if (userResponse.ok) {

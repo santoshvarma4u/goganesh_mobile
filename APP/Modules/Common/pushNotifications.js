@@ -1,5 +1,6 @@
 import PushNotification from 'react-native-push-notification';
 import Storage from './Storage';
+import NotificationAPI from './../../Network/notifications/notificationAPI';
 import StorageKeys from './StorageKeys';
 
 export const regToken = () => {
