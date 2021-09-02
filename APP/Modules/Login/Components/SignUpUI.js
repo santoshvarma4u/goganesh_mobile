@@ -45,7 +45,7 @@ const SignupSchema = Yup.object().shape({
 function SingUp({route}) {
   const navigation = useNavigation();
   const {phoneNumber} = route.params;
-``
+  ('');
   const submitUser = async values => {
     const userResponse = await SignupController.doRegisterUser(values);
     if (userResponse.ok) {
@@ -66,6 +66,14 @@ function SingUp({route}) {
       <View style={styles.profileContainer}>
         <View style={styles.bankDetails}>
           <View style={styles.bankCardDetails}>
+            <Text
+              style={{
+                color: '#d5d1d1',
+                marginVertical: 20,
+                fontSize: 22,
+              }}>
+              Register
+            </Text>
             <Formik
               validationSchema={SignupSchema}
               initialValues={{

@@ -55,6 +55,15 @@ function CustomSidebarMenu({...props}) {
         }}
       />
       <DrawerItem
+        label="Help"
+        onPress={() => {
+          props.navigation.navigate('Help');
+        }}
+        icon={(color, size) => {
+          return <Icon size={23} name={'info'} />;
+        }}
+      />
+      <DrawerItem
         label="Logout"
         onPress={() => {
           removeUserDetails();

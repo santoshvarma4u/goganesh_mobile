@@ -17,6 +17,7 @@ import NotificationScreen from '../Modules/Home/Component/notificationScreenUI';
 import PassbookScreen from '../Modules/Passbook/Container/passbookIndex';
 import CustomSidebarMenu from '../Modules/SideMenu/Component/sidemenu';
 import Splash from '../Modules/Splash/Container/splashIndex';
+import HelpScreen from '../Modules/Help/Container/helpIndex';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import {DrawerActions} from '@react-navigation/native';
@@ -27,16 +28,12 @@ const Drawer = createDrawerNavigator();
 
 function AuthNavigator() {
   return (
-    <Stack.Navigator initialRouteName="SignIn">
-      <Stack.Screen
-        name="SignIn"
-        component={SignInContainer}
-        options={({navigation}) => ({
-          headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitle: 'SignIn',
-          headerTitleAlign: 'center',
-        })}
-      />
+    <Stack.Navigator
+      initialRouteName="SignIn"
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="SignIn" component={SignInContainer} />
       <Stack.Screen
         name="SignUp"
         component={SignUpContainer}
@@ -100,6 +97,23 @@ const HomeStackNavigator = () => {
         component={ProfileScreen}
         options={({navigation}) => ({
           headerTitle: 'Profile',
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitleAlign: 'center',
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => {
+                navigation.navigate('Home');
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Help"
+        component={HelpScreen}
+        options={({navigation}) => ({
+          headerTitle: 'Help',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
           headerLeft: props => (

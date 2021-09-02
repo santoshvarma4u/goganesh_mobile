@@ -8,6 +8,14 @@ import HomeController from '../Controller/homeController';
 function NotificationScreen({navigation}) {
   const notifications = HomeController.getNotifications();
 
+  const renderNotificationItem = item => {
+    return (
+      <View style={styles.containerMain}>
+        <Text>title {item.notificationTitle}</Text>
+        <Text>message {item.notificationMessage}</Text>
+      </View>
+    );
+  };
   return (
     <View style={styles.containerMain}>
       <View />
@@ -20,12 +28,7 @@ function NotificationScreen({navigation}) {
             inverted={false}
             refreshing={false}
             data={notifications.data}
-            renderItem={({item}) => (
-              <View styles={{backgroundColor: 'white'}}>
-                <Text>title {item.notificationTitle}</Text>
-                <Text>message {item.notificationMessage}</Text>
-              </View>
-            )}
+            renderItem={({item}) => renderNotificationItem(item)}
           />
         </View>
       </View>

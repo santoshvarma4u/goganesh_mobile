@@ -60,11 +60,10 @@ export default StyleSheet.create({
     backgroundColor: '#343232',
   },
   promotionCard: {
-    flex: 0.3,
+    flex: 1.5,
     flexDirection: 'column',
     marginTop: 20,
-    backgroundColor: 'white',
-    width: '80%',
+    width: '90%',
     borderRadius: 10,
   },
   text: {
@@ -75,6 +74,12 @@ export default StyleSheet.create({
   createTextOnly: {
     color: 'black',
     marginHorizontal: 10,
+  },
+  myids: {
+    color: 'white',
+    marginLeft: 10,
+    fontSize: 15,
+    marginRight: 'auto',
   },
   centralCardView: {
     flex: 1,

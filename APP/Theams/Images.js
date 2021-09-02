@@ -9,6 +9,7 @@ const images = {
   phonepe: require('../../assets/Images/phonepe.png'),
   paytmupi: require('../../assets/Images/Paytm-UPI-Realme.jpg'),
   bottombg: require('../../assets/Images/bottombg.jpg'),
+  concern: require('../../assets/Images/concern.png'),
 };
 
 export default images;

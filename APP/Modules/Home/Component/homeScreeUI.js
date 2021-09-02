@@ -8,6 +8,8 @@ import {
   Pressable,
   Modal,
   Image,
+  FlatList,
+  ScrollView,
 } from 'react-native';
 import DialogInput from 'react-native-dialog-input';
 import styles from './Styles';
@@ -27,6 +29,9 @@ import authKey from '../../../Modules/Common/JWT';
 import NetworkAPI from '../../../Network/api/server';
 import IDController from '../../IDs/Controller/IdController';
 import FlatListPicker from 'react-native-flatlist-picker';
+import IdController from '../../IDs/Controller/IdController';
+import homeListMyIDs from '../Component/homeListMyIDs';
+import HomeListMyIDs from '../Component/homeListMyIDs';
 function HomeScreen(props) {
   let banks = [];
   const navigation = useNavigation();
@@ -45,6 +50,7 @@ function HomeScreen(props) {
     console.log(banks);
     await NetworkAPI.apiClient.patch(`/users/${ID}`, {fcm_id: FCMTOKEN});
   };
+  const getMyIDs = IdController.getUserSpecificIDs();
 
   useEffect(() => {
     pushFcmToken();
@@ -103,6 +109,7 @@ function HomeScreen(props) {
           </TouchableOpacity>
         </View>
       </View>
+
       <View style={styles.lowerContainer}>
         <View style={styles.lowerBox1}>
           <SliderBox
@@ -130,12 +137,49 @@ function HomeScreen(props) {
           onPress={() => navigation.navigate("ID's")}>
           <Text style={styles.createTextOnly}>Create ID</Text>
         </TouchableOpacity>
-        {/*<View style={styles.promotionCard} />*/}
-        <View style={styles.createAnnouncement}>
-          <Text style={styles.tipsText}>Tips & Announcements</Text>
-          <Text style={styles.tipsSubText}>No Data Available</Text>
+        <View style={{marginRight: 'auto'}}>
+          <Text
+            style={{
+              color: '#d5d1d1',
+              marginLeft: 10,
+              fontSize: 16,
+            }}>
+            My IDs
+          </Text>
+          <View
+            style={{
+              borderBottomColor: Colors.appPrimaryColor,
+              borderBottomWidth: 3,
+              marginTop: 5,
+              width: 40,
+              marginLeft: 20,
+            }}
+          />
         </View>
+        <View style={styles.promotionCard}>
+          <FlatList
+            horizontal
+            pagingEnabled={true}
+            showsHorizontalScrollIndicator={false}
+            legacyImplementation={false}
+            data={getMyIDs.data}
+            renderItem={({item}) => (
+              <HomeListMyIDs data={item} bank={getUserBanks} />
+            )}
+            keyExtractor={(item, index) => index.toString()}
+            style={{width: '90%', height: '100%'}}
+          />
+        </View>
+        {/*<!-------------------------->\*/}
+
+        {/*<----------->  */}
+
+        {/*<View style={styles.createAnnouncement}>*/}
+        {/*  <Text style={styles.tipsText}>Tips & Announcements</Text>*/}
+        {/*  <Text style={styles.tipsSubText}>No Data Available</Text>*/}
+        {/*</View>*/}
       </View>
+
       <Modal
         animationType="slide"
         transparent={true}
@@ -151,8 +195,9 @@ function HomeScreen(props) {
                 withdrawAmount: '',
               }}
               onSubmit={values => {
-                if (parseInt(wallet.data) < parseInt(values.withdrawAmount))
+                if (parseInt(wallet.data) < parseInt(values.withdrawAmount)) {
                   return alert('Enter Valid amount');
+                }
                 IDController.sendWalletWithDrawRequest(
                   'Wallet',
                   values.withdrawAmount,

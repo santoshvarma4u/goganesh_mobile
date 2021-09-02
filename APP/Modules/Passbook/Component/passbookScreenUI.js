@@ -121,7 +121,7 @@ function PassbookScreen({navigation}) {
                           setVisible(!visible);
                         }}>
                         <Text style={{color: Colors.appBlackColor}}>
-                          Click Here to View
+                          Reference
                         </Text>
                       </TouchableOpacity>
                     )}
@@ -147,7 +147,8 @@ function PassbookScreen({navigation}) {
                     />
                     <Button
                       title="Close"
-                      onPress={() => setVisible(!visible)}></Button>
+                      onPress={() => setVisible(!visible)}
+                    />
                   </View>
                 </View>
               </View>

@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 import Colors from '../../../Theams/Colors';
 export default StyleSheet.create({
   containerMain: {
-    backgroundColor: Colors.appPrimaryColor,
+    backgroundColor: Colors.appBlackColor,
     flex: 1,
   },
   offersContainer: {
@@ -10,12 +10,9 @@ export default StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: 'black',
     alignItems: 'center',
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
   },
   SignINCard: {
     marginTop: 60,
-    backgroundColor: 'white',
     width: '90%',
     flexDirection: 'row',
     borderRadius: 10,
@@ -27,9 +24,9 @@ export default StyleSheet.create({
   input: {
     height: 40,
     margin: 12,
-    backgroundColor: Colors.appPrimaryColor,
+    backgroundColor: '#fff',
     color: 'black',
-    borderRadius: 10,
+    borderRadius: 5,
   },
   borderStyleBase: {
     width: 30,

@@ -15,7 +15,7 @@
       android:label="Go Ganesh"
       android:icon="@mipmap/newlogo"
       android:usesCleartextTraffic="true"
-      android:roundIcon="@mipmap/newlogo"
+      android:roundIcon="@mipmap/newlogo1"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
        <meta-data  android:name="com.dieam.reactnativepushnotification.notification_foreground"

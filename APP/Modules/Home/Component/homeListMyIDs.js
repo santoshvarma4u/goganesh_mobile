@@ -22,11 +22,11 @@ import {useNavigation} from '@react-navigation/native';
 import images from '../../../Theams/Images';
 import Colors from '../../../Theams/Colors';
 import {Formik} from 'formik';
-import IdController from '../Controller/IdController';
+import IdController from '../../IDs/Controller/IdController';
 import DepositController from '../../Deposit/Controller/depositController';
 import reactotron from 'reactotron-react-native';
 import {env} from '../../../Network/api/server';
-const AccordianListNew = props => {
+const HomeListMyIDs = props => {
   let banks = [];
   const [checked, setChecked] = React.useState(false);
   const [check, setCheckedDemo] = React.useState(0);
@@ -58,59 +58,13 @@ const AccordianListNew = props => {
           source={{uri: `${env}${props.data.sd.siteimage}`}}
         />
         <View>
-          <Text style={styles.url}>{props.data.sd.siteurl}</Text>
-          <Text style={styles.siteName}>{props.data.sd.sitename}</Text>
-        </View>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('CreateID', {
-              sdid: props.data.sd.sdid,
-              username: props.data.username,
-              requestStatus: 'old',
-            });
-          }}>
           <View
             style={{
-              height: 30,
-              width: 30,
-              borderRadius: 30,
-              backgroundColor: Colors.appGreenColor,
-              alignItems: 'center',
+              flexDirection: 'row',
+              alignItems: 'flex-start',
               justifyContent: 'center',
-              marginHorizontal: 15,
-              marginVertical: 15,
             }}>
-            <Text style={{color: Colors.appWhiteColor, fontSize: 15}}>D</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            setWithDrawForm(true);
-          }}>
-          <View
-            style={{
-              height: 30,
-              width: 30,
-              borderRadius: 30,
-              backgroundColor: Colors.appRedColor,
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginHorizontal: 5,
-              marginVertical: 15,
-            }}>
-            <Text style={{color: Colors.appWhiteColor, fontSize: 15}}>W</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  function ListCollapse() {
-    return (
-      <View style={styles.containerCollapse}>
-        <View style={styles.credsCard}>
-          <View style={styles.credsCardHeader}>
-            <Text style={styles.credTitle}>Credentials</Text>
+            <Text style={styles.url}>{props.data.sd.siteurl}</Text>
             <View style={styles.credIcon}>
               <TouchableOpacity
                 onPress={() => {
@@ -120,6 +74,16 @@ const AccordianListNew = props => {
               </TouchableOpacity>
             </View>
           </View>
+          <Text style={styles.siteName}>{props.data.sd.sitename}</Text>
+        </View>
+      </View>
+    );
+  }
+
+  function ListCollapse() {
+    return (
+      <View style={styles.containerCollapse}>
+        <View style={styles.credsCard}>
           <View
             style={{
               borderBottomWidth: 1,
@@ -303,23 +267,18 @@ const AccordianListNew = props => {
   }
 
   return (
-    <List.Section title="Accordions">
-      <View style={styles.container}>
-        <List.Accordion
-          title={<ListTitle />}
-          expanded={!expanded}
-          onPress={handlePress}
-          style={{backgroundColor: '#171616', borderRadius: 10}}>
-          <ListCollapse />
-        </List.Accordion>
-      </View>
-    </List.Section>
+    <View style={styles.container}>
+      {ListTitle()}
+      {ListCollapse()}
+    </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#171616',
     borderRadius: 10,
+    alignItems: 'center',
+    paddingTop: 10,
   },
   withDrawForm: {
     padding: 10,
@@ -379,7 +338,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   credIcon: {
-    marginLeft: 'auto',
+    marginLeft: 10,
+    marginTop:8
   },
   credTitle: {
     color: 'white',
@@ -441,4 +401,4 @@ const styles = StyleSheet.create({
   },
   depositWithdraw: {flexDirection: 'row'},
 });
-export default AccordianListNew;
+export default HomeListMyIDs;

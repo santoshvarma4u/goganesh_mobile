@@ -8,6 +8,8 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  Clipboard,
+  Linking,
 } from 'react-native';
 
 import {Icon} from 'react-native-elements';
@@ -80,7 +82,12 @@ const AccordianListNew = props => {
           <View style={styles.credsCardHeader}>
             <Text style={styles.credTitle}>Demo</Text>
             <View style={styles.credIcon}>
-              <Icon name="launch" color="white" size={20} />
+              <TouchableOpacity
+                onPress={() => {
+                  Linking.openURL('https://' + props.data.siteurl);
+                }}>
+                <Icon name="launch" color="white" size={20} />
+              </TouchableOpacity>
             </View>
           </View>
           <View
@@ -93,10 +100,24 @@ const AccordianListNew = props => {
           <View style={styles.credsCardID}>
             <Text style={styles.credTitle}>Demo Id</Text>
             <Text style={{color: 'white', marginLeft: 'auto'}}>goganesh</Text>
+            <TouchableOpacity
+              style={{color: 'white', marginLeft: 15}}
+              onPress={() => {
+                Clipboard.setString('goganesh');
+              }}>
+              <Icon name="content-copy" color="white" size={20} />
+            </TouchableOpacity>
           </View>
           <View style={styles.credsCardPassword}>
             <Text style={styles.credTitle}>Demo password</Text>
             <Text style={{color: 'white', marginLeft: 'auto'}}>123456</Text>
+            <TouchableOpacity
+              style={{color: 'white', marginLeft: 15}}
+              onPress={() => {
+                Clipboard.setString('123456');
+              }}>
+              <Icon name="content-copy" color="white" size={20} />
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.moneyCard}>

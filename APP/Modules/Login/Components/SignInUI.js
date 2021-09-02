@@ -91,6 +91,25 @@ function SignIn() {
   return (
     <View style={styles.containerMain}>
       {/*<ScrollView>*/}
+
+      <View
+        style={{
+          width: '100%',
+          flex: 0.5,
+          paddingTop: 50,
+          alignItems: 'center',
+          backgroundColor: '#000',
+        }}>
+        <Image
+          source={images.splashlogo}
+          style={{
+            height: 150,
+            width: 150,
+          }}
+          resizeMode={'stretch'}
+        />
+      </View>
+
       <View style={styles.offersContainer}>
         <View style={styles.SignINCard}>
           <View style={{flex: 1}}>
@@ -150,44 +169,41 @@ function SignIn() {
               backgroundColor: Colors.appPrimaryColor,
               paddingHorizontal: 60,
               paddingVertical: 10,
+              marginHorizontal: 10,
+              marginTop: 20,
               borderRadius: 10,
             }}
             onPress={verifyPassword}
             underlayColor="transparent">
-            <Text style={{color: 'black', fontSize: 16}}>Verify</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={{
-              backgroundColor: Colors.appPrimaryColor,
-              paddingHorizontal: 60,
-              paddingVertical: 10,
-              borderRadius: 10,
-            }}
-            onPress={() => {
-              navigation.navigate('SignUp', {phoneNumber: number});
-            }}
-            underlayColor="transparent">
-            <Text style={{color: 'black', fontSize: 16}}>New User</Text>
+            <Text style={{color: 'black', fontSize: 16}}>Sign In</Text>
           </TouchableOpacity>
         </View>
-      </View>
-      <LinearGradient
-        colors={['#000', Colors.appPrimaryColor]}
-        style={{
-          flex: 1,
-          justifyContent: 'flex-start',
-          borderRadius: 15,
-        }}>
-        <Image
-          source={images.bottombg}
+
+        <View>
+          <Text style={{fontSize: 15, color: '#fff', marginVertical: 30}}>
+            {' '}
+            --- OR ---
+          </Text>
+        </View>
+
+        <TouchableOpacity
           style={{
-            width: '100%',
-            flex: 1,
+            paddingHorizontal: 60,
+            paddingVertical: 10,
+            marginHorizontal: 10,
+            marginTop: 20,
           }}
-          resizeMode={'stretch'}
-        />
-      </LinearGradient>
+          onPress={() => {
+            navigation.navigate('SignUp', {phoneNumber: number});
+          }}
+          underlayColor="transparent">
+          <Text style={{color: Colors.appPrimaryColor, fontSize: 16}}>
+            {' '}
+            Are you a New User ?
+          </Text>
+        </TouchableOpacity>
+      </View>
+
       {/*</ScrollView>*/}
     </View>
   );

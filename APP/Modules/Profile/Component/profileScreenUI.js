@@ -20,7 +20,7 @@ function ProfileScreen({navigation}) {
     <View style={styles.containerMain}>
       <View style={styles.profileContainer}>
         <View style={styles.profileIcon}>
-          <Icon name="person"></Icon>
+          <Icon name="person" />
         </View>
         <View style={styles.profileDetails}>
           <Text style={{padding: 10}}>Name : {name} </Text>
@@ -28,8 +28,6 @@ function ProfileScreen({navigation}) {
           <Chip title="Change Password" />
           <Text style={{padding: 10}}>Member Since :</Text>
         </View>
-        <View style={styles.profileDetails}></View>
-        <View style={styles.profileDetails}></View>
       </View>
     </View>
   );
