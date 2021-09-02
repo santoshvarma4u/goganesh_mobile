@@ -10,6 +10,8 @@ const images = {
   paytmupi: require('../../assets/Images/Paytm-UPI-Realme.jpg'),
   bottombg: require('../../assets/Images/bottombg.jpg'),
   concern: require('../../assets/Images/concern.png'),
+  accept: require('../../assets/Images/accept.png'),
+  reject: require('../../assets/Images/reject.png'),
 };
 
 export default images;

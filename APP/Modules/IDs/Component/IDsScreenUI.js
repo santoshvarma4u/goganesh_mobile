@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   ActivityIndicator,
@@ -6,8 +6,6 @@ import {
   Button,
   FlatList,
   Dimensions,
-  StyleSheet,
-  ScrollView,
   TextInput,
   TouchableOpacity,
 } from 'react-native';

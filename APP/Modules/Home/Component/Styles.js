@@ -174,4 +174,16 @@ export default StyleSheet.create({
     marginVertical: 20,
     width: Dimensions.get('window').width - 120,
   },
+  listContainer: {
+    backgroundColor: Colors.appBlackColor,
+    flex: 1,
+    marginHorizontal: 20,
+    marginVertical: 5,
+    borderRadius: 10,
+    flexDirection: 'row',
+    minHeight: 30,
+    alignItems: 'center',
+    padding: 10,
+    borderTopRightRadius: 5,
+  },
 });

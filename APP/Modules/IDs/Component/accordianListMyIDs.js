@@ -157,13 +157,11 @@ const AccordianListNew = props => {
         <View style={styles.depositWithdraw}>
           <TouchableOpacity
             style={{
-              width: 100,
-              margin: 20,
-              padding: 8,
-              alignItems: 'center',
-              backgroundColor: Colors.appPrimaryColor,
               justifyContent: 'center',
-              borderRadius: 5,
+              flex: 1,
+              paddingTop: 5,
+              alignItems: 'center',
+              flexDirection: 'row',
             }}
             onPress={() => {
               navigation.navigate('CreateID', {
@@ -172,22 +170,34 @@ const AccordianListNew = props => {
                 requestStatus: 'old',
               });
             }}>
-            <Text style={{alignItems: 'center'}}>Deposit</Text>
+            <Icon
+              name="arrowup"
+              color="green"
+              type="antdesign"
+              size={15}
+              style={{padding: 5}}
+            />
+            <Text style={{alignItems: 'center', color: 'white'}}>Deposit</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={{
-              width: 100,
-              margin: 20,
-              padding: 8,
-              alignItems: 'center',
-              backgroundColor: Colors.appPrimaryColor,
               justifyContent: 'center',
-              borderRadius: 5,
+              alignItems: 'center',
+              flex: 1,
+              paddingTop: 5,
+              flexDirection: 'row',
             }}
             onPress={() => {
               setWithDrawForm(true);
             }}>
-            <Text style={{alignItems: 'center'}}>Withdraw</Text>
+            <Icon
+              name="arrowdown"
+              color="red"
+              type="antdesign"
+              size={15}
+              style={{padding: 5}}
+            />
+            <Text style={{alignItems: 'center', color: 'white'}}>Withdraw</Text>
           </TouchableOpacity>
         </View>
         {withDrawForm && (
