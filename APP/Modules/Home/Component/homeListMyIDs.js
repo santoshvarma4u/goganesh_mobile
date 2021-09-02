@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
 import {List} from 'react-native-paper';
 
@@ -8,23 +9,17 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
-  Modal,
-  KeyboardAvoidingView,
   Clipboard,
   Linking,
 } from 'react-native';
 import {Checkbox} from 'react-native-paper';
-import DropDownPicker from 'react-native-dropdown-picker';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FlatListPicker from 'react-native-flatlist-picker';
 import {Icon} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
-import images from '../../../Theams/Images';
 import Colors from '../../../Theams/Colors';
-import {Formik} from 'formik';
 import IdController from '../../IDs/Controller/IdController';
 import DepositController from '../../Deposit/Controller/depositController';
-import reactotron from 'reactotron-react-native';
 import {env} from '../../../Network/api/server';
 const HomeListMyIDs = props => {
   let banks = [];
@@ -121,13 +116,11 @@ const HomeListMyIDs = props => {
         <View style={styles.depositWithdraw}>
           <TouchableOpacity
             style={{
-              width: 100,
-              margin: 20,
-              padding: 8,
-              alignItems: 'center',
-              backgroundColor: Colors.appPrimaryColor,
               justifyContent: 'center',
-              borderRadius: 5,
+              flex: 1,
+              paddingTop: 5,
+              alignItems: 'center',
+              flexDirection: 'row',
             }}
             onPress={() => {
               navigation.navigate('CreateID', {
@@ -136,22 +129,34 @@ const HomeListMyIDs = props => {
                 requestStatus: 'old',
               });
             }}>
-            <Text style={{alignItems: 'center'}}>Deposit</Text>
+            <Icon
+              name="arrowup"
+              color="green"
+              type="antdesign"
+              size={15}
+              style={{padding: 5}}
+            />
+            <Text style={{alignItems: 'center', color: 'white'}}>Deposit</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={{
-              width: 100,
-              margin: 20,
-              padding: 8,
-              alignItems: 'center',
-              backgroundColor: Colors.appPrimaryColor,
               justifyContent: 'center',
-              borderRadius: 5,
+              alignItems: 'center',
+              flex: 1,
+              paddingTop: 5,
+              flexDirection: 'row',
             }}
             onPress={() => {
               setWithDrawForm(true);
             }}>
-            <Text style={{alignItems: 'center'}}>Withdraw</Text>
+            <Icon
+              name="arrowdown"
+              color="red"
+              type="antdesign"
+              size={15}
+              style={{padding: 5}}
+            />
+            <Text style={{alignItems: 'center', color: 'white'}}>Withdraw</Text>
           </TouchableOpacity>
         </View>
         {withDrawForm && (
@@ -339,7 +344,7 @@ const styles = StyleSheet.create({
   },
   credIcon: {
     marginLeft: 10,
-    marginTop:8
+    marginTop: 8,
   },
   credTitle: {
     color: 'white',
@@ -399,6 +404,15 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 25,
   },
-  depositWithdraw: {flexDirection: 'row'},
+  depositWithdraw: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#00000090',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    borderTopWidth: 1,
+    borderColor: '#00000001',
+  },
 });
 export default HomeListMyIDs;

@@ -9,11 +9,11 @@ import {
   Modal,
   Image,
   FlatList,
+  Alert,
   ScrollView,
 } from 'react-native';
 import DialogInput from 'react-native-dialog-input';
 import styles from './Styles';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Formik} from 'formik';
 import {Icon} from 'react-native-elements';
 import HomeController from '../Controller/homeController';
@@ -22,15 +22,12 @@ import Colors from '../../../Theams/Colors';
 import {SliderBox} from 'react-native-image-slider-box';
 import {useNavigation} from '@react-navigation/native';
 import {env} from '../../../Network/api/server';
-import reactotron from 'reactotron-react-native';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
-import authKey from '../../../Modules/Common/JWT';
 import NetworkAPI from '../../../Network/api/server';
 import IDController from '../../IDs/Controller/IdController';
 import FlatListPicker from 'react-native-flatlist-picker';
 import IdController from '../../IDs/Controller/IdController';
-import homeListMyIDs from '../Component/homeListMyIDs';
 import HomeListMyIDs from '../Component/homeListMyIDs';
 function HomeScreen(props) {
   let banks = [];
@@ -74,38 +71,40 @@ function HomeScreen(props) {
   }, [data, success, getUserBanks.data]);
 
   return (
-    <View style={styles.containerMain}>
+    <ScrollView style={styles.containerMain}>
       <View style={styles.upperContainer}>
-        <View style={styles.centralCardView}>
-          <View style={styles.depositCard}>
-            <TouchableOpacity onPress={() => setDialogVisible(true)}>
-              <Text style={styles.text}>DEPOSIT</Text>
-              <Icon name="file-upload" color="white" size={34} />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.blankCard} />
-          <View style={styles.withdrawCard}>
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
-              <Text style={styles.text}>WITHDRAW</Text>
-              <Icon name="file-download" color="white" size={34} />
-            </TouchableOpacity>
-          </View>
+        {/* <View style={styles.centralCardView}> */}
+        <View style={styles.depositCard}>
+          <TouchableOpacity onPress={() => setDialogVisible(true)}>
+            <Text style={styles.text}>DEPOSIT</Text>
+            <Icon
+              name="double-arrow"
+              color="white"
+              size={34}
+              style={{transform: [{rotate: '-90deg'}]}}
+            />
+          </TouchableOpacity>
         </View>
-        <View style={styles.centreCard}>
-          <TouchableOpacity
-            onPress={() => wallet.request()}
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: 30,
-            }}>
-            <Image style={styles.image} source={images.logo} />
-            <Text style={{color: 'white', alignItems: 'center'}}>
-              Wallet Balance
-            </Text>
-            <Text style={{color: 'white', fontSize: 18, alignItems: 'center'}}>
-              {wallet.data} INR
-            </Text>
+        <TouchableOpacity
+          onPress={() => wallet.request()}
+          style={styles.centreCard}>
+          <Image style={styles.image} source={images.logo} />
+          <Text style={{color: 'white', alignItems: 'center'}}>
+            Wallet Balance
+          </Text>
+          <Text style={{color: 'white', fontSize: 18, alignItems: 'center'}}>
+            {wallet.data} INR
+          </Text>
+        </TouchableOpacity>
+        <View style={styles.withdrawCard}>
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <Text style={styles.text}>WITHDRAW</Text>
+            <Icon
+              name="double-arrow"
+              color="white"
+              size={34}
+              style={{transform: [{rotate: '90deg'}]}}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -291,7 +290,7 @@ function HomeScreen(props) {
         }}
         closeDialog={() => setDialogVisible(false)}
       />
-    </View>
+    </ScrollView>
   );
 }
 
