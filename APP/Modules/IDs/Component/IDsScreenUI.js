@@ -1,3 +1,4 @@
+import {useWhyDidYouUpdate} from 'ahooks';
 import React, {useState} from 'react';
 import {
   Text,
@@ -9,14 +10,13 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import {useWhyDidYouUpdate} from 'ahooks';
-import styles from './Styles';
 import {Searchbar} from 'react-native-paper';
+import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import Colors from '../../../Theams/Colors';
+import IdController from '../Controller/IdController';
+import styles from './Styles';
 import AccordionListItem from './accordianListIDs';
 import AccordionMyIDs from './accordianListMyIDs';
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import IdController from '../Controller/IdController';
-import Colors from '../../../Theams/Colors';
 
 const MyIDRoute = props => {
   const getMyIDs = IdController.getUserSpecificIDs();
@@ -81,7 +81,7 @@ const MyIDRoute = props => {
 
 const IDRoute = props => {
   const getIDs = IdController.useGetIDs();
-  console.log(getIDs.loading);
+
   const [refresh, setRefresh] = useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
   const onChangeSearch = query => setSearchQuery(query);

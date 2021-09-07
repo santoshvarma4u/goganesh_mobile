@@ -1,16 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
-import styles from './Styles';
-import {Avatar, Chip, Icon, withBadge} from 'react-native-elements';
+import {Text, View} from 'react-native';
+import {Chip, Icon} from 'react-native-elements';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
+import styles from './Styles';
 function ProfileScreen({navigation}) {
   const [name, setName] = useState(false);
 
   const getName = async () => {
     try {
-      let name = await Storage.getItemSync(StorageKeys.NAME);
-      return name;
+      let name1 = await Storage.getItemSync(StorageKeys.NAME);
+      return name1;
     } catch (error) {}
   };
   useEffect(() => {

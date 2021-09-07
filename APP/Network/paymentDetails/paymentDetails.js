@@ -5,7 +5,7 @@ import Storage from '../../Modules/Common/Storage';
 const getUID = async () => {
   try {
     let UID = await Storage.getItemSync(StorageKeys.ID);
-    console.log('userid' + UID);
+
     return UID;
   } catch (error) {}
 };

@@ -1,27 +1,29 @@
-import React from 'react';
-import {Icon} from 'react-native-elements';
-import {View} from 'react-native';
-import OffersScreen from '../Modules/Offers/Container/offersIndex';
-import IDsScreenPage from '../Modules/IDs/Container/IDsIndex';
-import {createStackNavigator, HeaderBackButton} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeScreen from '../Modules/Home/Container/homeIndex';
-import ProfileScreen from '../Modules/Profile/Container/profileIndex';
-import PaymentsScreen from '../Modules/PaymentDetails/Container/paymentDetailsIndex';
-import PaymentOptionsScreen from '../Modules/PaymentOptions/Container/paymentOptionsIndex';
-import DepositScreen from '../Modules/Deposit/Container/depositIndex';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {DrawerActions} from '@react-navigation/native';
+import {createStackNavigator, HeaderBackButton} from '@react-navigation/stack';
+import React from 'react';
+import {View} from 'react-native';
+import {Icon} from 'react-native-elements';
 import CreateIDScreen from '../Modules/CreateID/Container/createIDIndex';
+import DepositScreen from '../Modules/Deposit/Container/depositIndex';
+import HelpScreen from '../Modules/Help/Container/helpIndex';
+import NotificationScreen from '../Modules/Home/Component/notificationScreenUI';
+import HomeScreen from '../Modules/Home/Container/homeIndex';
+import IDsScreenPage from '../Modules/IDs/Container/IDsIndex';
 import SignInContainer from '../Modules/Login/Containers/Signin/SignInindex';
 import SignUpContainer from '../Modules/Login/Containers/Signin/SignUpContainer';
-import NotificationScreen from '../Modules/Home/Component/notificationScreenUI';
+import OffersScreen from '../Modules/Offers/Container/offersIndex';
 import PassbookScreen from '../Modules/Passbook/Container/passbookIndex';
+import PaymentsScreen from '../Modules/PaymentDetails/Container/paymentDetailsIndex';
+import PaymentOptionsScreen from '../Modules/PaymentOptions/Container/paymentOptionsIndex';
+import ProfileScreen from '../Modules/Profile/Container/profileIndex';
 import CustomSidebarMenu from '../Modules/SideMenu/Component/sidemenu';
 import Splash from '../Modules/Splash/Container/splashIndex';
-import HelpScreen from '../Modules/Help/Container/helpIndex';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import WithdrawForm from '../Modules/Withdraw/Components/WithdrawUI';
 
-import {DrawerActions} from '@react-navigation/native';
 import Colors from '../Theams/Colors';
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -182,6 +184,23 @@ const HomeStackNavigator = () => {
         component={NotificationScreen}
         options={({navigation}) => ({
           headerTitle: 'Deposit',
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitleAlign: 'center',
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => {
+                navigation.goBack();
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Withdraw"
+        component={WithdrawForm}
+        options={({navigation}) => ({
+          headerTitle: 'Withdraw',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
           headerLeft: props => (

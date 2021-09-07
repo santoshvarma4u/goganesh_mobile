@@ -1,9 +1,7 @@
+import {useNavigation} from '@react-navigation/native';
 import * as React from 'react';
-import {List} from 'react-native-paper';
-
 import {
   Text,
-  Button,
   View,
   Image,
   StyleSheet,
@@ -11,12 +9,11 @@ import {
   Clipboard,
   Linking,
 } from 'react-native';
-
 import {Icon} from 'react-native-elements';
-import {useNavigation} from '@react-navigation/native';
-import images from '../../../Theams/Images';
-import Colors from '../../../Theams/Colors';
+import {List} from 'react-native-paper';
 import {env} from '../../../Network/api/server';
+import Colors from '../../../Theams/Colors';
+
 const AccordianListNew = props => {
   const [expanded, setExpanded] = React.useState(true);
   const navigation = useNavigation();

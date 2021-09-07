@@ -1,21 +1,17 @@
-import authApi from '../../../Network/auth/auth';
+import authKey from '../../../Modules/Common/JWT';
 import NetworkAPI from '../../../Network/api/server';
+import authApi from '../../../Network/auth/auth';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
-import authKey from '../../../Modules/Common/JWT';
 const checkUser = async (phoneNumber, password) => {
   try {
-    console.log('====================================');
-    console.log('check user called');
-    console.log('====================================');
     const result = await authApi.loginCheck(phoneNumber, password);
 
     if (!result.ok) {
-      console.log(result);
       return result;
     }
 
-    // console.log(result.data);
+    //
     if (result?.data && result.data.message === 'user not found') {
       return result;
     } else {
@@ -30,16 +26,14 @@ const checkUser = async (phoneNumber, password) => {
       await Storage.setItemSync(StorageKeys.NAME, result.data.data.full_name);
       await Storage.setItemSync(StorageKeys.JWT, result.data.data.token);
       let fcmtoken = await Storage.getItemSync(StorageKeys.FCMTOKEN);
-      console.log('fcm frol login', fcmtoken);
+
       authKey.token = result.data.data.token;
       authKey.usertype = result.data.data.usertype;
       NetworkAPI.apiClient.setHeader('authorization', authKey.token);
-      console.log('authkey from login ceck user', authKey.token);
+
       return result;
     }
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 const sendOTP = async phoneNumber => {
@@ -48,13 +42,9 @@ const sendOTP = async phoneNumber => {
     if (!result.ok) {
       return alert(result.problem);
     }
-    console.log('send otp result');
-    console.log(result.data);
 
     return result.data;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 const verifyOtp = async (otpSession, otp) => {
@@ -63,12 +53,9 @@ const verifyOtp = async (otpSession, otp) => {
     if (!result.ok) {
       return alert(result.problem);
     }
-    console.log('verify otp result');
-    console.log(result.data);
+
     return result.data;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 export default {checkUser, sendOTP, verifyOtp};

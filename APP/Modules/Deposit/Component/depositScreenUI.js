@@ -1,3 +1,5 @@
+import {useNavigation} from '@react-navigation/native';
+import {CommonActions} from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import {
   Text,
@@ -9,19 +11,16 @@ import {
   Modal,
 } from 'react-native';
 import {Divider, Icon} from 'react-native-elements';
-import styles from './Styles';
-import DepositController from '../Controller/depositController';
 import * as ImagePicker from 'react-native-image-picker';
 import Colors from '../../../Theams/Colors';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
-import {useNavigation} from '@react-navigation/native';
-import {CommonActions} from '@react-navigation/native';
+import DepositController from '../Controller/depositController';
+import styles from './Styles';
 function DepositScreen({route}) {
   const [progress, setProgress] = useState(false);
 
   const payeeDetils = DepositController.getPayeeDetails();
-  console.log(payeeDetils.data);
 
   const resetAction = CommonActions.reset({
     index: 0,
@@ -42,7 +41,7 @@ function DepositScreen({route}) {
   const payee = payeeDetils.data.filter(
     data => data.paymenttype == paymentType,
   );
-  console.log(payee);
+
   useEffect(() => {
     getUID();
   }, []);
@@ -54,7 +53,6 @@ function DepositScreen({route}) {
       setUid(UID);
     } catch (error) {}
   };
-  console.log(uid);
 
   const [filePath, setFilePath] = useState('');
 
@@ -64,9 +62,6 @@ function DepositScreen({route}) {
     }
     setProgress(true);
     if (requestStatus === 'new') {
-      console.log('====================================');
-      console.log('requestStatus', requestStatus);
-      console.log('====================================');
       DepositController.submitData(
         parseInt(uid),
         sdid,
@@ -84,16 +79,13 @@ function DepositScreen({route}) {
           depositCoins,
           'CR',
           filePath,
-        ).then(data => {
-          console.log(data.status);
-        });
+        ).then(data => {});
         setProgress(false);
 
         alert(data.status);
         navigation.dispatch(resetAction);
       });
     } else if (requestStatus === 'wallet') {
-      console.log('finen wallert is  woeking');
       const paymentMethod = paymentType;
       DepositController.depositIntoWallet(
         parseInt(uid),
@@ -104,11 +96,10 @@ function DepositScreen({route}) {
         filePath,
       ).then(data => {
         '';
-        console.log(data);
+
         navigation.dispatch(resetAction);
       });
     } else {
-      console.log('finen dposit woeking');
       const paymentMethod = paymentType;
       DepositController.submitDataForMyID(
         parseInt(uid),
@@ -118,7 +109,6 @@ function DepositScreen({route}) {
         'CR',
         filePath,
       ).then(data => {
-        console.log(data);
         navigation.dispatch(resetAction);
       });
     }
@@ -140,14 +130,9 @@ function DepositScreen({route}) {
       maxHeight: 250,
     };
     ImagePicker.launchImageLibrary(options, response => {
-      console.log('Response = ', response);
-
       if (response.didCancel) {
-        console.log('User cancelled image picker');
       } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
       } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
         alert(response.customButton);
       } else {
         let source = response;

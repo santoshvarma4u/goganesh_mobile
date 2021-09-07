@@ -1,18 +1,17 @@
+import {CommonActions} from '@react-navigation/native';
 import React, {PureComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
+import PushNotification from 'react-native-push-notification';
+import authKey from '../../../Modules/Common/JWT';
+import NetworkAPI from '../../../Network/api/server';
+import NotificationsApi from '../../../Network/notifications/notificationAPI';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import SplashScreen from '../Component/splashScreenUI';
-import {CommonActions} from '@react-navigation/native';
-import authKey from '../../../Modules/Common/JWT';
-import NetworkAPI from '../../../Network/api/server';
-import PushNotification from 'react-native-push-notification';
-import NotificationsApi from '../../../Network/notifications/notificationAPI';
 
 PushNotification.configure({
   // (required) Called when a remote or local notification is opened or received
   onNotification: async function (notification) {
-    console.log('LOCAL NOTIFICATION ==>', notification);
     let uid = await Storage.getItemSync(StorageKeys.ID);
     let noti = {
       uid: uid,
@@ -21,14 +20,12 @@ PushNotification.configure({
     };
     const result = await NotificationsApi.createNotification(noti);
     if (!result.ok) {
-      console.log(result);
       return alert(result.problem);
     }
-    console.log('notifaication saved sucessfully');
+
     PushNotification.localNotification(notification);
   },
   onRegister: async function (token) {
-    console.log('TOKEN:', token);
     await Storage.setItemSync(StorageKeys.FCMTOKEN, token.token);
   },
   popInitialNotification: true,
@@ -45,7 +42,7 @@ PushNotification.createChannel(
     importance: 4, // (optional) default: 4. Int value of the Android notification importance
     vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
   },
-  created => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+  created => {}, // (optional) callback returns whether the channel was created, false means it already existed.
 );
 
 export default class Splash extends PureComponent {
@@ -59,12 +56,11 @@ export default class Splash extends PureComponent {
     let FCMTOKEN = await Storage.getItemSync(StorageKeys.FCMTOKEN);
     authKey.token = JWT;
     if (JWT) {
-      console.log('inside splash check');
       NetworkAPI.apiClient.setHeader('authorization', authKey.token);
-      console.log(FCMTOKEN);
+
       await NetworkAPI.apiClient.patch(`/users/${ID}`, {fcm_id: FCMTOKEN});
     }
-    console.log('authkey from splasl', authKey.token);
+
     //  reactotron.log(JWT);
     setTimeout(() => {
       if (JWT) {

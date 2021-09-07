@@ -14,8 +14,6 @@ const local = 'http://192.168.29.221:3000/';
 
 export const env = live;
 
-console.log('hiiiiiiiiiiiiiiii');
-
 const NetworkAPI = {
   apiClient: create({
     baseURL: env,

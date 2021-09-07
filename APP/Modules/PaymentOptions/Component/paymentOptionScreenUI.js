@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {
   Text,
@@ -11,11 +12,10 @@ import {
   Dimensions,
   StyleSheet,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import styles from './Styles';
 import {white} from 'react-native-paper/lib/typescript/styles/colors';
 import images from '../../../Theams/Images';
 import PaymentOptionController from '../Controller/paymentController';
+import styles from './Styles';
 
 function PaymentOptionScreen({route}) {
   const options = [];
@@ -27,10 +27,7 @@ function PaymentOptionScreen({route}) {
     depositCoins,
     requestStatus,
   } = route.params;
-  console.log('====================================');
-  console.log('params', route.params);
-  console.log('====================================');
-  console.log('on paymentss options  id screen' + requestStatus);
+
   const navigation = useNavigation();
   const [refreshing, setRefreshing] = React.useState(false);
 
@@ -48,7 +45,6 @@ function PaymentOptionScreen({route}) {
     options.push(payOps.paymenttype);
   });
   const checkIfPaymentOptionAvailable = paymentType => {
-    console.log('options avaiblae.', options);
     if (options.includes(paymentType)) {
       return true;
     } else {

@@ -1,7 +1,7 @@
 import useAPI from '../../../Hooks/useAPI';
 import IDsApi from '../../../Network/IDs/IDs';
-import paymentDepositApi from '../../../Network/transactionPassbook/transactionsPassbook';
 import payeeApi from '../../../Network/payee/payeeApi';
+import paymentDepositApi from '../../../Network/transactionPassbook/transactionsPassbook';
 import walletApi from '../../../Network/wallet/wallet';
 const submitData = async (
   uid,
@@ -58,10 +58,11 @@ const submitIntialDeposit = async (
   }
 
   data.append('paymentAmount', paymentAmount);
-  console.log(data);
 
   const result = await paymentDepositApi.createDepositPayment(data);
-  if (!result.ok) return alert(result.problem);
+  if (!result.ok) {
+    return alert(result.problem);
+  }
   return result;
 };
 
@@ -87,11 +88,13 @@ const depositIntoWallet = async (
     });
   }
   data.append('paymentAmount', paymentAmount);
-  console.log(data);
 
   const result = await paymentDepositApi.createDepositPayment(data);
-  if (!result.ok) return alert(result.problem);
-  else return alert('Reuqest Sent Success');
+  if (!result.ok) {
+    return alert(result.problem);
+  } else {
+    return alert('Reuqest Sent Success');
+  }
 };
 
 const submitDataForMyID = async (
@@ -114,10 +117,11 @@ const submitDataForMyID = async (
   });
 
   data.append('paymentAmount', paymentAmount);
-  console.log(data);
 
   const result = await paymentDepositApi.createDepositPayment(data);
-  if (!result.ok) return alert(result.problem);
+  if (!result.ok) {
+    return alert(result.problem);
+  }
   alert('success okkkkkkk');
 };
 
@@ -137,8 +141,11 @@ const debitFromWallet = async (
   };
 
   const result = await walletApi.debitFromWallet(data);
-  if (!result.ok) alert(result.problem);
-  else return alert('debited from wallert succes');
+  if (!result.ok) {
+    alert(result.problem);
+  } else {
+    return alert('debited from wallert succes');
+  }
 };
 export default {
   submitData,

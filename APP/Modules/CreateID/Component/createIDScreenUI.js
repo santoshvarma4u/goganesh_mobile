@@ -1,3 +1,6 @@
+import {useNavigation} from '@react-navigation/native';
+import {CommonActions} from '@react-navigation/native';
+import {Formik} from 'formik';
 import React, {useState, useEffect} from 'react';
 import {
   Image,
@@ -11,26 +14,21 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
 } from 'react-native';
-import styles from './Styles';
-import {Formik} from 'formik';
-import {useNavigation} from '@react-navigation/native';
-import images from '../../../Theams/Images';
-import Colors from '../../../Theams/Colors';
-import * as Yup from 'yup';
 import {Checkbox} from 'react-native-paper';
-import HomeController from '../../Home/Controller/homeController';
-import StorageKeys from '../../../Modules/Common/StorageKeys';
+import * as Yup from 'yup';
 import Storage from '../../../Modules/Common/Storage';
-import {CommonActions} from '@react-navigation/native';
+import StorageKeys from '../../../Modules/Common/StorageKeys';
+import Colors from '../../../Theams/Colors';
+import images from '../../../Theams/Images';
 import DepositController from '../../Deposit/Controller/depositController';
+import HomeController from '../../Home/Controller/homeController';
+import styles from './Styles';
 const getUID = async () => {
   try {
     let UID = await Storage.getItemSync(StorageKeys.ID);
-    console.log('userid' + UID);
+
     return UID;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 const usernameAndDepositSchema = Yup.object().shape({
@@ -248,7 +246,6 @@ function CreateIDScreen({route}) {
                 DepositCoins: '',
               }}
               onSubmit={values => {
-                console.log(values);
                 if (checked) {
                   if (parseInt(wallet.data) < values.DepositCoins) {
                     return alert('Insufficient Funds In Wallet');
@@ -256,7 +253,6 @@ function CreateIDScreen({route}) {
                     submitRequest(sdid, values);
                   }
                 } else {
-                  console.log('els epaertansdlnall');
                   navigation.navigate('PaymentOptions', {
                     sdid: sdid,
                     planMoney: planDetails.MinRefill,

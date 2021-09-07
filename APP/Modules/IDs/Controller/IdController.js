@@ -1,20 +1,17 @@
-import IDsApi from '../../../Network/IDs/IDs';
-import siteApi from '../../../Network/sites/sites';
 import useAPI from '../../../Hooks/useAPI';
-import transactionsApi from '../../../Network/transactionPassbook/transactionsPassbook';
-import paymentsDetailsApi from '../../../Network/paymentDetails/paymentDetails';
-
-import StorageKeys from '../../../Modules/Common/StorageKeys';
 import Storage from '../../../Modules/Common/Storage';
+import StorageKeys from '../../../Modules/Common/StorageKeys';
+import IDsApi from '../../../Network/IDs/IDs';
+import paymentsDetailsApi from '../../../Network/paymentDetails/paymentDetails';
+import siteApi from '../../../Network/sites/sites';
+import transactionsApi from '../../../Network/transactionPassbook/transactionsPassbook';
 
 const getUID = async () => {
   try {
     let UID = await Storage.getItemSync(StorageKeys.ID);
-    console.log('userid' + UID);
+
     return UID;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 const useGetIDs = () => useAPI(IDsApi.getIDs);
@@ -38,7 +35,9 @@ const sendWithDrawRequest = async (
     paymentType: paymentType,
   };
   const result = await transactionsApi.createWithdrawPayment(data);
-  if (!result.ok) return alert(result.problem);
+  if (!result.ok) {
+    return alert(result.problem);
+  }
   return;
 };
 
@@ -59,7 +58,9 @@ const sendWalletWithDrawRequest = async (
     isWallet: true,
   };
   const result = await transactionsApi.createWalletWithdrawPayment(data);
-  if (!result.ok) return alert(result.problem);
+  if (!result.ok) {
+    return alert(result.problem);
+  }
   return;
 };
 

@@ -26,9 +26,7 @@ function PassbookScreen({navigation}) {
   } = PassBoookController.useGetUserTransasctions();
   useEffect(() => {
     if (success) {
-      console.log(data);
     } else {
-      console.log('failed');
     }
   }, []);
   return (

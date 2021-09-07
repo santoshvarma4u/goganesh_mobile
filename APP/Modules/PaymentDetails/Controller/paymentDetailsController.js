@@ -1,16 +1,14 @@
-import paymentsDetailsApi from '../../../Network/paymentDetails/paymentDetails';
 import useAPI from '../../../Hooks/useAPI';
-import StorageKeys from '../../../Modules/Common/StorageKeys';
 import Storage from '../../../Modules/Common/Storage';
+import StorageKeys from '../../../Modules/Common/StorageKeys';
+import paymentsDetailsApi from '../../../Network/paymentDetails/paymentDetails';
 
 const getUID = async () => {
   try {
     let UID = await Storage.getItemSync(StorageKeys.ID);
-    console.log('userid' + UID);
+
     return UID;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 const submitBankData = async bankData => {
   let userid = await getUID();
@@ -23,9 +21,10 @@ const submitBankData = async bankData => {
     branchCode: bankData.branchCode,
   };
 
-  console.log(data);
   const result = await paymentsDetailsApi.createUserBankDetails(data);
-  if (!result.ok) return alert(result.problem);
+  if (!result.ok) {
+    return alert(result.problem);
+  }
   alert('success');
 };
 
@@ -41,9 +40,10 @@ const updateBankData = async (bankData, currentIndex) => {
     branchCode: bankData.branchCode,
   };
 
-  console.log(data);
   const result = await paymentsDetailsApi.updateUserBankDetails(data);
-  if (!result.ok) return alert(result.problem);
+  if (!result.ok) {
+    return alert(result.problem);
+  }
   return result;
 };
 

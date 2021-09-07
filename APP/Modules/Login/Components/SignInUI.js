@@ -1,3 +1,5 @@
+import {CommonActions, useNavigation} from '@react-navigation/native';
+import OTPInputView from '@twotalltotems/react-native-otp-input';
 import React from 'react';
 import {
   Text,
@@ -8,16 +10,14 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import {CommonActions, useNavigation} from '@react-navigation/native';
-import OTPInputView from '@twotalltotems/react-native-otp-input';
-import styles from './Styles';
-import LoginController from '../Controllers/LoginController';
-import Colors from '../../../Theams/Colors';
 import LinearGradient from 'react-native-linear-gradient';
-import images from '../../../Theams/Images';
 import authKey from '../../../Modules/Common/JWT';
+import Colors from '../../../Theams/Colors';
+import images from '../../../Theams/Images';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
+import LoginController from '../Controllers/LoginController';
+import styles from './Styles';
 function SignIn() {
   const navigation = useNavigation();
   const [number, onChangeNumber] = React.useState('');
@@ -30,13 +30,13 @@ function SignIn() {
   // otp
   const getToken = async () => {
     let tok = await Storage.getItemSync(StorageKeys.JWT);
-    console.log('ppiuytrtiopoiuytyui', tok);
+
     return tok;
   };
 
   const verifyPassword = async () => {
     const checkUser = await LoginController.checkUser(number, password);
-    console.log('checkuser', checkUser);
+
     if (checkUser.data.message === 'wrong password') {
       alert('Wrong password');
       // navigation.navigate('SignUp', {phoneNumber: number});
@@ -78,7 +78,6 @@ function SignIn() {
     }
   };
   const sendOtpAndRedirect = async () => {
-    console.log('ok sendOtpAndRedirect');
     if (number.length == 10) {
       setOtpSentStatus(true);
       const optSession = await LoginController.sendOTP(number);
@@ -156,7 +155,7 @@ function SignIn() {
           codeInputFieldStyle={styles.underlineStyleBase}
           codeInputHighlightStyle={styles.underlineStyleHighLighted}
           onCodeFilled={code => {
-            console.log(code);
+
           }}
         /> */}
         <View

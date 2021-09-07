@@ -6,7 +6,6 @@ export default StyleSheet.create({
     backgroundColor: Colors.appPrimaryColor,
     flex: 1,
   },
-
   profileContainer: {
     flex: 1,
     flexDirection: 'column',
@@ -17,7 +16,6 @@ export default StyleSheet.create({
     padding: 5,
   },
   profileDetails: {
-    flex: 0.25,
     padding: 10,
     alignItems: 'center',
     marginTop: 20,

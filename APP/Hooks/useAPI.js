@@ -23,11 +23,7 @@ export default useAPI = apiFunction => {
 
         setSuccess(true);
       })
-      .catch(error => {
-        console.log('====================================');
-        console.log(error);
-        console.log('====================================');
-      });
+      .catch(error => {});
   };
   useEffect(request, []);
 

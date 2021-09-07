@@ -45,7 +45,7 @@ function HomeScreen(props) {
   const pushFcmToken = async () => {
     let ID = await Storage.getItemSync(StorageKeys.ID);
     let FCMTOKEN = await Storage.getItemSync(StorageKeys.FCMTOKEN);
-    console.log(banks);
+
     await NetworkAPI.apiClient.patch(`/users/${ID}`, {fcm_id: FCMTOKEN});
   };
   const getMyIDs = IdController.getUserSpecificIDs();
@@ -53,9 +53,7 @@ function HomeScreen(props) {
   useEffect(() => {
     pushFcmToken();
     if (success) {
-      data.map(i => {
-        console.log(`${env}${i.promoImage}`);
-      });
+      data.map(i => {});
       setSliderImgs(
         data.map(i => {
           `${env}${i.promoImage}`;
@@ -175,7 +173,11 @@ function HomeScreen(props) {
             legacyImplementation={false}
             data={getMyIDs.data}
             renderItem={({item}) => (
-              <HomeListMyIDs data={item} bank={getUserBanks} />
+              <HomeListMyIDs
+                data={item}
+                bank={getUserBanks}
+                navigation={props.navigation}
+              />
             )}
             keyExtractor={(item, index) => index.toString()}
             style={{height: '100%'}}

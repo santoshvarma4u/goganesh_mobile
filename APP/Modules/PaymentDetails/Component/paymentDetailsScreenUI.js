@@ -1,3 +1,4 @@
+import {Formik} from 'formik';
 import React, {useState, useEffect} from 'react';
 import {
   Modal,
@@ -10,19 +11,16 @@ import {
   Button,
   RefreshControl,
 } from 'react-native';
-import styles from './Styles';
-import {Formik} from 'formik';
 import {Icon} from 'react-native-elements';
-import PaymentDetailsController from '../Controller/paymentDetailsController';
 import Colors from '../../../Theams/Colors';
+import PaymentDetailsController from '../Controller/paymentDetailsController';
+import styles from './Styles';
 
 function PaymentsScreen({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [bankVales, setBankVales] = useState({});
   const [refresh, setRefresh] = useState(false);
   const mybanks = PaymentDetailsController.getBankData();
-
-  console.log(mybanks.data);
 
   const [editModelVisible, setEditModelVisible] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -141,7 +139,6 @@ function PaymentsScreen({navigation}) {
                       branchCode: bankVales.branchCode,
                     }}
                     onSubmit={values => {
-                      console.log('vlues', values);
                       PaymentDetailsController.updateBankData(
                         values,
                         bankVales.bid,
