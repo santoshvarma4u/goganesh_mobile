@@ -161,6 +161,22 @@ function SignIn() {
         <View
           style={{
             flexDirection: 'row',
+            marginHorizontal: 40,
+          }}>
+          <View style={{flex: 1}} />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('ForgotPassword');
+            }}
+            underlayColor="transparent">
+            <Text style={{color: Colors.appWhiteColor, fontSize: 14}}>
+              Forgot password ?
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
             padding: 10,
           }}>
           <TouchableOpacity

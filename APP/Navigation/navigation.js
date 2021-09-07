@@ -11,6 +11,7 @@ import HelpScreen from '../Modules/Help/Container/helpIndex';
 import NotificationScreen from '../Modules/Home/Component/notificationScreenUI';
 import HomeScreen from '../Modules/Home/Container/homeIndex';
 import IDsScreenPage from '../Modules/IDs/Container/IDsIndex';
+import ForgotPassWord from '../Modules/Login/Containers/Signin/ForgotPassword';
 import SignInContainer from '../Modules/Login/Containers/Signin/SignInindex';
 import SignUpContainer from '../Modules/Login/Containers/Signin/SignUpContainer';
 import OffersScreen from '../Modules/Offers/Container/offersIndex';
@@ -33,9 +34,17 @@ function AuthNavigator() {
     <Stack.Navigator
       initialRouteName="SignIn"
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
       }}>
-      <Stack.Screen name="SignIn" component={SignInContainer} />
+      <Stack.Screen
+        name="SignIn"
+        component={SignInContainer}
+        options={({navigation}) => ({
+          headerStyle: {backgroundColor: Colors.appPrimaryColor, height: 0},
+          headerTitle: 'SignUp',
+          headerTitleAlign: 'center',
+        })}
+      />
       <Stack.Screen
         name="SignUp"
         component={SignUpContainer}
@@ -43,6 +52,23 @@ function AuthNavigator() {
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitle: 'SignUp',
           headerTitleAlign: 'center',
+        })}
+      />
+      <Stack.Screen
+        name="ForgotPassword"
+        component={ForgotPassWord}
+        options={({navigation}) => ({
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitle: 'Forgot Password ',
+          headerTitleAlign: 'center',
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => {
+                navigation.goBack();
+              }}
+            />
+          ),
         })}
       />
     </Stack.Navigator>

@@ -26,7 +26,7 @@ function ProfileScreen({navigation}) {
           <Text style={{padding: 10}}>Name : {name} </Text>
           <Text style={{padding: 10}}>+91 9959052330</Text>
           <Chip title="Change Password" />
-          <Text style={{padding: 10}}>Member Since :</Text>
+          {/* <Text style={{padding: 10}}>Member Since :</Text> */}
         </View>
       </View>
     </View>

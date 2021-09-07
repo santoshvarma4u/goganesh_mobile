@@ -143,9 +143,10 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
   },
   modalText: {
+    width: '80%',
     borderRadius: 5,
     backgroundColor: 'white',
-    fontSize: 20,
+    fontSize: 16,
     height: 40,
     marginBottom: 15,
     padding: 5,

@@ -63,13 +63,13 @@ export default StyleSheet.create({
   centeredView: {
     width: '100%',
     flex: 1,
-    top: 200,
   },
   modalView: {
-    margin: 30,
+    margin: 20,
     backgroundColor: Colors.appBlackColor,
     borderRadius: 20,
-    padding: 25,
+    padding: 20,
+    flex: 1,
   },
   button: {
     borderRadius: 10,
@@ -93,8 +93,8 @@ export default StyleSheet.create({
 
   modalText: {
     borderRadius: 10,
-    backgroundColor: 'white',
-    fontSize: 20,
-    marginBottom: 15,
+    color: Colors.appWhiteColor,
+    fontSize: 15,
+    // marginBottom: 15,
   },
 });

@@ -1,3 +1,4 @@
+import Moment from 'moment';
 import React, {useState, useEffect} from 'react';
 import {
   Text,
@@ -7,14 +8,14 @@ import {
   Modal,
   Button,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {env} from '../../../Network/api/server';
-import Moment from 'moment';
+import Colors from '../../../Theams/Colors';
+import images from '../../../Theams/Images';
 import PassBoookController from '../Controller/passBookController';
 
 import styles from './Styles';
-import Colors from '../../../Theams/Colors';
-import images from '../../../Theams/Images';
 function PassbookScreen({navigation}) {
   const [refresh, setRefresh] = useState(false);
   const [paymentReciept, setPaymentReciept] = useState('');
@@ -97,11 +98,11 @@ function PassbookScreen({navigation}) {
                       {item.paymentAmount}
                     </Text>
                     <Text
-                      style={[
+                      style={
                         item.paymentStatus === 'Accepted'
                           ? {color: 'green'}
-                          : {color: 'red'},
-                      ]}>
+                          : {color: 'red'}
+                      }>
                       {item.paymentStatus}
                     </Text>
                     {item.paymentReciept.length > 0 && (

@@ -3,15 +3,17 @@ import React, {useState, useEffect} from 'react';
 import {
   Modal,
   Pressable,
-  TextInput,
+  // TextInput,
   TouchableOpacity,
   Text,
   View,
   FlatList,
   Button,
-  RefreshControl,
+  ScrollView,
+  KeyboardAvoidingView,
 } from 'react-native';
 import {Icon} from 'react-native-elements';
+import {Input as TextInput} from 'react-native-elements';
 import Colors from '../../../Theams/Colors';
 import PaymentDetailsController from '../Controller/paymentDetailsController';
 import styles from './Styles';
@@ -30,7 +32,7 @@ function PaymentsScreen({navigation}) {
       <View style={styles.profileContainer}>
         <View style={styles.profileDetails}>
           <View style={styles.bankCardDetails}>
-            <Icon name="money" color="white" />
+            <Icon type="antdesign" name="bank" color="white" />
             <Text style={{color: 'white', padding: 5, left: 10}}>
               Bank Details
             </Text>
@@ -45,70 +47,78 @@ function PaymentsScreen({navigation}) {
                   transparent={true}
                   visible={modalVisible}
                   onRequestClose={() => {
-                    Alert.alert('Modal has been closed.');
                     setModalVisible(!modalVisible);
                   }}>
-                  <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                      <Pressable
-                        style={[styles.button, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}>
-                        <Icon
-                          name="cancel"
-                          color={Colors.appPrimaryColor}
-                          size={32}
-                        />
-                      </Pressable>
-                      <Formik
-                        initialValues={{
-                          bankName: '',
-                          AccountNumber: '',
-                          IFSC: '',
-                          AccountHolderName: '',
-                          branchCode: '',
-                        }}
-                        onSubmit={values => {
-                          PaymentDetailsController.submitBankData(values).then(
-                            () => {
+                  <View
+                    style={{
+                      backgroundColor: '#252525E0',
+                      flex: 1,
+                      // height: '100%',
+                    }}>
+                    <View style={styles.centeredView}>
+                      <View style={styles.modalView}>
+                        <Pressable
+                          style={styles.buttonClose}
+                          onPress={() => setModalVisible(!modalVisible)}>
+                          <Icon
+                            name="cancel"
+                            color={Colors.appPrimaryColor}
+                            size={32}
+                          />
+                        </Pressable>
+                        <Formik
+                          initialValues={{
+                            bankName: '',
+                            AccountNumber: '',
+                            IFSC: '',
+                            AccountHolderName: '',
+                            branchCode: '',
+                          }}
+                          onSubmit={values => {
+                            PaymentDetailsController.submitBankData(
+                              values,
+                            ).then(() => {
                               setModalVisible(!modalVisible);
-                            },
-                          );
-                        }}>
-                        {({handleChange, handleSubmit}) => (
-                          <>
-                            <TextInput
-                              style={styles.modalText}
-                              placeholder="Bank Name"
-                              onChangeText={handleChange('bankName')}
-                            />
-                            <TextInput
-                              style={styles.modalText}
-                              placeholder="Account Number"
-                              onChangeText={handleChange('AccountNumber')}
-                            />
-                            <TextInput
-                              style={styles.modalText}
-                              placeholder="IFSC code"
-                              onChangeText={handleChange('IFSC')}
-                            />
-                            <TextInput
-                              style={styles.modalText}
-                              placeholder="Account Holder Name"
-                              onChangeText={handleChange('AccountHolderName')}
-                            />
-                            <TextInput
-                              style={styles.modalText}
-                              placeholder="Branch Code"
-                              onChangeText={handleChange('branchCode')}
-                            />
-                            <Button
-                              style={styles.modalText}
-                              title="submit"
-                              onPress={handleSubmit}
-                            />
-                          </>
-                        )}
-                      </Formik>
+                            });
+                          }}>
+                          {({handleChange, handleSubmit}) => (
+                            <ScrollView>
+                              <TextInput
+                                style={styles.modalText}
+                                placeholder="Bank Name"
+                                // label={'Name Of the Bank'}
+                                onChangeText={handleChange('bankName')}
+                              />
+                              <TextInput
+                                style={styles.modalText}
+                                placeholder="Account Number"
+                                // label="Account Number"
+                                onChangeText={handleChange('AccountNumber')}
+                              />
+                              <TextInput
+                                style={styles.modalText}
+                                placeholder="IFSC code"
+                                onChangeText={handleChange('IFSC')}
+                              />
+                              <TextInput
+                                style={styles.modalText}
+                                placeholder="Account Holder Name"
+                                onChangeText={handleChange('AccountHolderName')}
+                              />
+                              <TextInput
+                                style={styles.modalText}
+                                placeholder="Branch Code"
+                                onChangeText={handleChange('branchCode')}
+                              />
+                              <Button
+                                style={styles.modalText}
+                                title="submit"
+                                onPress={handleSubmit}
+                              />
+                            </ScrollView>
+                          )}
+                        </Formik>
+                      </View>
                     </View>
                   </View>
                 </Modal>
@@ -119,15 +129,26 @@ function PaymentsScreen({navigation}) {
               transparent={true}
               visible={editModelVisible}
               onRequestClose={() => {
-                Alert.alert('Edit Modal has been closed.');
-                setModalVisible(!editModelVisible);
+                // Alert.alert('Edit Modal has been closed.');
+                setEditModelVisible(!editModelVisible);
               }}>
-              <View style={styles.centeredView}>
-                <View style={styles.modalView}>
+              <View
+                style={{
+                  backgroundColor: '#252525E0',
+                  flex: 1,
+                  // height: '100%',
+                }}>
+                <KeyboardAvoidingView
+                  behavior={'padding'}
+                  style={styles.modalView}>
                   <Pressable
-                    style={[styles.button, styles.buttonClose]}
+                    style={styles.buttonClose}
                     onPress={() => setEditModelVisible(false)}>
-                    <Text style={styles.textStyle}>Hide Modal</Text>
+                    <Icon
+                      name="cancel"
+                      color={Colors.appPrimaryColor}
+                      size={32}
+                    />
                   </Pressable>
                   <Formik
                     enableReinitialize
@@ -151,16 +172,26 @@ function PaymentsScreen({navigation}) {
                       });
                     }}>
                     {({handleChange, handleSubmit}) => (
-                      <>
+                      <ScrollView style={{flex: 1}}>
                         <TextInput
                           style={styles.modalText}
                           placeholder="Bank Name"
+                          labelStyle={{
+                            fontFamily: 'Lato-Regular',
+                            fontSize: 12,
+                          }}
+                          label="Bank Name"
                           defaultValue={bankVales.bankName}
                           onChangeText={handleChange('bankName')}
                         />
                         <TextInput
                           style={styles.modalText}
                           placeholder="Account Number"
+                          labelStyle={{
+                            fontFamily: 'Lato-Regular',
+                            fontSize: 12,
+                          }}
+                          label="Account Number"
                           defaultValue={bankVales.accountNumber.toString()}
                           keyboardType="numeric"
                           onChangeText={handleChange('AccountNumber')}
@@ -168,26 +199,41 @@ function PaymentsScreen({navigation}) {
                         <TextInput
                           style={styles.modalText}
                           placeholder="IFSC code"
+                          labelStyle={{
+                            fontFamily: 'Lato-Regular',
+                            fontSize: 12,
+                          }}
+                          label="IFSC code"
                           defaultValue={bankVales.IFSC}
                           onChangeText={handleChange('IFSC')}
                         />
                         <TextInput
                           style={styles.modalText}
                           placeholder="Account Holder Name"
+                          labelStyle={{
+                            fontFamily: 'Lato-Regular',
+                            fontSize: 12,
+                          }}
+                          label="Account Holder Name"
                           defaultValue={bankVales.accountHolderName}
                           onChangeText={handleChange('AccountHolderName')}
                         />
                         <TextInput
                           style={styles.modalText}
                           placeholder="Branch Code"
+                          labelStyle={{
+                            fontFamily: 'Lato-Regular',
+                            fontSize: 12,
+                          }}
+                          label="Branch Code"
                           defaultValue={bankVales.branchCode}
                           onChangeText={handleChange('branchCode')}
                         />
                         <Button title="Update" onPress={handleSubmit} />
-                      </>
+                      </ScrollView>
                     )}
                   </Formik>
-                </View>
+                </KeyboardAvoidingView>
               </View>
             </Modal>
           </View>
