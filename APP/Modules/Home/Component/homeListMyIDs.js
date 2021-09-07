@@ -48,16 +48,27 @@ const HomeListMyIDs = props => {
   function ListTitle() {
     return (
       <View style={styles.ListTitle}>
-        <Image
-          style={styles.image}
-          source={{uri: `${env}${props.data.sd.siteimage}`}}
-        />
+        <View>
+          <View
+            style={{
+              width: 40,
+              height: 60,
+              backgroundColor: 'black',
+              position: 'absolute',
+              top: -20,
+            }}
+          />
+          <Image
+            style={styles.image}
+            source={{uri: `${env}${props.data.sd.siteimage}`}}
+          />
+        </View>
         <View>
           <View
             style={{
               flexDirection: 'row',
-              alignItems: 'flex-start',
-              justifyContent: 'center',
+              justifyContent: 'space-around',
+              alignItems: 'center',
             }}>
             <Text style={styles.url}>{props.data.sd.siteurl}</Text>
             <View style={styles.credIcon}>
@@ -65,7 +76,7 @@ const HomeListMyIDs = props => {
                 onPress={() => {
                   Linking.openURL('https://' + props.data.sd.siteurl);
                 }}>
-                <Icon name="launch" color="white" size={20} />
+                <Icon name="launch" color="white" size={14} />
               </TouchableOpacity>
             </View>
           </View>
@@ -79,15 +90,16 @@ const HomeListMyIDs = props => {
     return (
       <View style={styles.containerCollapse}>
         <View style={styles.credsCard}>
-          <View
+          {/* <View
             style={{
               borderBottomWidth: 1,
               borderBottomColor: '#424040',
               marginVertical: 5,
             }}
-          />
+          /> */}
           <View style={styles.credsCardID}>
-            <Text style={styles.credTitle}>Username </Text>
+            <Icon name="user" type={'antdesign'} color="white" size={12} />
+            <Text style={styles.credTitle}>- Username </Text>
             <Text style={{color: 'white', marginLeft: 'auto'}}>
               {props.data.username}
             </Text>
@@ -96,20 +108,26 @@ const HomeListMyIDs = props => {
               onPress={() => {
                 Clipboard.setString(props.data.username);
               }}>
-              <Icon name="content-copy" color="white" size={20} />
+              <Icon name="content-copy" color="white" size={15} />
             </TouchableOpacity>
           </View>
           <View style={styles.credsCardPassword}>
-            <Text style={styles.credTitle}>Password</Text>
-            <Text style={{color: 'white', marginLeft: 'auto'}}>
+            <Icon
+              name="user-secret"
+              type={'fontisto'}
+              color="white"
+              size={12}
+            />
+            <Text style={styles.credTitle}>- Password </Text>
+            <Text style={{color: 'white', marginLeft: 10}}>
               {props.data.password}
             </Text>
             <TouchableOpacity
-              style={{color: 'white', marginLeft: 15}}
+              style={{color: 'white', marginLeft: 5}}
               onPress={() => {
                 Clipboard.setString(props.data.password);
               }}>
-              <Icon name="content-copy" color="white" size={20} />
+              <Icon name="content-copy" color="white" size={15} />
             </TouchableOpacity>
           </View>
         </View>
@@ -282,19 +300,26 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#171616',
     borderRadius: 10,
-    alignItems: 'center',
-    paddingTop: 10,
+    padding: 10,
+    // paddingTop: 10,
+    margin: 5,
+    // shadowColor: '#999234',
+    // shadowOffset: {width: 1, height: 1},
+    // shadowOpacity: 0.8,
+    // shadowRadius: 1,
+    // elevation: 10,
   },
   withDrawForm: {
     padding: 10,
     flex: 1,
   },
   image: {
-    width: 60,
-    height: 60,
+    width: 40,
+    height: 40,
     borderRadius: 30,
     backgroundColor: 'black',
     marginRight: 10,
+    marginTop: 12,
   },
   url: {
     fontWeight: '500',
@@ -312,7 +337,7 @@ const styles = StyleSheet.create({
   },
 
   containerCollapse: {
-    padding: 10,
+    // padding: 5,
     width: '100%',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
@@ -337,7 +362,7 @@ const styles = StyleSheet.create({
   },
   credsCard: {
     marginTop: 10,
-    padding: 10,
+    padding: 8,
     backgroundColor: 'black',
     width: '100%',
     borderRadius: 5,
@@ -348,13 +373,13 @@ const styles = StyleSheet.create({
   },
   credTitle: {
     color: 'white',
+    fontSize: 12,
   },
   credsCardID: {
-    padding: 5,
     flexDirection: 'row',
   },
   credsCardPassword: {
-    padding: 5,
+    paddingTop: 10,
     flexDirection: 'row',
   },
   moneyCard: {
@@ -411,8 +436,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#00000090',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
-    borderTopWidth: 1,
-    borderColor: '#00000001',
+    borderTopWidth: 0.1,
+    borderColor: Colors.appPrimaryColor,
   },
 });
 export default HomeListMyIDs;

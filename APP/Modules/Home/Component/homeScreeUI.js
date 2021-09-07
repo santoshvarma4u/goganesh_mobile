@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
 import {
   Text,
@@ -122,43 +123,54 @@ function HomeScreen(props) {
             circleLoop
           />
         </View>
-        <TouchableOpacity
+        <View
           style={{
-            width: '80%',
-            margin: 20,
-            height: 40,
-            padding: 8,
+            flexDirection: 'row',
             alignItems: 'center',
-            backgroundColor: Colors.appPrimaryColor,
-            justifyContent: 'center',
-            borderRadius: 5,
-          }}
-          onPress={() => navigation.navigate("ID's")}>
-          <Text style={styles.createTextOnly}>Create ID</Text>
-        </TouchableOpacity>
-        <View style={{marginRight: 'auto'}}>
-          <Text
-            style={{
-              color: '#d5d1d1',
-              marginLeft: 10,
-              fontSize: 16,
-            }}>
-            My IDs
-          </Text>
+            justifyContent: 'space-around',
+            marginHorizontal: 20,
+          }}>
           <View
             style={{
-              borderBottomColor: Colors.appPrimaryColor,
-              borderBottomWidth: 3,
-              marginTop: 5,
-              width: 40,
-              marginLeft: 20,
+              alignItems: 'center',
+            }}>
+            <Text
+              style={{
+                color: '#d5d1d1',
+                fontSize: 16,
+              }}>
+              My IDs
+            </Text>
+            <View
+              style={{
+                borderBottomColor: Colors.appPrimaryColor,
+                borderBottomWidth: 2,
+                marginTop: 5,
+                width: 40,
+              }}
+            />
+          </View>
+          <View style={{flex: 1}} />
+          <TouchableOpacity
+            style={{
+              // margin: 20,
+              height: 40,
+              padding: 5,
+              borderRadius: 5,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: Colors.appBlackColor,
             }}
-          />
+            onPress={() => navigation.navigate("ID's")}>
+            <Icon type="antdesign" name="pluscircle" color="white" size={18} />
+            <Text style={styles.createTextOnly}>Create </Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.promotionCard}>
           <FlatList
             horizontal
-            pagingEnabled={true}
+            // pagingEnabled={true}
             showsHorizontalScrollIndicator={false}
             legacyImplementation={false}
             data={getMyIDs.data}
@@ -166,7 +178,7 @@ function HomeScreen(props) {
               <HomeListMyIDs data={item} bank={getUserBanks} />
             )}
             keyExtractor={(item, index) => index.toString()}
-            style={{width: '90%', height: '100%'}}
+            style={{height: '100%'}}
           />
         </View>
         {/*<!-------------------------->\*/}
