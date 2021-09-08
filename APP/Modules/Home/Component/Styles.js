@@ -6,6 +6,11 @@ export default StyleSheet.create({
     backgroundColor: Colors.appPrimaryColor,
     flex: 1,
   },
+  containerNotification: {
+    backgroundColor: Colors.backgroundColor,
+    flex: 1,
+    paddingTop: 14,
+  },
   centreCard: {
     backgroundColor: '#171717',
     width: '35%',

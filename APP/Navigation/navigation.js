@@ -209,7 +209,7 @@ const HomeStackNavigator = () => {
         name="Notification"
         component={NotificationScreen}
         options={({navigation}) => ({
-          headerTitle: 'Deposit',
+          headerTitle: 'Notifications',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
           headerLeft: props => (

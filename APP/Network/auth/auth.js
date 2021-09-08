@@ -7,6 +7,13 @@ const loginCheck = (phonenumber, password) => {
   });
 };
 
+const updatePassword = (phonenumber, password) => {
+  return NetworkAPI.apiLoginClient.post('/users/updatePasswordByPhone', {
+    phone: phonenumber,
+    password: password,
+  });
+};
+
 export const sendOtp = phone => {
   const apiKey = 'efaf38a4-6742-11ea-9fa5-0200cd936042';
   let twoFactorApi =
@@ -23,4 +30,4 @@ export const verifyOtp = (session, otp) => {
   return NetworkAPI.authApiClient.post(twoFactorApi, {From: 'GARNIS'});
 };
 
-export default {loginCheck, sendOtp, verifyOtp};
+export default {loginCheck, sendOtp, verifyOtp,updatePassword};

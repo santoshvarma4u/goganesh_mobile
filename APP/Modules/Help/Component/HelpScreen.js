@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {
-    Text,
-    View,
-    Button,
-    ActivityIndicator,
-    TouchableOpacity,
-    Image,
-    Modal, Linking,
+  Text,
+  View,
+  Button,
+  ActivityIndicator,
+  TouchableOpacity,
+  Image,
+  Modal,
+  Linking,
 } from 'react-native';
 import {Divider, Icon} from 'react-native-elements';
 import styles from '../../Splash/Component/Styles';
@@ -45,20 +46,23 @@ function HelpScreen({route}) {
         </Text>
         <TouchableOpacity
           onPress={() => {
-            Linking.openURL('tel:${+919398322333}');
+            let url =
+              'whatsapp://send?text= Please raise your concern here' +
+              '&phone=919398322333';
+            Linking.openURL(url);
           }}>
           <View
             style={{
               flexDirection: 'row',
-              width: 100,
+              width: 120,
               height: 50,
               marginTop: 100,
               backgroundColor: Colors.appPrimaryColor,
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-            <Icon name="call" size={20} />
-            <Text> Call Us </Text>
+            <Image style={{height: 20, width: 20}} source={images.whatsapp} />
+            <Text> Whatsapp </Text>
           </View>
         </TouchableOpacity>
       </View>

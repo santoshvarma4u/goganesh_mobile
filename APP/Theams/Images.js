@@ -11,7 +11,8 @@ const images = {
   bottombg: require('../../assets/Images/bottombg.jpg'),
   concern: require('../../assets/Images/concern.png'),
   accept: require('../../assets/Images/accept.png'),
-  reject: require('../../assets/Images/reject.png'),
+  reject: require('../../assets/Images/multiply.png'),
+  whatsapp: require('../../assets/Images/whatsapp.png'),
 };
 
 export default images;

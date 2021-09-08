@@ -19,7 +19,11 @@ function NotificationScreen({navigation}) {
 
           <Image
             style={{height: 18, width: 18}}
-            source={true ? images.accept : images.reject}
+            source={
+              item.notificationTitle.includes('rejected')
+                ? images.reject
+                : images.accept
+            }
           />
         </View>
         <View style={{marginLeft: 14}}>
@@ -44,9 +48,9 @@ function NotificationScreen({navigation}) {
           }}>
           <Text
             style={{
-              color: Colors.appBlackColor,
+              color: Colors.backgroundColor,
               fontSize: 10,
-              padding: 2,
+              padding: 4,
               paddingLeft: 5,
             }}>
             {date}
@@ -57,7 +61,7 @@ function NotificationScreen({navigation}) {
   };
 
   return (
-    <View style={styles.containerMain}>
+    <View style={styles.containerNotification}>
       <View />
       <View style={styles.offersContainer}>
         <View style={styles.offersCard}>
