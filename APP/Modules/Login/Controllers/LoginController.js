@@ -25,7 +25,7 @@ const checkUser = async (phoneNumber, password) => {
       );
       await Storage.setItemSync(StorageKeys.NAME, result.data.data.full_name);
       await Storage.setItemSync(StorageKeys.JWT, result.data.data.token);
-      await Storage.setItemSync(StorageKeys.PHONE,phoneNumber);
+      await Storage.setItemSync(StorageKeys.PHONE, phoneNumber);
       let fcmtoken = await Storage.getItemSync(StorageKeys.FCMTOKEN);
 
       authKey.token = result.data.data.token;
@@ -37,12 +37,12 @@ const checkUser = async (phoneNumber, password) => {
   } catch (error) {}
 };
 
-const updatePassword = async (phone,password) =>{
+const updatePassword = async (phone, password) => {
   try {
-    const result = await authApi.updatePassword(phone,password)
+    const result = await authApi.updatePassword(phone, password);
     return result.data;
   } catch (error) {}
-}
+};
 
 const sendOTP = async phoneNumber => {
   try {

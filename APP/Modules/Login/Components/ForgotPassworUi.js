@@ -1,46 +1,112 @@
+/* eslint-disable no-alert */
 import OTPInputView from '@twotalltotems/react-native-otp-input';
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
+import {Alert} from 'react-native';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {Input} from 'react-native-elements/dist/input/Input';
+import reactotron from 'reactotron-react-native';
 import Colors from '../../../Theams/Colors';
-import sendOTP from '../Controllers/LoginController'
-import LoginController from "../Controllers/LoginController";
-import authKey from "../../Common/JWT";
-import {CommonActions} from "@react-navigation/native";
+import authKey from '../../Common/JWT';
+import sendOTP from '../Controllers/LoginController';
+import LoginController from '../Controllers/LoginController';
 
 const ForgotPassWordUI = props => {
   let [otp, setOtp] = useState('');
   let [otpRequest, setOtpRequest] = useState(false);
-  let [phone,setPhone] =useState('');
+  let [phone, setPhone] = useState('');
   const [otpSession, setOtpSession] = React.useState('');
+  const [resetPassword, setResetPassword] = useState(false);
 
-  const sendOtpAndRedirect = async (number) => {
-    if (number.length == 10) {
-      const optSession = await LoginController.sendOTP(number);
-      setOtpSession(optSession.Details);
-    } else {
-      alert('Enter 10 digit phone number');
-    }
+  // otp
+  const [password, setPassword] = useState('');
+  const [newPassword, setNewPassword] = useState();
+
+  const sendOtpAndRedirect = async number => {
+    reactotron.log('sendOtpAndRedirect', number);
+    return new Promise(async (resolve, reject) => {
+      if (number.length === 10) {
+        const optSession = await LoginController.sendOTP(number);
+        setOtpSession(optSession.Details);
+        resolve();
+      } else {
+        reject();
+        alert('Enter 10 digit phone number');
+      }
+    });
   };
 
-  const verifyOtp = async (otp) => {
-    const verifyOtpSession = await LoginController.verifyOtp(otpSession, otp);
+  const verifyOtp = async otpInput => {
+    const verifyOtpSession = await LoginController.verifyOtp(
+      otpSession,
+      otpInput,
+    );
     if (verifyOtpSession.Status === 'Success') {
-       //updatePassword
-      //const passwordChange = await LoginController.updatePassword(phone, password);
-    }else{
+      setResetPassword(true);
+    } else {
       alert('Invalid OTP');
     }
   };
 
-  return (
+  const updatePassword = async pass => {
+    const updatePass = await LoginController.updatePassword(phone, pass);
+    if (updatePass.message === 'USER was updated successfully.') {
+      setResetPassword(true);
+      props.navigation.pop();
+    } else {
+      alert('Password Update failed');
+    }
+  };
+
+  return resetPassword ? (
+    <View style={styles.container}>
+      <Text style={styles.mainText}>Reset Your Password</Text>
+      <Input
+        style={styles.textInput}
+        label={'New Password'}
+        onChangeText={value => {
+          setPassword(value);
+        }}
+        secureTextEntry
+        inputContainerStyle={styles.containerStyle}
+        labelStyle={styles.labelStyle}
+      />
+      <Input
+        style={styles.textInput}
+        label={'Confirm Password'}
+        onChangeText={value => {
+          setNewPassword(value);
+        }}
+        secureTextEntry
+        inputContainerStyle={styles.containerStyle}
+        labelStyle={styles.labelStyle}
+      />
+      <View
+        style={{
+          flexDirection: 'row',
+          padding: 10,
+        }}>
+        <TouchableOpacity
+          style={styles.buttonStyle}
+          onPress={() => {
+            if (password === newPassword) {
+              updatePassword(password);
+            } else {
+              Alert.alert('Password mismatch');
+            }
+          }}
+          underlayColor="transparent">
+          <Text style={{color: 'black', fontSize: 16}}>Update Password</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  ) : (
     <View style={styles.container}>
       <Text style={styles.mainText}>Please enter your Phone Number</Text>
       {!otpRequest && (
         <Input
           style={styles.textInput}
           label={'Phone Number'}
-          onChange={(value) => {
+          onChangeText={value => {
             setPhone(value);
           }}
           keyboardType={'numeric'}
@@ -64,20 +130,12 @@ const ForgotPassWordUI = props => {
           padding: 10,
         }}>
         <TouchableOpacity
-          style={{
-            backgroundColor: Colors.appPrimaryColor,
-            paddingHorizontal: 60,
-            paddingVertical: 10,
-            marginHorizontal: 10,
-            marginTop: 20,
-            borderRadius: 10,
-          }}
+          style={styles.buttonStyle}
           onPress={() => {
-            if(!otpRequest){
-
+            if (!otpRequest) {
               sendOtpAndRedirect(phone).then(r => setOtpRequest(true));
-            }else{
-              verifyOtp(otp)
+            } else {
+              verifyOtp(otp);
             }
           }}
           underlayColor="transparent">
@@ -110,6 +168,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: Colors.appWhiteColor,
     marginBottom: 20,
+    textAlign: 'left',
   },
   labelStyle: {
     fontSize: 14,
@@ -124,6 +183,14 @@ const styles = StyleSheet.create({
   codeInputField: {
     color: Colors.appWhiteColor,
     fontSize: 16,
+  },
+  buttonStyle: {
+    backgroundColor: Colors.appPrimaryColor,
+    paddingHorizontal: 60,
+    paddingVertical: 10,
+    marginHorizontal: 10,
+    marginTop: 20,
+    borderRadius: 10,
   },
 });
 

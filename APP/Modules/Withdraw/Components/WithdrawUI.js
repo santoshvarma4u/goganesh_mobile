@@ -1,23 +1,59 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
+  Image,
+  Linking,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
+import {Icon} from 'react-native-elements';
 import FlatListPicker from 'react-native-flatlist-picker';
 import {Checkbox} from 'react-native-paper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import reactotron from 'reactotron-react-native';
+import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
 import depositController from '../../Deposit/Controller/depositController';
 import IdController from '../../IDs/Controller/IdController';
 
+function ListTitle(props) {
+  return (
+    <View style={styles.ListTitle}>
+      <Image
+        style={styles.image}
+        source={{uri: `${env}${props?.sd?.siteimage}`}}
+      />
+      <View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text style={styles.url}>{props?.sd?.siteurl}</Text>
+          <View style={styles.credIcon}>
+            <TouchableOpacity
+              onPress={() => {
+                Linking.openURL('https://' + props?.sd?.siteurl);
+              }}>
+              <Icon name="launch" color="white" size={14} />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <Text style={styles.siteName}>{props?.sd?.sitename}</Text>
+      </View>
+    </View>
+  );
+}
+
 const WithdrawForm = props => {
   let banks = props?.route?.params?.banks ? props.route.params.banks : [];
   let data = props?.route?.params?.data ? props.route.params.data : {};
+  reactotron.log('this is the log', data);
+
   const [amount, onAmountChange] = useState(null);
   const [checked, setChecked] = useState(false);
   const [check, setCheckedDemo] = useState(0);
@@ -26,6 +62,7 @@ const WithdrawForm = props => {
 
   return (
     <View style={styles.withDrawForm}>
+      {ListTitle(data)}
       <TextInput
         style={styles.modalText}
         onChangeText={onAmountChange}
@@ -150,6 +187,31 @@ const styles = StyleSheet.create({
     height: 40,
     marginBottom: 15,
     padding: 5,
+  },
+  image: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: 'black',
+    marginRight: 10,
+    marginTop: 12,
+  },
+  url: {
+    fontWeight: '500',
+    marginLeft: 10,
+    marginTop: 8,
+    color: '#cdbebe',
+  },
+  siteName: {
+    marginLeft: 10,
+    marginTop: 10,
+    color: '#cdbebe',
+  },
+  ListTitle: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 20,
   },
 });
 
