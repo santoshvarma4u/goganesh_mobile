@@ -149,8 +149,8 @@ export default StyleSheet.create({
   lowerBox1: {
     flex: 0.4,
     flexDirection: 'column',
-    marginTop: 50,
-    width: '80%',
+    marginTop: 30,
+    width: '90%',
     overflow: 'hidden',
     borderRadius: 10,
   },

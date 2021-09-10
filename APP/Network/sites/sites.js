@@ -16,6 +16,12 @@ const getUserSiteDetails = async () => {
   return NetworkAPI.apiClient.get(userSiteDetails);
 };
 
+const validateUsername = async (username,id) =>{
+  const userSiteDetails = `/userSiteDetails/validateUsername`;
+  return NetworkAPI.apiClient.post(userSiteDetails,{username,id});
+}
+
 export default {
   getUserSiteDetails,
+  validateUsername
 };

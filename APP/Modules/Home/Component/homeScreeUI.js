@@ -30,6 +30,7 @@ import IDController from '../../IDs/Controller/IdController';
 import FlatListPicker from 'react-native-flatlist-picker';
 import IdController from '../../IDs/Controller/IdController';
 import HomeListMyIDs from '../Component/homeListMyIDs';
+import reactotron from "reactotron-react-native";
 function HomeScreen(props) {
   let banks = [];
   const navigation = useNavigation();
@@ -53,13 +54,15 @@ function HomeScreen(props) {
   useEffect(() => {
     pushFcmToken();
     if (success) {
-      data.map(i => {});
+       let slides = []
+      data.map(i => {
+          slides.push(`http://139.59.11.217:3000/${i.promoImage}`)
+      });
       setSliderImgs(
-        data.map(i => {
-          `${env}${i.promoImage}`;
-        }),
+          slides
       );
     }
+    reactotron.log(data);
     getUserBanks.data.map(item => {
       banks.push({
         value: item.bankName,

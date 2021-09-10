@@ -11,9 +11,9 @@ function OffersScreen({navigation}) {
 
   useEffect(() => {
     if (success) {
-      setOfferImages(
-        data.map(i => `http://139.59.11.217:3000/${i.oferrimage}`),
-      );
+      const offers = [];
+      data.map(i => offers.push(`http://139.59.11.217:3000/${i.oferrimage}`));
+      setOfferImages(offers)
     }
   }, [data, success]);
 

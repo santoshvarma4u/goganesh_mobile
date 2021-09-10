@@ -75,9 +75,12 @@ function PassbookScreen({navigation}) {
                   </View>
                   <View style={{flexDirection: 'column'}}>
                     <Text style={{color: Colors.appWhiteColor}}>
-                      {item.paymentType === 'CR' && item?.sd?.sitename
-                        ? 'Deposited into ' + item?.sd?.sitename
-                        : 'Deposited into Wallet'}
+                        {item.paymentType === 'CR' ?
+                            item?.sd?.sitename
+                                ? 'Deposited into ' + item?.sd?.sitename
+                                : 'Deposited into Wallet' : item?.sd?.sitename
+                                ? 'Withdrawn from ' + item?.sd?.sitename
+                                : 'Withdrawn from Wallet'}
                     </Text>
                     <Text style={{color: Colors.appWhiteColor}}>
                       {Moment(item.creadtedtime).format('lll').toString()}

@@ -23,6 +23,8 @@ import images from '../../../Theams/Images';
 import DepositController from '../../Deposit/Controller/depositController';
 import HomeController from '../../Home/Controller/homeController';
 import styles from './Styles';
+import siteApi from "../../../Network/sites/sites";
+import reactotron from "reactotron-react-native";
 const getUID = async () => {
   try {
     let UID = await Storage.getItemSync(StorageKeys.ID);
@@ -246,22 +248,30 @@ function CreateIDScreen({route}) {
                 DepositCoins: '',
               }}
               onSubmit={values => {
-                if (checked) {
-                  if (parseInt(wallet.data) < values.DepositCoins) {
-                    return alert('Insufficient Funds In Wallet');
-                  } else {
-                    submitRequest(sdid, values);
-                  }
-                } else {
-                  navigation.navigate('PaymentOptions', {
-                    sdid: sdid,
-                    planMoney: planDetails.MinRefill,
-                    planType: planDetails.planHeader,
-                    userName: values.UserName,
-                    depositCoins: values.DepositCoins,
-                    requestStatus: requestStatus,
+                   siteApi.validateUsername(values.UserName,sdid).then((validateUsername)=>{
+                       let {data} = validateUsername;
+                      if(data.details.data.length === 0){
+                          if (checked) {
+                            if (parseInt(wallet.data) < values.DepositCoins) {
+                              return alert('Insufficient Funds In Wallet');
+                            } else {
+                              submitRequest(sdid, values);
+                            }
+                          } else {
+                            navigation.navigate('PaymentOptions', {
+                              sdid: sdid,
+                              planMoney: planDetails.MinRefill,
+                              planType: planDetails.planHeader,
+                              userName: values.UserName,
+                              depositCoins: values.DepositCoins,
+                              requestStatus: requestStatus,
+                            });
+                          }
+                      }else{
+                          alert('Username already taken, please try different one');
+                      }
                   });
-                }
+
               }}>
               {({handleChange, handleSubmit, errors, touched}) => (
                 <>

@@ -4,7 +4,7 @@ import Storage from '../../Modules/Common/Storage';
 import StorageKeys from '../../Modules/Common/StorageKeys';
 
 const live = 'http://139.59.11.217:3000/';
-const local = 'http://192.168.29.221:3000/';
+const local = 'http://192.168.0.192:3000/';
 //cd .. &&  cd home/admin/web/goganesh.bet/public_html/freelanceBackend/
 // cd ~/Library/Android/sdk/emulator
 // To run a certain AVD directly:
