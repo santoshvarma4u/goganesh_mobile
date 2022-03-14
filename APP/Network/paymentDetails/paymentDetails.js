@@ -32,6 +32,9 @@ const updateUserBankDetails = async data => {
 
   return NetworkAPI.apiClient.patch(userBankDetails, data);
 };
+
+
+
 export default {
   getUserBankDetails,
   createUserBankDetails,

@@ -1,4 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
+import AllInOneSDKManager from 'paytm_allinone_react-native';
 import React from 'react';
 import {
   Text,
@@ -13,8 +14,11 @@ import {
   StyleSheet,
 } from 'react-native';
 import {white} from 'react-native-paper/lib/typescript/styles/colors';
+import reactotron from 'reactotron-react-native';
 import images from '../../../Theams/Images';
+import {nanoUuid, uuid} from '../../Common/uuidGenerator';
 import PaymentOptionController from '../Controller/paymentController';
+
 import styles from './Styles';
 
 function PaymentOptionScreen({route}) {
@@ -50,6 +54,53 @@ function PaymentOptionScreen({route}) {
     } else {
       return false;
     }
+  };
+
+  const initiatePaymentGatewayTransaction = async () => {
+    const ORDER_ID = uuid(10, 16);
+    const MID = 'QpTFhC62406352970762';
+    const CUST_ID = 'CUST_' + uuid(10);
+    const INDUSTRY_TYPE_ID = 'Retail';
+    const CHANNEL_ID = 'WAP';
+    const WEBSITE = 'WEBSTAGING';
+    const CALLBACK_URL =
+      'https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID=' +
+      ORDER_ID;
+    const RETURN_URL =
+      'https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID=' +
+      ORDER_ID;
+    const TXN_AMOUNT = planMoney || depositCoins;
+
+    //generate Checksum
+    const checkSumResponse = await PaymentOptionController.generatePaytmChecksum(
+      {
+        ORDER_ID,
+        MID,
+        CUST_ID,
+        INDUSTRY_TYPE_ID,
+        CHANNEL_ID,
+        WEBSITE,
+        TXN_AMOUNT,
+        CALLBACK_URL,
+      },
+    );
+    //call Paytm Payment Gateway
+    AllInOneSDKManager.startTransaction(
+      ORDER_ID,
+      MID,
+      checkSumResponse.data.data.checksum,
+      TXN_AMOUNT,
+      CALLBACK_URL,
+      true,
+      false,
+      'goganesh://',
+    )
+      .then(response => {
+        reactotron.log('Payment Gateway Response', response);
+      })
+      .catch(error => {
+        reactotron.log('Payment Gateway Error', error);
+      });
   };
 
   return (
@@ -189,6 +240,12 @@ function PaymentOptionScreen({route}) {
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.allupi} />
               <Text style={styles.paymentTypeTitle}>UPI Manual Transfer</Text>
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={initiatePaymentGatewayTransaction}>
+            <View style={styles.paymentMethod}>
+              <Image style={styles.paymentIcon} source={images.paytm} />
+              <Text style={styles.paymentTypeTitle}>Paytm Payment Gateway</Text>
             </View>
           </TouchableWithoutFeedback>
         </View>
