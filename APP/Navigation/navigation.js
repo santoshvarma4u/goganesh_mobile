@@ -6,6 +6,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {Icon} from 'react-native-elements';
 import CreateIDScreen from '../Modules/CreateID/Container/createIDIndex';
+import DepositContainer from '../Modules/Deposit/Container/DepositContainer';
 import DepositScreen from '../Modules/Deposit/Container/depositIndex';
 import HelpScreen from '../Modules/Help/Container/helpIndex';
 import NotificationScreen from '../Modules/Home/Component/notificationScreenUI';
@@ -227,6 +228,23 @@ const HomeStackNavigator = () => {
         component={WithdrawForm}
         options={({navigation}) => ({
           headerTitle: 'Withdraw',
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitleAlign: 'center',
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => {
+                navigation.goBack();
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="DepositForm"
+        component={DepositContainer}
+        options={({navigation}) => ({
+          headerTitle: 'Deposit',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
           headerLeft: props => (

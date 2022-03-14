@@ -1,5 +1,5 @@
-import NetworkAPI from '../api/server';
 import authKey from '../../Modules/Common/JWT';
+import NetworkAPI from '../api/server';
 const promosEndPoint = '/promos';
 
 const getPromoImages = () => {

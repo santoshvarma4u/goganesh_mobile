@@ -8,9 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
-  ScrollView,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import authKey from '../../../Modules/Common/JWT';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
@@ -35,6 +33,14 @@ function SignIn() {
   };
 
   const verifyPassword = async () => {
+    // TODO: remove this line after testing
+    // const resetAction = CommonActions.reset({
+    //   index: 0,
+    //   routes: [{name: 'App'}],
+    // });
+    // navigation.dispatch(resetAction);
+    // TODO: remove above line after testing
+
     const checkUser = await LoginController.checkUser(number, password);
 
     if (checkUser.data.message === 'wrong password') {
@@ -196,7 +202,6 @@ function SignIn() {
 
         <View>
           <Text style={{fontSize: 15, color: '#fff', marginVertical: 30}}>
-            {' '}
             --- OR ---
           </Text>
         </View>

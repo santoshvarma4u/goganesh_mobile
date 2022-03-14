@@ -1,11 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
+import moment from 'moment';
 import React, {useState, useEffect} from 'react';
 import {Text, Image, View, FlatList} from 'react-native';
-import styles from './Styles';
-import images from '../../../Theams/Images';
 import Colors from '../../../Theams/Colors';
+import images from '../../../Theams/Images';
 import HomeController from '../Controller/homeController';
-import moment from 'moment';
+import styles from './Styles';
 function NotificationScreen({navigation}) {
   const notifications = HomeController.getNotifications();
 

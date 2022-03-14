@@ -1,6 +1,6 @@
-import NetworkAPI from '../api/server';
-import StorageKeys from '../../Modules/Common/StorageKeys';
 import Storage from '../../Modules/Common/Storage';
+import StorageKeys from '../../Modules/Common/StorageKeys';
+import NetworkAPI from '../api/server';
 
 const getUID = async () => {
   try {
@@ -16,12 +16,12 @@ const getUserSiteDetails = async () => {
   return NetworkAPI.apiClient.get(userSiteDetails);
 };
 
-const validateUsername = async (username,id) =>{
-  const userSiteDetails = `/userSiteDetails/validateUsername`;
-  return NetworkAPI.apiClient.post(userSiteDetails,{username,id});
-}
+const validateUsername = async (username, id) => {
+  const userSiteDetails = '/userSiteDetails/validateUsername';
+  return NetworkAPI.apiClient.post(userSiteDetails, {username, id});
+};
 
 export default {
   getUserSiteDetails,
-  validateUsername
+  validateUsername,
 };

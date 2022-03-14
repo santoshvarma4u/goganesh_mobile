@@ -1,6 +1,6 @@
-import NetworkAPI from '../api/server';
-import StorageKeys from '../../Modules/Common/StorageKeys';
 import Storage from '../../Modules/Common/Storage';
+import StorageKeys from '../../Modules/Common/StorageKeys';
+import NetworkAPI from '../api/server';
 const paymentEndPoint = '/payment';
 
 const getUID = async () => {

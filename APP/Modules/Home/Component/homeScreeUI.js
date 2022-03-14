@@ -1,4 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
+import {useNavigation} from '@react-navigation/native';
+import {Formik} from 'formik';
 import React, {useState, useEffect} from 'react';
 import {
   Text,
@@ -14,23 +16,21 @@ import {
   ScrollView,
 } from 'react-native';
 import DialogInput from 'react-native-dialog-input';
-import styles from './Styles';
-import {Formik} from 'formik';
 import {Icon} from 'react-native-elements';
-import HomeController from '../Controller/homeController';
-import images from '../../../Theams/Images';
-import Colors from '../../../Theams/Colors';
+import FlatListPicker from 'react-native-flatlist-picker';
 import {SliderBox} from 'react-native-image-slider-box';
-import {useNavigation} from '@react-navigation/native';
+import reactotron from 'reactotron-react-native';
 import {env} from '../../../Network/api/server';
+import NetworkAPI from '../../../Network/api/server';
+import Colors from '../../../Theams/Colors';
+import images from '../../../Theams/Images';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
-import NetworkAPI from '../../../Network/api/server';
 import IDController from '../../IDs/Controller/IdController';
-import FlatListPicker from 'react-native-flatlist-picker';
 import IdController from '../../IDs/Controller/IdController';
 import HomeListMyIDs from '../Component/homeListMyIDs';
-import reactotron from "reactotron-react-native";
+import HomeController from '../Controller/homeController';
+import styles from './Styles';
 function HomeScreen(props) {
   let banks = [];
   const navigation = useNavigation();
@@ -54,13 +54,11 @@ function HomeScreen(props) {
   useEffect(() => {
     pushFcmToken();
     if (success) {
-       let slides = []
+      let slides = [];
       data.map(i => {
-          slides.push(`http://139.59.11.217:3000/${i.promoImage}`)
+        slides.push(`http://139.59.11.217:3000/${i.promoImage}`);
       });
-      setSliderImgs(
-          slides
-      );
+      setSliderImgs(slides);
     }
     reactotron.log(data);
     getUserBanks.data.map(item => {
@@ -77,7 +75,8 @@ function HomeScreen(props) {
       <View style={styles.upperContainer}>
         {/* <View style={styles.centralCardView}> */}
         <View style={styles.depositCard}>
-          <TouchableOpacity onPress={() => setDialogVisible(true)}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('DepositForm', {})}>
             <Text style={styles.text}>DEPOSIT</Text>
             <Icon
               name="double-arrow"
