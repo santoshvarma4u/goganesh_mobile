@@ -1,19 +1,68 @@
 /* eslint-disable react-native/no-inline-styles */
+import AllInOneSDKManager from 'paytm_allinone_react-native';
 import React from 'react';
 import {ScrollView, View} from 'react-native';
-import {Button, Modal, TextInput} from 'react-native-paper';
+import {Button, TextInput, Modal} from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {connect} from 'react-redux';
+import reactotron from 'reactotron-react-native';
+import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
 import {Typography} from '../../Common/Text';
+import {uuid} from '../../Common/uuidGenerator';
+import PaymentOptionController from '../../PaymentOptions/Controller/paymentController';
 import PaymentCard from '../Component/PaymentCard';
 
+const initiatePaymentGatewayTransaction = async amount => {
+  const ORDER_ID = uuid(10, 16);
+  const MID = 'QpTFhC62406352970762';
+  const CUST_ID = 'CUST_' + uuid(10);
+  const INDUSTRY_TYPE_ID = 'Retail';
+  const CHANNEL_ID = 'WAP';
+  const WEBSITE = 'WEBSTAGING';
+  const CALLBACK_URL =
+    'https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID=' + ORDER_ID;
+  const RETURN_URL =
+    'https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID=' + ORDER_ID;
+  const TXN_AMOUNT = amount;
+
+  //generate Checksum
+  const checkSumResponse = await PaymentOptionController.generatePaytmChecksum({
+    ORDER_ID,
+    MID,
+    CUST_ID,
+    INDUSTRY_TYPE_ID,
+    CHANNEL_ID,
+    WEBSITE,
+    TXN_AMOUNT,
+    CALLBACK_URL,
+  });
+  //call Paytm Payment Gateway
+  AllInOneSDKManager.startTransaction(
+    ORDER_ID,
+    MID,
+    checkSumResponse.data.data.checksum,
+    amount,
+    CALLBACK_URL,
+    true,
+    true,
+    'goganesh://',
+  )
+    .then(response => {
+      reactotron.log('Payment Gateway Response', response);
+    })
+    .catch(error => {
+      reactotron.log('Payment Gateway Error', error);
+    });
+};
+
 const DepositContainer = props => {
-  const {navigation} = props;
+  const {navigation, walletBalance = 0} = props;
   const [amount, setAmount] = React.useState('');
   const [error, setError] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
-  const [paymentMethod, setPaymentMethod] = React.useState('gateway');
+  const [paymentMethod, setPaymentMethod] = React.useState('');
 
   return (
     <View
@@ -54,7 +103,7 @@ const DepositContainer = props => {
               WALLET BALANCE
             </Typography>
             <Typography variant="H3" color={Colors.appWhiteColor}>
-              $0.00
+              ₹ {walletBalance}
             </Typography>
           </View>
         </View>
@@ -110,7 +159,7 @@ const DepositContainer = props => {
           </Typography>
         </Button>
       </View>
-      <Modal visible={modalVisible}>
+      <Modal visible={modalVisible} style={{color: Colors.appBlackColor}}>
         <ScrollView
           style={{
             backgroundColor: Colors.appBlackColorLight,
@@ -142,11 +191,7 @@ const DepositContainer = props => {
             onPress={() => {
               setModalVisible(false);
               if (paymentMethod === 'gateway') {
-                // navigation.navigate('PaymentOptions', {
-                //   depositCoins: amount,
-                //   requestStatus: 'wallet',
-                // });
-                alert('gateway');
+                initiatePaymentGatewayTransaction(amount);
               } else {
                 navigation.navigate('PaymentOptions', {
                   depositCoins: amount,
@@ -176,4 +221,17 @@ const DepositContainer = props => {
   );
 };
 
-export default DepositContainer;
+const mapStateToProps = state => {
+  return {
+    walletBalance: state.home.walletBalance,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setWalletBalance: walletBalance => {
+      dispatch(setWalletBalance(walletBalance));
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(DepositContainer);

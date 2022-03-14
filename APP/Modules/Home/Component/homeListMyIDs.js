@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {Icon} from 'react-native-elements';
 import {List} from 'react-native-paper';
+import {Avatar} from 'react-native-paper';
 import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
 const HomeListMyIDs = props => {
@@ -40,10 +41,8 @@ const HomeListMyIDs = props => {
               top: -20,
             }}
           />
-          <Image
-            style={styles.image}
-            source={{uri: `${env}${props.data.sd.siteimage}`}}
-          />
+          {/*<Avatar.Image size={60} source={{uri: props.data.sd.siteimage}} />*/}
+          <Image style={styles.image} source={{uri: props.data.sd.siteimage}} />
         </View>
         <View>
           <View
@@ -183,8 +182,8 @@ const styles = StyleSheet.create({
   image: {
     width: 40,
     height: 40,
-    borderRadius: 30,
-    backgroundColor: 'black',
+    borderRadius: 20,
+    backgroundColor: '#232121',
     marginRight: 10,
     marginTop: 12,
   },

@@ -19,9 +19,11 @@ import DialogInput from 'react-native-dialog-input';
 import {Icon} from 'react-native-elements';
 import FlatListPicker from 'react-native-flatlist-picker';
 import {SliderBox} from 'react-native-image-slider-box';
+import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
 import {env} from '../../../Network/api/server';
 import NetworkAPI from '../../../Network/api/server';
+import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
 import Storage from '../../Common/Storage';
@@ -42,6 +44,7 @@ function HomeScreen(props) {
   const [userBanks, setUserBanks] = React.useState([]);
   const {data, success} = HomeController.useGetPromoImages();
   const wallet = HomeController.getWalletBalance();
+
   const getUserBanks = IDController.getBankData();
   const pushFcmToken = async () => {
     let ID = await Storage.getItemSync(StorageKeys.ID);
@@ -50,6 +53,10 @@ function HomeScreen(props) {
     await NetworkAPI.apiClient.patch(`/users/${ID}`, {fcm_id: FCMTOKEN});
   };
   const getMyIDs = IdController.getUserSpecificIDs();
+
+  useEffect(() => {
+    props.setWallet({walletBalance: wallet.data});
+  }, [wallet.data]);
 
   useEffect(() => {
     pushFcmToken();
@@ -94,7 +101,7 @@ function HomeScreen(props) {
             Wallet Balance
           </Text>
           <Text style={{color: 'white', fontSize: 18, alignItems: 'center'}}>
-            {wallet.data} INR
+            {props.wallet} INR
           </Text>
         </TouchableOpacity>
         <View style={styles.withdrawCard}>
@@ -310,4 +317,16 @@ function HomeScreen(props) {
   );
 }
 
-export default HomeScreen;
+const mapStateToProps = state => {
+  return {
+    wallet: state.home.walletBalance,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setWallet: wallet => dispatch(setWalletBalance(wallet)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
