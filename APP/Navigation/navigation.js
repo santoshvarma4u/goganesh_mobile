@@ -5,6 +5,7 @@ import {createStackNavigator, HeaderBackButton} from '@react-navigation/stack';
 import React from 'react';
 import {View} from 'react-native';
 import {Icon} from 'react-native-elements';
+import ChatContainer from '../Modules/Chat/Container/ChatContainer';
 import CreateIDScreen from '../Modules/CreateID/Container/createIDIndex';
 import DepositContainer from '../Modules/Deposit/Container/DepositContainer';
 import DepositScreen from '../Modules/Deposit/Container/depositIndex';
@@ -23,6 +24,7 @@ import ProfileScreen from '../Modules/Profile/Container/profileIndex';
 import CustomSidebarMenu from '../Modules/SideMenu/Component/sidemenu';
 import Splash from '../Modules/Splash/Container/splashIndex';
 import WithdrawForm from '../Modules/Withdraw/Components/WithdrawUI';
+import WithDrawContainer from '../Modules/Withdraw/Containers/WidthdrawContainer';
 
 import Colors from '../Theams/Colors';
 
@@ -245,6 +247,40 @@ const HomeStackNavigator = () => {
         component={DepositContainer}
         options={({navigation}) => ({
           headerTitle: 'Deposit',
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitleAlign: 'center',
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => {
+                navigation.goBack();
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="WithdrawContainer"
+        component={WithDrawContainer}
+        options={({navigation}) => ({
+          headerTitle: 'Withdraw',
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitleAlign: 'center',
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => {
+                navigation.goBack();
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Support"
+        component={ChatContainer}
+        options={({navigation}) => ({
+          headerTitle: 'Withdraw',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
           headerLeft: props => (

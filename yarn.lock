@@ -6877,15 +6877,20 @@ react-native-collapsible@^1.6.0:
   resolved "https://registry.npmjs.org/react-native-collapsible/-/react-native-collapsible-1.6.0.tgz"
   integrity sha512-beZjdgbT9Y/Pg591Xy5XkKG20HffJiVad4n9bfcUF/f783A+tvOVXnqvbS58Lkaym93mi4jcDPMuW9Vc1t6rqg==
 
+react-native-crisp-chat-sdk@^0.10.2:
+  version "0.10.2"
+  resolved "https://registry.yarnpkg.com/react-native-crisp-chat-sdk/-/react-native-crisp-chat-sdk-0.10.2.tgz#89c4bb7ed9d65767da8514cde0a1fee3bdb26ba5"
+  integrity sha512-93IzZ5du4m/vFaVKBrsTgB3j6qlT0pSg8JQoy9hZo5AYYNmLmw5fO7nHsf47KpqgQWv3cxABoJQQ7M9+ApsdfA==
+
 react-native-dialog-input@^1.0.8:
   version "1.0.8"
   resolved "https://registry.npmjs.org/react-native-dialog-input/-/react-native-dialog-input-1.0.8.tgz"
   integrity sha512-W9YNMt6r+rUUMDEkOR1WMuGfSJw97ujB8H1xp8TjJTOnYVSlsf4aEP6t+J8tVk3XZaDcTawXgDjxH6E1WVWRog==
 
-react-native-dropdown-picker@^5.1.15:
-  version "5.1.15"
-  resolved "https://registry.npmjs.org/react-native-dropdown-picker/-/react-native-dropdown-picker-5.1.15.tgz"
-  integrity sha512-5GrEvpyemk9eA0ukkglZmJQg8G9G3SVqRVmsK9HPfGhpWm8jZVmi2OB7GhS8DkWGbPjbf44eF0BZfMPmN7dpwA==
+react-native-dropdown-picker@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-dropdown-picker/-/react-native-dropdown-picker-5.3.0.tgz#a1043890846e07a197ed882ff922299b46dd4a7a"
+  integrity sha512-LUctVMAWiDir1X0WrFX1784psvqzBXRxRujYbvlvKz1Owa6cujrVN98rP356hIXFzX19E7SkbA942fGfMvoEWQ==
 
 react-native-elements@^3.4.1:
   version "3.4.1"

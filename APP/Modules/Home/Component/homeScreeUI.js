@@ -105,7 +105,8 @@ function HomeScreen(props) {
           </Text>
         </TouchableOpacity>
         <View style={styles.withdrawCard}>
-          <TouchableOpacity onPress={() => setModalVisible(true)}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('WithdrawContainer', {})}>
             <Text style={styles.text}>WITHDRAW</Text>
             <Icon
               name="double-arrow"

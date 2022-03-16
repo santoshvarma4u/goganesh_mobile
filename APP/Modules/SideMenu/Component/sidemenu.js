@@ -1,17 +1,16 @@
-import React from 'react';
-import Storage from '../../Common/Storage';
-import StorageKeys from '../../Common/StorageKeys';
-
 import {
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
   DrawerActions,
 } from '@react-navigation/drawer';
-import Colors from '../../../Theams/Colors';
+import React from 'react';
 import {Image, Text, View} from 'react-native';
-import images from '../../../Theams/Images';
 import {Icon} from 'react-native-elements';
+import Colors from '../../../Theams/Colors';
+import images from '../../../Theams/Images';
+import Storage from '../../Common/Storage';
+import StorageKeys from '../../Common/StorageKeys';
 
 function CustomSidebarMenu({...props}) {
   const removeUserDetails = async () => {
@@ -61,6 +60,15 @@ function CustomSidebarMenu({...props}) {
         }}
         icon={(color, size) => {
           return <Icon size={23} name={'info'} />;
+        }}
+      />
+      <DrawerItem
+        label="Support"
+        onPress={() => {
+          props.navigation.navigate('Support');
+        }}
+        icon={(color, size) => {
+          return <Icon size={23} name={'help'} />;
         }}
       />
       <DrawerItem

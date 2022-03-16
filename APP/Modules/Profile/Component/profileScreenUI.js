@@ -22,8 +22,8 @@ function ProfileScreen({navigation}) {
     } catch (error) {}
   };
   useEffect(() => {
-      getName().then(data => setName(data));
-      getPhone().then(data => setPhone(data));
+    getName().then(data => setName(data));
+    getPhone().then(data => setPhone(data));
   }, []);
   return (
     <View style={styles.containerMain}>
@@ -34,8 +34,7 @@ function ProfileScreen({navigation}) {
         <View style={styles.profileDetails}>
           <Text style={{padding: 10}}>Name : {name} </Text>
           <Text style={{padding: 10}}>Phone : {phone}</Text>
-          {/*<Chip title="Change Password" />*/}
-          {/* <Text style={{padding: 10}}>Member Since :</Text> */}
+          <Chip title="Change Password" />
         </View>
       </View>
     </View>
