@@ -3,6 +3,7 @@ import AllInOneSDKManager from 'paytm_allinone_react-native';
 import React from 'react';
 import {ScrollView, View} from 'react-native';
 import {Button, TextInput, Modal} from 'react-native-paper';
+import * as RNUpiPayment from 'react-native-upi-payment';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
@@ -13,6 +14,23 @@ import {Typography} from '../../Common/Text';
 import {uuid} from '../../Common/uuidGenerator';
 import PaymentOptionController from '../../PaymentOptions/Controller/paymentController';
 import PaymentCard from '../Component/PaymentCard';
+
+const intiateThroughUPI = async amount => {
+  RNUpiPayment.initializePayment(
+    {
+      vpa: 'paytmqr281100505010111yg1pll0rdu@paytm', // or can be john@ybl or mobileNo@upi
+      payeeName: 'Paytm Merchant',
+      amount: amount,
+      transactionRef: 'aasf-332-aoei-fn',
+    },
+    success => {
+      reactotron.log('Payment Success', success);
+    },
+    error => {
+      reactotron.log('Payment Failed', error);
+    },
+  );
+};
 
 const initiatePaymentGatewayTransaction = async amount => {
   const ORDER_ID = uuid(10, 16);
@@ -191,7 +209,8 @@ const DepositContainer = props => {
             onPress={() => {
               setModalVisible(false);
               if (paymentMethod === 'gateway') {
-                initiatePaymentGatewayTransaction(amount);
+                // initiatePaymentGatewayTransaction(amount);
+                intiateThroughUPI(amount);
               } else {
                 navigation.navigate('PaymentOptions', {
                   depositCoins: amount,
