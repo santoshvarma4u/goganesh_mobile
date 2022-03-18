@@ -3,6 +3,7 @@ import AllInOneSDKManager from 'paytm_allinone_react-native';
 import React from 'react';
 import {ScrollView, View} from 'react-native';
 import {Button, TextInput, Modal} from 'react-native-paper';
+import RazorpayCheckout from 'react-native-razorpay';
 import * as RNUpiPayment from 'react-native-upi-payment';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
@@ -18,10 +19,10 @@ import PaymentCard from '../Component/PaymentCard';
 const intiateThroughUPI = async amount => {
   RNUpiPayment.initializePayment(
     {
-      vpa: 'paytmqr281100505010111yg1pll0rdu@paytm', // or can be john@ybl or mobileNo@upi
-      payeeName: 'Paytm Merchant',
+      vpa: '9398322333-1@idfcfirst', // or can be john@ybl or mobileNo@upi
+      payeeName: 'Vinayaka Aqua Farms',
       amount: amount,
-      transactionRef: 'aasf-332-aoei-fn',
+      transactionRef: 'aasd-234-dsfa-fn',
     },
     success => {
       reactotron.log('Payment Success', success);
@@ -75,6 +76,27 @@ const initiatePaymentGatewayTransaction = async amount => {
     });
 };
 
+const initiateRazorPay = async amount => {
+  const data = {
+    amount: amount * 100,
+    currency: 'INR',
+  };
+  const order = await PaymentOptionController.razorPayCreateOrder(data);
+
+  var options = {
+    name: 'Santosh',
+    description: 'Please pay here',
+    order_id: order.id,
+    key: 'rzp_live_US1dAbWwgqQKTv',
+    prefill: {
+      email: 'useremail@example.com',
+      contact: '9191919191',
+      name: 'John Doe',
+    },
+    theme: {color: Colors.appPrimaryColor},
+  };
+  RazorpayCheckout.open(options).then(reactotron.log).catch(reactotron.log);
+};
 const DepositContainer = props => {
   const {navigation, walletBalance = 0} = props;
   const [amount, setAmount] = React.useState('');
@@ -210,7 +232,8 @@ const DepositContainer = props => {
               setModalVisible(false);
               if (paymentMethod === 'gateway') {
                 // initiatePaymentGatewayTransaction(amount);
-                intiateThroughUPI(amount);
+                //intiateThroughUPI(amount);
+                initiateRazorPay(amount);
               } else {
                 navigation.navigate('PaymentOptions', {
                   depositCoins: amount,
