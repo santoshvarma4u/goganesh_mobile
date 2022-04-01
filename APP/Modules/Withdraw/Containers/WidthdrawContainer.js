@@ -4,9 +4,9 @@ import {View} from 'react-native';
 import {Button, Modal} from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '../../../Theams/Colors';
+import EnterBankDetails from '../../Common/BankDetails';
 import CommonTextInput from '../../Common/CommonTextInput';
 import {Typography} from '../../Common/Text';
-import EnterBankDetails from '../Components/BankDetails';
 
 const WithDrawContainer = props => {
   const {navigation} = props;

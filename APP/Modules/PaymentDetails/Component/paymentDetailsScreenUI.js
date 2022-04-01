@@ -15,6 +15,7 @@ import {
 import {Icon} from 'react-native-elements';
 import {Input as TextInput} from 'react-native-elements';
 import Colors from '../../../Theams/Colors';
+import EnterBankDetails from '../../Common/BankDetails';
 import PaymentDetailsController from '../Controller/paymentDetailsController';
 import styles from './Styles';
 
@@ -27,6 +28,11 @@ function PaymentsScreen({navigation}) {
   const [editModelVisible, setEditModelVisible] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const onSubmit = values => {
+    PaymentDetailsController.submitBankData(values).then(() => {
+      setModalVisible(!modalVisible);
+    });
+  };
   return (
     <View style={styles.containerMain}>
       <View style={styles.profileContainer}>
@@ -49,78 +55,12 @@ function PaymentsScreen({navigation}) {
                   onRequestClose={() => {
                     setModalVisible(!modalVisible);
                   }}>
-                  <View
-                    style={{
-                      backgroundColor: '#252525E0',
-                      flex: 1,
-                      // height: '100%',
-                    }}>
-                    <View style={styles.centeredView}>
-                      <View style={styles.modalView}>
-                        <Pressable
-                          style={styles.buttonClose}
-                          onPress={() => setModalVisible(!modalVisible)}>
-                          <Icon
-                            name="cancel"
-                            color={Colors.appPrimaryColor}
-                            size={32}
-                          />
-                        </Pressable>
-                        <Formik
-                          initialValues={{
-                            bankName: '',
-                            AccountNumber: '',
-                            IFSC: '',
-                            AccountHolderName: '',
-                            branchCode: '',
-                          }}
-                          onSubmit={values => {
-                            PaymentDetailsController.submitBankData(
-                              values,
-                            ).then(() => {
-                              setModalVisible(!modalVisible);
-                            });
-                          }}>
-                          {({handleChange, handleSubmit}) => (
-                            <ScrollView>
-                              <TextInput
-                                style={styles.modalText}
-                                placeholder="Bank Name"
-                                // label={'Name Of the Bank'}
-                                onChangeText={handleChange('bankName')}
-                              />
-                              <TextInput
-                                style={styles.modalText}
-                                placeholder="Account Number"
-                                // label="Account Number"
-                                onChangeText={handleChange('AccountNumber')}
-                              />
-                              <TextInput
-                                style={styles.modalText}
-                                placeholder="IFSC code"
-                                onChangeText={handleChange('IFSC')}
-                              />
-                              <TextInput
-                                style={styles.modalText}
-                                placeholder="Account Holder Name"
-                                onChangeText={handleChange('AccountHolderName')}
-                              />
-                              <TextInput
-                                style={styles.modalText}
-                                placeholder="Branch Code"
-                                onChangeText={handleChange('branchCode')}
-                              />
-                              <Button
-                                style={styles.modalText}
-                                title="submit"
-                                onPress={handleSubmit}
-                              />
-                            </ScrollView>
-                          )}
-                        </Formik>
-                      </View>
-                    </View>
-                  </View>
+                  <EnterBankDetails
+                    onClose={() => {
+                      setModalVisible(false);
+                    }}
+                    onSubmit={onSubmit}
+                  />
                 </Modal>
               </View>
             </TouchableOpacity>

@@ -1,13 +1,26 @@
+import {Formik} from 'formik';
 import React, {useState} from 'react';
 import {Text, View} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Button} from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Colors from '../../../Theams/Colors';
-import CommonTextInput from '../../Common/CommonTextInput';
-import {Typography} from '../../Common/Text';
+import * as yup from 'yup';
+import Colors from '../../Theams/Colors';
+import CommonTextInput from './CommonTextInput';
+import {Typography} from './Text';
 import {banksList} from './banks';
+
+const bankValidationSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email('Please enter valid email')
+    .required('Email Address is Required'),
+  password: yup
+    .string()
+    .min(8, ({min}) => `Password must be at least ${min} characters`)
+    .required('Password is required'),
+});
 
 const EnterBankDetails = props => {
   const {onClose = () => {}} = props;
@@ -47,7 +60,6 @@ const EnterBankDetails = props => {
           onPress={() => onClose()}
         />
       </View>
-
       <Typography color={Colors.appWhiteColor} variant={'title'}>
         Add your Bank Account
       </Typography>

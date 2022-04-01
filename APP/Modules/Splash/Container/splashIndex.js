@@ -50,34 +50,34 @@ PushNotification.createChannel(
 export default class Splash extends PureComponent {
   componentDidMount = () => {
     setTimeout(() => {
-      //this.learnMorePress();
+      this.learnMorePress();
     }, 3000);
   };
 
-  // learnMorePress = async () => {
-  //   let JWT = await Storage.getItemSync(StorageKeys.JWT);
-  //   let ID = await Storage.getItemSync(StorageKeys.ID);
-  //   let FCMTOKEN = await Storage.getItemSync(StorageKeys.FCMTOKEN);
-  //   authKey.token = JWT;
-  //   if (JWT) {
-  //     NetworkAPI.apiClient.setHeader('authorization', authKey.token);
-  //
-  //     await NetworkAPI.apiClient.patch(`/users/${ID}`, {fcm_id: FCMTOKEN});
-  //   }
-  //   if (JWT) {
-  //     const resetAction = CommonActions.reset({
-  //       index: 0,
-  //       routes: [{name: 'App'}],
-  //     });
-  //     this.props.navigation.dispatch(resetAction);
-  //   } else {
-  //     const resetAction = CommonActions.reset({
-  //       index: 0,
-  //       routes: [{name: 'Auth'}],
-  //     });
-  //     this.props.navigation.dispatch(resetAction);
-  //   }
-  // };
+  learnMorePress = async () => {
+    let JWT = await Storage.getItemSync(StorageKeys.JWT);
+    let ID = await Storage.getItemSync(StorageKeys.ID);
+    let FCMTOKEN = await Storage.getItemSync(StorageKeys.FCMTOKEN);
+    authKey.token = JWT;
+    if (JWT) {
+      NetworkAPI.apiClient.setHeader('authorization', authKey.token);
+
+      await NetworkAPI.apiClient.patch(`/users/${ID}`, {fcm_id: FCMTOKEN});
+    }
+    if (JWT) {
+      const resetAction = CommonActions.reset({
+        index: 0,
+        routes: [{name: 'App'}],
+      });
+      this.props.navigation.dispatch(resetAction);
+    } else {
+      const resetAction = CommonActions.reset({
+        index: 0,
+        routes: [{name: 'Auth'}],
+      });
+      this.props.navigation.dispatch(resetAction);
+    }
+  };
 
   render() {
     return (

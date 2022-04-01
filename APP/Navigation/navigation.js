@@ -414,46 +414,40 @@ function MyDrawer() {
 
 const BottomTabNavigator = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen
-        name="Home"
-        component={HomeStackNavigator}
-        tabBarOptions={{
-          activeTintColor: Colors.appPrimaryColor,
-        }}
-        options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: ({tintColor}) => (
-            <Icon name="home" color={tintColor} size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Offers"
-        component={OffersStackNavigator}
-        options={{
-          tabBarLabel: 'Offers',
-          tabBarIcon: () => <Icon name="local-offer" color="black" size={26} />,
-        }}
-      />
-      <Tab.Screen
-        name="Passbook"
-        component={PassbookStackNavigator}
-        options={{
-          tabBarLabel: 'Passbook',
-          tabBarIcon: () => <Icon name="payments" color="black" size={26} />,
-        }}
-      />
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: Colors.appPrimaryColor,
+        inactiveTintColor: Colors.appWhiteColor,
+        style: {
+          backgroundColor: Colors.appBlackColorLight,
+
+          paddingTop: 0,
+        },
+      }}
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName;
+          if (route.name === 'Home') {
+            iconName = 'home';
+          } else if (route.name === 'Offers') {
+            iconName = 'local-offer';
+          } else if (route.name === 'Passbook') {
+            iconName = 'book';
+          } else if (route.name === 'IDs') {
+            iconName = 'switch-account';
+          }
+          return <Icon size={size} name={iconName} color={color} />;
+        },
+        tabBarActiveTintColor: 'tomato',
+        tabBarInactiveTintColor: 'gray',
+      })}>
+      <Tab.Screen name="Home" component={HomeStackNavigator} />
+      <Tab.Screen name="Offers" component={OffersStackNavigator} />
+      <Tab.Screen name="Passbook" component={PassbookStackNavigator} />
       <Tab.Screen
         name="ID's"
         component={IDsStackNavigator}
         initialRouteName="ID's"
-        options={{
-          tabBarLabel: 'IDs',
-          tabBarIcon: () => (
-            <Icon name="switch-account" color="black" size={26} />
-          ),
-        }}
       />
     </Tab.Navigator>
   );

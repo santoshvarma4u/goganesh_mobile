@@ -1,7 +1,7 @@
 import React from 'react';
-import promosApi from '../../../Network/promos/promos';
 import useAPI from '../../../Hooks/useAPI';
 import usersAPI from '../../../Network/Users/users';
+import promosApi from '../../../Network/promos/promos';
 
 const useGetPromoImages = () => useAPI(promosApi.getPromoImages);
 

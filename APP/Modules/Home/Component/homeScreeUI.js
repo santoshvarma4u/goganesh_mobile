@@ -21,7 +21,6 @@ import FlatListPicker from 'react-native-flatlist-picker';
 import {SliderBox} from 'react-native-image-slider-box';
 import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
-import {env} from '../../../Network/api/server';
 import NetworkAPI from '../../../Network/api/server';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import Colors from '../../../Theams/Colors';
