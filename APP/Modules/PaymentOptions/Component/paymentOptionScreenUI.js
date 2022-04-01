@@ -16,6 +16,7 @@ import {
 import {white} from 'react-native-paper/lib/typescript/styles/colors';
 import reactotron from 'reactotron-react-native';
 import images from '../../../Theams/Images';
+import {Typography} from '../../Common/Text';
 import {nanoUuid, uuid} from '../../Common/uuidGenerator';
 import PaymentOptionController from '../Controller/paymentController';
 
@@ -64,8 +65,10 @@ function PaymentOptionScreen({route}) {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
         <View style={styles.PaymentTitle}>
-          <Text style={{color: 'white'}}>Choose Your Payment Method</Text>
-          <Text style={{color: 'white'}}>Pull to Refresh</Text>
+          <Typography style={{color: 'white'}}>
+            Choose Your Payment Method
+          </Typography>
+          <Typography style={{color: 'white'}}>Pull to Refresh</Typography>
         </View>
         <View style={styles.paymentOptions}>
           <TouchableWithoutFeedback
@@ -86,7 +89,7 @@ function PaymentOptionScreen({route}) {
             }}>
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.paytmupi} />
-              <Text style={styles.paymentTypeTitle}>Paytm UPI</Text>
+              <Typography style={styles.paymentTypeTitle}>Paytm UPI</Typography>
             </View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback
@@ -107,7 +110,9 @@ function PaymentOptionScreen({route}) {
             }}>
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.paytm} />
-              <Text style={styles.paymentTypeTitle}>Paytm Wallet</Text>
+              <Typography style={styles.paymentTypeTitle}>
+                Paytm Wallet
+              </Typography>
             </View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback
@@ -128,7 +133,9 @@ function PaymentOptionScreen({route}) {
             }}>
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.gpay} />
-              <Text style={styles.paymentTypeTitle}>Google Pay</Text>
+              <Typography style={styles.paymentTypeTitle}>
+                Google Pay
+              </Typography>
             </View>
           </TouchableWithoutFeedback>
 
@@ -150,7 +157,7 @@ function PaymentOptionScreen({route}) {
             }}>
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.phonepe} />
-              <Text style={styles.paymentTypeTitle}>Phone Pay</Text>
+              <Typography style={styles.paymentTypeTitle}>Phone Pay</Typography>
             </View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback
@@ -171,7 +178,9 @@ function PaymentOptionScreen({route}) {
             }}>
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.banktransfer} />
-              <Text style={styles.paymentTypeTitle}>Bank Manual Transfer </Text>
+              <Typography style={styles.paymentTypeTitle}>
+                Bank Manual Transfer{' '}
+              </Typography>
             </View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback
@@ -192,7 +201,9 @@ function PaymentOptionScreen({route}) {
             }}>
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.allupi} />
-              <Text style={styles.paymentTypeTitle}>UPI Manual Transfer</Text>
+              <Typography style={styles.paymentTypeTitle}>
+                UPI Manual Transfer
+              </Typography>
             </View>
           </TouchableWithoutFeedback>
         </View>

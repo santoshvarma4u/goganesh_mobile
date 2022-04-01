@@ -13,6 +13,7 @@ import {
 import {Searchbar} from 'react-native-paper';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import Colors from '../../../Theams/Colors';
+import {Typography} from '../../Common/Text';
 import IdController from '../Controller/IdController';
 import styles from './Styles';
 import AccordionListItem from './accordianListIDs';
@@ -31,9 +32,10 @@ const MyIDRoute = props => {
       <View style={styles.list}>
         {getMyIDs.error && (
           <>
-            <Text style={{alignItems: 'center', color: Colors.appPrimaryColor}}>
+            <Typography
+              style={{alignItems: 'center', color: Colors.appPrimaryColor}}>
               No IDs Found
-            </Text>
+            </Typography>
             <TouchableOpacity
               style={{
                 backgroundColor: Colors.appPrimaryColor,
@@ -47,7 +49,9 @@ const MyIDRoute = props => {
                 getMyIDs.request();
               }}
               underlayColor="transparent">
-              <Text style={{color: '#fff', fontSize: 16}}>Retry</Text>
+              <Typography style={{color: '#fff', fontSize: 16}}>
+                Retry
+              </Typography>
             </TouchableOpacity>
           </>
         )}
@@ -104,7 +108,7 @@ const IDRoute = props => {
       <View style={styles.list}>
         {getIDs.error && (
           <>
-            <Text style={{backgroundColor: 'white'}}> failed </Text>
+            <Typography style={{backgroundColor: 'white'}}> failed </Typography>
             <Button
               title="retry"
               onPress={() => {

@@ -3,6 +3,7 @@ import {Text, View} from 'react-native';
 import {Chip, Icon} from 'react-native-elements';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
+import {Typography} from '../../Common/Text';
 import styles from './Styles';
 function ProfileScreen({navigation}) {
   const [name, setName] = useState(false);
@@ -32,8 +33,8 @@ function ProfileScreen({navigation}) {
           <Icon name="person" />
         </View>
         <View style={styles.profileDetails}>
-          <Text style={{padding: 10}}>Name : {name} </Text>
-          <Text style={{padding: 10}}>Phone : {phone}</Text>
+          <Typography style={{padding: 10}}>Name : {name} </Typography>
+          <Typography style={{padding: 10}}>Phone : {phone}</Typography>
           <Chip title="Change Password" />
         </View>
       </View>

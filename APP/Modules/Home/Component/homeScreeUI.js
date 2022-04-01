@@ -3,7 +3,6 @@ import {useNavigation} from '@react-navigation/native';
 import {Formik} from 'formik';
 import React, {useState, useEffect} from 'react';
 import {
-  Text,
   TextInput,
   Button,
   View,
@@ -27,6 +26,7 @@ import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
+import {Typography} from '../../Common/Text';
 import IDController from '../../IDs/Controller/IdController';
 import IdController from '../../IDs/Controller/IdController';
 import HomeListMyIDs from '../Component/homeListMyIDs';
@@ -83,7 +83,7 @@ function HomeScreen(props) {
         <View style={styles.depositCard}>
           <TouchableOpacity
             onPress={() => navigation.navigate('DepositForm', {})}>
-            <Text style={styles.text}>DEPOSIT</Text>
+            <Typography style={styles.text}>DEPOSIT</Typography>
             <Icon
               name="double-arrow"
               color="white"
@@ -96,17 +96,18 @@ function HomeScreen(props) {
           onPress={() => wallet.request()}
           style={styles.centreCard}>
           <Image style={styles.image} source={images.logo} />
-          <Text style={{color: 'white', alignItems: 'center'}}>
+          <Typography style={{color: 'white', alignItems: 'center'}}>
             Wallet Balance
-          </Text>
-          <Text style={{color: 'white', fontSize: 18, alignItems: 'center'}}>
+          </Typography>
+          <Typography
+            style={{color: 'white', fontSize: 18, alignItems: 'center'}}>
             {props.wallet} INR
-          </Text>
+          </Typography>
         </TouchableOpacity>
         <View style={styles.withdrawCard}>
           <TouchableOpacity
             onPress={() => navigation.navigate('WithdrawContainer', {})}>
-            <Text style={styles.text}>WITHDRAW</Text>
+            <Typography style={styles.text}>WITHDRAW</Typography>
             <Icon
               name="double-arrow"
               color="white"
@@ -141,13 +142,13 @@ function HomeScreen(props) {
             style={{
               alignItems: 'center',
             }}>
-            <Text
+            <Typography
               style={{
                 color: '#d5d1d1',
                 fontSize: 16,
               }}>
               My IDs
-            </Text>
+            </Typography>
             <View
               style={{
                 borderBottomColor: Colors.appPrimaryColor,
@@ -171,7 +172,7 @@ function HomeScreen(props) {
             }}
             onPress={() => navigation.navigate("ID's")}>
             <Icon type="antdesign" name="pluscircle" color="white" size={18} />
-            <Text style={styles.createTextOnly}>Create </Text>
+            <Typography style={styles.createTextOnly}>Create </Typography>
           </TouchableOpacity>
         </View>
         <View style={styles.promotionCard}>
@@ -197,8 +198,8 @@ function HomeScreen(props) {
         {/*<----------->  */}
 
         {/*<View style={styles.createAnnouncement}>*/}
-        {/*  <Text style={styles.tipsText}>Tips & Announcements</Text>*/}
-        {/*  <Text style={styles.tipsSubText}>No Data Available</Text>*/}
+        {/*  <Typography style={styles.tipsText}>Tips & Announcements</Typography>*/}
+        {/*  <Typography style={styles.tipsSubText}>No Data Available</Typography>*/}
         {/*</View>*/}
       </View>
 
@@ -233,9 +234,9 @@ function HomeScreen(props) {
               {({handleChange, handleSubmit}) => (
                 <>
                   <View style={{flexDirection: 'row'}}>
-                    <Text style={styles.modalText}>
+                    <Typography style={styles.modalText}>
                       Enter Amount to Withdraw
-                    </Text>
+                    </Typography>
                     <Pressable
                       style={[styles.button, styles.buttonClose]}
                       onPress={() => setModalVisible(false)}>
@@ -246,10 +247,10 @@ function HomeScreen(props) {
                       />
                     </Pressable>
                   </View>
-                  <Text style={styles.notetext}>
+                  <Typography style={styles.notetext}>
                     Note: Please make sure, withdraw amount must be less or
                     equal to wallet balance!!
-                  </Text>
+                  </Typography>
                   <TextInput
                     style={[styles.modalText, {borderBottomWidth: 0.5}]}
                     placeholder="Ex : 200"

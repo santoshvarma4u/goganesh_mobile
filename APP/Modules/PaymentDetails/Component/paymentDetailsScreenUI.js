@@ -16,6 +16,7 @@ import {Icon} from 'react-native-elements';
 import {Input as TextInput} from 'react-native-elements';
 import Colors from '../../../Theams/Colors';
 import EnterBankDetails from '../../Common/BankDetails';
+import {Typography} from '../../Common/Text';
 import PaymentDetailsController from '../Controller/paymentDetailsController';
 import styles from './Styles';
 
@@ -39,14 +40,14 @@ function PaymentsScreen({navigation}) {
         <View style={styles.profileDetails}>
           <View style={styles.bankCardDetails}>
             <Icon type="antdesign" name="bank" color="white" />
-            <Text style={{color: 'white', padding: 5, left: 10}}>
+            <Typography style={{color: 'white', padding: 5, left: 10}}>
               Bank Details
-            </Text>
+            </Typography>
             <TouchableOpacity
               style={styles.addBankButton}
               activeOpacity={0.5}
               onPress={() => setModalVisible(true)}>
-              <Text style={styles.textStyle}> Add New </Text>
+              <Typography style={styles.textStyle}> Add New </Typography>
               <View style={styles.centeredView}>
                 <Modal
                   animationType="slide"

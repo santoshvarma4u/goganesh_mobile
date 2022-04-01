@@ -4,6 +4,7 @@ import React, {useState, useEffect} from 'react';
 import {Text, Image, View, FlatList} from 'react-native';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
+import {Typography} from '../../Common/Text';
 import HomeController from '../Controller/homeController';
 import styles from './Styles';
 function NotificationScreen({navigation}) {
@@ -27,12 +28,12 @@ function NotificationScreen({navigation}) {
           />
         </View>
         <View style={{marginLeft: 14}}>
-          <Text style={{color: Colors.appWhiteColor, fontSize: 14}}>
+          <Typography style={{color: Colors.appWhiteColor, fontSize: 14}}>
             {item.notificationTitle}
-          </Text>
-          <Text style={{color: Colors.appWhiteColor, fontSize: 10}}>
+          </Typography>
+          <Typography style={{color: Colors.appWhiteColor, fontSize: 10}}>
             {item.notificationMessage}
-          </Text>
+          </Typography>
         </View>
         <View
           style={{

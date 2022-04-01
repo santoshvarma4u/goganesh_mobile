@@ -16,6 +16,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import reactotron from 'reactotron-react-native';
 import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
+import {Typography} from '../../Common/Text';
 import depositController from '../../Deposit/Controller/depositController';
 import IdController from '../../IDs/Controller/IdController';
 
@@ -33,7 +34,7 @@ function ListTitle(props) {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Text style={styles.url}>{props?.sd?.siteurl}</Text>
+          <Typography style={styles.url}>{props?.sd?.siteurl}</Typography>
           <View style={styles.credIcon}>
             <TouchableOpacity
               onPress={() => {
@@ -43,7 +44,7 @@ function ListTitle(props) {
             </TouchableOpacity>
           </View>
         </View>
-        <Text style={styles.siteName}>{props?.sd?.sitename}</Text>
+        <Typography style={styles.siteName}>{props?.sd?.sitename}</Typography>
       </View>
     </View>
   );
@@ -79,7 +80,7 @@ const WithdrawForm = props => {
             setChecked(!checked);
           }}
         />
-        <Text style={{color: 'white'}}>Deposit Into Wallet</Text>
+        <Typography style={{color: 'white'}}>Deposit Into Wallet</Typography>
       </View>
       {!checked && (
         <FlatListPicker
@@ -119,7 +120,7 @@ const WithdrawForm = props => {
           onPress={() => {
             props.navigation.pop();
           }}>
-          <Text style={{alignItems: 'center'}}>Cancel</Text>
+          <Typography style={{alignItems: 'center'}}>Cancel</Typography>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
@@ -158,7 +159,9 @@ const WithdrawForm = props => {
             justifyContent: 'center',
             borderRadius: 5,
           }}>
-          <Text style={{alignItems: 'center'}}>Request Withdraw</Text>
+          <Typography style={{alignItems: 'center'}}>
+            Request Withdraw
+          </Typography>
         </TouchableOpacity>
       </View>
     </View>

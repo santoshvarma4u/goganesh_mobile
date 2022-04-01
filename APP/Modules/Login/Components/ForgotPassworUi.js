@@ -7,6 +7,7 @@ import {Input} from 'react-native-elements/dist/input/Input';
 import reactotron from 'reactotron-react-native';
 import Colors from '../../../Theams/Colors';
 import authKey from '../../Common/JWT';
+import {Typography} from '../../Common/Text';
 import sendOTP from '../Controllers/LoginController';
 import LoginController from '../Controllers/LoginController';
 
@@ -59,7 +60,7 @@ const ForgotPassWordUI = props => {
 
   return resetPassword ? (
     <View style={styles.container}>
-      <Text style={styles.mainText}>Reset Your Password</Text>
+      <Typography style={styles.mainText}>Reset Your Password</Typography>
       <Input
         style={styles.textInput}
         label={'New Password'}
@@ -95,13 +96,17 @@ const ForgotPassWordUI = props => {
             }
           }}
           underlayColor="transparent">
-          <Text style={{color: 'black', fontSize: 16}}>Update Password</Text>
+          <Typography style={{color: 'black', fontSize: 16}}>
+            Update Password
+          </Typography>
         </TouchableOpacity>
       </View>
     </View>
   ) : (
     <View style={styles.container}>
-      <Text style={styles.mainText}>Please enter your Phone Number</Text>
+      <Typography style={styles.mainText}>
+        Please enter your Phone Number
+      </Typography>
       {!otpRequest && (
         <Input
           style={styles.textInput}
@@ -139,9 +144,9 @@ const ForgotPassWordUI = props => {
             }
           }}
           underlayColor="transparent">
-          <Text style={{color: 'black', fontSize: 16}}>
+          <Typography style={{color: 'black', fontSize: 16}}>
             {!otpRequest ? 'Request OTP' : 'Submit OTP'}
-          </Text>
+          </Typography>
         </TouchableOpacity>
       </View>
     </View>

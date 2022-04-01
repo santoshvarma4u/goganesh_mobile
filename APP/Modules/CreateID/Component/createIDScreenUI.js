@@ -4,10 +4,8 @@ import {Formik} from 'formik';
 import React, {useState} from 'react';
 import {
   Image,
-  TextInput,
   TouchableWithoutFeedback,
   View,
-  Text,
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
@@ -18,6 +16,8 @@ import StorageKeys from '../../../Modules/Common/StorageKeys';
 import siteApi from '../../../Network/sites/sites';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
+import CommonTextInput from '../../Common/CommonTextInput';
+import {Typography} from '../../Common/Text';
 import DepositController from '../../Deposit/Controller/depositController';
 import HomeController from '../../Home/Controller/homeController';
 import styles from './Styles';
@@ -95,12 +95,14 @@ function CreateIDScreen({route}) {
         <View style={styles.createIDContainer}>
           <View style={styles.topIcon}>
             <Image style={styles.imageIcon} source={images.logo} />
-            <Text style={{alignItems: 'center', color: 'white', marginTop: 5}}>
+            <Typography
+              style={{alignItems: 'center', color: 'white', marginTop: 5}}>
               {sitename}
-            </Text>
-            <Text style={{alignItems: 'center', color: 'white', marginTop: 5}}>
+            </Typography>
+            <Typography
+              style={{alignItems: 'center', color: 'white', marginTop: 5}}>
               {url}
-            </Text>
+            </Typography>
           </View>
           <View style={styles.planCards}>
             <TouchableWithoutFeedback
@@ -123,11 +125,15 @@ function CreateIDScreen({route}) {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                  <Text style={{alignContent: 'center'}}>Bronze</Text>
+                  <Typography style={{alignContent: 'center'}}>
+                    Bronze
+                  </Typography>
                 </View>
 
-                <Text style={{padding: 5, color: 'white'}}>Min ID</Text>
-                <Text style={{color: 'white'}}>1000</Text>
+                <Typography style={{padding: 5, color: 'white'}}>
+                  Min ID
+                </Typography>
+                <Typography style={{color: 'white'}}>1000</Typography>
               </View>
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback
@@ -150,10 +156,14 @@ function CreateIDScreen({route}) {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                  <Text style={{alignContent: 'center'}}>Silver</Text>
+                  <Typography style={{alignContent: 'center'}}>
+                    Silver
+                  </Typography>
                 </View>
-                <Text style={{padding: 5, color: 'white'}}>Min ID</Text>
-                <Text style={{color: 'white'}}>1000</Text>
+                <Typography style={{padding: 5, color: 'white'}}>
+                  Min ID
+                </Typography>
+                <Typography style={{color: 'white'}}>1000</Typography>
               </View>
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback
@@ -176,15 +186,17 @@ function CreateIDScreen({route}) {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                  <Text style={{alignContent: 'center'}}>Gold</Text>
+                  <Typography style={{alignContent: 'center'}}>Gold</Typography>
                 </View>
-                <Text style={{padding: 5, color: 'white'}}>Min ID</Text>
-                <Text style={{color: 'white'}}>1000</Text>
+                <Typography style={{padding: 5, color: 'white'}}>
+                  Min ID
+                </Typography>
+                <Typography style={{color: 'white'}}>1000</Typography>
               </View>
             </TouchableWithoutFeedback>
           </View>
           <View style={styles.planDeatils}>
-            <Text
+            <Typography
               style={{
                 color: '#d5d1d1',
                 marginLeft: 20,
@@ -192,7 +204,7 @@ function CreateIDScreen({route}) {
                 fontSize: 16,
               }}>
               {planDetails.planHeader}
-            </Text>
+            </Typography>
             <View
               style={{
                 borderBottomColor: Colors.appPrimaryColor,
@@ -203,36 +215,40 @@ function CreateIDScreen({route}) {
               }}
             />
             <View style={{flexDirection: 'row', marginTop: 10}}>
-              <Text style={{color: '#d5d1d1', marginLeft: 20, marginTop: 10}}>
+              <Typography
+                style={{color: '#d5d1d1', marginLeft: 20, marginTop: 10}}>
                 Min Refill
-              </Text>
-              <Text style={[styles.planDetailsText, {marginTop: 6}]}>
+              </Typography>
+              <Typography style={[styles.planDetailsText, {marginTop: 6}]}>
                 {planDetails.MinRefill}
-              </Text>
+              </Typography>
             </View>
             <View style={{flexDirection: 'row'}}>
-              <Text style={{color: '#d5d1d1', marginLeft: 20, marginTop: 6}}>
+              <Typography
+                style={{color: '#d5d1d1', marginLeft: 20, marginTop: 6}}>
                 Min Withdrawal
-              </Text>
-              <Text style={[styles.planDetailsText, {marginTop: 4}]}>
+              </Typography>
+              <Typography style={[styles.planDetailsText, {marginTop: 4}]}>
                 {planDetails.MinRefill}
-              </Text>
+              </Typography>
             </View>
             <View style={{flexDirection: 'row'}}>
-              <Text style={{color: '#d5d1d1', marginLeft: 20, marginTop: 6}}>
+              <Typography
+                style={{color: '#d5d1d1', marginLeft: 20, marginTop: 6}}>
                 Min Maintaining Balance
-              </Text>
-              <Text style={[styles.planDetailsText, {marginTop: 4}]}>
+              </Typography>
+              <Typography style={[styles.planDetailsText, {marginTop: 4}]}>
                 {planDetails.MinRefill}
-              </Text>
+              </Typography>
             </View>
             <View style={{flexDirection: 'row'}}>
-              <Text style={{color: '#d5d1d1', marginLeft: 20, marginTop: 6}}>
+              <Typography
+                style={{color: '#d5d1d1', marginLeft: 20, marginTop: 6}}>
                 Max Withdrawal
-              </Text>
-              <Text style={[styles.planDetailsText, {marginTop: 4}]}>
+              </Typography>
+              <Typography style={[styles.planDetailsText, {marginTop: 4}]}>
                 {planDetails.MaxWithDrawl}
-              </Text>
+              </Typography>
             </View>
           </View>
 
@@ -273,7 +289,7 @@ function CreateIDScreen({route}) {
               {({handleChange, handleSubmit, errors, touched}) => (
                 <>
                   {route.params.username && (
-                    <TextInput
+                    <CommonTextInput
                       style={styles.modalText}
                       placeholder="Username *"
                       placeholderTextColor="#d5d1d1"
@@ -284,7 +300,7 @@ function CreateIDScreen({route}) {
                   )}
 
                   {!route.params.username && (
-                    <TextInput
+                    <CommonTextInput
                       style={styles.modalText}
                       placeholder="Username *"
                       placeholderTextColor="#d5d1d1"
@@ -293,7 +309,7 @@ function CreateIDScreen({route}) {
                     />
                   )}
 
-                  <TextInput
+                  <CommonTextInput
                     style={styles.modalText}
                     keyboardType="numeric"
                     placeholder="Deposit Coins *"
@@ -309,7 +325,9 @@ function CreateIDScreen({route}) {
                         setChecked(!checked);
                       }}
                     />
-                    <Text style={{color: 'white'}}>Use Amount From Wallet</Text>
+                    <Typography style={{color: 'white'}}>
+                      Use Amount From Wallet
+                    </Typography>
                   </View>
                   <TouchableOpacity
                     style={{
@@ -321,18 +339,20 @@ function CreateIDScreen({route}) {
                       borderRadius: 5,
                     }}
                     onPress={handleSubmit}>
-                    <Text style={{alignItems: 'center'}}>Continue to Pay</Text>
+                    <Typography style={{alignItems: 'center'}}>
+                      Continue to Pay
+                    </Typography>
                   </TouchableOpacity>
                   {errors.UserName && touched.UserName && (
-                    <Text style={{backgroundColor: 'white'}}>
+                    <Typography style={{backgroundColor: 'white'}}>
                       {errors.UserName}
-                    </Text>
+                    </Typography>
                   )}
 
                   {errors.DepositCoins && touched.DepositCoins && (
-                    <Text style={{backgroundColor: 'white'}}>
+                    <Typography style={{backgroundColor: 'white'}}>
                       {errors.DepositCoins}
-                    </Text>
+                    </Typography>
                   )}
                 </>
               )}
