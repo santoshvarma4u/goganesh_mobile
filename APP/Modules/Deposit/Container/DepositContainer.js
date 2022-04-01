@@ -15,6 +15,7 @@ import {Typography} from '../../Common/Text';
 import {uuid} from '../../Common/uuidGenerator';
 import PaymentOptionController from '../../PaymentOptions/Controller/paymentController';
 import PaymentCard from '../Component/PaymentCard';
+import DepositController from '../Controller/depositController';
 
 const intiateThroughUPI = async amount => {
   RNUpiPayment.initializePayment(
@@ -84,10 +85,10 @@ const initiateRazorPay = async amount => {
   const order = await PaymentOptionController.razorPayCreateOrder(data);
 
   var options = {
-    name: 'Santosh',
+    name: 'Laxmi Trading Company',
     description: 'Please pay here',
     order_id: order.id,
-    key: 'rzp_live_US1dAbWwgqQKTv',
+    key: 'rzp_live_ACt7o8qHr1kFb7',
     prefill: {
       email: 'useremail@example.com',
       contact: '9191919191',
@@ -95,7 +96,18 @@ const initiateRazorPay = async amount => {
     },
     theme: {color: Colors.appPrimaryColor},
   };
-  RazorpayCheckout.open(options).then(reactotron.log).catch(reactotron.log);
+  RazorpayCheckout.open(options)
+    .then(() => {
+      DepositController.depositIntoWallet(
+        2,
+        'Payment Gateway',
+        amount,
+        'CR',
+        true,
+        '',
+      ).then(data => {});
+    })
+    .catch(reactotron.log);
 };
 const DepositContainer = props => {
   const {navigation, walletBalance = 0} = props;
