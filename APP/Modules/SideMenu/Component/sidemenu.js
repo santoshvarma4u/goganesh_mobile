@@ -7,6 +7,7 @@ import {
 import React from 'react';
 import {Image, Text, View} from 'react-native';
 import {Icon} from 'react-native-elements';
+import SplashLogo from '../../../Assets/svgs/SplashLogo';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
 import Storage from '../../Common/Storage';
@@ -30,27 +31,21 @@ function CustomSidebarMenu({...props}) {
           borderTopRightRadius: 30,
           justifyContent: 'center',
         }}>
-        <Image
-          style={{
-            width: 180,
-            height: 180,
-          }}
-          source={images.logo}
-        />
+        <SplashLogo style={{height: 180, width: 180}} fill={Colors.appPrimaryColor}/>
       </View>
       <DrawerItemList {...props} />
       <DrawerItem
         label="Profile"
         onPress={() => props.navigation.navigate('Profile')}
         icon={(color, size) => {
-          return <Icon size={23} name={'person'} />;
+          return <Icon size={32} name={'person'} />;
         }}
       />
       <DrawerItem
         label="Banks"
         onPress={() => props.navigation.navigate('Payments')}
         icon={(color, size) => {
-          return <Icon size={23} name={'account-balance'} />;
+          return <Icon size={32} name={'account-balance'} />;
         }}
       />
       <DrawerItem
@@ -59,7 +54,7 @@ function CustomSidebarMenu({...props}) {
           props.navigation.navigate('Help');
         }}
         icon={(color, size) => {
-          return <Icon size={23} name={'info'} />;
+          return <Icon size={32} name={'info'} />;
         }}
       />
       <DrawerItem
@@ -68,7 +63,7 @@ function CustomSidebarMenu({...props}) {
           props.navigation.navigate('Support');
         }}
         icon={(color, size) => {
-          return <Icon size={23} name={'help'} />;
+          return <Icon size={32} name={'help'} />;
         }}
       />
       <DrawerItem
@@ -78,7 +73,7 @@ function CustomSidebarMenu({...props}) {
           props.navigation.navigate('Auth');
         }}
         icon={(color, size) => {
-          return <Icon size={23} name={'logout'} />;
+          return <Icon size={32} name={'logout'} />;
         }}
       />
     </DrawerContentScrollView>

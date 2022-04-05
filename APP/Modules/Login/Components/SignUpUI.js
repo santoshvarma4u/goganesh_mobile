@@ -1,3 +1,5 @@
+import {CommonActions, useNavigation} from '@react-navigation/native';
+import {Formik} from 'formik';
 import React, {useState} from 'react';
 import {
   Modal,
@@ -9,14 +11,13 @@ import {
   StyleSheet,
   Button,
 } from 'react-native';
-import styles from './Styles';
-import {Formik} from 'formik';
-import {CommonActions, useNavigation} from '@react-navigation/native';
 import * as Yup from 'yup';
+import Colors from '../../../Theams/Colors';
+import CommonTextInput from '../../Common/CommonTextInput';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import SignupController from '../Controllers/SignupController';
-import Colors from '../../../Theams/Colors';
+import styles from './Styles';
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
@@ -92,28 +93,23 @@ function SingUp({route}) {
                 isValid,
               }) => (
                 <>
-                  <TextInput
-                    style={styles.modalText}
-                    placeholder="Enter Your name"
+                  <CommonTextInput
+                    label="Enter Your name"
                     onChangeText={handleChange('name')}
                   />
-                  <TextInput
-                    style={styles.modalText}
-                    placeholder="Enter Your phone Number"
+                  <CommonTextInput
                     keyboardType="numeric"
-                    placeholder="Enter Phone Number"
+                    label="Enter Phone Number"
                     onChangeText={handleChange('phone')}
                   />
-                  <TextInput
-                    style={styles.modalText}
-                    placeholder={'Password'}
+                  <CommonTextInput
+                    label={'Enter Password'}
                     type="password"
                     secureTextEntry
                     onChangeText={handleChange('password')}
                   />
-                  <TextInput
-                    style={styles.modalText}
-                    placeholder="Confirm Password"
+                  <CommonTextInput
+                    label="Confirm Password"
                     type="password"
                     secureTextEntry
                     onChangeText={handleChange('confirmPassword')}

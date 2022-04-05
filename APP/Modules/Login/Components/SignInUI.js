@@ -9,9 +9,12 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import SplashLogo from '../../../Assets/svgs/SplashLogo';
 import authKey from '../../../Modules/Common/JWT';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
+import CommonTextInput from '../../Common/CommonTextInput';
+import ErrorPage from '../../Common/ErrorPage';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import LoginController from '../Controllers/LoginController';
@@ -24,6 +27,7 @@ function SignIn() {
   const [otpSession, setOtpSession] = React.useState('');
   const [otpverifyStatus, setOtpVerifyStatus] = React.useState('');
   const [otpSentStatus, setOtpSentStatus] = React.useState(false);
+  const [isError, setIsError] = React.useState(false);
 
   // otp
   const getToken = async () => {
@@ -33,14 +37,10 @@ function SignIn() {
   };
 
   const verifyPassword = async () => {
-    // TODO: remove this line after testing
-    // const resetAction = CommonActions.reset({
-    //   index: 0,
-    //   routes: [{name: 'App'}],
-    // });
-    // navigation.dispatch(resetAction);
-    // TODO: remove above line after testing
-
+    if (number.length < 10 || password.length < 1) {
+      setIsError(true);
+      return;
+    }
     const checkUser = await LoginController.checkUser(number, password);
 
     if (checkUser.data.message === 'wrong password') {
@@ -96,46 +96,40 @@ function SignIn() {
   return (
     <View style={styles.containerMain}>
       {/*<ScrollView>*/}
-
-      <View
-        style={{
-          width: '100%',
-          flex: 0.5,
-          paddingTop: 50,
-          alignItems: 'center',
-          backgroundColor: '#000',
-        }}>
-        <Image
-          source={images.splashlogo}
-          style={{
-            height: 150,
-            width: 150,
-          }}
-          resizeMode={'stretch'}
-        />
-      </View>
-
-      <View style={styles.offersContainer}>
-        <View style={styles.SignINCard}>
-          <View style={{flex: 1}}>
-            <TextInput
-              style={styles.input}
-              onChangeText={onChangeNumber}
-              value={number}
-              placeholder="Enter Phone Number"
-              keyboardType="numeric"
-              maxLength={10}
-            />
-            <TextInput
-              style={styles.input}
-              onChangeText={onChangePassword}
-              value={password}
-              secureTextEntry={true}
-              placeholder="Enter password"
-              maxLength={10}
+      {!isError ? (
+        <>
+          <View
+            style={{
+              width: '100%',
+              flex: 0.5,
+              paddingTop: 50,
+              alignItems: 'center',
+              backgroundColor: '#000',
+            }}>
+            <SplashLogo
+              fill={Colors.appPrimaryColor}
+              style={{width: 150, height: 150}}
             />
           </View>
-          {/* <TouchableOpacity
+          <View style={styles.offersContainer}>
+            <View style={styles.SignINCard}>
+              <View style={{flex: 1}}>
+                <CommonTextInput
+                  onChangeText={onChangeNumber}
+                  value={number}
+                  label="Enter Phone Number"
+                  keyboardType="numeric"
+                  maxLength={10}
+                />
+                <CommonTextInput
+                  onChangeText={onChangePassword}
+                  value={password}
+                  secureTextEntry={true}
+                  label="Enter password"
+                  maxLength={10}
+                />
+              </View>
+              {/* <TouchableOpacity
             style={styles.sendOtpButton}
             onPress={sendOtpAndRedirect}
             underlayColor="transparent">
@@ -144,13 +138,13 @@ function SignIn() {
               {otpSentStatus ? 'Resend OTP' : 'Send OTP'}{' '}
             </Text>
           </TouchableOpacity> */}
-        </View>
-        {otpSentStatus ? (
-          <Text style={{color: '#fff', marginTop: 10}}>
-            OTP Sent Successfully, Please enter OTP below
-          </Text>
-        ) : null}
-        {/* <OTPInputView
+            </View>
+            {otpSentStatus ? (
+              <Text style={{color: '#fff', marginTop: 10}}>
+                OTP Sent Successfully, Please enter OTP below
+              </Text>
+            ) : null}
+            {/* <OTPInputView
           style={{width: '80%', height: 120}}
           pinCount={4}
           // code={this.state.code} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
@@ -164,67 +158,75 @@ function SignIn() {
 
           }}
         /> */}
-        <View
-          style={{
-            flexDirection: 'row',
-            marginHorizontal: 40,
-          }}>
-          <View style={{flex: 1}} />
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('ForgotPassword');
-            }}
-            underlayColor="transparent">
-            <Text style={{color: Colors.appWhiteColor, fontSize: 14}}>
-              Forgot password ?
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            padding: 10,
-          }}>
-          <TouchableOpacity
-            style={{
-              backgroundColor: Colors.appPrimaryColor,
-              paddingHorizontal: 60,
-              paddingVertical: 10,
-              marginHorizontal: 10,
-              marginTop: 20,
-              borderRadius: 10,
-            }}
-            onPress={verifyPassword}
-            underlayColor="transparent">
-            <Text style={{color: 'black', fontSize: 16}}>Sign In</Text>
-          </TouchableOpacity>
-        </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                marginHorizontal: 40,
+              }}>
+              <View style={{flex: 1}} />
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('ForgotPassword');
+                }}
+                underlayColor="transparent">
+                <Text style={{color: Colors.appWhiteColor, fontSize: 14}}>
+                  Forgot password ?
+                </Text>
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                padding: 10,
+              }}>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: Colors.appPrimaryColor,
+                  paddingHorizontal: 60,
+                  paddingVertical: 10,
+                  marginHorizontal: 10,
+                  marginTop: 20,
+                  borderRadius: 10,
+                }}
+                onPress={verifyPassword}
+                underlayColor="transparent">
+                <Text style={{color: 'black', fontSize: 16}}>Sign In</Text>
+              </TouchableOpacity>
+            </View>
 
-        <View>
-          <Text style={{fontSize: 15, color: '#fff', marginVertical: 30}}>
-            --- OR ---
-          </Text>
-        </View>
+            <View>
+              <Text style={{fontSize: 15, color: '#fff', marginVertical: 30}}>
+                --- OR ---
+              </Text>
+            </View>
 
-        <TouchableOpacity
-          style={{
-            paddingHorizontal: 60,
-            paddingVertical: 10,
-            marginHorizontal: 10,
-            marginTop: 20,
+            <TouchableOpacity
+              style={{
+                paddingHorizontal: 60,
+                paddingVertical: 10,
+                marginHorizontal: 10,
+                marginTop: 20,
+              }}
+              onPress={() => {
+                navigation.navigate('SignUp', {phoneNumber: number});
+              }}
+              underlayColor="transparent">
+              <Text style={{color: Colors.appPrimaryColor, fontSize: 16}}>
+                {' '}
+                Are you a New User ?
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </>
+      ) : (
+        <ErrorPage
+          message={'Invalid Username/Password'}
+          color={Colors.appPrimaryColor}
+          onRetryPress={() => {
+            setIsError(false);
           }}
-          onPress={() => {
-            navigation.navigate('SignUp', {phoneNumber: number});
-          }}
-          underlayColor="transparent">
-          <Text style={{color: Colors.appPrimaryColor, fontSize: 16}}>
-            {' '}
-            Are you a New User ?
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-      {/*</ScrollView>*/}
+        />
+      )}
     </View>
   );
 }

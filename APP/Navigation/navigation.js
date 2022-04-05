@@ -405,7 +405,7 @@ function MyDrawer() {
         name="Home"
         component={BottomTabNavigator}
         options={{
-          drawerIcon: config => <Icon size={23} name={'home'} />,
+          drawerIcon: config => <Icon size={32} name={'home'} />,
         }}
       />
     </Drawer.Navigator>
@@ -418,6 +418,9 @@ const BottomTabNavigator = () => {
       tabBarOptions={{
         activeTintColor: Colors.appPrimaryColor,
         inactiveTintColor: Colors.appWhiteColor,
+        labelStyle: {
+          fontSize: 14,
+        },
         style: {
           backgroundColor: Colors.appBlackColorLight,
 
@@ -433,10 +436,10 @@ const BottomTabNavigator = () => {
             iconName = 'local-offer';
           } else if (route.name === 'Passbook') {
             iconName = 'book';
-          } else if (route.name === 'IDs') {
+          } else if (route.name === "ID's") {
             iconName = 'switch-account';
           }
-          return <Icon size={size} name={iconName} color={color} />;
+          return <Icon size={28} name={iconName} color={color} />;
         },
         tabBarActiveTintColor: 'tomato',
         tabBarInactiveTintColor: 'gray',

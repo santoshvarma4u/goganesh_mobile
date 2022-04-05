@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import {Checkbox} from 'react-native-paper';
 import * as Yup from 'yup';
+import SmallLogo from '../../../Assets/svgs/SmallLogo';
 import Storage from '../../../Modules/Common/Storage';
 import StorageKeys from '../../../Modules/Common/StorageKeys';
 import siteApi from '../../../Network/sites/sites';
@@ -94,7 +95,10 @@ function CreateIDScreen({route}) {
         <View />
         <View style={styles.createIDContainer}>
           <View style={styles.topIcon}>
-            <Image style={styles.imageIcon} source={images.logo} />
+            <SmallLogo
+              style={{height: 100, width: 100, marginTop: 50}}
+              fill={Colors.appPrimaryColor}
+            />
             <Text style={{alignItems: 'center', color: 'white', marginTop: 5}}>
               {sitename}
             </Text>

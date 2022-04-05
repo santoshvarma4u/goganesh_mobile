@@ -21,6 +21,8 @@ import FlatListPicker from 'react-native-flatlist-picker';
 import {SliderBox} from 'react-native-image-slider-box';
 import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
+import SmallLogo from '../../../Assets/svgs/SmallLogo';
+import {env} from '../../../Network/api/server';
 import NetworkAPI from '../../../Network/api/server';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import Colors from '../../../Theams/Colors';
@@ -61,6 +63,8 @@ function HomeScreen(props) {
     pushFcmToken();
     if (success) {
       let slides = [];
+      slides.push('https://i.ibb.co/VTXdFWZ/Screenshot-20220401-231028-2.png');
+      slides.push('https://i.ibb.co/gTDnHkq/Screenshot-20220401-231019-2.png');
       data.map(i => {
         slides.push(`http://139.59.11.217:3000/${i.promoImage}`);
       });
@@ -77,7 +81,7 @@ function HomeScreen(props) {
   }, [data, success, getUserBanks.data]);
 
   return (
-    <ScrollView style={styles.containerMain}>
+    <ScrollView contentContainerStyle={styles.containerMain}>
       <View style={styles.upperContainer}>
         {/* <View style={styles.centralCardView}> */}
         <View style={styles.depositCard}>
@@ -95,7 +99,10 @@ function HomeScreen(props) {
         <TouchableOpacity
           onPress={() => wallet.request()}
           style={styles.centreCard}>
-          <Image style={styles.image} source={images.logo} />
+          <SmallLogo
+            style={{height: 80, width: 80}}
+            fill={Colors.appPrimaryColor}
+          />
           <Text style={{color: 'white', alignItems: 'center'}}>
             Wallet Balance
           </Text>
@@ -202,117 +209,117 @@ function HomeScreen(props) {
         {/*</View>*/}
       </View>
 
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Edit Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Formik
-              initialValues={{
-                withdrawAmount: '',
-              }}
-              onSubmit={values => {
-                if (parseInt(wallet.data) < parseInt(values.withdrawAmount)) {
-                  return alert('Enter Valid amount');
-                }
-                IDController.sendWalletWithDrawRequest(
-                  'Wallet',
-                  values.withdrawAmount,
-                  'DR',
-                  selectedBankID,
-                ).then(() => {
-                  setModalVisible(!modalVisible);
-                  alert('Withdraw Request Sent Successfully');
-                });
-              }}>
-              {({handleChange, handleSubmit}) => (
-                <>
-                  <View style={{flexDirection: 'row'}}>
-                    <Text style={styles.modalText}>
-                      Enter Amount to Withdraw
-                    </Text>
-                    <Pressable
-                      style={[styles.button, styles.buttonClose]}
-                      onPress={() => setModalVisible(false)}>
-                      <Icon
-                        name="cancel"
-                        color={Colors.appPrimaryColor}
-                        size={32}
-                      />
-                    </Pressable>
-                  </View>
-                  <Text style={styles.notetext}>
-                    Note: Please make sure, withdraw amount must be less or
-                    equal to wallet balance!!
-                  </Text>
-                  <TextInput
-                    style={[styles.modalText, {borderBottomWidth: 0.5}]}
-                    placeholder="Ex : 200"
-                    keyboardType="numeric"
-                    onChangeText={handleChange('withdrawAmount')}
-                  />
+      {/*<Modal*/}
+      {/*  animationType="slide"*/}
+      {/*  transparent={true}*/}
+      {/*  visible={modalVisible}*/}
+      {/*  onRequestClose={() => {*/}
+      {/*    Alert.alert('Edit Modal has been closed.');*/}
+      {/*    setModalVisible(!modalVisible);*/}
+      {/*  }}>*/}
+      {/*  <View style={styles.centeredView}>*/}
+      {/*    <View style={styles.modalView}>*/}
+      {/*      <Formik*/}
+      {/*        initialValues={{*/}
+      {/*          withdrawAmount: '',*/}
+      {/*        }}*/}
+      {/*        onSubmit={values => {*/}
+      {/*          if (parseInt(wallet.data) < parseInt(values.withdrawAmount)) {*/}
+      {/*            return alert('Enter Valid amount');*/}
+      {/*          }*/}
+      {/*          IDController.sendWalletWithDrawRequest(*/}
+      {/*            'Wallet',*/}
+      {/*            values.withdrawAmount,*/}
+      {/*            'DR',*/}
+      {/*            selectedBankID,*/}
+      {/*          ).then(() => {*/}
+      {/*            setModalVisible(!modalVisible);*/}
+      {/*            alert('Withdraw Request Sent Successfully');*/}
+      {/*          });*/}
+      {/*        }}>*/}
+      {/*        {({handleChange, handleSubmit}) => (*/}
+      {/*          <>*/}
+      {/*            <View style={{flexDirection: 'row'}}>*/}
+      {/*              <Text style={styles.modalText}>*/}
+      {/*                Enter Amount to Withdraw*/}
+      {/*              </Text>*/}
+      {/*              <Pressable*/}
+      {/*                style={[styles.button, styles.buttonClose]}*/}
+      {/*                onPress={() => setModalVisible(false)}>*/}
+      {/*                <Icon*/}
+      {/*                  name="cancel"*/}
+      {/*                  color={Colors.appPrimaryColor}*/}
+      {/*                  size={32}*/}
+      {/*                />*/}
+      {/*              </Pressable>*/}
+      {/*            </View>*/}
+      {/*            <Text style={styles.notetext}>*/}
+      {/*              Note: Please make sure, withdraw amount must be less or*/}
+      {/*              equal to wallet balance!!*/}
+      {/*            </Text>*/}
+      {/*            <TextInput*/}
+      {/*              style={[styles.modalText, {borderBottomWidth: 0.5}]}*/}
+      {/*              placeholder="Ex : 200"*/}
+      {/*              keyboardType="numeric"*/}
+      {/*              onChangeText={handleChange('withdrawAmount')}*/}
+      {/*            />*/}
 
-                  <FlatListPicker
-                    data={userBanks}
-                    containerStyle={styles.dropdownStyle}
-                    dropdownStyle={{
-                      marginHorizontal: 10,
-                      width: 250,
-                      marginTop: 10,
-                    }}
-                    dropdownTextStyle={{fontSize: 15}}
-                    pickedTextStyle={{color: 'black', fontWeight: 'bold'}}
-                    defaultValue="Select Bank"
-                    renderDropdownIcon={() => (
-                      <Icon
-                        name="arrow-drop-down"
-                        color={Colors.appBlackColor}
-                        size={32}
-                      />
-                    )}
-                    onValueChange={(value, index) => {
-                      setSelectedBank(value);
-                      let bankid = userBanks.find(o => o.value == value);
-                      setSelectedBankID(bankid.key);
-                    }}
-                  />
+      {/*            <FlatListPicker*/}
+      {/*              data={userBanks}*/}
+      {/*              containerStyle={styles.dropdownStyle}*/}
+      {/*              dropdownStyle={{*/}
+      {/*                marginHorizontal: 10,*/}
+      {/*                width: 250,*/}
+      {/*                marginTop: 10,*/}
+      {/*              }}*/}
+      {/*              dropdownTextStyle={{fontSize: 15}}*/}
+      {/*              pickedTextStyle={{color: 'black', fontWeight: 'bold'}}*/}
+      {/*              defaultValue="Select Bank"*/}
+      {/*              renderDropdownIcon={() => (*/}
+      {/*                <Icon*/}
+      {/*                  name="arrow-drop-down"*/}
+      {/*                  color={Colors.appBlackColor}*/}
+      {/*                  size={32}*/}
+      {/*                />*/}
+      {/*              )}*/}
+      {/*              onValueChange={(value, index) => {*/}
+      {/*                setSelectedBank(value);*/}
+      {/*                let bankid = userBanks.find(o => o.value == value);*/}
+      {/*                setSelectedBankID(bankid.key);*/}
+      {/*              }}*/}
+      {/*            />*/}
 
-                  <Button
-                    style={styles.modalText}
-                    title="Send Withdraw Request"
-                    onPress={handleSubmit}
-                  />
-                </>
-              )}
-            </Formik>
-          </View>
-        </View>
-      </Modal>
+      {/*            <Button*/}
+      {/*              style={styles.modalText}*/}
+      {/*              title="Send Withdraw Request"*/}
+      {/*              onPress={handleSubmit}*/}
+      {/*            />*/}
+      {/*          </>*/}
+      {/*        )}*/}
+      {/*      </Formik>*/}
+      {/*    </View>*/}
+      {/*  </View>*/}
+      {/*</Modal>*/}
 
-      <DialogInput
-        isDialogVisible={dialogVisible}
-        title={'Enter Amount To Deposit In Wallet'}
-        message={'Amount'}
-        hintInput={'Ex: 1000'}
-        initValueTextInput=""
-        textInputProps={{keyboardType: 'numeric'}}
-        submitInput={inputText => {
-          if (inputText.length <= 0) {
-            return alert('Please enter a valid amount');
-          }
-          setDialogVisible(false);
-          navigation.navigate('PaymentOptions', {
-            depositCoins: inputText,
-            requestStatus: 'wallet',
-          });
-        }}
-        closeDialog={() => setDialogVisible(false)}
-      />
+      {/*<DialogInput*/}
+      {/*  isDialogVisible={dialogVisible}*/}
+      {/*  title={'Enter Amount To Deposit In Wallet'}*/}
+      {/*  message={'Amount'}*/}
+      {/*  hintInput={'Ex: 1000'}*/}
+      {/*  initValueTextInput=""*/}
+      {/*  textInputProps={{keyboardType: 'numeric'}}*/}
+      {/*  submitInput={inputText => {*/}
+      {/*    if (inputText.length <= 0) {*/}
+      {/*      return alert('Please enter a valid amount');*/}
+      {/*    }*/}
+      {/*    setDialogVisible(false);*/}
+      {/*    navigation.navigate('PaymentOptions', {*/}
+      {/*      depositCoins: inputText,*/}
+      {/*      requestStatus: 'wallet',*/}
+      {/*    });*/}
+      {/*  }}*/}
+      {/*  closeDialog={() => setDialogVisible(false)}*/}
+      {/*/>*/}
     </ScrollView>
   );
 }

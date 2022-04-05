@@ -10,7 +10,7 @@ import {Typography} from './Text';
 const ErrorPage = props => {
   const {
     message = 'Something went wrong. Try again ',
-    color = Colors.primary,
+    color = Colors.appPrimaryColor,
     onRetryPress = () => {},
   } = props;
 
@@ -31,7 +31,9 @@ const ErrorPage = props => {
         source={animations.error_animation}
       />
       <View>
-        <Typography variant="H3">{message}</Typography>
+        <Typography variant="H3" style={{color: color, marginVertical: 40}}>
+          {message}
+        </Typography>
         <Button mode="contained" onPress={onRetryPress}>
           Retry
         </Button>

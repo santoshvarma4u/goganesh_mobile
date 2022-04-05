@@ -143,11 +143,11 @@ export default StyleSheet.create({
     backgroundColor: 'black',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    // flex: 0.8,
+    flex: 1,
     alignItems: 'center',
   },
   lowerBox1: {
-    flex: 0.4,
+    // flex: 0.4,
     flexDirection: 'column',
     marginTop: 30,
     width: '90%',
