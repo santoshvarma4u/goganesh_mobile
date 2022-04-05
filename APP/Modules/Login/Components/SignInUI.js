@@ -1,14 +1,6 @@
 import {CommonActions, useNavigation} from '@react-navigation/native';
-import OTPInputView from '@twotalltotems/react-native-otp-input';
 import React from 'react';
-import {
-  Text,
-  View,
-  Button,
-  TextInput,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import {View, TextInput, TouchableOpacity, Image} from 'react-native';
 import SplashLogo from '../../../Assets/svgs/SplashLogo';
 import authKey from '../../../Modules/Common/JWT';
 import Colors from '../../../Theams/Colors';
@@ -17,6 +9,7 @@ import CommonTextInput from '../../Common/CommonTextInput';
 import ErrorPage from '../../Common/ErrorPage';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
+import {Typography} from '../../Common/Text';
 import LoginController from '../Controllers/LoginController';
 import styles from './Styles';
 function SignIn() {
@@ -133,18 +126,18 @@ function SignIn() {
             style={styles.sendOtpButton}
             onPress={sendOtpAndRedirect}
             underlayColor="transparent">
-            <Text style={{color: '#fff'}}>
+            <Typography style={{color: '#fff'}}>
               {' '}
               {otpSentStatus ? 'Resend OTP' : 'Send OTP'}{' '}
-            </Text>
+            </Typography>
           </TouchableOpacity> */}
-            </View>
-            {otpSentStatus ? (
-              <Text style={{color: '#fff', marginTop: 10}}>
-                OTP Sent Successfully, Please enter OTP below
-              </Text>
-            ) : null}
-            {/* <OTPInputView
+        </View>
+        {otpSentStatus ? (
+          <Typography style={{color: '#fff', marginTop: 10}}>
+            OTP Sent Successfully, Please enter OTP below
+          </Typography>
+        ) : null}
+        {/* <OTPInputView
           style={{width: '80%', height: 120}}
           pinCount={4}
           // code={this.state.code} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
@@ -169,9 +162,9 @@ function SignIn() {
                   navigation.navigate('ForgotPassword');
                 }}
                 underlayColor="transparent">
-                <Text style={{color: Colors.appWhiteColor, fontSize: 14}}>
+                <Typography style={{color: Colors.appWhiteColor, fontSize: 14}}>
                   Forgot password ?
-                </Text>
+                </Typography>
               </TouchableOpacity>
             </View>
             <View
@@ -190,14 +183,14 @@ function SignIn() {
                 }}
                 onPress={verifyPassword}
                 underlayColor="transparent">
-                <Text style={{color: 'black', fontSize: 16}}>Sign In</Text>
+                <Typography style={{color: 'black', fontSize: 16}}>Sign In</Typography>
               </TouchableOpacity>
             </View>
 
             <View>
-              <Text style={{fontSize: 15, color: '#fff', marginVertical: 30}}>
+              <Typography style={{fontSize: 15, color: '#fff', marginVertical: 30}}>
                 --- OR ---
-              </Text>
+              </Typography>
             </View>
 
             <TouchableOpacity
@@ -211,10 +204,10 @@ function SignIn() {
                 navigation.navigate('SignUp', {phoneNumber: number});
               }}
               underlayColor="transparent">
-              <Text style={{color: Colors.appPrimaryColor, fontSize: 16}}>
+              <Typography style={{color: Colors.appPrimaryColor, fontSize: 16}}>
                 {' '}
                 Are you a New User ?
-              </Text>
+              </Typography>
             </TouchableOpacity>
           </View>
         </>

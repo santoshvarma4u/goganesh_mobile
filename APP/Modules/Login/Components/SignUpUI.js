@@ -16,6 +16,7 @@ import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
+import {Typography} from '../../Common/Text';
 import SignupController from '../Controllers/SignupController';
 import styles from './Styles';
 
@@ -67,14 +68,14 @@ function SingUp({route}) {
       <View style={styles.profileContainer}>
         <View style={styles.bankDetails}>
           <View style={styles.bankCardDetails}>
-            <Text
+            <Typography
               style={{
                 color: '#d5d1d1',
                 marginVertical: 20,
                 fontSize: 22,
               }}>
               Register
-            </Text>
+            </Typography>
             <Formik
               validationSchema={SignupSchema}
               initialValues={{
@@ -125,37 +126,37 @@ function SingUp({route}) {
                     }}
                     onPress={handleSubmit}
                     underlayColor="transparent">
-                    <Text
+                    <Typography
                       style={{
                         color: '#fff',
                         fontSize: 16,
                         alignItems: 'center',
                       }}>
                       Submit
-                    </Text>
+                    </Typography>
                   </TouchableOpacity>
 
                   {errors.name && touched.name && (
-                    <Text style={{backgroundColor: 'white'}}>
+                    <Typography style={{backgroundColor: 'white'}}>
                       {errors.name}
-                    </Text>
+                    </Typography>
                   )}
 
                   {errors.phone && touched.phone && (
-                    <Text style={{backgroundColor: 'white'}}>
+                    <Typography style={{backgroundColor: 'white'}}>
                       {errors.phone}
-                    </Text>
+                    </Typography>
                   )}
 
                   {errors.confirmPassword && touched.confirmPassword && (
-                    <Text style={{backgroundColor: 'white'}}>
+                    <Typography style={{backgroundColor: 'white'}}>
                       {errors.confirmPassword}
-                    </Text>
+                    </Typography>
                   )}
                   {errors.password && touched.password && (
-                    <Text style={{backgroundColor: 'white'}}>
+                    <Typography style={{backgroundColor: 'white'}}>
                       {errors.password}
-                    </Text>
+                    </Typography>
                   )}
                 </>
               )}

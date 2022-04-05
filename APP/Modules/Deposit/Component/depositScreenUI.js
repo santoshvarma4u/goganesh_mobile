@@ -15,6 +15,7 @@ import * as ImagePicker from 'react-native-image-picker';
 import Colors from '../../../Theams/Colors';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
+import {Typography} from '../../Common/Text';
 import DepositController from '../Controller/depositController';
 import styles from './Styles';
 function DepositScreen({route}) {
@@ -149,44 +150,57 @@ function DepositScreen({route}) {
           return (
             <View style={styles.containerMain}>
               <View style={styles.depositTitle}>
-                <Text style={{color: Colors.appBlackColor}}>
+                <Typography style={{color: Colors.appBlackColor}}>
                   Send Payment and Upload ScreenShot
-                </Text>
+                </Typography>
               </View>
 
               <View style={styles.offersContainer}>
                 <View style={styles.depositDetailsCardForBank}>
-                  <Text style={styles.depositTitile}>
+                  <Typography style={styles.depositTitile}>
                     Send INR {planMoney} to GANESH on {paymentType}
-                  </Text>
+                  </Typography>
                   <Divider style={{backgroundColor: 'black', height: 5}} />
                   <View style={{flexDirection: 'row'}}>
-                    <Text style={styles.depositTitile}>
+                    <Typography style={styles.depositTitile}>
                       {paymentType} Account Number
-                    </Text>
-                    <Text style={styles.phoneNumber}> {data.paymentkey}</Text>
+                    </Typography>
+                    <Typography style={styles.phoneNumber}>
+                      {' '}
+                      {data.paymentkey}
+                    </Typography>
                   </View>
                   <View style={{flexDirection: 'row'}}>
-                    <Text style={styles.depositTitile}>
+                    <Typography style={styles.depositTitile}>
                       {paymentType} IFSC Code
-                    </Text>
-                    <Text style={styles.phoneNumber}>{data.IFSC}</Text>
+                    </Typography>
+                    <Typography style={styles.phoneNumber}>
+                      {data.IFSC}
+                    </Typography>
                   </View>
                   <View style={{flexDirection: 'row'}}>
-                    <Text style={styles.depositTitile}>Amount To Deposit</Text>
-                    <Text style={styles.phoneNumber}>{planMoney}</Text>
+                    <Typography style={styles.depositTitile}>
+                      Amount To Deposit
+                    </Typography>
+                    <Typography style={styles.phoneNumber}>
+                      {planMoney}
+                    </Typography>
                   </View>
                   <View style={{flexDirection: 'row'}}>
-                    <Text style={styles.depositTitile}>
+                    <Typography style={styles.depositTitile}>
                       {paymentType} Display name
-                    </Text>
-                    <Text style={styles.phoneNumber}>{data.paymentname}</Text>
+                    </Typography>
+                    <Typography style={styles.phoneNumber}>
+                      {data.paymentname}
+                    </Typography>
                   </View>
                   <View style={{flexDirection: 'row'}}>
-                    <Text style={styles.depositTitile}>
+                    <Typography style={styles.depositTitile}>
                       {paymentType} Account Type{' '}
-                    </Text>
-                    <Text style={styles.phoneNumber}>{data.accountType}</Text>
+                    </Typography>
+                    <Typography style={styles.phoneNumber}>
+                      {data.accountType}
+                    </Typography>
                   </View>
                 </View>
                 <View style={styles.depostScreenshotCard}>
@@ -194,14 +208,18 @@ function DepositScreen({route}) {
                     activeOpacity={0.5}
                     style={styles.buttonStyle}
                     onPress={() => chooseFile()}>
-                    <Text style={styles.textStyle}>Choose Image</Text>
+                    <Typography style={styles.textStyle}>
+                      Choose Image
+                    </Typography>
                   </TouchableOpacity>
 
                   <Image
                     source={{uri: filePath.uri}}
                     style={{padding: 5, width: 150, height: 200}}
                   />
-                  <Text style={styles.textStyle}>{filePath.uri}</Text>
+                  <Typography style={styles.textStyle}>
+                    {filePath.uri}
+                  </Typography>
                   <Button
                     title="submit"
                     onPress={() => {
@@ -227,37 +245,45 @@ function DepositScreen({route}) {
           return (
             <View style={styles.offersContainer}>
               <View style={styles.depositTitle}>
-                <Text style={{color: Colors.appBlackColor}}>
+                <Typography style={{color: Colors.appBlackColor}}>
                   Send Payment & Upload ScreenShot
-                </Text>
+                </Typography>
               </View>
 
               <View style={styles.depositDetailsCard}>
-                <Text style={styles.depositTitile}>
+                <Typography style={styles.depositTitile}>
                   Send INR {planMoney} to Go Ganesh on {data.paymentkey}
-                </Text>
+                </Typography>
 
                 <Divider style={{backgroundColor: 'black', height: 5}} />
                 <View style={{flexDirection: 'row'}}>
-                  <Text style={styles.depositTitile}>{paymentType} Number</Text>
-                  <Text style={styles.phoneNumber}>{data.paymentkey}</Text>
+                  <Typography style={styles.depositTitile}>
+                    {paymentType} Number
+                  </Typography>
+                  <Typography style={styles.phoneNumber}>
+                    {data.paymentkey}
+                  </Typography>
                 </View>
                 <View style={{flexDirection: 'row'}}>
-                  <Text style={styles.depositTitile}>Amount To Deposit</Text>
-                  <Text style={styles.phoneNumber}>
+                  <Typography style={styles.depositTitile}>
+                    Amount To Deposit
+                  </Typography>
+                  <Typography style={styles.phoneNumber}>
                     {planMoney || depositCoins}
-                  </Text>
+                  </Typography>
                 </View>
                 <View style={{flexDirection: 'row'}}>
-                  <Text style={styles.depositTitile}>
+                  <Typography style={styles.depositTitile}>
                     {paymentType} Display name
-                  </Text>
-                  <Text style={styles.phoneNumber}>{data.paymentname}</Text>
+                  </Typography>
+                  <Typography style={styles.phoneNumber}>
+                    {data.paymentname}
+                  </Typography>
                 </View>
               </View>
-              <Text style={styles.depositTitile}>
+              <Typography style={styles.depositTitile}>
                 Attach Payment Screenshot
-              </Text>
+              </Typography>
               <View style={styles.depostScreenshotCard}>
                 <View style={{margin: 20}}>
                   {filePath.uri ? (
@@ -277,10 +303,12 @@ function DepositScreen({route}) {
                   activeOpacity={0.5}
                   style={styles.buttonStyle}
                   onPress={() => chooseFile()}>
-                  <Text style={styles.textStyleButton}>Upload</Text>
-                  <Text style={styles.textStyle2}>payment screenshot here</Text>
+                  <Typography style={styles.textStyleButton}>Upload</Typography>
+                  <Typography style={styles.textStyle2}>
+                    payment screenshot here
+                  </Typography>
                 </TouchableOpacity>
-                {/*<Text style={styles.textStyle}>{filePath.uri}</Text>*/}
+                {/*<Typography style={styles.textStyle}>{filePath.uri}</Typography>*/}
               </View>
               <TouchableOpacity
                 style={{
@@ -293,7 +321,7 @@ function DepositScreen({route}) {
                 onPress={() => {
                   submitPayment();
                 }}>
-                <Text>Submit</Text>
+                <Typography>Submit</Typography>
               </TouchableOpacity>
               {progress ? (
                 <ActivityIndicator
@@ -302,7 +330,7 @@ function DepositScreen({route}) {
                   color="white"
                 />
               ) : (
-                <Text>''</Text>
+                <Typography>''</Typography>
               )}
             </View>
           );

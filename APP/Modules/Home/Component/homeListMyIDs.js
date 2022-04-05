@@ -2,7 +2,6 @@
 import React, {useEffect} from 'react';
 
 import {
-  Text,
   View,
   Image,
   StyleSheet,
@@ -11,10 +10,8 @@ import {
   Linking,
 } from 'react-native';
 import {Icon} from 'react-native-elements';
-import {List} from 'react-native-paper';
-import {Avatar} from 'react-native-paper';
-import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
+import {Typography} from '../../Common/Text';
 const HomeListMyIDs = props => {
   let banks = [];
   useEffect(() => {
@@ -51,7 +48,7 @@ const HomeListMyIDs = props => {
               justifyContent: 'space-around',
               alignItems: 'center',
             }}>
-            <Text style={styles.url}>{props.data.sd.siteurl}</Text>
+            <Typography style={styles.url}>{props.data.sd.siteurl}</Typography>
             <View style={styles.credIcon}>
               <TouchableOpacity
                 onPress={() => {
@@ -61,7 +58,9 @@ const HomeListMyIDs = props => {
               </TouchableOpacity>
             </View>
           </View>
-          <Text style={styles.siteName}>{props.data.sd.sitename}</Text>
+          <Typography style={styles.siteName}>
+            {props.data.sd.sitename}
+          </Typography>
         </View>
       </View>
     );
@@ -80,10 +79,10 @@ const HomeListMyIDs = props => {
           /> */}
           <View style={styles.credsCardID}>
             <Icon name="user" type={'antdesign'} color="white" size={12} />
-            <Text style={styles.credTitle}>- Username </Text>
-            <Text style={{color: 'white', marginLeft: 'auto'}}>
+            <Typography style={styles.credTitle}>- Username </Typography>
+            <Typography style={{color: 'white', marginLeft: 'auto'}}>
               {props.data.username}
-            </Text>
+            </Typography>
             <TouchableOpacity
               style={{color: 'white', marginLeft: 15}}
               onPress={() => {
@@ -99,10 +98,10 @@ const HomeListMyIDs = props => {
               color="white"
               size={12}
             />
-            <Text style={styles.credTitle}>- Password </Text>
-            <Text style={{color: 'white', marginLeft: 10}}>
+            <Typography style={styles.credTitle}>- Password </Typography>
+            <Typography style={{color: 'white', marginLeft: 10}}>
               {props.data.password}
-            </Text>
+            </Typography>
             <TouchableOpacity
               style={{color: 'white', marginLeft: 5}}
               onPress={() => {
@@ -135,7 +134,9 @@ const HomeListMyIDs = props => {
               size={15}
               style={{padding: 5}}
             />
-            <Text style={{alignItems: 'center', color: 'white'}}>Deposit</Text>
+            <Typography style={{alignItems: 'center', color: 'white'}}>
+              Deposit
+            </Typography>
           </TouchableOpacity>
           <TouchableOpacity
             style={{
@@ -158,7 +159,9 @@ const HomeListMyIDs = props => {
               size={15}
               style={{padding: 5}}
             />
-            <Text style={{alignItems: 'center', color: 'white'}}>Withdraw</Text>
+            <Typography style={{alignItems: 'center', color: 'white'}}>
+              Withdraw
+            </Typography>
           </TouchableOpacity>
         </View>
       </View>

@@ -13,6 +13,7 @@ import {Icon} from 'react-native-elements';
 import {List} from 'react-native-paper';
 import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
+import {Typography} from '../../Common/Text';
 
 const AccordianListNew = props => {
   const [expanded, setExpanded] = React.useState(true);
@@ -27,8 +28,8 @@ const AccordianListNew = props => {
           source={{uri: `${env}${props.data.siteimage}`}}
         />
         <View>
-          <Text style={styles.url}>{props.data.siteurl}</Text>
-          <Text style={styles.siteName}>{props.data.sitename}</Text>
+          <Typography style={styles.url}>{props.data.siteurl}</Typography>
+          <Typography style={styles.siteName}>{props.data.sitename}</Typography>
         </View>
       </View>
     );
@@ -77,7 +78,7 @@ const AccordianListNew = props => {
         </View>
         <View style={styles.credsCard}>
           <View style={styles.credsCardHeader}>
-            <Text style={styles.credTitle}>Demo</Text>
+            <Typography style={styles.credTitle}>Demo</Typography>
             <View style={styles.credIcon}>
               <TouchableOpacity
                 onPress={() => {
@@ -95,8 +96,10 @@ const AccordianListNew = props => {
             }}
           />
           <View style={styles.credsCardID}>
-            <Text style={styles.credTitle}>Demo Id</Text>
-            <Text style={{color: 'white', marginLeft: 'auto'}}>goganesh</Text>
+            <Typography style={styles.credTitle}>Demo Id</Typography>
+            <Typography style={{color: 'white', marginLeft: 'auto'}}>
+              goganesh
+            </Typography>
             <TouchableOpacity
               style={{color: 'white', marginLeft: 15}}
               onPress={() => {
@@ -106,8 +109,10 @@ const AccordianListNew = props => {
             </TouchableOpacity>
           </View>
           <View style={styles.credsCardPassword}>
-            <Text style={styles.credTitle}>Demo password</Text>
-            <Text style={{color: 'white', marginLeft: 'auto'}}>123456</Text>
+            <Typography style={styles.credTitle}>Demo password</Typography>
+            <Typography style={{color: 'white', marginLeft: 'auto'}}>
+              123456
+            </Typography>
             <TouchableOpacity
               style={{color: 'white', marginLeft: 15}}
               onPress={() => {
@@ -127,8 +132,8 @@ const AccordianListNew = props => {
                   size={18}
                 />
               </View>
-              <Text style={styles.moneyCardText}>Cricket</Text>
-              <Text style={styles.moneyCardPrice}>100</Text>
+              <Typography style={styles.moneyCardText}>Cricket</Typography>
+              <Typography style={styles.moneyCardPrice}>100</Typography>
             </View>
 
             <View style={styles.moneyRow2}>
@@ -139,8 +144,8 @@ const AccordianListNew = props => {
                   size={18}
                 />
               </View>
-              <Text style={styles.moneyCardText}>Football</Text>
-              <Text style={styles.moneyCardPrice}>100</Text>
+              <Typography style={styles.moneyCardText}>Football</Typography>
+              <Typography style={styles.moneyCardPrice}>100</Typography>
             </View>
             <View style={styles.moneyRow3}>
               <View style={styles.moneyCardIcon}>
@@ -150,15 +155,15 @@ const AccordianListNew = props => {
                   size={18}
                 />
               </View>
-              <Text style={styles.moneyCardText}>Tennis</Text>
-              <Text style={styles.moneyCardPrice}>100</Text>
+              <Typography style={styles.moneyCardText}>Tennis</Typography>
+              <Typography style={styles.moneyCardPrice}>100</Typography>
             </View>
             <View style={styles.moneyRow3}>
               <View style={styles.moneyCardIcon}>
                 <Icon name="casino" color={Colors.appPrimaryColor} size={18} />
               </View>
-              <Text style={styles.moneyCardText}>Live Casino</Text>
-              <Text style={styles.moneyCardPrice}>100</Text>
+              <Typography style={styles.moneyCardText}>Live Casino</Typography>
+              <Typography style={styles.moneyCardPrice}>100</Typography>
             </View>
           </View>
         </View>
@@ -178,7 +183,7 @@ const AccordianListNew = props => {
               requestStatus: 'new',
             });
           }}>
-          <Text style={{alignItems: 'center'}}>Create ID</Text>
+          <Typography style={{alignItems: 'center'}}>Create ID</Typography>
         </TouchableOpacity>
       </View>
     );

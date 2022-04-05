@@ -15,6 +15,7 @@ import {List} from 'react-native-paper';
 
 import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
+import {Typography} from '../../Common/Text';
 const AccordianListNew = props => {
   let banks = [];
   const [expanded, setExpanded] = React.useState(true);
@@ -40,8 +41,10 @@ const AccordianListNew = props => {
           source={{uri: `${env}${props.data.sd.siteimage}`}}
         />
         <View>
-          <Text style={styles.url}>{props.data.sd.siteurl}</Text>
-          <Text style={styles.siteName}>{props.data.sd.sitename}</Text>
+          <Typography style={styles.url}>{props.data.sd.siteurl}</Typography>
+          <Typography style={styles.siteName}>
+            {props.data.sd.sitename}
+          </Typography>
         </View>
         <TouchableOpacity
           onPress={() => {
@@ -62,7 +65,9 @@ const AccordianListNew = props => {
               marginHorizontal: 15,
               marginVertical: 15,
             }}>
-            <Text style={{color: Colors.appWhiteColor, fontSize: 15}}>D</Text>
+            <Typography style={{color: Colors.appWhiteColor, fontSize: 15}}>
+              D
+            </Typography>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
@@ -80,7 +85,9 @@ const AccordianListNew = props => {
               marginHorizontal: 5,
               marginVertical: 15,
             }}>
-            <Text style={{color: Colors.appWhiteColor, fontSize: 15}}>W</Text>
+            <Typography style={{color: Colors.appWhiteColor, fontSize: 15}}>
+              W
+            </Typography>
           </View>
         </TouchableOpacity>
       </View>
@@ -92,7 +99,7 @@ const AccordianListNew = props => {
       <View style={styles.containerCollapse}>
         <View style={styles.credsCard}>
           <View style={styles.credsCardHeader}>
-            <Text style={styles.credTitle}>Credentials</Text>
+            <Typography style={styles.credTitle}>Credentials</Typography>
             <View style={styles.credIcon}>
               <TouchableOpacity
                 onPress={() => {
@@ -110,10 +117,10 @@ const AccordianListNew = props => {
             }}
           />
           <View style={styles.credsCardID}>
-            <Text style={styles.credTitle}>Username </Text>
-            <Text style={{color: 'white', marginLeft: 'auto'}}>
+            <Typography style={styles.credTitle}>Username </Typography>
+            <Typography style={{color: 'white', marginLeft: 'auto'}}>
               {props.data.username}
-            </Text>
+            </Typography>
             <TouchableOpacity
               style={{color: 'white', marginLeft: 15}}
               onPress={() => {
@@ -123,10 +130,10 @@ const AccordianListNew = props => {
             </TouchableOpacity>
           </View>
           <View style={styles.credsCardPassword}>
-            <Text style={styles.credTitle}>Password</Text>
-            <Text style={{color: 'white', marginLeft: 'auto'}}>
+            <Typography style={styles.credTitle}>Password</Typography>
+            <Typography style={{color: 'white', marginLeft: 'auto'}}>
               {props.data.password}
-            </Text>
+            </Typography>
             <TouchableOpacity
               style={{color: 'white', marginLeft: 15}}
               onPress={() => {
@@ -159,7 +166,9 @@ const AccordianListNew = props => {
               size={15}
               style={{padding: 5}}
             />
-            <Text style={{alignItems: 'center', color: 'white'}}>Deposit</Text>
+            <Typography style={{alignItems: 'center', color: 'white'}}>
+              Deposit
+            </Typography>
           </TouchableOpacity>
           <TouchableOpacity
             style={{
@@ -182,7 +191,9 @@ const AccordianListNew = props => {
               size={15}
               style={{padding: 5}}
             />
-            <Text style={{alignItems: 'center', color: 'white'}}>Withdraw</Text>
+            <Typography style={{alignItems: 'center', color: 'white'}}>
+              Withdraw
+            </Typography>
           </TouchableOpacity>
         </View>
       </View>
