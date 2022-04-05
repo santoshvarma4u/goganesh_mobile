@@ -122,7 +122,6 @@ const WithDrawContainer = props => {
           onClose={() => {
             // TODO: Check if the bank details are set, if open a modal to set the bank details Warning
             setModalVisible(false);
-
             setConfirmModalVisible(true);
           }}
         />

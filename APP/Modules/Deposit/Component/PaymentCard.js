@@ -105,7 +105,7 @@ const CardItem = props => {
         style={{
           alignItems: 'center',
           justifyContent: 'flex-end',
-          backgroundColor: '#000000',
+          backgroundColor: Colors.backgroundColor,
           borderBottomEndRadius: 10,
           borderBottomStartRadius: 10,
         }}>

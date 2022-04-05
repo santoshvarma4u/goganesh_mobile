@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import moment from 'moment';
-import React, {useState, useEffect} from 'react';
-import {Text, Image, View, FlatList} from 'react-native';
+import React from 'react';
+import {Image, View, FlatList} from 'react-native';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
 import {Typography} from '../../Common/Text';
@@ -47,7 +47,7 @@ function NotificationScreen({navigation}) {
             borderBottomLeftRadius: 10,
             borderTopRightRadius: 5,
           }}>
-          <Text
+          <Typography
             style={{
               color: Colors.backgroundColor,
               fontSize: 10,
@@ -55,7 +55,7 @@ function NotificationScreen({navigation}) {
               paddingLeft: 5,
             }}>
             {date}
-          </Text>
+          </Typography>
         </View>
       </View>
     );

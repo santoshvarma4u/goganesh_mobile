@@ -1,3 +1,4 @@
+import reactotron from 'reactotron-react-native';
 import useAPI from '../../../Hooks/useAPI';
 import Storage from '../../../Modules/Common/Storage';
 import StorageKeys from '../../../Modules/Common/StorageKeys';
@@ -12,6 +13,7 @@ const getUID = async () => {
 };
 const submitBankData = async bankData => {
   let userid = await getUID();
+  reactotron.log('this is the bank data', bankData, userid);
   const data = {
     uid: userid,
     bankName: bankData.bankName,

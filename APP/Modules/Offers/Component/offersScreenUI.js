@@ -5,6 +5,7 @@ import {SliderBox} from 'react-native-image-slider-box';
 import Animations from '../../../Theams/Animations';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
+import {Typography} from '../../Common/Text';
 import OffersController from '../Controller/offeresController';
 import styles from './Styles';
 function OffersScreen({navigation}) {
@@ -37,7 +38,9 @@ function OffersScreen({navigation}) {
           </View>
         ) : (
           <>
-            <Text style={{color: '#fff', marginTop: 50,fontSize:16}}>No Offers Found!</Text>
+            <Typography style={{color: '#fff', marginTop: 50, fontSize: 16}}>
+              No Offers Found!
+            </Typography>
             <LottieView source={Animations.not_found} autoPlay loop />
           </>
         )}

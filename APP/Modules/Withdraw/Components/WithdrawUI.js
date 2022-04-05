@@ -4,7 +4,6 @@ import {
   Image,
   Linking,
   StyleSheet,
-  Text,
   TextInput,
   TouchableOpacity,
   View,
@@ -16,6 +15,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import reactotron from 'reactotron-react-native';
 import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
+import CommonTextInput from '../../Common/CommonTextInput';
 import {Typography} from '../../Common/Text';
 import depositController from '../../Deposit/Controller/depositController';
 import IdController from '../../IDs/Controller/IdController';
@@ -64,7 +64,7 @@ const WithdrawForm = props => {
   return (
     <View style={styles.withDrawForm}>
       {ListTitle(data)}
-      <TextInput
+      <CommonTextInput
         style={styles.modalText}
         onChangeText={onAmountChange}
         value={amount}
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
   withDrawForm: {
     padding: 20,
     flex: 1,
-    backgroundColor: '#171616',
+    backgroundColor: Colors.appBlackColor,
     alignItems: 'center',
     // justifyContent: 'center',
   },
@@ -203,12 +203,12 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginLeft: 10,
     marginTop: 8,
-    color: '#cdbebe',
+    color: Colors.appWhiteColor,
   },
   siteName: {
     marginLeft: 10,
     marginTop: 10,
-    color: '#cdbebe',
+    color: Colors.appWhiteColor,
   },
   ListTitle: {
     flexDirection: 'row',

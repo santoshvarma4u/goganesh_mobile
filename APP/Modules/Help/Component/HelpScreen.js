@@ -10,16 +10,17 @@ import {
   Linking,
 } from 'react-native';
 import {Divider, Icon} from 'react-native-elements';
-import styles from '../../Splash/Component/Styles';
-import images from '../../../Theams/Images';
 import Colors from '../../../Theams/Colors';
+import images from '../../../Theams/Images';
+import {Typography} from '../../Common/Text';
+import styles from '../../Splash/Component/Styles';
 function HelpScreen({route}) {
   return (
     <View
       style={{
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#000',
+        backgroundColor: Colors.appBlackColor,
       }}>
       <View style={{flex: 1, alignItems: 'center'}}>
         <Image
@@ -27,15 +28,15 @@ function HelpScreen({route}) {
           style={{height: 200, width: 200, marginTop: 100}}
           resizeMode={'contain'}
         />
-        <Text
+        <Typography
           style={{
             color: Colors.appPrimaryColor,
             fontSize: 20,
             marginVertical: 10,
           }}>
           Raise your concern
-        </Text>
-        <Text
+        </Typography>
+        <Typography
           style={{
             color: Colors.appWhiteColor,
             fontSize: 16,
@@ -43,7 +44,7 @@ function HelpScreen({route}) {
           }}>
           {' '}
           How can we help you{' '}
-        </Text>
+        </Typography>
         <TouchableOpacity
           onPress={() => {
             let url =
@@ -62,7 +63,7 @@ function HelpScreen({route}) {
               justifyContent: 'center',
             }}>
             <Image style={{height: 20, width: 20}} source={images.whatsapp} />
-            <Text> Whatsapp </Text>
+            <Typography> Whatsapp </Typography>
           </View>
         </TouchableOpacity>
       </View>

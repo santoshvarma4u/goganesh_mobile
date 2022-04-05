@@ -29,7 +29,7 @@ export default StyleSheet.create({
     color: 'white',
   },
   paymentMethod: {
-    backgroundColor: '#171616',
+    backgroundColor: Colors.appBlackColor,
     width: '90%',
     flex: 0.15,
     paddingVertical: 10,

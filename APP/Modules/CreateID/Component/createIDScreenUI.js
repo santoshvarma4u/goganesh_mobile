@@ -125,7 +125,7 @@ function CreateIDScreen({route}) {
                     borderRadius: 20,
                     width: 45,
                     height: 45,
-                    backgroundColor: '#CD7F32',
+                    backgroundColor: Colors.appPrimaryColor,
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
@@ -186,7 +186,7 @@ function CreateIDScreen({route}) {
                     borderRadius: 20,
                     width: 45,
                     height: 45,
-                    backgroundColor: '#FFD700',
+                    backgroundColor: Colors.appPrimaryColor,
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
@@ -202,7 +202,7 @@ function CreateIDScreen({route}) {
           <View style={styles.planDeatils}>
             <Typography
               style={{
-                color: '#d5d1d1',
+                color: Colors.appWhiteColor,
                 marginLeft: 20,
                 marginTop: 8,
                 fontSize: 16,
@@ -220,7 +220,11 @@ function CreateIDScreen({route}) {
             />
             <View style={{flexDirection: 'row', marginTop: 10}}>
               <Typography
-                style={{color: '#d5d1d1', marginLeft: 20, marginTop: 10}}>
+                style={{
+                  color: Colors.appWhiteColor,
+                  marginLeft: 20,
+                  marginTop: 10,
+                }}>
                 Min Refill
               </Typography>
               <Typography style={[styles.planDetailsText, {marginTop: 6}]}>
@@ -229,7 +233,11 @@ function CreateIDScreen({route}) {
             </View>
             <View style={{flexDirection: 'row'}}>
               <Typography
-                style={{color: '#d5d1d1', marginLeft: 20, marginTop: 6}}>
+                style={{
+                  color: Colors.appWhiteColor,
+                  marginLeft: 20,
+                  marginTop: 6,
+                }}>
                 Min Withdrawal
               </Typography>
               <Typography style={[styles.planDetailsText, {marginTop: 4}]}>
@@ -238,7 +246,11 @@ function CreateIDScreen({route}) {
             </View>
             <View style={{flexDirection: 'row'}}>
               <Typography
-                style={{color: '#d5d1d1', marginLeft: 20, marginTop: 6}}>
+                style={{
+                  color: Colors.appWhiteColor,
+                  marginLeft: 20,
+                  marginTop: 6,
+                }}>
                 Min Maintaining Balance
               </Typography>
               <Typography style={[styles.planDetailsText, {marginTop: 4}]}>
@@ -247,7 +259,11 @@ function CreateIDScreen({route}) {
             </View>
             <View style={{flexDirection: 'row'}}>
               <Typography
-                style={{color: '#d5d1d1', marginLeft: 20, marginTop: 6}}>
+                style={{
+                  color: Colors.appWhiteColor,
+                  marginLeft: 20,
+                  marginTop: 6,
+                }}>
                 Max Withdrawal
               </Typography>
               <Typography style={[styles.planDetailsText, {marginTop: 4}]}>

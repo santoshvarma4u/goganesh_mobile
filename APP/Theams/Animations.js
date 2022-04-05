@@ -1,5 +1,5 @@
 const animations = {
-  splashLoading: require('../Assets/animations/splashloading.json'),
+  splashLoading: require('../Assets/Animations/splashloading.json'),
   error_animation: require('../Assets/Animations/error_animation.json'),
   not_found: require('../Assets/Animations/wicketout.json'),
 };

@@ -8,7 +8,7 @@ import {
 import {Provider} from 'react-redux';
 import {AppContainer} from './APP/Navigation/navigation';
 import {store} from './APP/Store/Index';
-import GlobalFont from './GlobalFont';
+// import GlobalFont from './GlobalFont';
 if (__DEV__) {
   import('./APP/Modules/Common/ReactotronConfig').then(() =>
     console.log('Reactotron Configured'),
@@ -66,7 +66,7 @@ const theme = {
 export default class App extends Component {
   render() {
     // Setting a global font here for more refer https://github.com/nguyenhuynghia/react-native-global-font
-    GlobalFont.applyGlobal('Lato-Regular');
+    // GlobalFont.applyGlobal('Lato-Regular');
     //Provider from redux
 
     return (

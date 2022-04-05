@@ -1,6 +1,7 @@
 import {Formik} from 'formik';
+import PropTypes from 'prop-types';
 import React, {useState} from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Button} from 'react-native-paper';
@@ -12,14 +13,17 @@ import {Typography} from './Text';
 import {banksList} from './banks';
 
 const bankValidationSchema = yup.object().shape({
-  bank: yup.string().required('Bank is required'),
-  accountNumber: yup.number().required('Account Number is required'),
-  ifsc: yup.string().required('IFSC is required'),
-  accountHolderName: yup.string().required('Account holder name is required'),
+  bankName: yup.string().required('Bank is required'),
+  AccountNumber: yup
+    .number('Account Number should be number')
+    .required('Account Number is required'),
+  IFSC: yup.string().required('IFSC is required'),
+  AccountHolderName: yup.string().required('Account holder name is required'),
+  branchCode: yup.string().required('Branch code is required'),
 });
 
 const EnterBankDetails = props => {
-  const {onClose = () => {}, onSubmit = () => {}} = props;
+  const {onClose = () => {}, onSubmit = () => {}, bankData} = props;
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([
     ...banksList.map(item => ({
@@ -32,10 +36,11 @@ const EnterBankDetails = props => {
     <Formik
       validationSchema={bankValidationSchema}
       initialValues={{
-        bank: '',
-        accountNumber: '',
-        ifsc: '',
-        accountHolderName: '',
+        bankName: bankData ? bankData.bankName : '',
+        AccountNumber: bankData ? bankData.accountNumber : '',
+        IFSC: bankData ? bankData.IFSC : '',
+        AccountHolderName: bankData ? bankData.accountHolderName : '',
+        branchCode: bankData ? bankData.branchCode : '',
       }}
       onSubmit={onSubmit}>
       {({
@@ -84,13 +89,13 @@ const EnterBankDetails = props => {
             items={items}
             open={open}
             setOpen={setOpen}
-            value={values.bank}
+            value={values.bankName}
             setValue={state => {
               let newState = state;
               if (typeof state === 'function') {
-                newState = state(values.bank);
+                newState = state(values.bankName);
               }
-              setFieldValue('bank', newState);
+              setFieldValue('bankName', newState);
             }}
             setItems={setItems}
             searchable={true}
@@ -105,46 +110,56 @@ const EnterBankDetails = props => {
               borderColor: Colors.appWhiteColor,
               borderRadius: 5,
             }}
-            name={'bank'}
+            name={'bankName'}
             theme="DARK"
             listMode="MODAL"
           />
-          {errors.bank && (
+          {errors.bankName && (
             <Typography style={{color: 'red', fontSize: 12}}>
-              {errors.bank}
+              {errors.bankName}
             </Typography>
           )}
           <CommonTextInput
             label="Account Number *"
-            name={'accountNumber'}
-            value={values.accountNumber}
-            onChangeText={handleChange('accountNumber')}
+            name={'AccountNumber'}
+            value={values.AccountNumber}
+            onChangeText={handleChange('AccountNumber')}
             keyboardType={'numeric'}
           />
-          {errors.accountNumber && (
+          {errors.AccountNumber && (
             <Typography style={{color: 'red', fontSize: 12}}>
-              {errors.accountNumber}
+              {errors.AccountNumber}
             </Typography>
           )}
           <CommonTextInput
             label="IFSC *"
-            name={'ifsc'}
-            value={values.ifsc}
-            onChangeText={handleChange('ifsc')}
+            name={'IFSC'}
+            value={values.IFSC}
+            onChangeText={handleChange('IFSC')}
           />
-          {errors.ifsc && (
+          {errors.IFSC && (
             <Typography style={{color: 'red', fontSize: 12}}>
-              {errors.ifsc}
+              {errors.IFSC}
             </Typography>
           )}
           <CommonTextInput
             label="Account holder name *"
-            value={values.accountHolderName}
-            onChangeText={handleChange('accountHolderName')}
+            value={values.AccountHolderName}
+            onChangeText={handleChange('AccountHolderName')}
           />
-          {errors.accountHolderName && (
+          {errors.AccountHolderName && (
             <Typography style={{color: 'red', fontSize: 12}}>
-              {errors.accountHolderName}
+              {errors.AccountHolderName}
+            </Typography>
+          )}
+          <CommonTextInput
+            label="Branch Code *"
+            value={values.branchCode}
+            onChangeText={handleChange('branchCode')}
+          />
+          {errors.branchCode && (
+            <Typography style={{color: 'red', fontSize: 12}}>
+              {errors.branchCode}
             </Typography>
           )}
           <View>
@@ -164,6 +179,18 @@ const EnterBankDetails = props => {
       )}
     </Formik>
   );
+};
+
+EnterBankDetails.propTypes = {
+  onClose: PropTypes.func,
+  onSubmit: PropTypes.func,
+  bankData: PropTypes.object,
+};
+
+EnterBankDetails.defaultProps = {
+  onClose: () => {},
+  onSubmit: () => {},
+  bankData: {},
 };
 
 export default EnterBankDetails;

@@ -177,7 +177,7 @@ const HomeListMyIDs = props => {
 };
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#171616',
+    backgroundColor: Colors.appBlackColor,
     borderRadius: 10,
     padding: 10,
     margin: 5,
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
-    backgroundColor: '#171616',
+    backgroundColor: Colors.appBlackColor,
     alignItems: 'center',
   },
   credsCard: {

@@ -12,7 +12,7 @@ export default StyleSheet.create({
     flexDirection: 'column',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    backgroundColor: 'black',
+    backgroundColor: Colors.appBlackColor,
     alignItems: 'center',
     padding: 5,
   },
@@ -41,9 +41,7 @@ export default StyleSheet.create({
   },
   bankDetails: {
     flex: 0.75,
-    padding: 15,
     marginTop: 20,
-    backgroundColor: 'white',
     width: '100%',
     borderRadius: 10,
   },
@@ -53,22 +51,21 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
   bankCardDetails: {
-    marginTop: 10,
-    backgroundColor: 'black',
+    margin: 10,
+    backgroundColor: Colors.appBlackColorLight,
     borderRadius: 10,
     padding: 10,
-    width: '100%',
     flexDirection: 'row',
+    alignItems: 'center',
   },
   centeredView: {
     width: '100%',
     flex: 1,
   },
   modalView: {
-    margin: 20,
     backgroundColor: Colors.appBlackColor,
     borderRadius: 20,
-    padding: 20,
+    paddingTop: 30,
     flex: 1,
   },
   button: {
@@ -85,10 +82,29 @@ export default StyleSheet.create({
   textStyle: {
     color: Colors.appBlackColor,
   },
+  cardTextStyle: {
+    color: Colors.appWhiteColor,
+  },
+  cardItem: {
+    justifyContent: 'space-between',
+    padding: 2,
+    color: Colors.appWhiteColor,
+  },
   trasactionsCard: {
-    backgroundColor: Colors.appBlackColor,
-    padding: 10,
+    backgroundColor: Colors.appBlackColorLight,
+    padding: 14,
     borderRadius: 10,
+    marginTop: 10,
+    shadowColor: '#fff',
+    shadowOffset: {
+      width: 1,
+      height: 2,
+    },
+    shadowOpacity: 0.9,
+    shadowRadius: 3.84,
+    elevation: 8,
+    margin: 20,
+    flex: 1,
   },
 
   modalText: {
