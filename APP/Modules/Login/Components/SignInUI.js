@@ -131,13 +131,13 @@ function SignIn() {
               {otpSentStatus ? 'Resend OTP' : 'Send OTP'}{' '}
             </Typography>
           </TouchableOpacity> */}
-        </View>
-        {otpSentStatus ? (
-          <Typography style={{color: '#fff', marginTop: 10}}>
-            OTP Sent Successfully, Please enter OTP below
-          </Typography>
-        ) : null}
-        {/* <OTPInputView
+            </View>
+            {otpSentStatus ? (
+              <Typography style={{color: '#fff', marginTop: 10}}>
+                OTP Sent Successfully, Please enter OTP below
+              </Typography>
+            ) : null}
+            {/* <OTPInputView
           style={{width: '80%', height: 120}}
           pinCount={4}
           // code={this.state.code} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
@@ -183,12 +183,15 @@ function SignIn() {
                 }}
                 onPress={verifyPassword}
                 underlayColor="transparent">
-                <Typography style={{color: 'black', fontSize: 16}}>Sign In</Typography>
+                <Typography style={{color: 'black', fontSize: 16}}>
+                  Sign In
+                </Typography>
               </TouchableOpacity>
             </View>
 
             <View>
-              <Typography style={{fontSize: 15, color: '#fff', marginVertical: 30}}>
+              <Typography
+                style={{fontSize: 15, color: '#fff', marginVertical: 30}}>
                 --- OR ---
               </Typography>
             </View>
