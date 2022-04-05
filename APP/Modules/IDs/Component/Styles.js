@@ -8,6 +8,7 @@ export default StyleSheet.create({
   },
   searchBar: {
     padding: 5,
+    backgroundColor: Colors.appWhiteColor,
   },
   list: {
     padding: 5,

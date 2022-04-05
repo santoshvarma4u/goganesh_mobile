@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Clipboard,
   Linking,
+  Pressable,
 } from 'react-native';
 import {Icon} from 'react-native-elements';
 import {List} from 'react-native-paper';
@@ -45,51 +46,53 @@ const AccordianListNew = props => {
           <Typography style={styles.siteName}>
             {props.data.sd.sitename}
           </Typography>
+          <View style={styles.ListTitle}>
+            <Pressable
+              onPress={() => {
+                navigation.navigate('CreateID', {
+                  sdid: props.data.sd.sdid,
+                  username: props.data.username,
+                  requestStatus: 'old',
+                });
+              }}>
+              <View
+                style={{
+                  height: 30,
+                  width: 30,
+                  borderRadius: 30,
+                  backgroundColor: Colors.appGreenColor,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginHorizontal: 15,
+                  marginVertical: 15,
+                }}>
+                <Typography style={{color: Colors.appWhiteColor, fontSize: 15}}>
+                  D
+                </Typography>
+              </View>
+            </Pressable>
+            <TouchableOpacity
+              onPress={() => {
+                setWithDrawForm(true);
+              }}>
+              <View
+                style={{
+                  height: 30,
+                  width: 30,
+                  borderRadius: 30,
+                  backgroundColor: Colors.appRedColor,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginHorizontal: 5,
+                  marginVertical: 15,
+                }}>
+                <Typography style={{color: Colors.appWhiteColor, fontSize: 15}}>
+                  W
+                </Typography>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('CreateID', {
-              sdid: props.data.sd.sdid,
-              username: props.data.username,
-              requestStatus: 'old',
-            });
-          }}>
-          <View
-            style={{
-              height: 30,
-              width: 30,
-              borderRadius: 30,
-              backgroundColor: Colors.appGreenColor,
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginHorizontal: 15,
-              marginVertical: 15,
-            }}>
-            <Typography style={{color: Colors.appWhiteColor, fontSize: 15}}>
-              D
-            </Typography>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            setWithDrawForm(true);
-          }}>
-          <View
-            style={{
-              height: 30,
-              width: 30,
-              borderRadius: 30,
-              backgroundColor: Colors.appRedColor,
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginHorizontal: 5,
-              marginVertical: 15,
-            }}>
-            <Typography style={{color: Colors.appWhiteColor, fontSize: 15}}>
-              W
-            </Typography>
-          </View>
-        </TouchableOpacity>
       </View>
     );
   }
@@ -201,17 +204,15 @@ const AccordianListNew = props => {
   }
 
   return (
-    <List.Section title="Accordions">
-      <View style={styles.container}>
-        <List.Accordion
-          title={<ListTitle />}
-          expanded={!expanded}
-          onPress={handlePress}
-          style={{backgroundColor: Colors.appBlackColor, borderRadius: 10}}>
-          <ListCollapse />
-        </List.Accordion>
-      </View>
-    </List.Section>
+    <View style={styles.container}>
+      <List.Accordion
+        title={<ListTitle />}
+        expanded={!expanded}
+        onPress={handlePress}
+        style={{backgroundColor: Colors.appBlackColor, borderRadius: 10}}>
+        <ListCollapse />
+      </List.Accordion>
+    </View>
   );
 };
 const styles = StyleSheet.create({
