@@ -9,7 +9,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import {Checkbox} from 'react-native-paper';
+import {Button, Checkbox} from 'react-native-paper';
 import * as Yup from 'yup';
 import SmallLogo from '../../../Assets/svgs/SmallLogo';
 import Storage from '../../../Modules/Common/Storage';
@@ -33,7 +33,9 @@ const getUID = async () => {
 const usernameAndDepositSchema = Yup.object().shape({
   UserName: Yup.string()
     .min(2, 'username is Too Short!')
-    .max(20, 'username Too Long!'),
+    .max(9, 'username Too Long!, it should be 9 or less characters')
+    .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field ')
+    .required('Username is required'),
   DepositCoins: Yup.string()
     .min(1, 'DepositCoins Too Short!')
     .required('DepositCoins Required'),
@@ -99,7 +101,7 @@ function CreateIDScreen({route}) {
               style={{height: 100, width: 100, marginTop: 50}}
               fill={Colors.appPrimaryColor}
             />
-           <Typography
+            <Typography
               style={{alignItems: 'center', color: 'white', marginTop: 5}}>
               {sitename}
             </Typography>
@@ -328,7 +330,11 @@ function CreateIDScreen({route}) {
                       onChangeText={handleChange('UserName')}
                     />
                   )}
-
+                  {errors.UserName && touched.UserName && (
+                    <Typography color={Colors.appRedColor}>
+                      {errors.UserName}
+                    </Typography>
+                  )}
                   <CommonTextInput
                     style={styles.modalText}
                     keyboardType="numeric"
@@ -336,7 +342,17 @@ function CreateIDScreen({route}) {
                     placeholderTextColor="#d5d1d1"
                     onChangeText={handleChange('DepositCoins')}
                   />
-                  <View style={{flexDirection: 'row'}}>
+                  {errors.DepositCoins && touched.DepositCoins && (
+                    <Typography color={Colors.appRedColor}>
+                      {errors.DepositCoins}
+                    </Typography>
+                  )}
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginVertical: 10,
+                    }}>
                     <Checkbox
                       status={checked ? 'checked' : 'unchecked'}
                       color={Colors.appPrimaryColor}
@@ -349,31 +365,12 @@ function CreateIDScreen({route}) {
                       Use Amount From Wallet
                     </Typography>
                   </View>
-                  <TouchableOpacity
-                    style={{
-                      padding: 8,
-                      marginHorizontal: 100,
-                      alignItems: 'center',
-                      backgroundColor: Colors.appPrimaryColor,
-                      justifyContent: 'center',
-                      borderRadius: 5,
-                    }}
+                  <Button
+                    mode="contained"
+                    color={Colors.appPrimaryColor}
                     onPress={handleSubmit}>
-                    <Typography style={{alignItems: 'center'}}>
-                      Continue to Pay
-                    </Typography>
-                  </TouchableOpacity>
-                  {errors.UserName && touched.UserName && (
-                    <Typography style={{backgroundColor: 'white'}}>
-                      {errors.UserName}
-                    </Typography>
-                  )}
-
-                  {errors.DepositCoins && touched.DepositCoins && (
-                    <Typography style={{backgroundColor: 'white'}}>
-                      {errors.DepositCoins}
-                    </Typography>
-                  )}
+                    Continue to Pay
+                  </Button>
                 </>
               )}
             </Formik>

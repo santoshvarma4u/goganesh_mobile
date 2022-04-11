@@ -78,7 +78,8 @@ export default StyleSheet.create({
     backgroundColor: Colors.appBlackColor,
     fontSize: 14,
     color: Colors.appWhiteColor,
-    marginBottom: 15,
+    marginBottom: 5,
+    marginTop: 10,
   },
   planDetailsText: {
     color: Colors.appWhiteColor,
