@@ -74,6 +74,14 @@ const MyIDRoute = props => {
             getUserBanks.request();
             setRefresh(false);
           }}
+          ItemSeparatorComponent={() => (
+            <View
+              style={{
+                height: 14,
+                width: '100%',
+              }}
+            />
+          )}
           renderItem={({item}) => (
             <AccordionMyIDs data={item} bank={getUserBanks} />
           )}

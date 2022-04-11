@@ -41,6 +41,13 @@ const usernameAndDepositSchema = Yup.object().shape({
     .required('DepositCoins Required'),
 });
 
+const userNameValidation = Yup.object().shape({
+  UserName: Yup.string().required('Username is required'),
+  DepositCoins: Yup.string()
+    .min(1, 'DepositCoins Too Short!')
+    .required('DepositCoins Required'),
+});
+
 function CreateIDScreen({route}) {
   const navigation = useNavigation();
   const {sdid, url, sitename, requestStatus} = route.params;
@@ -276,9 +283,13 @@ function CreateIDScreen({route}) {
 
           <View style={styles.planDeatils}>
             <Formik
-              validationSchema={usernameAndDepositSchema}
+              validationSchema={
+                route.params.username
+                  ? userNameValidation
+                  : usernameAndDepositSchema
+              }
               initialValues={{
-                UserName: '',
+                UserName: route.params.username,
                 DepositCoins: '',
               }}
               onSubmit={values => {
@@ -286,7 +297,10 @@ function CreateIDScreen({route}) {
                   .validateUsername(values.UserName, sdid)
                   .then(validateUsername => {
                     let {data} = validateUsername;
-                    if (data.details.data.length === 0) {
+                    if (
+                      data.details.data.length === 0 ||
+                      route.params.username
+                    ) {
                       if (checked) {
                         if (parseInt(wallet.data) < values.DepositCoins) {
                           return alert('Insufficient Funds In Wallet');

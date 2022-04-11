@@ -67,10 +67,10 @@ export default StyleSheet.create({
     backgroundColor: Colors.appBlackColorLight,
   },
   promotionCard: {
-    flex: 1.5,
+    flex: 1,
     flexDirection: 'column',
     marginTop: 20,
-    width: '90%',
+    width: '100%',
     paddingBottom: 40,
     borderRadius: 5,
   },
@@ -132,7 +132,6 @@ export default StyleSheet.create({
   },
   upperContainer: {
     backgroundColor: Colors.appPrimaryColor,
-    // flex: 0.3,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',

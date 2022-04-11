@@ -8,15 +8,16 @@ import {
   TouchableOpacity,
   Clipboard,
   Linking,
+  Pressable,
 } from 'react-native';
 import {Icon} from 'react-native-elements';
-import {List} from 'react-native-paper';
+import {Button, List} from 'react-native-paper';
 import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
 import {Typography} from '../../Common/Text';
 
 const AccordianListNew = props => {
-  const [expanded, setExpanded] = React.useState(true);
+  const [expanded, setExpanded] = React.useState(false);
   const navigation = useNavigation();
   const handlePress = () => setExpanded(!expanded);
 
@@ -29,7 +30,17 @@ const AccordianListNew = props => {
         />
         <View>
           <Typography style={styles.url}>{props.data.siteurl}</Typography>
-          <Typography style={styles.siteName}>{props.data.sitename}</Typography>
+          <View style={styles.credIcon}>
+            <TouchableOpacity
+              onPress={() => {
+                Linking.openURL('https://' + props.data.sd.siteurl);
+              }}>
+              <Icon name="launch" color="white" size={14} />
+            </TouchableOpacity>
+          </View>
+          <Typography style={styles.siteName}>
+            {'props.data.sitename'}
+          </Typography>
         </View>
       </View>
     );
@@ -193,7 +204,7 @@ const AccordianListNew = props => {
       <View style={styles.container}>
         <List.Accordion
           title={<ListTitle />}
-          expanded={!expanded}
+          expanded={expanded}
           onPress={handlePress}
           style={{backgroundColor: Colors.appBlackColor, borderRadius: 10}}>
           <ListCollapse />
@@ -206,6 +217,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.appBlackColor,
     borderRadius: 10,
+    padding: 14,
   },
   image: {
     width: 60,

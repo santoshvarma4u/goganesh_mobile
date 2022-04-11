@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import {
   Text,
   View,
@@ -19,7 +19,7 @@ import Colors from '../../../Theams/Colors';
 import {Typography} from '../../Common/Text';
 const AccordianListNew = props => {
   let banks = [];
-  const [expanded, setExpanded] = React.useState(true);
+  // const [expanded, setExpanded] = React.useState(true);
 
   useEffect(() => {
     props.bank.data.map(item => {
@@ -32,7 +32,7 @@ const AccordianListNew = props => {
 
   const [withDrawForm, setWithDrawForm] = useState(false);
   const navigation = useNavigation();
-  const handlePress = () => setExpanded(!expanded);
+  // const handlePress = () => setExpanded(!expanded);
 
   function ListTitle() {
     return (
@@ -42,11 +42,22 @@ const AccordianListNew = props => {
           source={{uri: `${env}${props.data.sd.siteimage}`}}
         />
         <View>
-          <Typography style={styles.url}>{props.data.sd.siteurl}</Typography>
+          <TouchableOpacity
+            onPress={() => {
+              Linking.openURL('https://' + props.data.sd.siteurl);
+            }}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <Typography style={styles.url}>{props.data.sd.siteurl}</Typography>
+            <Icon name="launch" color="white" size={16} />
+          </TouchableOpacity>
+
           <Typography style={styles.siteName}>
             {props.data.sd.sitename}
           </Typography>
-          <View style={styles.ListTitle}>
+          {/* <View style={styles.ListTitle}>
             <Pressable
               onPress={() => {
                 navigation.navigate('CreateID', {
@@ -91,7 +102,7 @@ const AccordianListNew = props => {
                 </Typography>
               </View>
             </TouchableOpacity>
-          </View>
+          </View> */}
         </View>
       </View>
     );
@@ -99,6 +110,7 @@ const AccordianListNew = props => {
 
   function ListCollapse() {
     return (
+      // card
       <View style={styles.containerCollapse}>
         <View style={styles.credsCard}>
           <View style={styles.credsCardHeader}>
@@ -205,13 +217,21 @@ const AccordianListNew = props => {
 
   return (
     <View style={styles.container}>
-      <List.Accordion
-        title={<ListTitle />}
-        expanded={!expanded}
-        onPress={handlePress}
-        style={{backgroundColor: Colors.appBlackColor, borderRadius: 10}}>
-        <ListCollapse />
-      </List.Accordion>
+      {/* <List.Section>
+        <List.Accordion
+          title={<ListTitle />}
+          expanded={true}
+          // onPress={handlePress}
+          style={{
+            backgroundColor: Colors.appBlackColor,
+            borderRadius: 10,
+            borderColor: Colors.appWhiteColor,
+          }}>
+          <ListCollapse />
+        </List.Accordion>
+      </List.Section> */}
+      <ListTitle />
+      <ListCollapse />
     </View>
   );
 };
@@ -219,6 +239,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.appBlackColor,
     borderRadius: 10,
+    padding: 14,
   },
   image: {
     width: 60,
@@ -229,7 +250,7 @@ const styles = StyleSheet.create({
   },
   url: {
     fontWeight: '500',
-    marginLeft: 10,
+    marginHorizontal: 10,
     marginTop: 8,
     color: '#cdbebe',
   },
