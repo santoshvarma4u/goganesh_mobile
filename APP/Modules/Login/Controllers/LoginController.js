@@ -1,8 +1,10 @@
+import OneSignal from 'react-native-onesignal';
 import authKey from '../../../Modules/Common/JWT';
 import NetworkAPI from '../../../Network/api/server';
 import authApi from '../../../Network/auth/auth';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
+
 const checkUser = async (phoneNumber, password) => {
   try {
     const result = await authApi.loginCheck(phoneNumber, password);
@@ -23,6 +25,14 @@ const checkUser = async (phoneNumber, password) => {
         StorageKeys.ID,
         JSON.stringify(result.data.data.uid),
       );
+
+      /**
+       * One Signal User ID Setup
+       */
+      let externalUserId = `${result.data.data.uid}`; // external user id to the OneSignal SDK
+      OneSignal.setExternalUserId(externalUserId);
+      //END One Signal User ID Setup
+
       await Storage.setItemSync(StorageKeys.NAME, result.data.data.full_name);
       await Storage.setItemSync(StorageKeys.JWT, result.data.data.token);
       await Storage.setItemSync(StorageKeys.PHONE, phoneNumber);

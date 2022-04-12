@@ -1,19 +1,58 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React, {Component} from 'react';
+import OneSignal from 'react-native-onesignal';
 import {
   DefaultTheme,
   Provider as PaperProvider,
   configureFonts,
 } from 'react-native-paper';
 import {Provider} from 'react-redux';
+import CONSTANTS from './APP/Constants';
 import {AppContainer} from './APP/Navigation/navigation';
 import {store} from './APP/Store/Index';
 // import GlobalFont from './GlobalFont';
+
 if (__DEV__) {
   import('./APP/Modules/Common/ReactotronConfig').then(() =>
     console.log('Reactotron Configured'),
   );
 }
+/**
+ * One Signal Setup
+ */
+
+//OneSignal Init Code
+OneSignal.setLogLevel(6, 0);
+OneSignal.setAppId(CONSTANTS.ONE_SIGNAL_APP_ID);
+//END OneSignal Init Code
+
+//Prompt for push on iOS
+OneSignal.promptForPushNotificationsWithUserResponse(response => {
+  console.log('Prompt response:', response);
+});
+
+//Method for handling notifications received while app in foreground
+OneSignal.setNotificationWillShowInForegroundHandler(
+  notificationReceivedEvent => {
+    console.log(
+      'OneSignal: notification will show in foreground:',
+      notificationReceivedEvent,
+    );
+    let notification = notificationReceivedEvent.getNotification();
+    console.log('notification: ', notification);
+    const data = notification.additionalData;
+    console.log('additionalData: ', data);
+    // Complete with null means don't show a notification.
+    notificationReceivedEvent.complete(notification);
+  },
+);
+
+//Method for handling notifications opened
+OneSignal.setNotificationOpenedHandler(notification => {
+  console.log('OneSignal: notification opened:', notification);
+});
+
+// One Signal Setup End
 
 const fontConfig = {
   ios: {
