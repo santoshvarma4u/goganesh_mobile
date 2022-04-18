@@ -50,9 +50,7 @@ PushNotification.createChannel(
 
 export default class Splash extends PureComponent {
   componentDidMount = () => {
-    setTimeout(() => {
-      this.learnMorePress();
-    }, 3000);
+    this.learnMorePress();
   };
 
   learnMorePress = async () => {
@@ -62,7 +60,6 @@ export default class Splash extends PureComponent {
     authKey.token = JWT;
     if (JWT) {
       NetworkAPI.apiClient.setHeader('authorization', authKey.token);
-
       await NetworkAPI.apiClient.patch(`/users/${ID}`, {fcm_id: FCMTOKEN});
     }
     if (JWT) {
