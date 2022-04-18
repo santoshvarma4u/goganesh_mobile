@@ -1,7 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
-import {View, TouchableOpacity, FlatList, ScrollView} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  FlatList,
+  ScrollView,
+  Linking,
+} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {SliderBox} from 'react-native-image-slider-box';
 import {Button} from 'react-native-paper';
@@ -63,7 +69,7 @@ function HomeScreen(props) {
   }, [data, success, getUserBanks.data]);
 
   return (
-    <ScrollView contentContainerStyle={styles.containerMain}>
+    <View style={styles.containerMain}>
       <View style={styles.upperContainer}>
         {/* <View style={styles.centralCardView}> */}
         <View style={styles.depositCard}>
@@ -107,19 +113,19 @@ function HomeScreen(props) {
         </View>
       </View>
 
-      <View style={styles.lowerContainer}>
-        {/*<View style={styles.lowerBox1}>*/}
-        {/*  <SliderBox*/}
-        {/*    images={sliderImgs}*/}
-        {/*    dotColor={Colors.appPrimaryColor}*/}
-        {/*    inactiveDotColor={Colors.appPrimaryColor}*/}
-        {/*    paginationBoxVerticalPadding={20}*/}
-        {/*    ImageComponentStyle={{overflow: 'hidden'}}*/}
-        {/*    resizeMode={'contain'}*/}
-        {/*    autoplay*/}
-        {/*    circleLoop*/}
-        {/*  />*/}
-        {/*</View>*/}
+      <ScrollView style={styles.lowerContainer}>
+        {/* <View style={styles.lowerBox1}>
+          <SliderBox
+            images={sliderImgs}
+            dotColor={Colors.appPrimaryColor}
+            inactiveDotColor={Colors.appPrimaryColor}
+            paginationBoxVerticalPadding={20}
+            ImageComponentStyle={{overflow: 'hidden'}}
+            resizeMode={'contain'}
+            autoplay
+            circleLoop
+          />
+        </View> */}
         <View
           style={{
             flexDirection: 'row',
@@ -133,6 +139,7 @@ function HomeScreen(props) {
               marginTop: 20,
             }}>
             <Typography
+              variant="H3"
               style={{
                 color: '#d5d1d1',
                 fontSize: 16,
@@ -151,9 +158,7 @@ function HomeScreen(props) {
           <View style={{flex: 1}} />
           <TouchableOpacity
             style={{
-              // margin: 20,
-              // height: 40,
-              padding: 5,
+              padding: 10,
               borderRadius: 5,
               flexDirection: 'row',
               alignItems: 'center',
@@ -165,33 +170,31 @@ function HomeScreen(props) {
             <Typography style={styles.createTextOnly}>Create </Typography>
           </TouchableOpacity>
         </View>
-        {/* <View style={styles.promotionCard}> */}
-        <FlatList
-          horizontal
-          // pagingEnabled={true}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            flex: 1,
-            marginVertical: 20,
-            width: '100%',
-          }}
-          // legacyImplementation={false}
-          data={getMyIDs.data}
-          renderItem={({item}) => (
-            <HomeListMyIDs
-              data={item}
-              bank={getUserBanks}
-              navigation={props.navigation}
-            />
-          )}
-          keyExtractor={(item, index) => index.toString()}
-        />
-        {/* </View> */}
+        <View>
+          <FlatList
+            horizontal
+            pagingEnabled={true}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
+              marginVertical: 20,
+              width: '100%',
+              marginLeft: 10,
+            }}
+            data={getMyIDs.data}
+            renderItem={({item}) => (
+              <HomeListMyIDs
+                data={item}
+                bank={getUserBanks}
+                navigation={props.navigation}
+              />
+            )}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
         <View
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'space-around',
             marginHorizontal: 20,
           }}>
           <View
@@ -199,9 +202,9 @@ function HomeScreen(props) {
               alignItems: 'center',
             }}>
             <Typography
+              variant="H3"
               style={{
                 color: '#d5d1d1',
-                fontSize: 16,
               }}>
               Explore More
             </Typography>
@@ -214,19 +217,34 @@ function HomeScreen(props) {
               }}
             />
           </View>
-          <View style={{flex: 1}}>
-            <Typography>WhatsApp Support</Typography>
-            <Typography>
-              Get your Queries,new updates and latest offers via WhatsApp
-              support
-            </Typography>
-            <Button mode={'outlined'} icon={'whatsapp'}>
-              Click Here for Support
-            </Button>
-          </View>
         </View>
-      </View>
-    </ScrollView>
+        <View
+          style={{
+            marginHorizontal: 20,
+            marginTop: 5,
+          }}>
+          <Typography color={Colors.appWhiteColor}>WhatsApp Support</Typography>
+          <Typography
+            color={Colors.appWhiteColor}
+            style={styles.marginVertical}>
+            Get your Queries,new updates and latest offers via WhatsApp support
+          </Typography>
+          <Button
+            style={styles.marginVertical}
+            mode={'contained'}
+            icon={'whatsapp'}
+            color={Colors.appGreenColor}
+            onPress={() => {
+              let url =
+                'whatsapp://send?text= Please raise your concern here' +
+                '&phone=919398322333';
+              Linking.openURL(url);
+            }}>
+            Click Here for Support
+          </Button>
+        </View>
+      </ScrollView>
+    </View>
   );
 }
 

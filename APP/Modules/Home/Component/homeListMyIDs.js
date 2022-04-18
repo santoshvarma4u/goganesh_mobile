@@ -29,14 +29,14 @@ const HomeListMyIDs = props => {
     return (
       <View style={styles.ListTitle}>
         <View>
-          <View
+          {/* <View
             style={{
               width: 40,
               height: 60,
               backgroundColor: 'black',
               position: 'absolute',
             }}
-          />
+          /> */}
           {/*<Avatar.Image size={60} source={{uri: props.data.sd.siteimage}} />*/}
           <Image
             style={styles.image}
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.appBlackColor,
     borderRadius: 10,
-    padding: 10,
+    padding: 14,
     margin: 5,
   },
   image: {
@@ -191,7 +191,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: '#232121',
     marginRight: 10,
-    marginTop: 12,
   },
   url: {
     fontWeight: '500',
@@ -209,7 +208,6 @@ const styles = StyleSheet.create({
   },
 
   containerCollapse: {
-    // padding: 5,
     width: '100%',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
