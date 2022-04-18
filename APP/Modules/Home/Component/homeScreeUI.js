@@ -108,18 +108,18 @@ function HomeScreen(props) {
       </View>
 
       <View style={styles.lowerContainer}>
-        <View style={styles.lowerBox1}>
-          <SliderBox
-            images={sliderImgs}
-            dotColor={Colors.appPrimaryColor}
-            inactiveDotColor={Colors.appPrimaryColor}
-            paginationBoxVerticalPadding={20}
-            ImageComponentStyle={{overflow: 'hidden'}}
-            resizeMode={'contain'}
-            autoplay
-            circleLoop
-          />
-        </View>
+        {/*<View style={styles.lowerBox1}>*/}
+        {/*  <SliderBox*/}
+        {/*    images={sliderImgs}*/}
+        {/*    dotColor={Colors.appPrimaryColor}*/}
+        {/*    inactiveDotColor={Colors.appPrimaryColor}*/}
+        {/*    paginationBoxVerticalPadding={20}*/}
+        {/*    ImageComponentStyle={{overflow: 'hidden'}}*/}
+        {/*    resizeMode={'contain'}*/}
+        {/*    autoplay*/}
+        {/*    circleLoop*/}
+        {/*  />*/}
+        {/*</View>*/}
         <View
           style={{
             flexDirection: 'row',
@@ -130,6 +130,7 @@ function HomeScreen(props) {
           <View
             style={{
               alignItems: 'center',
+              marginTop: 20,
             }}>
             <Typography
               style={{
@@ -172,6 +173,7 @@ function HomeScreen(props) {
           contentContainerStyle={{
             flex: 1,
             marginVertical: 20,
+            width: '100%',
           }}
           // legacyImplementation={false}
           data={getMyIDs.data}
@@ -183,7 +185,6 @@ function HomeScreen(props) {
             />
           )}
           keyExtractor={(item, index) => index.toString()}
-          style={{height: '100%'}}
         />
         {/* </View> */}
         <View

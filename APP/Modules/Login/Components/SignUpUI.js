@@ -1,5 +1,6 @@
 import {CommonActions, useNavigation} from '@react-navigation/native';
 import {Formik} from 'formik';
+import LottieView from 'lottie-react-native';
 import React, {useState} from 'react';
 import {
   Modal,
@@ -12,6 +13,7 @@ import {
   Button,
 } from 'react-native';
 import * as Yup from 'yup';
+import Animations from '../../../Theams/Animations';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
 import Storage from '../../Common/Storage';
@@ -47,6 +49,7 @@ const SignupSchema = Yup.object().shape({
 function SingUp({route}) {
   const navigation = useNavigation();
   const {phoneNumber} = route.params;
+  const [isLoading, setIsLoading] = useState(false);
   ('');
   const submitUser = async values => {
     const userResponse = await SignupController.doRegisterUser(values);
@@ -67,101 +70,110 @@ function SingUp({route}) {
     <View style={styles.containerMain}>
       <View style={styles.profileContainer}>
         <View style={styles.bankDetails}>
-          <View style={styles.bankCardDetails}>
-            <Typography
-              style={{
-                color: '#d5d1d1',
-                marginVertical: 20,
-                fontSize: 22,
-              }}>
-              Register
-            </Typography>
-            <Formik
-              validationSchema={SignupSchema}
-              initialValues={{
-                name: '',
-                phone: '',
-                password: '',
-                confirmPassword: '',
-              }}
-              onSubmit={values => submitUser(values)}>
-              {({
-                handleChange,
-                handleSubmit,
-                values,
-                errors,
-                touched,
-                isValid,
-              }) => (
-                <>
-                  <CommonTextInput
-                    label="Enter Your name"
-                    onChangeText={handleChange('name')}
-                  />
-                  <CommonTextInput
-                    keyboardType="numeric"
-                    label="Enter Phone Number"
-                    onChangeText={handleChange('phone')}
-                  />
-                  <CommonTextInput
-                    label={'Enter Password'}
-                    type="password"
-                    secureTextEntry
-                    onChangeText={handleChange('password')}
-                  />
-                  <CommonTextInput
-                    label="Confirm Password"
-                    type="password"
-                    secureTextEntry
-                    onChangeText={handleChange('confirmPassword')}
-                  />
-                  <TouchableOpacity
-                    style={{
-                      backgroundColor: Colors.appPrimaryColor,
-                      paddingHorizontal: 60,
-                      paddingVertical: 10,
-                      marginTop: 40,
-                      borderRadius: 10,
-                      alignItems: 'center',
-                    }}
-                    onPress={handleSubmit}
-                    underlayColor="transparent">
-                    <Typography
-                      style={{
-                        color: '#fff',
-                        fontSize: 16,
-                        alignItems: 'center',
-                      }}>
-                      Submit
-                    </Typography>
-                  </TouchableOpacity>
+          {!isLoading ? (
+            <>
+              {' '}
+              <View style={styles.bankCardDetails}>
+                <Typography
+                  style={{
+                    color: '#d5d1d1',
+                    marginVertical: 20,
+                    fontSize: 22,
+                  }}>
+                  Register
+                </Typography>
+                <Formik
+                  validationSchema={SignupSchema}
+                  initialValues={{
+                    name: '',
+                    phone: '',
+                    password: '',
+                    confirmPassword: '',
+                  }}
+                  onSubmit={values => submitUser(values)}>
+                  {({
+                    handleChange,
+                    handleSubmit,
+                    values,
+                    errors,
+                    touched,
+                    isValid,
+                  }) => (
+                    <>
+                      <CommonTextInput
+                        label="Enter Your name"
+                        onChangeText={handleChange('name')}
+                      />
+                      <CommonTextInput
+                        keyboardType="numeric"
+                        label="Enter Phone Number"
+                        onChangeText={handleChange('phone')}
+                      />
+                      <CommonTextInput
+                        label={'Enter Password'}
+                        type="password"
+                        secureTextEntry
+                        onChangeText={handleChange('password')}
+                      />
+                      <CommonTextInput
+                        label="Confirm Password"
+                        type="password"
+                        secureTextEntry
+                        onChangeText={handleChange('confirmPassword')}
+                      />
+                      <TouchableOpacity
+                        style={{
+                          backgroundColor: Colors.appPrimaryColor,
+                          paddingHorizontal: 60,
+                          paddingVertical: 10,
+                          marginTop: 40,
+                          borderRadius: 10,
+                          alignItems: 'center',
+                        }}
+                        onPress={handleSubmit}
+                        underlayColor="transparent">
+                        <Typography
+                          style={{
+                            color: '#fff',
+                            fontSize: 16,
+                            alignItems: 'center',
+                          }}>
+                          Submit
+                        </Typography>
+                      </TouchableOpacity>
 
-                  {errors.name && touched.name && (
-                    <Typography style={{backgroundColor: 'white'}}>
-                      {errors.name}
-                    </Typography>
-                  )}
+                      {errors.name && touched.name && (
+                        <Typography style={{backgroundColor: 'white'}}>
+                          {errors.name}
+                        </Typography>
+                      )}
 
-                  {errors.phone && touched.phone && (
-                    <Typography style={{backgroundColor: 'white'}}>
-                      {errors.phone}
-                    </Typography>
-                  )}
+                      {errors.phone && touched.phone && (
+                        <Typography style={{backgroundColor: 'white'}}>
+                          {errors.phone}
+                        </Typography>
+                      )}
 
-                  {errors.confirmPassword && touched.confirmPassword && (
-                    <Typography style={{backgroundColor: 'white'}}>
-                      {errors.confirmPassword}
-                    </Typography>
+                      {errors.confirmPassword && touched.confirmPassword && (
+                        <Typography style={{backgroundColor: 'white'}}>
+                          {errors.confirmPassword}
+                        </Typography>
+                      )}
+                      {errors.password && touched.password && (
+                        <Typography style={{backgroundColor: 'white'}}>
+                          {errors.password}
+                        </Typography>
+                      )}
+                    </>
                   )}
-                  {errors.password && touched.password && (
-                    <Typography style={{backgroundColor: 'white'}}>
-                      {errors.password}
-                    </Typography>
-                  )}
-                </>
-              )}
-            </Formik>
-          </View>
+                </Formik>
+              </View>
+            </>
+          ) : (
+            <>
+              <LottieView source={Animations.loading_ball} autoPlay loop />
+            </>
+          )}
         </View>
       </View>
     </View>

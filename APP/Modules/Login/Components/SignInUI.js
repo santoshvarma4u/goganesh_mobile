@@ -137,20 +137,6 @@ function SignIn() {
                 OTP Sent Successfully, Please enter OTP below
               </Typography>
             ) : null}
-            {/* <OTPInputView
-          style={{width: '80%', height: 120}}
-          pinCount={4}
-          // code={this.state.code} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
-          onCodeChanged={code => {
-            setOtp(code);
-          }}
-          autoFocusOnLoad
-          codeInputFieldStyle={styles.underlineStyleBase}
-          codeInputHighlightStyle={styles.underlineStyleHighLighted}
-          onCodeFilled={code => {
-
-          }}
-        /> */}
             <View
               style={{
                 flexDirection: 'row',

@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
 import {Icon} from 'react-native-elements';
 import FlatListPicker from 'react-native-flatlist-picker';
 import {Checkbox} from 'react-native-paper';
@@ -17,6 +18,7 @@ import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
 import {Typography} from '../../Common/Text';
+import {banksList} from '../../Common/banks';
 import depositController from '../../Deposit/Controller/depositController';
 import IdController from '../../IDs/Controller/IdController';
 
@@ -60,15 +62,16 @@ const WithdrawForm = props => {
   const [check, setCheckedDemo] = useState(0);
   const [selectedBank, setSelectedBank] = useState('Select Bank');
   const [selectedBankID, setSelectedBankID] = useState('');
+  const [open, setOpen] = useState(false);
 
+  console.log('this is the data', banks);
   return (
     <View style={styles.withDrawForm}>
       {ListTitle(data)}
       <CommonTextInput
-        style={styles.modalText}
         onChangeText={onAmountChange}
         value={amount}
-        placeholder="Enter Amount to Withdraw"
+        label="Enter Amount to Withdraw"
         keyboardType="numeric"
       />
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -179,7 +182,6 @@ const styles = StyleSheet.create({
     padding: 20,
     flex: 1,
     backgroundColor: Colors.appBlackColor,
-    alignItems: 'center',
     // justifyContent: 'center',
   },
   modalText: {

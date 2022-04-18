@@ -97,7 +97,6 @@ function DepositScreen({route}) {
         filePath,
       ).then(data => {
         '';
-
         navigation.dispatch(resetAction);
       });
     } else {

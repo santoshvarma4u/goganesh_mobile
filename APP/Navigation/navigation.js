@@ -280,7 +280,7 @@ const HomeStackNavigator = () => {
         name="Support"
         component={ChatContainer}
         options={({navigation}) => ({
-          headerTitle: 'Withdraw',
+          headerTitle: 'Support',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
           headerLeft: props => (

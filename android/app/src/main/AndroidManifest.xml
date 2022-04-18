@@ -12,7 +12,7 @@
 />
     <application
       android:name=".MainApplication"
-      android:label="Go Ganesh"
+      android:label="Fair Ganesh"
       android:icon="@mipmap/newlogo"
       android:usesCleartextTraffic="true"
       android:roundIcon="@mipmap/newlogo1"
@@ -44,7 +44,7 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        
+
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

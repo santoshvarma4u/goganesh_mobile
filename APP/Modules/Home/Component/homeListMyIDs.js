@@ -35,11 +35,14 @@ const HomeListMyIDs = props => {
               height: 60,
               backgroundColor: 'black',
               position: 'absolute',
-              top: -20,
             }}
           />
           {/*<Avatar.Image size={60} source={{uri: props.data.sd.siteimage}} />*/}
-          <Image style={styles.image} source={{uri: props.data.sd.siteimage}} />
+          <Image
+            style={styles.image}
+            source={{uri: props.data.sd.siteimage}}
+            resizeMode="stretch"
+          />
         </View>
         <View>
           <View

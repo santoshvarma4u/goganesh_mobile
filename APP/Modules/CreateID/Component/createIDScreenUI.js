@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Button, Checkbox} from 'react-native-paper';
+import reactotron from 'reactotron-react-native';
 import * as Yup from 'yup';
 import SmallLogo from '../../../Assets/svgs/SmallLogo';
 import Storage from '../../../Modules/Common/Storage';
@@ -67,35 +68,59 @@ function CreateIDScreen({route}) {
 
   const submitRequest = async (sdid, values) => {
     let uid = await getUID();
-    DepositController.submitData(
-      parseInt(uid),
-      sdid,
-      'Go Plan',
-      'Wallet',
-      'Pending',
-      null,
-      values.UserName,
-      values.DepositCoins,
-    ).then(data => {
-      DepositController.submitIntialDeposit(
+    if (requestStatus === 'old') {
+      // Create payment request and withdraw from wallet
+      const paymentMethod = 'wallet';
+      DepositController.submitDataForMyID(
         parseInt(uid),
         sdid,
-        'Wallet',
+        paymentMethod,
         values.DepositCoins,
         'CR',
-        null,
+        '',
       ).then(data => {
-        DepositController.debitFromWallet(
+        reactotron.log(data);
+        // DepositController.debitFromWallet(
+        //   parseInt(uid),
+        //   values.DepositCoins,
+        //   'DR',
+        //   'Wallet',
+        // ).then(() => {
+        //   navigation.dispatch(resetAction);
+        //   alert('success');
+        // });
+      });
+    } else {
+      DepositController.submitData(
+        parseInt(uid),
+        sdid,
+        'Go Plan',
+        'Wallet',
+        'Pending',
+        null,
+        values.UserName,
+        values.DepositCoins,
+      ).then(data => {
+        DepositController.submitIntialDeposit(
           parseInt(uid),
-          values.DepositCoins,
-          'DR',
+          sdid,
           'Wallet',
-        ).then(() => {
-          navigation.dispatch(resetAction);
-          alert('success');
+          values.DepositCoins,
+          'CR',
+          null,
+        ).then(data => {
+          DepositController.debitFromWallet(
+            parseInt(uid),
+            values.DepositCoins,
+            'DR',
+            'Wallet',
+          ).then(() => {
+            navigation.dispatch(resetAction);
+            alert('success');
+          });
         });
       });
-    });
+    }
   };
 
   return (
