@@ -156,6 +156,7 @@ const HomeStackNavigator = () => {
             fontWeight: 'bold',
             color: Colors.appWhiteColor,
           },
+          tintColor: '#ffffff',
           headerTitleAlign: 'center',
           headerLeft: props => (
             <HeaderBackButton
@@ -182,6 +183,7 @@ const HomeStackNavigator = () => {
           headerLeft: props => (
             <HeaderBackButton
               {...props}
+              tintColor={Colors.appWhiteColor}
               onPress={() => {
                 navigation.navigate('Home');
               }}
@@ -204,6 +206,7 @@ const HomeStackNavigator = () => {
           headerLeft: props => (
             <HeaderBackButton
               {...props}
+              tintColor={Colors.appWhiteColor}
               onPress={() => {
                 navigation.navigate('Home');
               }}
@@ -226,6 +229,7 @@ const HomeStackNavigator = () => {
           headerLeft: props => (
             <HeaderBackButton
               {...props}
+              tintColor={Colors.appWhiteColor}
               onPress={() => {
                 navigation.navigate('Home');
               }}
@@ -248,6 +252,7 @@ const HomeStackNavigator = () => {
           headerLeft: props => (
             <HeaderBackButton
               {...props}
+              tintColor={Colors.appWhiteColor}
               onPress={() => {
                 navigation.goBack();
               }}
@@ -270,6 +275,7 @@ const HomeStackNavigator = () => {
           headerLeft: props => (
             <HeaderBackButton
               {...props}
+              tintColor={Colors.appWhiteColor}
               onPress={() => {
                 navigation.navigate('PaymentOptions');
               }}
@@ -292,6 +298,7 @@ const HomeStackNavigator = () => {
           headerLeft: props => (
             <HeaderBackButton
               {...props}
+              tintColor={Colors.appWhiteColor}
               onPress={() => {
                 navigation.goBack();
               }}
@@ -314,6 +321,7 @@ const HomeStackNavigator = () => {
           headerLeft: props => (
             <HeaderBackButton
               {...props}
+              tintColor={Colors.appWhiteColor}
               onPress={() => {
                 navigation.goBack();
               }}
@@ -336,6 +344,7 @@ const HomeStackNavigator = () => {
           headerLeft: props => (
             <HeaderBackButton
               {...props}
+              tintColor={Colors.appWhiteColor}
               onPress={() => {
                 navigation.goBack();
               }}
@@ -358,6 +367,7 @@ const HomeStackNavigator = () => {
           headerLeft: props => (
             <HeaderBackButton
               {...props}
+              tintColor={Colors.appWhiteColor}
               onPress={() => {
                 navigation.goBack();
               }}
@@ -380,6 +390,7 @@ const HomeStackNavigator = () => {
           headerLeft: props => (
             <HeaderBackButton
               {...props}
+              tintColor={Colors.appWhiteColor}
               onPress={() => {
                 navigation.goBack();
               }}
@@ -457,6 +468,7 @@ const IDsStackNavigator = () => {
           headerLeft: props => (
             <HeaderBackButton
               {...props}
+              tintColor={Colors.appWhiteColor}
               onPress={() => {
                 navigation.navigate('IDs');
               }}
@@ -479,6 +491,7 @@ const IDsStackNavigator = () => {
           headerLeft: props => (
             <HeaderBackButton
               {...props}
+              tintColor={Colors.appWhiteColor}
               onPress={() => {
                 navigation.goBack();
               }}
@@ -501,6 +514,7 @@ const IDsStackNavigator = () => {
           headerLeft: props => (
             <HeaderBackButton
               {...props}
+              tintColor={Colors.appWhiteColor}
               onPress={() => {
                 navigation.navigate('PaymentOptions');
               }}

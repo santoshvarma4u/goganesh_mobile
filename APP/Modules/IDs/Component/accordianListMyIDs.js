@@ -14,7 +14,9 @@ import {Icon} from 'react-native-elements';
 import {Button, Divider, List} from 'react-native-paper';
 import WebView from 'react-native-webview';
 
+import {connect} from 'react-redux';
 import {env} from '../../../Network/api/server';
+import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import Colors from '../../../Theams/Colors';
 import {Typography} from '../../Common/Text';
 const AccordianListNew = props => {
@@ -41,7 +43,8 @@ const AccordianListNew = props => {
       <View style={styles.ListTitle}>
         <Image
           style={styles.image}
-          source={{uri: `${env}${props.data.sd.siteimage}`}}
+          source={{uri: props.data.sd.siteimage}}
+          resizeMode="contain"
         />
         <View>
           <TouchableOpacity
@@ -278,7 +281,7 @@ const AccordianListNew = props => {
               color={Colors.appBlackColorLight}
               size={20}
             />
-            <Typography variant="H3">{props.walletBalance}</Typography>
+            <Typography variant="H3">{props.wallet}</Typography>
           </View>
         </View>
         <Divider />
@@ -335,6 +338,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 30,
+    overflow: 'hidden',
     backgroundColor: 'black',
     marginRight: 10,
   },
@@ -388,4 +392,17 @@ const styles = StyleSheet.create({
   },
   depositWithdraw: {flexDirection: 'row'},
 });
-export default AccordianListNew;
+
+const mapStateToProps = state => {
+  return {
+    wallet: state.home.walletBalance,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setWallet: wallet => dispatch(setWalletBalance(wallet)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AccordianListNew);

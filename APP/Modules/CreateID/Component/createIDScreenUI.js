@@ -60,6 +60,7 @@ function CreateIDScreen({route}) {
     MaxWithDrawl: '50,000 per day',
   });
 
+
   const submitRequest = async (sdid, values) => {
     let uid = await getUID();
     if (requestStatus === 'old') {

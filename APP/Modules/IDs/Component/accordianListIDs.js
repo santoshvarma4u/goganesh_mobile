@@ -24,10 +24,7 @@ const AccordianListNew = props => {
   function ListTitle() {
     return (
       <View style={styles.ListTitle}>
-        <Image
-          style={styles.image}
-          source={{uri: `${env}${props.data.siteimage}`}}
-        />
+        <Image style={styles.image} source={{uri: props.data.siteimage}} />
         <View>
           <Typography style={styles.url}>{props.data.siteurl}</Typography>
           <View style={styles.credIcon}>

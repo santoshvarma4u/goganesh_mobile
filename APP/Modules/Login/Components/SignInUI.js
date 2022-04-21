@@ -2,6 +2,7 @@ import {CommonActions, useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {View, TextInput, TouchableOpacity, Image} from 'react-native';
 import SplashLogo from '../../../Assets/svgs/SplashLogo';
+import FGLOGO2 from '../../../Assets/svgs/fglogo2';
 import authKey from '../../../Modules/Common/JWT';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
@@ -99,10 +100,7 @@ function SignIn() {
               alignItems: 'center',
               backgroundColor: '#000',
             }}>
-            <SplashLogo
-              fill={Colors.appPrimaryColor}
-              style={{width: 150, height: 150}}
-            />
+            <FGLOGO2 width={200} height={200} />
           </View>
           <View style={styles.offersContainer}>
             <View style={styles.SignINCard}>
@@ -148,7 +146,12 @@ function SignIn() {
                   navigation.navigate('ForgotPassword');
                 }}
                 underlayColor="transparent">
-                <Typography style={{color: Colors.appWhiteColor, fontSize: 14}}>
+                <Typography
+                  style={{
+                    color: Colors.appWhiteColor,
+                    fontSize: 14,
+                    marginVertical: 10,
+                  }}>
                   Forgot password ?
                 </Typography>
               </TouchableOpacity>
@@ -169,7 +172,7 @@ function SignIn() {
                 }}
                 onPress={verifyPassword}
                 underlayColor="transparent">
-                <Typography style={{color: 'black', fontSize: 16}}>
+                <Typography style={{color: 'white', fontSize: 16}}>
                   Sign In
                 </Typography>
               </TouchableOpacity>
@@ -197,8 +200,7 @@ function SignIn() {
                 navigation.navigate('SignUp', {phoneNumber: number});
               }}
               underlayColor="transparent">
-              <Typography style={{color: Colors.appPrimaryColor, fontSize: 16}}>
-                {' '}
+              <Typography style={{color: Colors.appWhiteColor, fontSize: 16}}>
                 Are you a New User ?
               </Typography>
             </TouchableOpacity>

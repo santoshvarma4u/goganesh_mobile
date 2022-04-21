@@ -12,10 +12,10 @@
 />
     <application
       android:name=".MainApplication"
-      android:label="Fair Ganesh"
-      android:icon="@mipmap/newlogo"
+      android:label="FG Exch"
+      android:icon="@mipmap/ic_launcher"
       android:usesCleartextTraffic="true"
-      android:roundIcon="@mipmap/newlogo1"
+      android:roundIcon="@mipmap/ic_launcher"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
        <meta-data  android:name="com.dieam.reactnativepushnotification.notification_foreground"
