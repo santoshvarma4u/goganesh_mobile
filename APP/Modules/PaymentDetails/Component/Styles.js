@@ -95,7 +95,7 @@ export default StyleSheet.create({
     padding: 14,
     borderRadius: 10,
     marginTop: 10,
-    shadowColor: '#fff',
+    shadowColor: Colors.appWhiteColor,
     shadowOffset: {
       width: 1,
       height: 2,

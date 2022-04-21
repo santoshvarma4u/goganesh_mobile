@@ -24,7 +24,7 @@ export default StyleSheet.create({
   input: {
     height: 40,
     margin: 12,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.appWhiteColor,
     color: 'black',
     borderRadius: 5,
   },
@@ -109,7 +109,7 @@ export default StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    backgroundColor: '#696969',
+    backgroundColor: Colors.appBlackColorLight,
     borderRadius: 20,
     padding: 25,
   },

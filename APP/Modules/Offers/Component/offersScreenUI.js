@@ -38,7 +38,12 @@ function OffersScreen({navigation}) {
           </View>
         ) : (
           <>
-            <Typography style={{color: '#fff', marginTop: 50, fontSize: 16}}>
+            <Typography
+              style={{
+                color: Colors.appWhiteColor,
+                marginTop: 50,
+                fontSize: 16,
+              }}>
               No Offers Found!
             </Typography>
             <LottieView source={Animations.not_found} autoPlay loop />

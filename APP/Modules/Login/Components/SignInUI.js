@@ -133,7 +133,7 @@ function SignIn() {
           </TouchableOpacity> */}
             </View>
             {otpSentStatus ? (
-              <Typography style={{color: '#fff', marginTop: 10}}>
+              <Typography style={{color: Colors.appWhiteColor, marginTop: 10}}>
                 OTP Sent Successfully, Please enter OTP below
               </Typography>
             ) : null}
@@ -177,7 +177,11 @@ function SignIn() {
 
             <View>
               <Typography
-                style={{fontSize: 15, color: '#fff', marginVertical: 30}}>
+                style={{
+                  fontSize: 15,
+                  color: Colors.appWhiteColor,
+                  marginVertical: 30,
+                }}>
                 --- OR ---
               </Typography>
             </View>

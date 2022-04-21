@@ -49,7 +49,7 @@ const MyIDRoute = props => {
                 getMyIDs.request();
               }}
               underlayColor="transparent">
-              <Typography style={{color: '#fff', fontSize: 16}}>
+              <Typography style={{color: Colors.appWhiteColor, fontSize: 16}}>
                 Retry
               </Typography>
             </TouchableOpacity>
@@ -105,13 +105,13 @@ const IDRoute = props => {
 
   return (
     <View style={styles.containerMain}>
-      <View style={styles.searchBar}>
+      {/* <View style={styles.searchBar}>
         <Searchbar
           placeholder="Search"
           onChangeText={onChangeSearch}
           value={searchQuery}
         />
-      </View>
+      </View> */}
 
       <View style={styles.list}>
         {getIDs.error && (

@@ -35,7 +35,7 @@ const WithDrawContainer = props => {
           backgroundColor: Colors.appBlackColor,
           borderTopRightRadius: 20,
           borderTopLeftRadius: 20,
-          marginTop: 60,
+          marginTop: 80,
         }}>
         {/* header */}
         <View
@@ -58,7 +58,7 @@ const WithDrawContainer = props => {
             style={{
               marginLeft: 20,
             }}>
-            <Typography variant="paragraph" color={Colors.appPrimaryColor}>
+            <Typography variant="paragraph" color={Colors.appWhiteColor}>
               WALLET BALANCE
             </Typography>
             <Typography variant="H3" color={Colors.appWhiteColor}>
@@ -112,9 +112,7 @@ const WithDrawContainer = props => {
               setError(true);
             }
           }}>
-          <Typography variant="H4" color={Colors.appBlackColor}>
-            WITHDRAW COINS
-          </Typography>
+          WITHDRAW COINS
         </Button>
       </View>
       <Modal visible={modalVisible}>

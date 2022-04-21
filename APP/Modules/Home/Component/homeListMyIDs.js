@@ -8,13 +8,18 @@ import {
   TouchableOpacity,
   Clipboard,
   Modal,
+  Dimensions,
 } from 'react-native';
 import {Divider, Icon} from 'react-native-elements';
 import {Button} from 'react-native-paper';
 import WebView from 'react-native-webview';
 import {connect} from 'react-redux';
+import reactotron from 'reactotron-react-native';
 import Colors from '../../../Theams/Colors';
 import {Typography} from '../../Common/Text';
+
+const screenWidth = Dimensions.get('window').width;
+
 const HomeListMyIDs = props => {
   const [showWebView, setShowWebView] = useState(false);
 
@@ -110,6 +115,7 @@ const HomeListMyIDs = props => {
               size={12}
             />
             <Typography style={styles.credTitle}>- Password </Typography>
+            <View style={{flex: 1}} />
             <Typography style={{color: 'white', marginLeft: 10}}>
               {props.data.password}
             </Typography>
@@ -281,6 +287,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 14,
     margin: 5,
+    width: screenWidth - 30,
   },
   image: {
     width: 40,
@@ -293,12 +300,12 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginLeft: 10,
     marginTop: 8,
-    color: '#cdbebe',
+    color: Colors.appWhiteColor,
   },
   siteName: {
     marginLeft: 10,
     marginTop: 10,
-    color: '#cdbebe',
+    color: Colors.appWhiteColor,
   },
   ListTitle: {
     flexDirection: 'row',

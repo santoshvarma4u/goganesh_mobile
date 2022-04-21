@@ -2,13 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import {CommonActions} from '@react-navigation/native';
 import {Formik} from 'formik';
 import React, {useState} from 'react';
-import {
-  Image,
-  TouchableWithoutFeedback,
-  View,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import {TouchableWithoutFeedback, View, ScrollView} from 'react-native';
 import {Button, Checkbox} from 'react-native-paper';
 import reactotron from 'reactotron-react-native';
 import * as Yup from 'yup';
@@ -18,7 +12,6 @@ import Storage from '../../../Modules/Common/Storage';
 import StorageKeys from '../../../Modules/Common/StorageKeys';
 import siteApi from '../../../Network/sites/sites';
 import Colors from '../../../Theams/Colors';
-import images from '../../../Theams/Images';
 import CommonTextInput from '../../Common/CommonTextInput';
 import {Typography} from '../../Common/Text';
 import DepositController from '../../Deposit/Controller/depositController';
@@ -117,7 +110,6 @@ function CreateIDScreen({route}) {
             'Wallet',
           ).then(() => {
             navigation.dispatch(resetAction);
-            alert('success');
           });
         });
       });

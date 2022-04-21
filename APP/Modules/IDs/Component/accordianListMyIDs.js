@@ -252,12 +252,12 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginHorizontal: 10,
     marginTop: 8,
-    color: '#cdbebe',
+    color: Colors.appWhiteColor,
   },
   siteName: {
     marginLeft: 10,
     marginTop: 10,
-    color: '#cdbebe',
+    color: Colors.appWhiteColor,
   },
   ListTitle: {
     flexDirection: 'row',

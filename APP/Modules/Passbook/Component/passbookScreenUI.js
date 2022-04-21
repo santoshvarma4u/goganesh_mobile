@@ -39,7 +39,7 @@ function PassbookScreen({navigation}) {
         <View style={styles.topOffers}>
           <Typography
             style={{
-              color: '#d5d1d1',
+              color: Colors.appBlackColorLight,
               marginLeft: 20,
               marginTop: 8,
               fontSize: 16,

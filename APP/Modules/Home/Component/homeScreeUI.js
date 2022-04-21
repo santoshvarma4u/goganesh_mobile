@@ -168,27 +168,23 @@ function HomeScreen(props) {
             <Typography style={styles.createTextOnly}>Create </Typography>
           </TouchableOpacity>
         </View>
-        <View>
-          <FlatList
-            horizontal
-            pagingEnabled={true}
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-              marginVertical: 20,
-              width: '100%',
-              marginLeft: 10,
-            }}
-            data={getMyIDs.data}
-            renderItem={({item}) => (
-              <HomeListMyIDs
-                data={item}
-                bank={getUserBanks}
-                navigation={props.navigation}
-              />
-            )}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        </View>
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            marginVertical: 20,
+            marginLeft: 10,
+          }}
+          data={getMyIDs.data}
+          renderItem={({item}) => (
+            <HomeListMyIDs
+              data={item}
+              bank={getUserBanks}
+              navigation={props.navigation}
+            />
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
         <View
           style={{
             flexDirection: 'row',

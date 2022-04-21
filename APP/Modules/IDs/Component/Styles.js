@@ -4,7 +4,7 @@ export default StyleSheet.create({
   containerMain: {
     flex: 1,
     padding: 15,
-    backgroundColor: Colors.backgroundColor,
+    // backgroundColor: Colors.backgroundColor,
   },
   searchBar: {
     padding: 5,
@@ -13,6 +13,6 @@ export default StyleSheet.create({
   list: {
     padding: 5,
     paddingBottom: 40,
-    backgroundColor: Colors.backgroundColor,
+    // backgroundColor: Colors.backgroundColor,
   },
 });

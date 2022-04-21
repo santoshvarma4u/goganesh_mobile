@@ -9,9 +9,9 @@ export default StyleSheet.create({
   offersContainer: {
     flex: 1,
     flexDirection: 'column',
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    backgroundColor: 'black',
+    // borderTopLeftRadius: 25,
+    // borderTopRightRadius: 25,
+    // backgroundColor: 'black',
     alignItems: 'center',
   },
   offersCard: {

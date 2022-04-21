@@ -198,17 +198,17 @@ const AccordianListNew = props => {
     );
   }
   return (
-    <List.Section title="Accordions">
-      <View style={styles.container}>
-        <List.Accordion
-          title={<ListTitle />}
-          expanded={expanded}
-          onPress={handlePress}
-          style={{backgroundColor: Colors.appBlackColor, borderRadius: 10}}>
-          <ListCollapse />
-        </List.Accordion>
-      </View>
-    </List.Section>
+    // <List.Section title="Accordions">
+    <View style={styles.container}>
+      <List.Accordion
+        title={<ListTitle />}
+        expanded={expanded}
+        onPress={handlePress}
+        style={{backgroundColor: Colors.appBlackColor, borderRadius: 10}}>
+        <ListCollapse />
+      </List.Accordion>
+    </View>
+    // </List.Section>
   );
 };
 const styles = StyleSheet.create({
@@ -228,12 +228,12 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginLeft: 10,
     marginTop: 8,
-    color: '#cdbebe',
+    color: Colors.appWhiteColor,
   },
   siteName: {
     marginLeft: 10,
     marginTop: 10,
-    color: '#cdbebe',
+    color: Colors.appWhiteColor,
   },
   ListTitle: {
     flexDirection: 'row',

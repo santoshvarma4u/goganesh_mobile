@@ -10,6 +10,7 @@ import {Provider} from 'react-redux';
 import CONSTANTS from './APP/Constants';
 import {AppContainer} from './APP/Navigation/navigation';
 import {store} from './APP/Store/Index';
+import Colors from './APP/Theams/Colors';
 // import GlobalFont from './GlobalFont';
 
 if (__DEV__) {
@@ -97,6 +98,7 @@ const theme = {
   ...DefaultTheme,
   // Specify custom property in nested object
   colors: {
+    primary: Colors.appPrimaryColor,
     ...DefaultTheme.colors,
   },
   fonts: configureFonts(fontConfig),
