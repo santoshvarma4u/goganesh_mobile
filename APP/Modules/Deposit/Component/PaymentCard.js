@@ -130,25 +130,25 @@ const PaymentCard = props => {
       <RadioButton.Group
         onValueChange={val => setPaymentMethod(val)}
         value={paymentMethod}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginRight: 20,
-          }}>
-          <RadioButton value="gateway" />
-          <CardItem
-            title="Payment Gateway"
-            subtitle="Powered by Paytm"
-            time={'Instant'}
-            content={'Supports all major banks'}
-            contentSubtitle={
-              'Debit Cards,Any Upi,PhonePe,Google Pay,Paytm,Paytm UPI & Net Banking'
-            }
-            onPress={() => setPaymentMethod('gateway')}
-            checked={paymentMethod === 'gateway'}
-          />
-        </View>
+        {/*<View*/}
+        {/*  style={{*/}
+        {/*    flexDirection: 'row',*/}
+        {/*    alignItems: 'center',*/}
+        {/*    marginRight: 20,*/}
+        {/*  }}>*/}
+        {/*  <RadioButton value="gateway" />*/}
+        {/*  <CardItem*/}
+        {/*    title="Payment Gateway"*/}
+        {/*    subtitle="Powered by Paytm"*/}
+        {/*    time={'Instant'}*/}
+        {/*    content={'Supports all major banks'}*/}
+        {/*    contentSubtitle={*/}
+        {/*      'Debit Cards,Any Upi,PhonePe,Google Pay,Paytm,Paytm UPI & Net Banking'*/}
+        {/*    }*/}
+        {/*    onPress={() => setPaymentMethod('gateway')}*/}
+        {/*    checked={paymentMethod === 'gateway'}*/}
+        {/*  />*/}
+        {/*</View>*/}
         <View
           style={{
             flexDirection: 'row',

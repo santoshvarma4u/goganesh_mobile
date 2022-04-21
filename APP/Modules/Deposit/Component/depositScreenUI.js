@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {Divider, Icon} from 'react-native-elements';
 import * as ImagePicker from 'react-native-image-picker';
+import reactotron from 'reactotron-react-native';
 import Colors from '../../../Theams/Colors';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
@@ -58,6 +59,7 @@ function DepositScreen({route}) {
   const [filePath, setFilePath] = useState('');
 
   const submitPayment = () => {
+    reactotron.log('submitPayment', 'increament');
     if (filePath.length <= 0) {
       return alert('please upload payment reference image');
     }
@@ -82,8 +84,6 @@ function DepositScreen({route}) {
           filePath,
         ).then(data => {});
         setProgress(false);
-
-        alert(data.status);
         navigation.dispatch(resetAction);
       });
     } else if (requestStatus === 'wallet') {
@@ -96,7 +96,6 @@ function DepositScreen({route}) {
         true,
         filePath,
       ).then(data => {
-        '';
         navigation.dispatch(resetAction);
       });
     } else {

@@ -13,6 +13,7 @@ import {Button, Checkbox} from 'react-native-paper';
 import reactotron from 'reactotron-react-native';
 import * as Yup from 'yup';
 import SmallLogo from '../../../Assets/svgs/SmallLogo';
+import FGLOGO2 from '../../../Assets/svgs/fglogo2';
 import Storage from '../../../Modules/Common/Storage';
 import StorageKeys from '../../../Modules/Common/StorageKeys';
 import siteApi from '../../../Network/sites/sites';
@@ -129,8 +130,10 @@ function CreateIDScreen({route}) {
         <View />
         <View style={styles.createIDContainer}>
           <View style={styles.topIcon}>
-            <SmallLogo
-              style={{height: 100, width: 100, marginTop: 50}}
+            <FGLOGO2
+              width={100}
+              height={100}
+              style={{marginTop: 50}}
               fill={Colors.appPrimaryColor}
             />
             <Typography

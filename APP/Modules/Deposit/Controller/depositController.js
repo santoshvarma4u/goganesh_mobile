@@ -122,7 +122,6 @@ const submitDataForMyID = async (
   if (!result.ok) {
     return alert(result.problem);
   }
-  alert('success okkkkkkk');
 };
 
 const getPayeeDetails = () => useAPI(payeeApi.getPayeeDetails);
