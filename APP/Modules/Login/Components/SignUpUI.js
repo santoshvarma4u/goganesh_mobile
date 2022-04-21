@@ -72,7 +72,6 @@ function SingUp({route}) {
         <View style={styles.bankDetails}>
           {!isLoading ? (
             <>
-              {' '}
               <View style={styles.bankCardDetails}>
                 <Typography
                   style={{

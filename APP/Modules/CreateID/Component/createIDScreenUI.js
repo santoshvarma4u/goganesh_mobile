@@ -80,15 +80,15 @@ function CreateIDScreen({route}) {
         '',
       ).then(data => {
         reactotron.log(data);
-        // DepositController.debitFromWallet(
-        //   parseInt(uid),
-        //   values.DepositCoins,
-        //   'DR',
-        //   'Wallet',
-        // ).then(() => {
-        //   navigation.dispatch(resetAction);
-        //   alert('success');
-        // });
+        DepositController.debitFromWallet(
+          parseInt(uid),
+          values.DepositCoins,
+          'DR',
+          'Wallet',
+        ).then(() => {
+          navigation.dispatch(resetAction);
+          alert('success');
+        });
       });
     } else {
       DepositController.submitData(

@@ -3,8 +3,8 @@ import authKey from '../../Modules/Common/JWT';
 import Storage from '../../Modules/Common/Storage';
 import StorageKeys from '../../Modules/Common/StorageKeys';
 
-const live = 'http://139.59.11.217:3000/';
-const local = 'http://192.168.0.102:3000/';
+const live = 'http://159.89.171.125:3000/';
+const local = 'http://192.168.0.173:3000/';
 //cd .. &&  cd home/admin/web/goganesh.bet/public_html/freelanceBackend/
 // cd ~/Library/Android/sdk/emulator
 // To run a certain AVD directly:
@@ -12,7 +12,7 @@ const local = 'http://192.168.0.102:3000/';
 // To list your AVDs use :
 // ./emulator -list-avds
 
-export const env = local;
+export const env = live;
 
 const NetworkAPI = {
   apiClient: create({

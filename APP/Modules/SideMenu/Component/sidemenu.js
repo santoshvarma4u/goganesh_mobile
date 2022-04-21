@@ -8,6 +8,7 @@ import React from 'react';
 import {Image, Text, View} from 'react-native';
 import {Icon} from 'react-native-elements';
 import SplashLogo from '../../../Assets/svgs/SplashLogo';
+import FGLOGO2 from '../../../Assets/svgs/fglogo2';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
 import Storage from '../../Common/Storage';
@@ -26,12 +27,12 @@ function CustomSidebarMenu({...props}) {
       <View
         style={{
           height: 180,
-          backgroundColor: Colors.appBlackColor,
+          backgroundColor: Colors.appPrimaryColor,
           alignItems: 'center',
           borderTopRightRadius: 30,
           justifyContent: 'center',
         }}>
-        <SplashLogo style={{height: 180, width: 180}} fill={Colors.appPrimaryColor}/>
+        <FGLOGO2 width={120} height={120} fill={Colors.appPrimaryColor} />
       </View>
       <DrawerItemList {...props} />
       <DrawerItem

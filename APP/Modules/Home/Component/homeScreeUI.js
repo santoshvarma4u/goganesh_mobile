@@ -14,6 +14,7 @@ import {Button} from 'react-native-paper';
 import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
 import SmallLogo from '../../../Assets/svgs/SmallLogo';
+import WalletLogo from '../../../Assets/svgs/walletlogo';
 import NetworkAPI from '../../../Network/api/server';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import Colors from '../../../Theams/Colors';
@@ -87,10 +88,7 @@ function HomeScreen(props) {
         <TouchableOpacity
           onPress={() => wallet.request()}
           style={styles.centreCard}>
-          <SmallLogo
-            style={{height: 80, width: 80}}
-            fill={Colors.appPrimaryColor}
-          />
+          <WalletLogo height={80} width={80} fill={Colors.appPrimaryColor} />
           <Typography style={{color: 'white', alignItems: 'center'}}>
             Wallet Balance
           </Typography>

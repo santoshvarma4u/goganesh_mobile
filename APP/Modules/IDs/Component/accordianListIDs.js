@@ -38,9 +38,7 @@ const AccordianListNew = props => {
               <Icon name="launch" color="white" size={14} />
             </TouchableOpacity>
           </View>
-          <Typography style={styles.siteName}>
-            {'props.data.sitename'}
-          </Typography>
+          <Typography style={styles.siteName}>{props.data.sitename}</Typography>
         </View>
       </View>
     );

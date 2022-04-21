@@ -132,7 +132,7 @@ const WithdrawForm = props => {
                 data.uid,
                 'Wallet',
                 amount,
-                'CR',
+                'DR',
                 true,
                 null,
               );
