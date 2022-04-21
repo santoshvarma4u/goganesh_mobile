@@ -2,22 +2,24 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState, useEffect, useMemo} from 'react';
 import {
-  Text,
   View,
   Image,
   StyleSheet,
   TouchableOpacity,
   Clipboard,
   Linking,
-  Pressable,
+  Modal,
 } from 'react-native';
 import {Icon} from 'react-native-elements';
-import {List} from 'react-native-paper';
+import {Button, Divider, List} from 'react-native-paper';
+import WebView from 'react-native-webview';
 
 import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
 import {Typography} from '../../Common/Text';
 const AccordianListNew = props => {
+  const [showWebView, setShowWebView] = useState(false);
+
   let banks = [];
   // const [expanded, setExpanded] = React.useState(true);
 
@@ -44,7 +46,8 @@ const AccordianListNew = props => {
         <View>
           <TouchableOpacity
             onPress={() => {
-              Linking.openURL('https://' + props.data.sd.siteurl);
+              // Linking.openURL('https://' + props.data.sd.siteurl);
+              setShowWebView(true);
             }}
             style={{
               flexDirection: 'row',
@@ -53,7 +56,6 @@ const AccordianListNew = props => {
             <Typography style={styles.url}>{props.data.sd.siteurl}</Typography>
             <Icon name="launch" color="white" size={16} />
           </TouchableOpacity>
-
           <Typography style={styles.siteName}>
             {props.data.sd.sitename}
           </Typography>
@@ -232,6 +234,94 @@ const AccordianListNew = props => {
       </List.Section> */}
       <ListTitle />
       <ListCollapse />
+      <Modal
+        visible={showWebView}
+        animationType="slide"
+        onRequestClose={() => {
+          setShowWebView(false);
+        }}
+        contentContainerStyle={{
+          padding: 20,
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Icon
+              name="user"
+              type={'antdesign'}
+              color={Colors.appBlackColorLight}
+              size={20}
+            />
+            <Typography color={Colors.appBlackColor} variant="H3">
+              {props.data.username}
+            </Typography>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginVertical: 10,
+            }}>
+            <Icon
+              name="wallet"
+              type={'fontisto'}
+              color={Colors.appBlackColorLight}
+              size={20}
+            />
+            <Typography variant="H3">{props.walletBalance}</Typography>
+          </View>
+        </View>
+        <Divider />
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-around',
+            marginVertical: 10,
+          }}>
+          <Button
+            color={Colors.appGreenColor}
+            onPress={() => {
+              setShowWebView(false);
+              navigation.navigate('CreateID', {
+                sdid: props.data.sd.sdid,
+                username: props.data.username,
+                requestStatus: 'old',
+              });
+            }}
+            mode="contained">
+            <Typography style={{alignItems: 'center', color: 'white'}}>
+              Deposit
+            </Typography>
+          </Button>
+          <Button
+            onPress={() => {
+              setShowWebView(false);
+              navigation.navigate('Withdraw', {
+                banks: banks,
+                data: props.data,
+              });
+            }}
+            color={Colors.appRedColor}
+            mode="contained">
+            <Typography style={{alignItems: 'center', color: 'white'}}>
+              Withdraw
+            </Typography>
+          </Button>
+        </View>
+        <Divider />
+        <WebView source={{uri: props.data.sd.siteurl}} />
+      </Modal>
     </View>
   );
 };
