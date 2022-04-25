@@ -14,7 +14,6 @@ import {Divider, Icon} from 'react-native-elements';
 import {Button} from 'react-native-paper';
 import WebView from 'react-native-webview';
 import {connect} from 'react-redux';
-import reactotron from 'reactotron-react-native';
 import Colors from '../../../Theams/Colors';
 import {Typography} from '../../Common/Text';
 
@@ -42,15 +41,6 @@ const HomeListMyIDs = props => {
     return (
       <View style={styles.ListTitle}>
         <View>
-          {/* <View
-            style={{
-              width: 40,
-              height: 60,
-              backgroundColor: 'black',
-              position: 'absolute',
-            }}
-          /> */}
-          {/*<Avatar.Image size={60} source={{uri: props.data.sd.siteimage}} />*/}
           <Image
             style={styles.image}
             source={{uri: props.data.sd.siteimage}}
@@ -64,7 +54,9 @@ const HomeListMyIDs = props => {
               justifyContent: 'space-around',
               alignItems: 'center',
             }}>
-            <Typography style={styles.url}>{props.data.sd.siteurl}</Typography>
+            <Typography variant={'subheader'} style={styles.url}>
+              {props.data.sd.siteurl}
+            </Typography>
             <View style={styles.credIcon}>
               <TouchableOpacity
                 onPress={() => {
@@ -74,7 +66,7 @@ const HomeListMyIDs = props => {
               </TouchableOpacity>
             </View>
           </View>
-          <Typography style={styles.siteName}>
+          <Typography variant={'subheader'} style={styles.url}>
             {props.data.sd.sitename}
           </Typography>
         </View>
@@ -86,16 +78,9 @@ const HomeListMyIDs = props => {
     return (
       <View style={styles.containerCollapse}>
         <View style={styles.credsCard}>
-          {/* <View
-            style={{
-              borderBottomWidth: 1,
-              borderBottomColor: '#424040',
-              marginVertical: 5,
-            }}
-          /> */}
           <View style={styles.credsCardID}>
-            <Icon name="user" type={'antdesign'} color="white" size={12} />
-            <Typography style={styles.credTitle}>- Username </Typography>
+            {/* <Icon name="user" type={'antdesign'} color="white" size={12} /> */}
+            <Typography style={styles.credTitle}> Username </Typography>
             <Typography style={{color: 'white', marginLeft: 'auto'}}>
               {props.data.username}
             </Typography>
@@ -108,13 +93,13 @@ const HomeListMyIDs = props => {
             </TouchableOpacity>
           </View>
           <View style={styles.credsCardPassword}>
-            <Icon
+            {/* <Icon
               name="user-secret"
               type={'fontisto'}
               color="white"
               size={12}
-            />
-            <Typography style={styles.credTitle}>- Password </Typography>
+            /> */}
+            <Typography style={styles.credTitle}> Password </Typography>
             <View style={{flex: 1}} />
             <Typography style={{color: 'white', marginLeft: 10}}>
               {props.data.password}
@@ -144,13 +129,6 @@ const HomeListMyIDs = props => {
                 requestStatus: 'old',
               });
             }}>
-            <Icon
-              name="arrowup"
-              color="green"
-              type="antdesign"
-              size={15}
-              style={{padding: 5}}
-            />
             <Typography style={{alignItems: 'center', color: 'white'}}>
               Deposit
             </Typography>
@@ -162,6 +140,8 @@ const HomeListMyIDs = props => {
               flex: 1,
               paddingTop: 5,
               flexDirection: 'row',
+              borderColor: Colors.appBlackColorLight,
+              borderLeftWidth: 1,
             }}
             onPress={() => {
               props.navigation.navigate('Withdraw', {
@@ -169,13 +149,6 @@ const HomeListMyIDs = props => {
                 data: props.data,
               });
             }}>
-            <Icon
-              name="arrowdown"
-              color="red"
-              type="antdesign"
-              size={15}
-              style={{padding: 5}}
-            />
             <Typography style={{alignItems: 'center', color: 'white'}}>
               Withdraw
             </Typography>
@@ -283,24 +256,21 @@ const HomeListMyIDs = props => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.appBlackColor,
-    borderRadius: 10,
-    padding: 14,
+    backgroundColor: Colors.appBlackColorLight,
+    borderRadius: 40,
+    padding: 16,
     margin: 5,
     width: screenWidth - 30,
   },
   image: {
     width: 40,
     height: 40,
-    borderRadius: 20,
-    backgroundColor: '#232121',
+    borderRadius: 30,
     marginRight: 10,
   },
   url: {
-    fontWeight: '500',
-    marginLeft: 10,
-    marginTop: 8,
     color: Colors.appWhiteColor,
+    fontSize: 13,
   },
   siteName: {
     marginLeft: 10,
@@ -313,21 +283,19 @@ const styles = StyleSheet.create({
 
   containerCollapse: {
     width: '100%',
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-    backgroundColor: Colors.appBlackColor,
     alignItems: 'center',
+    backgroundColor: Colors.appBlackColor,
+    padding: 10,
+    borderRadius: 30,
   },
   credsCard: {
     marginTop: 10,
     padding: 8,
-    backgroundColor: 'black',
+    backgroundColor: Colors.appBlackColor,
     width: '100%',
-    borderRadius: 5,
   },
   credIcon: {
     marginLeft: 10,
-    marginTop: 8,
   },
   credTitle: {
     color: 'white',
@@ -344,11 +312,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#00000090',
+    backgroundColor: Colors.appBlackColor,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
-    borderTopWidth: 0.1,
-    borderColor: Colors.appPrimaryColor,
+    borderTopWidth: 1,
+    borderColor: Colors.appBlackColorLight,
+    padding: 4,
   },
 });
 

@@ -76,19 +76,19 @@ const fontConfig = {
   },
   android: {
     regular: {
-      fontFamily: 'Lato-Regular',
+      fontFamily: 'Montserrat-Regular',
       fontWeight: 'normal',
     },
     medium: {
-      fontFamily: 'Lato-Medium',
+      fontFamily: 'Montserrat-Medium',
       fontWeight: 'normal',
     },
     light: {
-      fontFamily: 'Lato-Light',
+      fontFamily: 'Montserrat-Light',
       fontWeight: 'normal',
     },
     bold: {
-      fontFamily: 'Lato-Bold',
+      fontFamily: 'Montserrat-Bold',
       fontWeight: 'normal',
     },
   },
@@ -107,7 +107,6 @@ const theme = {
 export default class App extends Component {
   render() {
     // Setting a global font here for more refer https://github.com/nguyenhuynghia/react-native-global-font
-    // GlobalFont.applyGlobal('Lato-Regular');
     //Provider from redux
 
     return (

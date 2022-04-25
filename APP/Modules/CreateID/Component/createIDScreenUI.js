@@ -6,7 +6,6 @@ import {TouchableWithoutFeedback, View, ScrollView} from 'react-native';
 import {Button, Checkbox} from 'react-native-paper';
 import reactotron from 'reactotron-react-native';
 import * as Yup from 'yup';
-import SmallLogo from '../../../Assets/svgs/SmallLogo';
 import FGLOGO2 from '../../../Assets/svgs/fglogo2';
 import Storage from '../../../Modules/Common/Storage';
 import StorageKeys from '../../../Modules/Common/StorageKeys';

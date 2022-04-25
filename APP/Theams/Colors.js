@@ -1,10 +1,11 @@
 const Colors = {
   backgroundColor: 'black',
-  appPrimaryColor: '#04293A',
+  appPrimaryColor: '#FC8B3D',
   appWhiteColor: '#ffffff',
-  appBlackColor: '#041C32',
-  appGreenColor: '#036103',
+  appBlackColor: '#0B2031',
+  appGreenColor: '#49BE5D',
   appRedColor: '#ff0000',
-  appBlackColorLight: '#064663',
+  appBlackColorLight: '#0E3048',
+  buttonBackgroundColor: '#FFFFFF33',
 };
 export default Colors;

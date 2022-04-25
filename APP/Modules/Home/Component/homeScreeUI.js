@@ -10,11 +10,10 @@ import {
 } from 'react-native';
 import {Icon} from 'react-native-elements';
 import {SliderBox} from 'react-native-image-slider-box';
+import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-paper';
 import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
-import SmallLogo from '../../../Assets/svgs/SmallLogo';
-import WalletLogo from '../../../Assets/svgs/walletlogo';
 import NetworkAPI from '../../../Network/api/server';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import Colors from '../../../Theams/Colors';
@@ -70,47 +69,73 @@ function HomeScreen(props) {
   }, [data, success, getUserBanks.data]);
 
   return (
-    <View style={styles.containerMain}>
+    <LinearGradient
+      style={styles.containerMain}
+      start={{x: 0, y: 0}}
+      end={{x: 1, y: 0.5}}
+      colors={['#ff9100', '#ff3e30']}>
       <View style={styles.upperContainer}>
-        {/* <View style={styles.centralCardView}> */}
-        <View style={styles.depositCard}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('DepositForm', {})}>
-            <Typography style={styles.text}>DEPOSIT</Typography>
-            <Icon
-              name="double-arrow"
-              color="white"
-              size={34}
-              style={{transform: [{rotate: '-90deg'}]}}
-            />
-          </TouchableOpacity>
-        </View>
-        <TouchableOpacity
-          onPress={() => wallet.request()}
-          style={styles.centreCard}>
-          <WalletLogo height={80} width={80} fill={Colors.appPrimaryColor} />
-          <Typography style={{color: 'white', alignItems: 'center'}}>
-            Wallet Balance
-          </Typography>
+        <Typography color={Colors.appWhiteColor} variant={'title'}>
+          Wallet Balance
+        </Typography>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Icon
+            name="rupee"
+            color={Colors.appWhiteColor}
+            size={16}
+            type={'font-awesome'}
+          />
           <Typography
-            style={{color: 'white', fontSize: 18, alignItems: 'center'}}>
-            {props.wallet} INR
+            color={Colors.appWhiteColor}
+            variant={'H1'}
+            style={{
+              marginLeft: 6,
+              marginTop: 6,
+            }}>
+            {props.wallet}
           </Typography>
-        </TouchableOpacity>
-        <View style={styles.withdrawCard}>
+        </View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            marginTop: 20,
+          }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('WithdrawContainer', {})}>
-            <Typography style={styles.text}>WITHDRAW</Typography>
+            style={styles.depositCard}
+            onPress={() => navigation.navigate('DepositForm', {})}>
             <Icon
-              name="double-arrow"
-              color="white"
-              size={34}
-              style={{transform: [{rotate: '90deg'}]}}
+              name="arrow-down-bold-circle"
+              color={Colors.appWhiteColor}
+              size={30}
+              type={'material-community'}
             />
+            <Typography color={Colors.appWhiteColor} variant="H3">
+              Deposit
+            </Typography>
+          </TouchableOpacity>
+          <View
+            style={{
+              width: '10%',
+            }}
+          />
+          <TouchableOpacity
+            style={styles.depositCard}
+            onPress={() => navigation.navigate('WithdrawContainer', {})}>
+            <Icon
+              name="arrow-up-bold-circle"
+              color={Colors.appWhiteColor}
+              size={30}
+              type={'material-community'}
+            />
+            <Typography color={Colors.appWhiteColor} variant="H3">
+              Withdraw
+            </Typography>
           </TouchableOpacity>
         </View>
       </View>
-
       <ScrollView style={styles.lowerContainer}>
         {/* <View style={styles.lowerBox1}>
           <SliderBox
@@ -129,12 +154,12 @@ function HomeScreen(props) {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-around',
+            marginTop: 20,
             marginHorizontal: 20,
           }}>
           <View
             style={{
               alignItems: 'center',
-              marginTop: 20,
             }}>
             <Typography
               variant="H3"
@@ -157,11 +182,11 @@ function HomeScreen(props) {
           <TouchableOpacity
             style={{
               padding: 10,
-              borderRadius: 5,
+              borderRadius: 20,
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundColor: Colors.appBlackColor,
+              backgroundColor: Colors.buttonBackgroundColor,
             }}
             onPress={() => navigation.navigate("ID's")}>
             <Icon type="antdesign" name="pluscircle" color="white" size={18} />
@@ -238,7 +263,7 @@ function HomeScreen(props) {
           </Button>
         </View>
       </ScrollView>
-    </View>
+    </LinearGradient>
   );
 }
 
