@@ -8,7 +8,7 @@ export default StyleSheet.create({
   offersContainer: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'black',
+    // backgroundColor: 'black',
     alignItems: 'center',
   },
   SignINCard: {
@@ -64,7 +64,6 @@ export default StyleSheet.create({
     flexDirection: 'column',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    backgroundColor: 'black',
     alignItems: 'center',
     padding: 5,
   },

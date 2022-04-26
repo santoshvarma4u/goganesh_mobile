@@ -13,7 +13,6 @@ const getUID = async () => {
 };
 const submitBankData = async bankData => {
   let userid = await getUID();
-  reactotron.log('this is the bank data', bankData, userid);
   const data = {
     uid: userid,
     bankName: bankData.bankName,
@@ -22,12 +21,12 @@ const submitBankData = async bankData => {
     accountNumber: bankData.AccountNumber,
     branchCode: bankData.branchCode,
   };
-
   const result = await paymentsDetailsApi.createUserBankDetails(data);
   if (!result.ok) {
     return alert(result.problem);
   }
   alert('success');
+  return result;
 };
 
 const updateBankData = async (bankData, currentIndex) => {

@@ -162,7 +162,7 @@ function IDs({navigation}) {
           <TabBar
             {...props}
             style={{
-              backgroundColor: 'black',
+              backgroundColor: Colors.appBlackColor,
               borderTopRightRadius: 25,
               borderTopLeftRadius: 25,
             }}

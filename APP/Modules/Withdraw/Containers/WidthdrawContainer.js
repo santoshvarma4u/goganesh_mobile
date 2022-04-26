@@ -1,27 +1,53 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
+import {Icon} from 'react-native-elements';
 import {Button, Modal} from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {connect} from 'react-redux';
+import reactotron from 'reactotron-react-native';
+import {setUserBanks} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
 import EnterBankDetails from '../../Common/BankDetails';
 import CommonTextInput from '../../Common/CommonTextInput';
 import {Typography} from '../../Common/Text';
+import paymentDetailsController from '../../PaymentDetails/Controller/paymentDetailsController';
 
 const WithDrawContainer = props => {
-  const {navigation} = props;
+  const {navigation, reduxBankDetails, reduxWallet} = props;
   const [amount, setAmount] = useState('');
   const [error, setError] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+  const [withdrawModalVisible, setWithdrawModalVisible] = useState(false);
   //   const [paymentMethod, setPaymentMethod] = useState('gateway');
 
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([]);
+
+  const onSubmit = async values => {
+    let {data} = await paymentDetailsController.submitBankData(values);
+    if (data.status === 'success') {
+      setModalVisible(false);
+      props.reduxSetBankDetails([...reduxBankDetails, data.data]);
+    }
+  };
+
   useEffect(() => {
-    //Check if the bank details are set, if open a modal to set the bank details
-    // if (!bankDetails) {
-    //     setModalVisible(true);
-    // }
-  }, []);
+    // Check if the bank details are set, if open a modal to set the bank details
+    if (!reduxBankDetails || reduxBankDetails.length === 0) {
+      setModalVisible(true);
+    }
+    setItems(
+      reduxBankDetails.map(item => ({
+        label: item.value,
+        value: item.key,
+        key: item.key,
+      })),
+    );
+  }, [reduxBankDetails]);
 
   return (
     <View
@@ -61,8 +87,19 @@ const WithDrawContainer = props => {
             <Typography variant="paragraph" color={Colors.appWhiteColor}>
               WALLET BALANCE
             </Typography>
-            <Typography variant="H3" color={Colors.appWhiteColor}>
-              0.00
+            <Typography
+              variant="H3"
+              style={{
+                marginTop: 10,
+              }}
+              color={Colors.appWhiteColor}>
+              <Icon
+                name="rupee"
+                color={Colors.appWhiteColor}
+                size={16}
+                type={'font-awesome'}
+              />
+              {`  ${reduxWallet}`}
             </Typography>
           </View>
         </View>
@@ -72,9 +109,9 @@ const WithDrawContainer = props => {
             marginHorizontal: 30,
             marginTop: 20,
           }}>
-          <Typography variant="paragraph" color={Colors.appWhiteColor}>
+          {/* <Typography variant="paragraph" color={Colors.appWhiteColor}>
             Withdrawable balance : 0
-          </Typography>
+          </Typography> */}
           <CommonTextInput
             label="Withdraw coins"
             mode="outlined"
@@ -107,7 +144,7 @@ const WithDrawContainer = props => {
           onPress={() => {
             if (amount >= 100) {
               setError(false);
-              setModalVisible(true);
+              setWithdrawModalVisible(true);
             } else {
               setError(true);
             }
@@ -122,6 +159,7 @@ const WithDrawContainer = props => {
             setModalVisible(false);
             setConfirmModalVisible(true);
           }}
+          onSubmit={onSubmit}
         />
       </Modal>
       <Modal
@@ -146,7 +184,6 @@ const WithDrawContainer = props => {
               size={50}
             />
           </View>
-
           <Typography
             variant="H2"
             color={Colors.appWhiteColor}
@@ -185,8 +222,76 @@ const WithDrawContainer = props => {
           </Button>
         </View>
       </Modal>
+      <Modal
+        visible={withdrawModalVisible}
+        onDismiss={() => {
+          setWithdrawModalVisible(false);
+        }}>
+        <View
+          style={{
+            backgroundColor: Colors.appBlackColorLight,
+            borderRadius: 10,
+            marginHorizontal: 20,
+            minHeight: 300,
+            padding: 20,
+            alignItems: 'center',
+            // justifyContent: 'center',
+          }}>
+          <Typography variant="H4" color={Colors.appWhiteColor}>
+            Select a bank to withdraw
+          </Typography>
+          <DropDownPicker
+            open={open}
+            value={value}
+            items={items}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setItems}
+            style={{
+              backgroundColor: Colors.appBlackColorLight,
+              marginTop: 20,
+              borderColor: Colors.appWhiteColor,
+              borderRadius: 5,
+            }}
+            name={'bankName'}
+            theme="DARK"
+          />
+          <Button
+            mode="contained"
+            style={{
+              marginTop: 20,
+              backgroundColor: Colors.appPrimaryColor,
+              color: Colors.appBlackColor,
+            }}
+            onPress={() => {
+              setWithdrawModalVisible(false);
+              setWithdrawModalVisible(false);
+              setWithdrawModalVisible(false);
+            }}>
+            <Typography variant="H4" color={Colors.appWhiteColor}>
+              Withdraw
+            </Typography>
+          </Button>
+        </View>
+      </Modal>
     </View>
   );
 };
 
-export default WithDrawContainer;
+// connect to redux
+const mapStateToProps = state => {
+  return {
+    reduxBankDetails: state.userdetails.userBanks,
+    reduxWallet: state.home.walletBalance,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    reduxSetBankDetails: bankDetails => {
+      dispatch(setUserBanks(bankDetails));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WithDrawContainer);

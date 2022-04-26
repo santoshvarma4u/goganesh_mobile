@@ -98,7 +98,6 @@ function SignIn() {
               flex: 0.5,
               paddingTop: 50,
               alignItems: 'center',
-              backgroundColor: '#000',
             }}>
             <FGLOGO2 width={200} height={200} />
           </View>

@@ -16,6 +16,7 @@ import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
 import NetworkAPI from '../../../Network/api/server';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
+import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
@@ -35,6 +36,10 @@ function HomeScreen(props) {
   const wallet = HomeController.getWalletBalance();
 
   const getUserBanks = IDController.getBankData();
+  console.log(
+    '🚀 ~ file: homeScreeUI.js ~ line 39 ~ HomeScreen ~ getUserBanks',
+    getUserBanks,
+  );
   const pushFcmToken = async () => {
     let ID = await Storage.getItemSync(StorageKeys.ID);
     let FCMTOKEN = await Storage.getItemSync(StorageKeys.FCMTOKEN);
@@ -48,6 +53,17 @@ function HomeScreen(props) {
   }, [wallet.data]);
 
   useEffect(() => {
+    getUserBanks.data.map(item => {
+      banks.push({
+        value: item.bankName,
+        key: item.bid,
+      });
+    });
+    setUserBanks(banks);
+    props.reduxSetUserBanks(banks);
+  }, [getUserBanks.data]);
+
+  useEffect(() => {
     pushFcmToken();
     if (success) {
       let slides = [];
@@ -58,15 +74,7 @@ function HomeScreen(props) {
       });
       setSliderImgs(slides);
     }
-    reactotron.log(data);
-    getUserBanks.data.map(item => {
-      banks.push({
-        value: item.bankName,
-        key: item.bid,
-      });
-    });
-    setUserBanks(banks);
-  }, [data, success, getUserBanks.data]);
+  }, [data, success]);
 
   return (
     <LinearGradient
@@ -273,12 +281,14 @@ function HomeScreen(props) {
 const mapStateToProps = state => {
   return {
     wallet: state.home.walletBalance,
+    userBanks: state.userdetails.userBanks,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     setWallet: wallet => dispatch(setWalletBalance(wallet)),
+    reduxSetUserBanks: banks => dispatch(reduxSetUserBank(banks)),
   };
 };
 

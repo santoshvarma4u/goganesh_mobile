@@ -1,3 +1,4 @@
+import reactotron from 'reactotron-react-native';
 import Storage from '../../Modules/Common/Storage';
 import StorageKeys from '../../Modules/Common/StorageKeys';
 import NetworkAPI from '../api/server';
@@ -12,7 +13,6 @@ const getUID = async () => {
 
 const getUserBankDetails = async () => {
   let uid = await getUID();
-
   const userBankDetails = `/userBankDetails/${uid}`;
   return NetworkAPI.apiClient.get(userBankDetails);
 };
@@ -32,8 +32,6 @@ const updateUserBankDetails = async data => {
 
   return NetworkAPI.apiClient.patch(userBankDetails, data);
 };
-
-
 
 export default {
   getUserBankDetails,

@@ -17,6 +17,7 @@ const getUID = async () => {
 const useGetIDs = () => useAPI(IDsApi.getIDs);
 const getUserSpecificIDs = () => useAPI(siteApi.getUserSiteDetails);
 const getBankData = () => useAPI(paymentsDetailsApi.getUserBankDetails);
+
 const sendWithDrawRequest = async (
   sdid,
   paymentMethod,

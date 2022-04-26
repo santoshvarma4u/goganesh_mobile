@@ -26,6 +26,7 @@ function PaymentsScreen({navigation}) {
       setModalVisible(!modalVisible);
     });
   };
+
   return (
     <View style={styles.containerMain}>
       <View style={styles.profileContainer}>

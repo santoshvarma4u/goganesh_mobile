@@ -1,14 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {
-  Image,
-  Linking,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
+import {Image, Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Icon} from 'react-native-elements';
 import FlatListPicker from 'react-native-flatlist-picker';
 import {Checkbox} from 'react-native-paper';
@@ -18,7 +10,6 @@ import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
 import {Typography} from '../../Common/Text';
-import {banksList} from '../../Common/banks';
 import depositController from '../../Deposit/Controller/depositController';
 import IdController from '../../IDs/Controller/IdController';
 
@@ -64,7 +55,7 @@ const WithdrawForm = props => {
   const [selectedBankID, setSelectedBankID] = useState('');
   const [open, setOpen] = useState(false);
 
-  console.log('this is the data', banks);
+  reactotron.log('this is the data', banks);
   return (
     <View style={styles.withDrawForm}>
       {ListTitle(data)}
@@ -173,7 +164,6 @@ const WithdrawForm = props => {
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: '#171616',
     borderRadius: 10,
     padding: 10,
     margin: 5,
@@ -182,16 +172,6 @@ const styles = StyleSheet.create({
     padding: 20,
     flex: 1,
     backgroundColor: Colors.appBlackColor,
-    // justifyContent: 'center',
-  },
-  modalText: {
-    width: '80%',
-    borderRadius: 5,
-    backgroundColor: 'white',
-    fontSize: 16,
-    height: 40,
-    marginBottom: 15,
-    padding: 5,
   },
   image: {
     width: 60,

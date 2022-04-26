@@ -1,21 +1,19 @@
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Image,
   StyleSheet,
   TouchableOpacity,
   Clipboard,
-  Linking,
   Modal,
 } from 'react-native';
 import {Icon} from 'react-native-elements';
-import {Button, Divider, List} from 'react-native-paper';
+import {Button, Divider} from 'react-native-paper';
 import WebView from 'react-native-webview';
 
 import {connect} from 'react-redux';
-import {env} from '../../../Network/api/server';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import Colors from '../../../Theams/Colors';
 import {Typography} from '../../Common/Text';
@@ -39,11 +37,13 @@ const AccordianListNew = props => {
   function ListTitle() {
     return (
       <View style={styles.ListTitle}>
-        <Image
-          style={styles.image}
-          source={{uri: props.data.sd.siteimage}}
-          resizeMode="contain"
-        />
+        <View style={styles.image}>
+          <Image
+            style={styles.image}
+            source={{uri: props.data.sd.siteimage}}
+            resizeMode="contain"
+          />
+        </View>
         <View
           style={{
             flex: 1,
@@ -87,8 +87,8 @@ const AccordianListNew = props => {
           </View>
           <View
             style={{
-              borderBottomWidth: 1,
-              borderBottomColor: '#424040',
+              borderBottomWidth: 0.5,
+              borderBottomColor: Colors.buttonBackgroundColor,
               marginVertical: 5,
             }}
           />
@@ -244,7 +244,10 @@ const AccordianListNew = props => {
         <TouchableOpacity
           style={[
             styles.bottomButton,
-            {borderLeftColor: Colors.buttonBackgroundColor, borderLeftWidth: 1},
+            {
+              borderLeftColor: Colors.buttonBackgroundColor,
+              borderLeftWidth: 0.5,
+            },
           ]}
           onPress={() => {
             navigation.navigate('Withdraw', {
