@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Image, Text} from 'react-native';
+import {View} from 'react-native';
 import SplashLogo from '../../../Assets/svgs/SplashLogo';
 import styles from './Styles';
 

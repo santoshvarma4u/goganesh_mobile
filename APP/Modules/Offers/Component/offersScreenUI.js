@@ -24,9 +24,7 @@ function OffersScreen({navigation}) {
   return (
     <LinearGradient
       style={styles.containerMain}
-      start={{x: 0, y: 0}}
-      end={{x: 1, y: 0.5}}
-      colors={['#ff9100', '#ff3e30']}>
+      colors={[Colors.appPrimaryColor, Colors.appBlackColor]}>
       <View />
       <View style={styles.offersContainer}>
         {offerImages.length > 0 ? (
@@ -44,10 +42,10 @@ function OffersScreen({navigation}) {
         ) : (
           <>
             <Typography
+              variant="H3"
+              color={Colors.appWhiteColor}
               style={{
-                color: Colors.appWhiteColor,
                 marginTop: 50,
-                fontSize: 16,
               }}>
               No Offers Found!
             </Typography>

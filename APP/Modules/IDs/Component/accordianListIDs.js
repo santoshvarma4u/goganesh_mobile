@@ -1,40 +1,53 @@
 import {useNavigation} from '@react-navigation/native';
 import * as React from 'react';
 import {
-  Text,
   View,
   Image,
   StyleSheet,
   TouchableOpacity,
   Clipboard,
   Linking,
-  Pressable,
 } from 'react-native';
-import {Icon} from 'react-native-elements';
-import {Button, List} from 'react-native-paper';
+import {Button, Icon} from 'react-native-elements';
+// import {List} from 'react-native-paper';
 import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
 import {Typography} from '../../Common/Text';
 
 const AccordianListNew = props => {
-  const [expanded, setExpanded] = React.useState(false);
+  // const [expanded, setExpanded] = React.useState(false);
   const navigation = useNavigation();
-  const handlePress = () => setExpanded(!expanded);
+  // const handlePress = () => setExpanded(!expanded);
 
   function ListTitle() {
     return (
       <View style={styles.ListTitle}>
         <Image style={styles.image} source={{uri: props.data.siteimage}} />
-        <View>
-          <Typography style={styles.url}>{props.data.siteurl}</Typography>
-          <View style={styles.credIcon}>
-            <TouchableOpacity
-              onPress={() => {
-                Linking.openURL('https://' + props.data.sd.siteurl);
-              }}>
-              <Icon name="launch" color="white" size={14} />
-            </TouchableOpacity>
-          </View>
+        <View
+          style={{
+            flex: 1,
+          }}>
+          <TouchableOpacity
+            onPress={() => {
+              // setShowWebView(true);
+            }}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingRight: 10,
+            }}>
+            <Typography variant="H4" style={styles.url}>
+              {props.data.siteurl}
+            </Typography>
+            <Icon
+              name="launch"
+              color="white"
+              size={16}
+              style={{
+                marginLeft: 10,
+              }}
+            />
+          </TouchableOpacity>
           <Typography style={styles.siteName}>{props.data.sitename}</Typography>
         </View>
       </View>
@@ -189,62 +202,54 @@ const AccordianListNew = props => {
               requestStatus: 'new',
             });
           }}>
-          <Typography style={{alignItems: 'center'}}>Create ID</Typography>
+          <Typography
+            color={Colors.appWhiteColor}
+            variant={'H4'}
+            style={{alignItems: 'center'}}>
+            Create ID
+          </Typography>
         </TouchableOpacity>
       </View>
     );
   }
   return (
-    // <List.Section title="Accordions">
     <View style={styles.container}>
-      <List.Accordion
-        title={<ListTitle />}
-        expanded={expanded}
-        onPress={handlePress}
-        style={{backgroundColor: Colors.appBlackColor, borderRadius: 10}}>
-        <ListCollapse />
-      </List.Accordion>
+      <ListTitle />
+      <ListCollapse />
     </View>
-    // </List.Section>
   );
 };
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.appBlackColor,
-    borderRadius: 10,
+    backgroundColor: Colors.appBlackColorLight,
+    borderRadius: 30,
     padding: 14,
+    flex: 1,
   },
   image: {
     width: 60,
     height: 60,
     borderRadius: 30,
     backgroundColor: 'black',
-    marginRight: 10,
   },
   url: {
-    fontWeight: '500',
     marginLeft: 10,
-    marginTop: 8,
     color: Colors.appWhiteColor,
+    flexWrap: 'wrap',
   },
   siteName: {
     marginLeft: 10,
-    marginTop: 10,
     color: Colors.appWhiteColor,
   },
   ListTitle: {
     flexDirection: 'row',
+    flex: 1,
   },
-
   containerCollapse: {
     padding: 10,
     width: '100%',
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-    backgroundColor: Colors.appBlackColor,
     alignItems: 'center',
   },
-
   icons: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -257,9 +262,9 @@ const styles = StyleSheet.create({
   credsCard: {
     marginTop: 10,
     padding: 10,
-    backgroundColor: 'black',
+    backgroundColor: Colors.appBlackColor,
+    borderRadius: 30,
     width: '100%',
-    borderRadius: 5,
   },
   credIcon: {
     marginLeft: 'auto',
@@ -278,8 +283,8 @@ const styles = StyleSheet.create({
   moneyCard: {
     marginTop: 10,
     padding: 10,
-    borderRadius: 5,
-    backgroundColor: 'black',
+    backgroundColor: Colors.appBlackColor,
+    borderRadius: 30,
     width: '100%',
   },
   moneyCardText: {
@@ -307,9 +312,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 5,
   },
-
   moneyCardContentGrid: {
     padding: 5,
   },
 });
+
 export default AccordianListNew;

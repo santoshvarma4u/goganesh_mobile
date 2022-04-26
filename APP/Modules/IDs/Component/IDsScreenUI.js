@@ -1,16 +1,13 @@
 import {useWhyDidYouUpdate} from 'ahooks';
 import React, {useState} from 'react';
 import {
-  Text,
   ActivityIndicator,
   View,
   Button,
   FlatList,
   Dimensions,
-  TextInput,
   TouchableOpacity,
 } from 'react-native';
-import {Searchbar} from 'react-native-paper';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import Colors from '../../../Theams/Colors';
 import {Typography} from '../../Common/Text';
@@ -25,8 +22,6 @@ const MyIDRoute = props => {
 
   const [refresh, setRefresh] = useState(false);
 
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const onChangeSearch = query => setSearchQuery(query);
   return (
     <View style={styles.containerMain}>
       <View style={styles.list}>
@@ -62,7 +57,6 @@ const MyIDRoute = props => {
             color="white"
           />
         ) : null}
-        <TextInput />
         <FlatList
           data={getMyIDs.data}
           refreshing={refresh}
@@ -77,7 +71,7 @@ const MyIDRoute = props => {
           ItemSeparatorComponent={() => (
             <View
               style={{
-                height: 14,
+                height: 10,
                 width: '100%',
               }}
             />
@@ -95,8 +89,6 @@ const IDRoute = props => {
   const getIDs = IdController.useGetIDs();
 
   const [refresh, setRefresh] = useState(false);
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const onChangeSearch = query => setSearchQuery(query);
   let a = getIDs.data;
   useWhyDidYouUpdate('idroute', {
     ...props,
@@ -105,14 +97,6 @@ const IDRoute = props => {
 
   return (
     <View style={styles.containerMain}>
-      {/* <View style={styles.searchBar}>
-        <Searchbar
-          placeholder="Search"
-          onChangeText={onChangeSearch}
-          value={searchQuery}
-        />
-      </View> */}
-
       <View style={styles.list}>
         {getIDs.error && (
           <>
@@ -140,6 +124,14 @@ const IDRoute = props => {
           }}
           refreshing={refresh}
           renderItem={({item}) => <AccordionListItem data={item} />}
+          ItemSeparatorComponent={() => (
+            <View
+              style={{
+                height: 10,
+                width: '100%',
+              }}
+            />
+          )}
           keyExtractor={item => item.sdid.toString()}
         />
       </View>

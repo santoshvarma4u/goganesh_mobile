@@ -37,13 +37,7 @@ function PassbookScreen({navigation}) {
 
       <View style={styles.offersContainer}>
         <View style={styles.topOffers}>
-          <Typography
-            style={{
-              color: Colors.appBlackColorLight,
-              marginLeft: 20,
-              marginTop: 8,
-              fontSize: 16,
-            }}>
+          <Typography color={Colors.appWhiteColor} variant={'subheader'}>
             Transactions
           </Typography>
           <View
@@ -66,70 +60,64 @@ function PassbookScreen({navigation}) {
             refreshing={refresh}
             data={data}
             renderItem={({item}) => (
-              <View styles={styles.trasactions}>
-                <View style={styles.trasactionsCard}>
-                  <View style={{flexDirection: 'column'}}>
-                    <Image
-                      style={{height: 60, width: 60}}
-                      source={images.logo}
-                    />
-                  </View>
-                  <View style={{flexDirection: 'column'}}>
-                    <Typography style={{color: Colors.appWhiteColor}}>
-                      {item.paymentType === 'CR'
-                        ? item?.sd?.sitename
-                          ? 'Deposited into ' + item?.sd?.sitename
-                          : 'Deposited into Wallet'
-                        : item?.sd?.sitename
-                        ? 'Withdrawn from ' + item?.sd?.sitename
-                        : 'Withdrawn from Wallet'}
-                    </Typography>
-                    <Typography style={{color: Colors.appWhiteColor}}>
-                      {Moment(item.creadtedtime).format('lll').toString()}
-                    </Typography>
-                    <Typography style={{color: Colors.appWhiteColor}}>
-                      {item.paymentMethod}
-                    </Typography>
-                  </View>
-                  <View
-                    style={{
-                      flexDirection: 'column',
-                      marginLeft: 'auto',
-                      marginRight: 20,
-                      alignItems: 'center',
-                    }}>
-                    <Typography style={{color: Colors.appWhiteColor}}>
-                      {item.paymentType === 'CR' ? '+' : '-'}{' '}
-                      {item.paymentAmount}
-                    </Typography>
-                    <Typography
-                      style={
-                        item.paymentStatus === 'Accepted'
-                          ? {color: 'green'}
-                          : {color: 'red'}
-                      }>
-                      {item.paymentStatus}
-                    </Typography>
-                    {item.paymentReciept.length > 0 && (
-                      <TouchableOpacity
-                        style={{
-                          padding: 2,
-                          marginTop: 10,
-                          alignItems: 'center',
-                          backgroundColor: Colors.appPrimaryColor,
-                          justifyContent: 'center',
-                          borderRadius: 5,
-                        }}
-                        onPress={() => {
-                          setPaymentReciept(`${env}${item.paymentReciept}`);
-                          setVisible(!visible);
-                        }}>
-                        <Typography style={{color: Colors.appBlackColor}}>
-                          Reference
-                        </Typography>
-                      </TouchableOpacity>
-                    )}
-                  </View>
+              <View style={styles.trasactionsCard}>
+                <View style={{flexDirection: 'column'}}>
+                  <Image style={{height: 60, width: 60}} source={images.logo} />
+                </View>
+                <View style={{flexDirection: 'column', flex: 1}}>
+                  <Typography style={{color: Colors.appWhiteColor}}>
+                    {item.paymentType === 'CR'
+                      ? item?.sd?.sitename
+                        ? 'Deposited into ' + item?.sd?.sitename
+                        : 'Deposited into Wallet'
+                      : item?.sd?.sitename
+                      ? 'Withdrawn from ' + item?.sd?.sitename
+                      : 'Withdrawn from Wallet'}
+                  </Typography>
+                  <Typography style={{color: Colors.appWhiteColor}}>
+                    {Moment(item.creadtedtime).format('lll').toString()}
+                  </Typography>
+                  <Typography style={{color: Colors.appWhiteColor}}>
+                    {item.paymentMethod}
+                  </Typography>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'column',
+                    marginLeft: 'auto',
+                    marginRight: 20,
+                    alignItems: 'center',
+                  }}>
+                  <Typography style={{color: Colors.appWhiteColor}}>
+                    {item.paymentType === 'CR' ? '+' : '-'} {item.paymentAmount}
+                  </Typography>
+                  <Typography
+                    style={
+                      item.paymentStatus === 'Accepted'
+                        ? {color: 'green'}
+                        : {color: 'red'}
+                    }>
+                    {item.paymentStatus}
+                  </Typography>
+                  {item.paymentReciept.length > 0 && (
+                    <TouchableOpacity
+                      style={{
+                        padding: 2,
+                        marginTop: 10,
+                        alignItems: 'center',
+                        backgroundColor: Colors.appPrimaryColor,
+                        justifyContent: 'center',
+                        borderRadius: 5,
+                      }}
+                      onPress={() => {
+                        setPaymentReciept(`${env}${item.paymentReciept}`);
+                        setVisible(!visible);
+                      }}>
+                      <Typography style={{color: Colors.appBlackColor}}>
+                        Reference
+                      </Typography>
+                    </TouchableOpacity>
+                  )}
                 </View>
               </View>
             )}

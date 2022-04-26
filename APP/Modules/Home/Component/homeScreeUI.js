@@ -242,10 +242,13 @@ function HomeScreen(props) {
             marginHorizontal: 20,
             marginTop: 5,
           }}>
-          <Typography color={Colors.appWhiteColor}>WhatsApp Support</Typography>
+          <Typography color={Colors.appWhiteColor} variant={'H4'}>
+            WhatsApp Support
+          </Typography>
           <Typography
             color={Colors.appWhiteColor}
-            style={styles.marginVertical}>
+            style={styles.marginVertical}
+            variant="caption">
             Get your Queries,new updates and latest offers via WhatsApp support
           </Typography>
           <Button

@@ -27,7 +27,7 @@ function CustomSidebarMenu({...props}) {
       <View
         style={{
           height: 180,
-          backgroundColor: Colors.appPrimaryColor,
+          backgroundColor: Colors.appBlackColor,
           alignItems: 'center',
           borderTopRightRadius: 30,
           justifyContent: 'center',

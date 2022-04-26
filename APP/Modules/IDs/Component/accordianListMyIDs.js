@@ -34,9 +34,7 @@ const AccordianListNew = props => {
     });
   }, [props.bank.data, banks]);
 
-  const [withDrawForm, setWithDrawForm] = useState(false);
   const navigation = useNavigation();
-  // const handlePress = () => setExpanded(!expanded);
 
   function ListTitle() {
     return (
@@ -46,15 +44,18 @@ const AccordianListNew = props => {
           source={{uri: props.data.sd.siteimage}}
           resizeMode="contain"
         />
-        <View>
+        <View
+          style={{
+            flex: 1,
+          }}>
           <TouchableOpacity
             onPress={() => {
-              // Linking.openURL('https://' + props.data.sd.siteurl);
               setShowWebView(true);
             }}
             style={{
               flexDirection: 'row',
               alignItems: 'center',
+              paddingRight: 10,
             }}>
             <Typography style={styles.url}>{props.data.sd.siteurl}</Typography>
             <Icon name="launch" color="white" size={16} />
@@ -62,52 +63,6 @@ const AccordianListNew = props => {
           <Typography style={styles.siteName}>
             {props.data.sd.sitename}
           </Typography>
-          {/* <View style={styles.ListTitle}>
-            <Pressable
-              onPress={() => {
-                navigation.navigate('CreateID', {
-                  sdid: props.data.sd.sdid,
-                  username: props.data.username,
-                  requestStatus: 'old',
-                });
-              }}>
-              <View
-                style={{
-                  height: 30,
-                  width: 30,
-                  borderRadius: 30,
-                  backgroundColor: Colors.appGreenColor,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginHorizontal: 15,
-                  marginVertical: 15,
-                }}>
-                <Typography style={{color: Colors.appWhiteColor, fontSize: 15}}>
-                  D
-                </Typography>
-              </View>
-            </Pressable>
-            <TouchableOpacity
-              onPress={() => {
-                setWithDrawForm(true);
-              }}>
-              <View
-                style={{
-                  height: 30,
-                  width: 30,
-                  borderRadius: 30,
-                  backgroundColor: Colors.appRedColor,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginHorizontal: 5,
-                  marginVertical: 15,
-                }}>
-                <Typography style={{color: Colors.appWhiteColor, fontSize: 15}}>
-                  W
-                </Typography>
-              </View>
-            </TouchableOpacity>
-          </View> */}
         </View>
       </View>
     );
@@ -115,15 +70,16 @@ const AccordianListNew = props => {
 
   function ListCollapse() {
     return (
-      // card
       <View style={styles.containerCollapse}>
         <View style={styles.credsCard}>
           <View style={styles.credsCardHeader}>
-            <Typography style={styles.credTitle}>Credentials</Typography>
+            <Typography variant={'H4'} style={styles.credTitle}>
+              Credentials
+            </Typography>
             <View style={styles.credIcon}>
               <TouchableOpacity
                 onPress={() => {
-                  Linking.openURL('https://' + props.data.sd.siteurl);
+                  setShowWebView(true);
                 }}>
                 <Icon name="launch" color="white" size={20} />
               </TouchableOpacity>
@@ -163,80 +119,20 @@ const AccordianListNew = props => {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.depositWithdraw}>
-          <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              flex: 1,
-              paddingTop: 5,
-              alignItems: 'center',
-              flexDirection: 'row',
-            }}
-            onPress={() => {
-              navigation.navigate('CreateID', {
-                sdid: props.data.sd.sdid,
-                username: props.data.username,
-                requestStatus: 'old',
-              });
-            }}>
-            <Icon
-              name="arrowup"
-              color="green"
-              type="antdesign"
-              size={15}
-              style={{padding: 5}}
-            />
-            <Typography style={{alignItems: 'center', color: 'white'}}>
-              Deposit
-            </Typography>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              flex: 1,
-              paddingTop: 5,
-              flexDirection: 'row',
-            }}
-            onPress={() => {
-              navigation.navigate('Withdraw', {
-                banks: banks,
-                data: props.data,
-              });
-            }}>
-            <Icon
-              name="arrowdown"
-              color="red"
-              type="antdesign"
-              size={15}
-              style={{padding: 5}}
-            />
-            <Typography style={{alignItems: 'center', color: 'white'}}>
-              Withdraw
-            </Typography>
-          </TouchableOpacity>
-        </View>
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      {/* <List.Section>
-        <List.Accordion
-          title={<ListTitle />}
-          expanded={true}
-          // onPress={handlePress}
-          style={{
-            backgroundColor: Colors.appBlackColor,
-            borderRadius: 10,
-            borderColor: Colors.appWhiteColor,
-          }}>
-          <ListCollapse />
-        </List.Accordion>
-      </List.Section> */}
-      <ListTitle />
-      <ListCollapse />
+      <View
+        style={{
+          padding: 10,
+          flex: 1,
+        }}>
+        <ListTitle />
+        <ListCollapse />
+      </View>
       <Modal
         visible={showWebView}
         animationType="slide"
@@ -325,14 +221,49 @@ const AccordianListNew = props => {
         <Divider />
         <WebView source={{uri: props.data.sd.siteurl}} />
       </Modal>
+      <View
+        style={{
+          height: 1,
+          backgroundColor: Colors.buttonBackgroundColor,
+        }}
+      />
+      <View style={styles.depositWithdraw}>
+        <TouchableOpacity
+          style={styles.bottomButton}
+          onPress={() => {
+            navigation.navigate('CreateID', {
+              sdid: props.data.sd.sdid,
+              username: props.data.username,
+              requestStatus: 'old',
+            });
+          }}>
+          <Typography style={{alignItems: 'center', color: 'white'}}>
+            Deposit
+          </Typography>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.bottomButton,
+            {borderLeftColor: Colors.buttonBackgroundColor, borderLeftWidth: 1},
+          ]}
+          onPress={() => {
+            navigation.navigate('Withdraw', {
+              banks: banks,
+              data: props.data,
+            });
+          }}>
+          <Typography style={{alignItems: 'center', color: 'white'}}>
+            Withdraw
+          </Typography>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.appBlackColor,
-    borderRadius: 10,
-    padding: 14,
+    backgroundColor: Colors.appBlackColorLight,
+    borderRadius: 30,
   },
   image: {
     width: 60,
@@ -340,7 +271,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     overflow: 'hidden',
     backgroundColor: 'black',
-    marginRight: 10,
   },
   url: {
     fontWeight: '500',
@@ -350,19 +280,16 @@ const styles = StyleSheet.create({
   },
   siteName: {
     marginLeft: 10,
-    marginTop: 10,
+    marginTop: 5,
     color: Colors.appWhiteColor,
   },
   ListTitle: {
     flexDirection: 'row',
+    flex: 1,
   },
-
   containerCollapse: {
-    padding: 10,
+    padding: 6,
     width: '100%',
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-    backgroundColor: Colors.appBlackColor,
     alignItems: 'center',
   },
   credsCardHeader: {
@@ -370,11 +297,11 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   credsCard: {
-    marginTop: 10,
+    marginTop: 5,
     padding: 10,
-    backgroundColor: 'black',
+    backgroundColor: Colors.appBlackColor,
     width: '100%',
-    borderRadius: 5,
+    borderRadius: 30,
   },
   credIcon: {
     marginLeft: 'auto',
@@ -391,6 +318,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   depositWithdraw: {flexDirection: 'row'},
+  bottomButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'row',
+    height: 40,
+    marginHorizontal: 5,
+  },
 });
 
 const mapStateToProps = state => {

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Text, View} from 'react-native';
 import {Chip, Icon} from 'react-native-elements';
+import Colors from '../../../Theams/Colors';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
@@ -33,8 +34,18 @@ function ProfileScreen({navigation}) {
           <Icon name="person" />
         </View>
         <View style={styles.profileDetails}>
-          <Typography style={{padding: 10}}>Name : {name} </Typography>
-          <Typography style={{padding: 10}}>Phone : {phone}</Typography>
+          <Typography
+            color={Colors.appWhiteColor}
+            style={{padding: 10}}
+            variant={'H4'}>
+            Name : {name}{' '}
+          </Typography>
+          <Typography
+            color={Colors.appWhiteColor}
+            style={{padding: 10}}
+            variant={'H4'}>
+            Phone : {phone}
+          </Typography>
           <Chip title="Change Password" />
         </View>
       </View>

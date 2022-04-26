@@ -9,17 +9,16 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    marginHorizontal: 20,
+    // marginHorizontal: 20,
     width: '100%',
     borderRadius: 20,
-    backgroundColor: Colors.backgroundColor,
   },
   offersContainer: {
     flex: 1,
     flexDirection: 'column',
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    backgroundColor: 'black',
+    backgroundColor: Colors.appBlackColor,
     padding: 10,
   },
   offersCard: {
@@ -37,11 +36,12 @@ export default StyleSheet.create({
     backgroundColor: 'orange',
   },
   trasactionsCard: {
-    backgroundColor: Colors.appBlackColor,
-    borderRadius: 10,
+    backgroundColor: Colors.appBlackColorLight,
+    borderRadius: 20,
     marginBottom: 5,
     paddingVertical: 25,
     flexDirection: 'row',
+    width: '100%',
   },
   centeredView: {
     width: '100%',

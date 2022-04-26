@@ -2,6 +2,7 @@ import {CommonActions} from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 import React, {PureComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import PushNotification from 'react-native-push-notification';
 import SplashLogo from '../../../Assets/svgs/SplashLogo';
 import FGLogo from '../../../Assets/svgs/fglogo1';
@@ -81,7 +82,13 @@ export default class Splash extends PureComponent {
 
   render() {
     return (
-      <View style={styles.splashContainer}>
+      <LinearGradient
+        colors={[
+          Colors.appBlackColorLight,
+          Colors.appBlackColor,
+          Colors.backgroundColor,
+        ]}
+        style={styles.splashContainer}>
         <FGLOGO2 height={250} width={250} fill={Colors.appPrimaryColor} />
         <LottieView
           style={{height: 250, width: '100%'}}
@@ -89,7 +96,7 @@ export default class Splash extends PureComponent {
           autoPlay
           speed={1}
         />
-      </View>
+      </LinearGradient>
     );
   }
 }
@@ -99,6 +106,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.appPrimaryColor,
+    backgroundColor: Colors.appBlackColorLight,
   },
 });

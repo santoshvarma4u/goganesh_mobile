@@ -580,15 +580,15 @@ const BottomTabNavigator = () => {
         },
         style: {
           backgroundColor: Colors.appBlackColorLight,
-
-          paddingTop: 0,
+          borderTopWidth: 0,
         },
       }}
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
-          let iconName;
+          let iconName, type;
           if (route.name === 'Home') {
             iconName = 'home';
+            type = 'foundation';
           } else if (route.name === 'Offers') {
             iconName = 'local-offer';
           } else if (route.name === 'Passbook') {
@@ -596,7 +596,7 @@ const BottomTabNavigator = () => {
           } else if (route.name === "ID's") {
             iconName = 'switch-account';
           }
-          return <Icon size={28} name={iconName} color={color} />;
+          return <Icon size={28} type={type} name={iconName} color={color} />;
         },
         tabBarActiveTintColor: 'tomato',
         tabBarInactiveTintColor: 'gray',
