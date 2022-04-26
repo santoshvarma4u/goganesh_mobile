@@ -2,6 +2,7 @@ import LottieView from 'lottie-react-native';
 import React, {useState, useEffect} from 'react';
 import {Text, Image, View, StyleSheet} from 'react-native';
 import {SliderBox} from 'react-native-image-slider-box';
+import LinearGradient from 'react-native-linear-gradient';
 import Animations from '../../../Theams/Animations';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
@@ -21,7 +22,11 @@ function OffersScreen({navigation}) {
   }, [data, success]);
 
   return (
-    <View style={styles.containerMain}>
+    <LinearGradient
+      style={styles.containerMain}
+      start={{x: 0, y: 0}}
+      end={{x: 1, y: 0.5}}
+      colors={['#ff9100', '#ff3e30']}>
       <View />
       <View style={styles.offersContainer}>
         {offerImages.length > 0 ? (
@@ -50,7 +55,7 @@ function OffersScreen({navigation}) {
           </>
         )}
       </View>
-    </View>
+    </LinearGradient>
   );
 }
 

@@ -5,7 +5,10 @@ import {createStackNavigator, HeaderBackButton} from '@react-navigation/stack';
 import React from 'react';
 import {View} from 'react-native';
 import {Icon} from 'react-native-elements';
+import {Appbar} from 'react-native-paper';
+import SmallLogo from '../Assets/svgs/SmallLogo';
 import ChatContainer from '../Modules/Chat/Container/ChatContainer';
+import {Typography} from '../Modules/Common/Text';
 import CreateIDScreen from '../Modules/CreateID/Container/createIDIndex';
 import DepositContainer from '../Modules/Deposit/Container/DepositContainer';
 import DepositScreen from '../Modules/Deposit/Container/depositIndex';
@@ -31,6 +34,16 @@ import Colors from '../Theams/Colors';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
+
+function CustomNavigationBar({navigation, back, route}) {
+  const {name} = route;
+  return (
+    <Appbar.Header>
+      {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
+      <Appbar.Content title={name} />
+    </Appbar.Header>
+  );
+}
 
 function AuthNavigator() {
   return (
@@ -111,12 +124,17 @@ const HomeStackNavigator = () => {
         component={HomeScreen}
         options={({navigation}) => ({
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitle: 'FGEXCH',
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitle: props => (
+            <View
+              style={{
+                flexDirection: 'row',
+              }}>
+              <SmallLogo width={40} height={30} color={Colors.appWhiteColor} />
+              <Typography variant="title" color={Colors.appWhiteColor}>
+                FGexch
+              </Typography>
+            </View>
+          ),
           headerTitleAlign: 'center',
           headerLeft: () => (
             {marginLeft: 'auto'},

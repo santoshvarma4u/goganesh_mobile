@@ -1,9 +1,9 @@
 import {StyleSheet} from 'react-native';
 
-const PRIMARY_FONT_REGULAR = 'Lato-Regular';
-const PRIMARY_FONT_BOLD = 'Lato-Bold';
-const PRIMARY_FONT_MEDIUM = 'Lato-Medium';
-const PRIMARY_FONT_LIGHT = 'Lato-Light';
+const PRIMARY_FONT_REGULAR = 'Montserrat-Regular';
+const PRIMARY_FONT_BOLD = 'Montserrat-Bold';
+const PRIMARY_FONT_MEDIUM = 'Montserrat-Medium';
+const PRIMARY_FONT_LIGHT = 'Montserrat-Light';
 
 /*
 	For any common styles you can add them to base.
