@@ -9,6 +9,7 @@ import {Appbar} from 'react-native-paper';
 import SmallLogo from '../Assets/svgs/SmallLogo';
 import ChatContainer from '../Modules/Chat/Container/ChatContainer';
 import {Typography} from '../Modules/Common/Text';
+import TypographyStyles from '../Modules/Common/Text/Text.styles';
 import CreateIDScreen from '../Modules/CreateID/Container/createIDIndex';
 import DepositContainer from '../Modules/Deposit/Container/DepositContainer';
 import DepositScreen from '../Modules/Deposit/Container/depositIndex';
@@ -35,6 +36,12 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
+const appHeaderStyle = {
+  ...TypographyStyles.H3,
+  color: Colors.appWhiteColor,
+  fontSize: 20,
+};
+
 function CustomNavigationBar({navigation, back, route}) {
   const {name} = route;
   return (
@@ -59,11 +66,7 @@ function AuthNavigator() {
           headerStyle: {backgroundColor: Colors.appPrimaryColor, height: 0},
           headerTitle: 'SignUp',
           headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitleStyle: appHeaderStyle,
         })}
       />
       <Stack.Screen
@@ -73,11 +76,7 @@ function AuthNavigator() {
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitle: 'SignUp',
           headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitleStyle: appHeaderStyle,
         })}
       />
       <Stack.Screen
@@ -87,11 +86,7 @@ function AuthNavigator() {
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitle: 'Forgot Password ',
           headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitleStyle: appHeaderStyle,
           headerLeft: props => (
             <HeaderBackButton
               {...props}
@@ -169,11 +164,7 @@ const HomeStackNavigator = () => {
         options={({navigation}) => ({
           headerTitle: 'Create ID',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitleStyle: appHeaderStyle,
           tintColor: '#ffffff',
           headerTitleAlign: 'center',
           headerLeft: props => (
@@ -192,11 +183,7 @@ const HomeStackNavigator = () => {
         options={({navigation}) => ({
           headerTitle: 'Profile',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitleStyle: appHeaderStyle,
           headerTitleAlign: 'center',
           headerLeft: props => (
             <HeaderBackButton
@@ -216,11 +203,7 @@ const HomeStackNavigator = () => {
           headerTitle: 'Help',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitleStyle: appHeaderStyle,
           headerLeft: props => (
             <HeaderBackButton
               {...props}
@@ -239,11 +222,7 @@ const HomeStackNavigator = () => {
           headerTitle: 'Bank Details',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitleStyle: appHeaderStyle,
           headerLeft: props => (
             <HeaderBackButton
               {...props}
@@ -262,11 +241,7 @@ const HomeStackNavigator = () => {
           headerTitle: 'Payment Method',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitleStyle: appHeaderStyle,
           headerLeft: props => (
             <HeaderBackButton
               {...props}
@@ -285,11 +260,7 @@ const HomeStackNavigator = () => {
           headerTitle: 'Deposit',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitleStyle: appHeaderStyle,
           headerLeft: props => (
             <HeaderBackButton
               {...props}
@@ -308,11 +279,7 @@ const HomeStackNavigator = () => {
           headerTitle: 'Notifications',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitleStyle: appHeaderStyle,
           headerLeft: props => (
             <HeaderBackButton
               {...props}
@@ -331,11 +298,7 @@ const HomeStackNavigator = () => {
           headerTitle: 'Withdraw',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitleStyle: appHeaderStyle,
           headerLeft: props => (
             <HeaderBackButton
               {...props}
@@ -352,11 +315,7 @@ const HomeStackNavigator = () => {
         component={DepositContainer}
         options={({navigation}) => ({
           headerTitle: 'Deposit',
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitleStyle: appHeaderStyle,
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
           headerLeft: props => (
@@ -376,11 +335,7 @@ const HomeStackNavigator = () => {
         options={({navigation}) => ({
           headerTitle: 'Withdraw',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitleStyle: appHeaderStyle,
           headerTitleAlign: 'center',
           headerLeft: props => (
             <HeaderBackButton
@@ -400,17 +355,13 @@ const HomeStackNavigator = () => {
           headerTitle: 'Support',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitleStyle: appHeaderStyle,
           headerLeft: props => (
             <HeaderBackButton
               {...props}
               tintColor={Colors.appWhiteColor}
               onPress={() => {
-                navigation.goBack();
+                navigation.pop();
               }}
             />
           ),
@@ -427,11 +378,7 @@ const OffersStackNavigator = () => {
         component={OffersScreen}
         options={() => ({
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitleStyle: appHeaderStyle,
         })}
       />
     </Stack.Navigator>
@@ -445,11 +392,7 @@ const PassbookStackNavigator = () => {
         component={PassbookScreen}
         options={() => ({
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitleStyle: appHeaderStyle,
         })}
       />
     </Stack.Navigator>
@@ -464,11 +407,7 @@ const IDsStackNavigator = () => {
         component={IDsScreenPage}
         options={() => ({
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitleStyle: appHeaderStyle,
         })}
       />
       <Stack.Screen
@@ -477,11 +416,7 @@ const IDsStackNavigator = () => {
         options={({navigation}) => ({
           headerTitle: 'Create ID',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitleStyle: appHeaderStyle,
           headerTitleAlign: 'center',
           headerLeft: props => (
             <HeaderBackButton
@@ -500,11 +435,7 @@ const IDsStackNavigator = () => {
         options={({navigation}) => ({
           headerTitle: 'Payment Method',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitleStyle: appHeaderStyle,
           headerTitleAlign: 'center',
           headerLeft: props => (
             <HeaderBackButton
@@ -523,11 +454,7 @@ const IDsStackNavigator = () => {
         options={({navigation}) => ({
           headerTitle: 'Deposit',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitleStyle: {
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: Colors.appWhiteColor,
-          },
+          headerTitleStyle: appHeaderStyle,
           headerTitleAlign: 'center',
           headerLeft: props => (
             <HeaderBackButton

@@ -213,18 +213,25 @@ const DepositContainer = props => {
         <ScrollView
           style={{
             backgroundColor: Colors.appBlackColorLight,
-            borderTopRightRadius: 20,
+            borderRadius: 20,
+            paddingTop: 20,
+            margin: 10,
           }}>
           <Typography
-            variant="header"
+            variant="H2"
             color={Colors.appWhiteColor}
             style={{
               textAlign: 'center',
             }}>
             {'Select a payment system.\n'}
-            <Typography color={Colors.appWhiteColor}>
-              You are about to deposit {amount} coins to your wallet.
-            </Typography>
+          </Typography>
+          <Typography
+            variant="H4"
+            color={Colors.appWhiteColor}
+            style={{
+              textAlign: 'center',
+            }}>
+            You are about to deposit {amount} coins to your wallet.
           </Typography>
           <PaymentCard
             paymentMethod={paymentMethod}

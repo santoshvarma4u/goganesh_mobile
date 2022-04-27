@@ -180,6 +180,25 @@ const AccordianListNew = props => {
             <Typography variant="H3">{props.wallet}</Typography>
           </View>
         </View>
+        <TouchableOpacity
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 2,
+            backgroundColor: Colors.buttonBackgroundColor,
+            borderRadius: 5,
+            marginVertical: 5,
+            marginHorizontal: 5,
+          }}>
+          <Icon
+            type="material"
+            name="published-with-changes"
+            color={Colors.appBlackColor}
+            size={16}
+          />
+          <Typography color={Colors.appBlackColor}>Change Password</Typography>
+        </TouchableOpacity>
         <Divider />
         <View
           style={{

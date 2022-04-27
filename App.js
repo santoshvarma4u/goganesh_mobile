@@ -98,8 +98,8 @@ const theme = {
   ...DefaultTheme,
   // Specify custom property in nested object
   colors: {
-    primary: Colors.appPrimaryColor,
     ...DefaultTheme.colors,
+    primary: Colors.appPrimaryColor,
   },
   fonts: configureFonts(fontConfig),
 };

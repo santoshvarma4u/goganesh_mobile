@@ -11,16 +11,21 @@ import {
   Dimensions,
 } from 'react-native';
 import {Divider, Icon} from 'react-native-elements';
-import {Button} from 'react-native-paper';
+import {Button, Dialog, Modal as PaperModal, Portal} from 'react-native-paper';
 import WebView from 'react-native-webview';
 import {connect} from 'react-redux';
 import Colors from '../../../Theams/Colors';
+import CommonTextInput from '../../Common/CommonTextInput';
 import {Typography} from '../../Common/Text';
 
 const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 const HomeListMyIDs = props => {
   const [showWebView, setShowWebView] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [password, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   let banks = [];
   useEffect(() => {
@@ -162,6 +167,7 @@ const HomeListMyIDs = props => {
     <View style={styles.container}>
       {ListTitle()}
       {ListCollapse()}
+
       <Modal
         visible={showWebView}
         animationType="slide"
@@ -170,6 +176,8 @@ const HomeListMyIDs = props => {
         }}
         contentContainerStyle={{
           padding: 20,
+          backgroundColor: 'white',
+          height: screenHeight,
         }}>
         <View
           style={{
@@ -209,6 +217,28 @@ const HomeListMyIDs = props => {
             <Typography variant="H3">{props.walletBalance}</Typography>
           </View>
         </View>
+        <TouchableOpacity
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 2,
+            backgroundColor: Colors.buttonBackgroundColor,
+            borderRadius: 5,
+            marginVertical: 5,
+            marginHorizontal: 5,
+          }}
+          onPress={() => {
+            setShowPasswordModal(true);
+          }}>
+          <Icon
+            type="material"
+            name="published-with-changes"
+            color={Colors.appBlackColor}
+            size={16}
+          />
+          <Typography color={Colors.appBlackColor}>Change Password</Typography>
+        </TouchableOpacity>
         <Divider />
         <View
           style={{
@@ -250,6 +280,44 @@ const HomeListMyIDs = props => {
         <Divider />
         <WebView source={{uri: props.data.sd.siteurl}} />
       </Modal>
+      <Portal>
+        <Dialog
+          visible={showPasswordModal}
+          onRequestClose={() => {
+            setShowPasswordModal(false);
+          }}
+          onDismiss={() => {
+            setShowPasswordModal(false);
+          }}
+          style={{backgroundColor: 'white', zIndex: 10000}}>
+          <Dialog.Title>Alert</Dialog.Title>
+          <Dialog.Content>
+            <View
+              style={{
+                flex: 1,
+                // alignItems: 'center',
+              }}>
+              <View>
+                <CommonTextInput
+                  placeholder="Enter new password"
+                  onChangeText={text => {
+                    setNewPassword(text);
+                  }}
+                />
+                <CommonTextInput
+                  placeholder="Confirm new password"
+                  onChangeText={text => {
+                    setConfirmPassword(text);
+                  }}
+                />
+                <Button mode="contained">
+                  <Typography>Change Password</Typography>
+                </Button>
+              </View>
+            </View>
+          </Dialog.Content>
+        </Dialog>
+      </Portal>
     </View>
   );
 };
@@ -259,8 +327,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.appBlackColorLight,
     borderRadius: 40,
     padding: 16,
-    margin: 5,
-    width: screenWidth - 30,
+    width: screenWidth,
+    borderWidth: 10,
+    borderColor: Colors.appBlackColor,
   },
   image: {
     width: 40,

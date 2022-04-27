@@ -77,7 +77,9 @@ function PassbookScreen({navigation}) {
                   <Typography style={{color: Colors.appWhiteColor}}>
                     {Moment(item.creadtedtime).format('lll').toString()}
                   </Typography>
-                  <Typography style={{color: Colors.appWhiteColor}}>
+                  <Typography
+                    variant="H4"
+                    style={{color: Colors.appWhiteColor}}>
                     {item.paymentMethod}
                   </Typography>
                 </View>

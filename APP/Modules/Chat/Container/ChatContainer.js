@@ -7,6 +7,7 @@ import CrispChat, {
   setUserNickname,
   setUserPhone,
   resetSession,
+  pushSessionEvent,
   setTokenId,
 } from 'react-native-crisp-chat-sdk';
 import {Modal} from 'react-native-paper';
@@ -29,6 +30,7 @@ const ChatContainer = props => {
       setUserNickname(id);
       setUserPhone(`${id}123456789`);
       setIsChatReady(true);
+      pushSessionEvent('User Details Loaded', 1);
     }
   };
 

@@ -12,6 +12,7 @@ import Colors from '../../../Theams/Colors';
 import EnterBankDetails from '../../Common/BankDetails';
 import CommonTextInput from '../../Common/CommonTextInput';
 import {Typography} from '../../Common/Text';
+import IdController from '../../IDs/Controller/IdController';
 import paymentDetailsController from '../../PaymentDetails/Controller/paymentDetailsController';
 
 const WithDrawContainer = props => {
@@ -235,9 +236,8 @@ const WithDrawContainer = props => {
             minHeight: 300,
             padding: 20,
             alignItems: 'center',
-            // justifyContent: 'center',
           }}>
-          <Typography variant="H4" color={Colors.appWhiteColor}>
+          <Typography variant="subheader" color={Colors.appWhiteColor}>
             Select a bank to withdraw
           </Typography>
           <DropDownPicker
@@ -255,6 +255,11 @@ const WithDrawContainer = props => {
             }}
             name={'bankName'}
             theme="DARK"
+            listMode="MODAL"
+            modalTitle="Select a bank to withdraw"
+            modalTitleStyle={{
+              color: Colors.appWhiteColor,
+            }}
           />
           <Button
             mode="contained"
@@ -264,6 +269,24 @@ const WithDrawContainer = props => {
               color: Colors.appBlackColor,
             }}
             onPress={() => {
+              if (!value) {
+                alert('Please select a bank');
+                return;
+              }
+
+              IdController.sendWalletWithDrawRequest(
+                'BANK',
+                amount,
+                'DR',
+                value,
+              )
+                .then(() => {
+                  alert('WithDraw Request Sent Successfully ');
+                  navigation.pop();
+                })
+                .catch(() => {
+                  alert('Error in Withdrawing coins, Please try again later');
+                });
               setWithdrawModalVisible(false);
               setWithdrawModalVisible(false);
               setWithdrawModalVisible(false);

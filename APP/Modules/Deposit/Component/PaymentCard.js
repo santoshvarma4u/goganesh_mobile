@@ -28,6 +28,7 @@ const CardItem = props => {
         marginRight: 20,
         borderWidth: 1,
         borderColor: checked ? Colors.appPrimaryColor : Colors.appBlackColor,
+        flex: 1,
       }}
       onPress={onPress}>
       {/* <Card.Title
@@ -126,7 +127,10 @@ const PaymentCard = props => {
   const {paymentMethod, setPaymentMethod} = props;
 
   return (
-    <View>
+    <View
+      style={{
+        flex: 1,
+      }}>
       <RadioButton.Group
         onValueChange={val => setPaymentMethod(val)}
         value={paymentMethod}>
@@ -153,7 +157,7 @@ const PaymentCard = props => {
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            marginRight: 20,
+            flex: 1,
           }}>
           <RadioButton value="screenshot" />
           <CardItem
@@ -162,7 +166,7 @@ const PaymentCard = props => {
             time={'15-30mins'}
             content={'Supports '}
             contentSubtitle={
-              'Any Upi,PhonePe,Google Pay,Paytm,Paytm UPI & Bank transfer'
+              'Any Upi, PhonePe, Google Pay, Paytm, Paytm UPI & Bank transfer'
             }
             onPress={() => setPaymentMethod('screenshot')}
             checked={paymentMethod === 'screenshot'}

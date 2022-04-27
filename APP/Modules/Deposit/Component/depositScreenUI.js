@@ -243,22 +243,27 @@ function DepositScreen({route}) {
           return (
             <View style={styles.offersContainer}>
               <View style={styles.depositTitle}>
-                <Typography style={{color: Colors.appBlackColor}}>
+                <Typography
+                  variant="title"
+                  style={{color: Colors.appWhiteColor, textAlign: 'center'}}>
                   Send Payment & Upload ScreenShot
                 </Typography>
               </View>
-
               <View style={styles.depositDetailsCard}>
                 <Typography style={styles.depositTitile}>
                   Send INR {planMoney} to Go Ganesh on {data.paymentkey}
                 </Typography>
-
-                <Divider style={{backgroundColor: 'black', height: 5}} />
+                <Divider
+                  style={{
+                    backgroundColor: Colors.appWhiteColor,
+                    marginTop: 5,
+                  }}
+                />
                 <View style={{flexDirection: 'row'}}>
                   <Typography style={styles.depositTitile}>
                     {paymentType} Number
                   </Typography>
-                  <Typography style={styles.phoneNumber}>
+                  <Typography variant="H4" style={styles.phoneNumber}>
                     {data.paymentkey}
                   </Typography>
                 </View>
@@ -266,7 +271,7 @@ function DepositScreen({route}) {
                   <Typography style={styles.depositTitile}>
                     Amount To Deposit
                   </Typography>
-                  <Typography style={styles.phoneNumber}>
+                  <Typography variant="H4" style={styles.phoneNumber}>
                     {planMoney || depositCoins}
                   </Typography>
                 </View>
@@ -274,34 +279,35 @@ function DepositScreen({route}) {
                   <Typography style={styles.depositTitile}>
                     {paymentType} Display name
                   </Typography>
-                  <Typography style={styles.phoneNumber}>
+                  <Typography variant="H4" style={styles.phoneNumber}>
                     {data.paymentname}
                   </Typography>
                 </View>
               </View>
-              <Typography style={styles.depositTitile}>
+              <Typography variant="title" style={styles.depositTitile}>
                 Attach Payment Screenshot
               </Typography>
               <View style={styles.depostScreenshotCard}>
-                <View style={{margin: 20}}>
-                  {filePath.uri ? (
-                    <Image
-                      source={{uri: filePath.uri}}
-                      style={styles.imageStyle}
-                    />
-                  ) : (
-                    <Icon
-                      name="add-to-photos"
-                      color={Colors.appPrimaryColor}
-                      size={48}
-                    />
-                  )}
-                </View>
+                {filePath.uri ? (
+                  <Image
+                    source={{uri: filePath.uri}}
+                    style={styles.imageStyle}
+                  />
+                ) : (
+                  <Icon
+                    name="add-to-photos"
+                    color={Colors.appPrimaryColor}
+                    size={48}
+                    onPress={() => chooseFile()}
+                  />
+                )}
                 <TouchableOpacity
                   activeOpacity={0.5}
                   style={styles.buttonStyle}
                   onPress={() => chooseFile()}>
-                  <Typography style={styles.textStyleButton}>Upload</Typography>
+                  <Typography style={styles.textStyleButton} variant="H1">
+                    Upload
+                  </Typography>
                   <Typography style={styles.textStyle2}>
                     payment screenshot here
                   </Typography>

@@ -9,7 +9,7 @@ const PRIMARY_FONT_LIGHT = 'Montserrat-Light';
 	For any common styles you can add them to base.
 	Define a rule group for each of the types defined in Text.js
 */
-const styles = StyleSheet.create({
+const TypographyStyles = StyleSheet.create({
   base: {color: '#000000'},
   H1: {
     fontFamily: PRIMARY_FONT_BOLD,
@@ -86,4 +86,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default styles;
+export default TypographyStyles;

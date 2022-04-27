@@ -2,22 +2,14 @@ import {useNavigation} from '@react-navigation/native';
 import AllInOneSDKManager from 'paytm_allinone_react-native';
 import React from 'react';
 import {
-  Text,
-  ActivityIndicator,
   View,
   TouchableWithoutFeedback,
   Image,
   ScrollView,
   RefreshControl,
-  FlatList,
-  Dimensions,
-  StyleSheet,
 } from 'react-native';
-import {white} from 'react-native-paper/lib/typescript/styles/colors';
-import reactotron from 'reactotron-react-native';
 import images from '../../../Theams/Images';
 import {Typography} from '../../Common/Text';
-import {nanoUuid, uuid} from '../../Common/uuidGenerator';
 import PaymentOptionController from '../Controller/paymentController';
 
 import styles from './Styles';
@@ -65,7 +57,7 @@ function PaymentOptionScreen({route}) {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
         <View style={styles.PaymentTitle}>
-          <Typography style={{color: 'white'}}>
+          <Typography variant="title" style={{color: 'white'}}>
             Choose Your Payment Method
           </Typography>
           <Typography style={{color: 'white'}}>Pull to Refresh</Typography>
