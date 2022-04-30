@@ -1,3 +1,4 @@
+import reactotron from 'reactotron-react-native';
 import useAPI from '../../../Hooks/useAPI';
 import IDsApi from '../../../Network/IDs/IDs';
 import payeeApi from '../../../Network/payee/payeeApi';
@@ -12,12 +13,15 @@ const submitData = async (
   payreciept,
   userName,
   depositCoins,
+  payementID,
 ) => {
   const data = new FormData();
   data.append('uid', uid);
   data.append('sdid', sdid);
   data.append('paymentType', paymentType);
   data.append('requestStatus', requestStatus);
+  data.append('pymid', payementID);
+
   if (payreciept !== null) {
     data.append('payreciept', {
       uri: payreciept.uri,
@@ -43,12 +47,18 @@ const submitIntialDeposit = async (
   paymentAmount,
   paymentType,
   paymentreciept,
+  remarks,
 ) => {
+  reactotron.log(
+    '🚀 ~ file: depositController.js ~ line 51 ~ remarks',
+    remarks,
+  );
   const data = new FormData();
   data.append('uid', uid);
   data.append('sdid', sdid);
   data.append('paymentType', paymentType);
   data.append('paymentMethod', paymentMethod);
+  data.append('remarks', remarks || '');
   if (paymentreciept !== null) {
     data.append('depositpayreciept', {
       uri: paymentreciept.uri,
@@ -73,12 +83,16 @@ const depositIntoWallet = async (
   paymentType,
   isWallet,
   paymentreciept,
+  remarks,
+  sdid,
 ) => {
   const data = new FormData();
   data.append('uid', uid);
   data.append('paymentType', paymentType);
   data.append('paymentMethod', paymentMethod);
   data.append('isWallet', isWallet);
+  data.append('remarks', remarks);
+  data.append('sdid', sdid || '');
 
   if (paymentreciept !== null) {
     data.append('depositpayreciept', {
@@ -104,17 +118,25 @@ const submitDataForMyID = async (
   paymentAmount,
   paymentType,
   paymentreciept,
+  remarks,
 ) => {
+  reactotron.log(
+    '🚀 ~ file: depositController.js ~ line 111 ~ remarks',
+    remarks,
+  );
   const data = new FormData();
   data.append('uid', uid);
   data.append('sdid', sdid);
   data.append('paymentType', paymentType);
   data.append('paymentMethod', paymentMethod);
-  data.append('depositpayreciept', {
-    uri: paymentreciept.uri,
-    type: paymentreciept.type,
-    name: paymentreciept.fileName,
-  });
+  data.append('remarks', remarks || '');
+  if (paymentreciept !== null) {
+    data.append('depositpayreciept', {
+      uri: paymentreciept.uri,
+      type: paymentreciept.type,
+      name: paymentreciept.fileName,
+    });
+  }
 
   data.append('paymentAmount', paymentAmount);
 
@@ -122,6 +144,7 @@ const submitDataForMyID = async (
   if (!result.ok) {
     return alert(result.problem);
   }
+  return result;
 };
 
 const getPayeeDetails = () => useAPI(payeeApi.getPayeeDetails);
@@ -131,12 +154,14 @@ const debitFromWallet = async (
   paymentAmount,
   paymentType,
   paymentMethod,
+  paymentID,
 ) => {
   const data = {
     uid: uid,
     paymentAmount: paymentAmount,
     paymentType: paymentType,
     paymentMethod: paymentMethod,
+    pymid: paymentID,
   };
 
   const result = await walletApi.debitFromWallet(data);

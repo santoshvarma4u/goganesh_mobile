@@ -6,7 +6,6 @@ import {Icon} from 'react-native-elements';
 import {Button, Modal} from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
-import reactotron from 'reactotron-react-native';
 import {setUserBanks} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
 import EnterBankDetails from '../../Common/BankDetails';
@@ -130,8 +129,8 @@ const WithDrawContainer = props => {
             variant="paragraph"
             color={error ? Colors.appRedColor : Colors.appWhiteColor}>
             {error
-              ? 'Enter valid amount, Minimum amount is 100 coins'
-              : '*Minimum withdraw Amount is 100'}
+              ? 'Enter valid amount, Minimum amount is 1000 coins'
+              : '*Minimum withdraw Amount is 1000'}
           </Typography>
         </View>
         <Button
@@ -143,7 +142,7 @@ const WithDrawContainer = props => {
             color: Colors.appBlackColor,
           }}
           onPress={() => {
-            if (amount >= 100) {
+            if (amount >= 1000) {
               setError(false);
               setWithdrawModalVisible(true);
             } else {
@@ -279,6 +278,7 @@ const WithDrawContainer = props => {
                 amount,
                 'DR',
                 value,
+                'Withdraw from wallet to bank',
               )
                 .then(() => {
                   alert('WithDraw Request Sent Successfully ');

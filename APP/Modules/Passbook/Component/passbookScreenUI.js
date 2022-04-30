@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
+import {Icon} from 'react-native-elements';
 import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
@@ -110,11 +111,13 @@ function PassbookScreen({navigation}) {
                         backgroundColor: Colors.appPrimaryColor,
                         justifyContent: 'center',
                         borderRadius: 5,
+                        flexDirection: 'row',
                       }}
                       onPress={() => {
                         setPaymentReciept(`${env}${item.paymentReciept}`);
                         setVisible(!visible);
                       }}>
+                      <Icon name="image" />
                       <Typography style={{color: Colors.appBlackColor}}>
                         Reference
                       </Typography>
@@ -134,7 +137,10 @@ function PassbookScreen({navigation}) {
               }}>
               <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                  <View style={{marginTop: 20}}>
+                  <View
+                    style={{
+                      marginTop: 20,
+                    }}>
                     <Image
                       source={{uri: paymentReciept}}
                       style={{padding: 5, width: 150, height: 200}}

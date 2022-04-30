@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {Image, Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Icon} from 'react-native-elements';
 import FlatListPicker from 'react-native-flatlist-picker';
-import {Checkbox} from 'react-native-paper';
+import {Button, Checkbox, Divider} from 'react-native-paper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import reactotron from 'reactotron-react-native';
 import {env} from '../../../Network/api/server';
@@ -74,49 +74,55 @@ const WithdrawForm = props => {
             setChecked(!checked);
           }}
         />
-        <Typography style={{color: 'white'}}>Deposit Into Wallet</Typography>
+        <Typography style={{color: 'white'}}>Deposit to Wallet</Typography>
       </View>
       {!checked && (
-        <FlatListPicker
-          data={banks}
-          containerStyle={styles.container}
-          dropdownStyle={{width: 180}}
-          dropdownTextStyle={{fontSize: 15}}
-          pickedTextStyle={{color: 'white', fontWeight: 'bold'}}
-          defaultValue={selectedBank}
-          renderDropdownIcon={() => (
-            <AntDesign
-              name="caretdown"
-              color="white"
-              size={15}
-              style={{padding: 15}}
-            />
-          )}
-          onValueChange={(value, index) => {
-            setSelectedBank(value);
-            setCheckedDemo(1);
-            let bankid = banks.find(o => o.value == value);
-            setSelectedBankID(bankid.key);
-          }}
-        />
+        <>
+          <Divider
+            style={{
+              backgroundColor: Colors.appPrimaryColor,
+              height: 1,
+              marginVertical: 10,
+            }}
+          />
+          <FlatListPicker
+            data={banks}
+            containerStyle={{
+              ...styles.container,
+              width: '80%',
+              marginTop: 10,
+            }}
+            dropdownStyle={{width: 180}}
+            dropdownTextStyle={{fontSize: 15}}
+            pickedTextStyle={{color: 'white', fontWeight: 'bold'}}
+            defaultValue={selectedBank}
+            renderDropdownIcon={() => (
+              <AntDesign
+                name="caretdown"
+                color="white"
+                size={15}
+                style={{padding: 15}}
+              />
+            )}
+            onValueChange={(value, index) => {
+              setSelectedBank(value);
+              setCheckedDemo(1);
+              let bankid = banks.find(o => o.value == value);
+              setSelectedBankID(bankid.key);
+            }}
+          />
+        </>
       )}
-      <View style={{flexDirection: 'row'}}>
-        <TouchableOpacity
+      <View
+        style={{
+          alignItems: 'center',
+          marginTop: 20,
+        }}>
+        <Button
+          mode="contained"
           style={{
-            width: 100,
-            margin: 20,
-            padding: 8,
-            alignItems: 'center',
-            backgroundColor: Colors.appPrimaryColor,
-            justifyContent: 'center',
-            borderRadius: 5,
+            width: '70%',
           }}
-          onPress={() => {
-            props.navigation.pop();
-          }}>
-          <Typography style={{alignItems: 'center'}}>Cancel</Typography>
-        </TouchableOpacity>
-        <TouchableOpacity
           onPress={() => {
             if (checked) {
               depositController.depositIntoWallet(
@@ -126,6 +132,8 @@ const WithdrawForm = props => {
                 'DR',
                 true,
                 null,
+                'Withdraw from exsiting ID to wallet',
+                data.sd.sdid,
               );
             } else {
               if (selectedBankID.length == 0 || amount == 0) {
@@ -139,24 +147,30 @@ const WithdrawForm = props => {
                 amount,
                 'DR',
                 selectedBankID,
+                'Withdraw from exsiting ID to Bank',
               ).then(() => {
                 alert('WithDraw Request Sent Successfully ');
               });
             }
-          }}
-          style={{
-            width: 100,
-            margin: 20,
-            padding: 8,
-            alignItems: 'center',
-            backgroundColor: Colors.appPrimaryColor,
-            justifyContent: 'center',
-            borderRadius: 5,
           }}>
-          <Typography style={{alignItems: 'center'}}>
+          <Typography
+            variant="H3"
+            color={Colors.appWhiteColor}
+            style={{alignItems: 'center'}}>
             Request Withdraw
           </Typography>
-        </TouchableOpacity>
+        </Button>
+        {/* <Button
+          mode="contained"
+          onPress={() => {
+            props.navigation.pop();
+          }}>
+          <Typography
+            color={Colors.appWhiteColor}
+            style={{alignItems: 'center'}}>
+            Cancel
+          </Typography>
+        </Button> */}
       </View>
     </View>
   );

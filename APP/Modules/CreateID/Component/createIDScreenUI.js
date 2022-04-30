@@ -59,11 +59,16 @@ function CreateIDScreen({route}) {
     MaxWithDrawl: '50,000 per day',
   });
 
-
   const submitRequest = async (sdid, values) => {
     let uid = await getUID();
     if (requestStatus === 'old') {
       // Create payment request and withdraw from wallet
+
+      reactotron.log(
+        '🚀 ~ file: createIDScreenUI.js ~ line 63 ~ submitRequest ~ sdid',
+        sdid,
+        requestStatus,
+      );
       const paymentMethod = 'wallet';
       DepositController.submitDataForMyID(
         parseInt(uid),
@@ -71,43 +76,57 @@ function CreateIDScreen({route}) {
         paymentMethod,
         values.DepositCoins,
         'CR',
-        '',
-      ).then(data => {
-        reactotron.log(data);
+        null,
+        'Deposit into existing ID- from wallet',
+      ).then(({data}) => {
+        reactotron.log(
+          '🚀 ~ file: createIDScreenUI.js ~ line 77 ~ ).then ~ data',
+          data,
+        );
         DepositController.debitFromWallet(
           parseInt(uid),
           values.DepositCoins,
           'DR',
           'Wallet',
+          data.data.paymentID,
         ).then(() => {
           navigation.dispatch(resetAction);
           alert('success');
         });
       });
     } else {
-      DepositController.submitData(
+      DepositController.submitIntialDeposit(
         parseInt(uid),
         sdid,
-        'Go Plan',
         'Wallet',
-        'Pending',
-        null,
-        values.UserName,
         values.DepositCoins,
-      ).then(data => {
-        DepositController.submitIntialDeposit(
+        'CR',
+        null,
+        'Deposit into site form wallet- for create id',
+      ).then(({data}) => {
+        // data.paymentID
+        reactotron.log(
+          '🚀 ~ file: createIDScreenUI.js ~ line 97 ~ submitRequest ~ data.paymentID',
+          data,
+          data.data.paymentID,
+        );
+        DepositController.submitData(
           parseInt(uid),
           sdid,
+          'Go Plan',
           'Wallet',
-          values.DepositCoins,
-          'CR',
+          'Pending',
           null,
-        ).then(data => {
+          values.UserName,
+          values.DepositCoins,
+          data.data.paymentID,
+        ).then(data1 => {
           DepositController.debitFromWallet(
             parseInt(uid),
             values.DepositCoins,
             'DR',
             'Wallet',
+            data.data.paymentID,
           ).then(() => {
             navigation.dispatch(resetAction);
           });
@@ -317,10 +336,23 @@ function CreateIDScreen({route}) {
                   .validateUsername(values.UserName, sdid)
                   .then(validateUsername => {
                     let {data} = validateUsername;
+                    reactotron.log(
+                      '🚀 ~ file: createIDScreenUI.js ~ line 337 ~ CreateIDScreen ~ route.params.username',
+                      route.params.username,
+                      data,
+                      data.details.data.length,
+                    );
+
                     if (
                       data.details.data.length === 0 ||
                       route.params.username
                     ) {
+                      reactotron.log(
+                        '🚀 ~ file: createIDScreenUI.js ~ line 337 ~ CreateIDScreen ~ route.params.username',
+                        route.params.username,
+                        checked,
+                        data,
+                      );
                       if (checked) {
                         if (parseInt(wallet.data) < values.DepositCoins) {
                           return alert('Insufficient Funds In Wallet');

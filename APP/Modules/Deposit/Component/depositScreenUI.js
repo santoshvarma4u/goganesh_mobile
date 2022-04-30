@@ -65,23 +65,25 @@ function DepositScreen({route}) {
     }
     setProgress(true);
     if (requestStatus === 'new') {
-      DepositController.submitData(
+      DepositController.submitIntialDeposit(
         parseInt(uid),
         sdid,
-        planType,
         paymentType,
-        'Pending',
-        filePath,
-        userName,
         depositCoins,
-      ).then(data => {
-        DepositController.submitIntialDeposit(
+        'CR',
+        filePath,
+        'Deposit into site form UPI- for create id',
+      ).then(({data}) => {
+        DepositController.submitData(
           parseInt(uid),
           sdid,
+          planType,
           paymentType,
-          depositCoins,
-          'CR',
+          'Pending',
           filePath,
+          userName,
+          depositCoins,
+          data.data.paymentID,
         ).then(data => {});
         setProgress(false);
         navigation.dispatch(resetAction);
@@ -95,6 +97,7 @@ function DepositScreen({route}) {
         'CR',
         true,
         filePath,
+        'Deposit into wallet - UPI- screenshot approval',
       ).then(data => {
         navigation.dispatch(resetAction);
       });
@@ -107,6 +110,7 @@ function DepositScreen({route}) {
         depositCoins,
         'CR',
         filePath,
+        'Deposit into site from UPI- for exsiting id',
       ).then(data => {
         navigation.dispatch(resetAction);
       });

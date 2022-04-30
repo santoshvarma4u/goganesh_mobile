@@ -1,3 +1,4 @@
+import reactotron from 'reactotron-react-native';
 import Storage from '../../Modules/Common/Storage';
 import StorageKeys from '../../Modules/Common/StorageKeys';
 import NetworkAPI from '../api/server';
@@ -18,7 +19,7 @@ const getUserTransactions = async () => {
 };
 const createDepositPayment = data => {
   const headers = {
-    'Content-Type': 'application/x-www-form-urlencoded',
+    'Content-Type': 'multipart/form-data',
   };
 
   return NetworkAPI.apiClient.post(paymentEndPoint, data, headers);
@@ -27,7 +28,17 @@ const createDepositPayment = data => {
 const createWithdrawPayment = data => {
   let paymentWithDrawEndPoint = '/payment/withdraw/';
 
-  return NetworkAPI.apiClient.post(paymentWithDrawEndPoint, data);
+  try {
+    return NetworkAPI.apiClient.post(paymentWithDrawEndPoint, data);
+  } catch (error) {
+    reactotron.log(
+      '🚀 ~ file: transactionsPassbook.js ~ line 33 ~ error',
+      error,
+    );
+
+    throw new Error(error);
+  }
+  // return NetworkAPI.apiClient.post(paymentWithDrawEndPoint, data);
 };
 
 const createWalletWithdrawPayment = data => {
