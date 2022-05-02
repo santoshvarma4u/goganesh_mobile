@@ -21,6 +21,7 @@ import DepositController from '../Controller/depositController';
 import styles from './Styles';
 function DepositScreen({route}) {
   const [progress, setProgress] = useState(false);
+  const [isImageLoading, setIsImageLoading] = useState(false);
 
   const payeeDetils = DepositController.getPayeeDetails();
 
@@ -139,8 +140,11 @@ function DepositScreen({route}) {
         alert(response.customButton);
       } else {
         let source = response;
-
         setFilePath(source);
+        setIsImageLoading(true);
+        setTimeout(() => {
+          setIsImageLoading(false);
+        }, 3000);
       }
     });
   };
@@ -292,7 +296,13 @@ function DepositScreen({route}) {
                 Attach Payment Screenshot
               </Typography>
               <View style={styles.depostScreenshotCard}>
-                {filePath.uri ? (
+                {isImageLoading ? (
+                  <ActivityIndicator
+                    animating={true}
+                    size="large"
+                    color="white"
+                  />
+                ) : filePath.uri ? (
                   <Image
                     source={{uri: filePath.uri}}
                     style={styles.imageStyle}
@@ -319,6 +329,7 @@ function DepositScreen({route}) {
                 {/*<Typography style={styles.textStyle}>{filePath.uri}</Typography>*/}
               </View>
               <TouchableOpacity
+                disabled={isImageLoading}
                 style={{
                   backgroundColor: Colors.appPrimaryColor,
                   paddingVertical: 10,
@@ -329,7 +340,10 @@ function DepositScreen({route}) {
                 onPress={() => {
                   submitPayment();
                 }}>
-                <Typography>Submit</Typography>
+                <Typography>
+                  {' '}
+                  {isImageLoading ? 'Please wait ' : 'Submit'}
+                </Typography>
               </TouchableOpacity>
               {progress ? (
                 <ActivityIndicator
