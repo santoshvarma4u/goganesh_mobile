@@ -6,6 +6,7 @@ import FlatListPicker from 'react-native-flatlist-picker';
 import {Button, Checkbox, Divider} from 'react-native-paper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import reactotron from 'reactotron-react-native';
+import CONSTANTS from '../../../Constants';
 import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
@@ -132,7 +133,7 @@ const WithdrawForm = props => {
                 'DR',
                 true,
                 null,
-                'Withdraw from exsiting ID to wallet',
+                CONSTANTS.WITHDRAW_FROM_EXISTING_ID_TO_WALLET,
                 data.sd.sdid,
               );
             } else {
@@ -147,7 +148,7 @@ const WithdrawForm = props => {
                 amount,
                 'DR',
                 selectedBankID,
-                'Withdraw from exsiting ID to Bank',
+                CONSTANTS.WITHDRAW_FROM_EXISTING_ID_TO_BANK,
               ).then(() => {
                 alert('WithDraw Request Sent Successfully ');
               });

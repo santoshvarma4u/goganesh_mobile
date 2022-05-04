@@ -13,6 +13,7 @@ import {
 import {Divider, Icon} from 'react-native-elements';
 import * as ImagePicker from 'react-native-image-picker';
 import reactotron from 'reactotron-react-native';
+import CONSTANTS from '../../../Constants';
 import Colors from '../../../Theams/Colors';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
@@ -73,7 +74,7 @@ function DepositScreen({route}) {
         depositCoins,
         'CR',
         filePath,
-        'Deposit into site form UPI- for create id',
+        CONSTANTS.DEPOSIT_INTO_SITE_UPI_CREATE_ID,
       ).then(({data}) => {
         DepositController.submitData(
           parseInt(uid),
@@ -98,7 +99,7 @@ function DepositScreen({route}) {
         'CR',
         true,
         filePath,
-        'Deposit into wallet - UPI- screenshot approval',
+        CONSTANTS.DEPOSIT_INTO_WALLET_UPI,
       ).then(data => {
         navigation.dispatch(resetAction);
       });
@@ -111,7 +112,7 @@ function DepositScreen({route}) {
         depositCoins,
         'CR',
         filePath,
-        'Deposit into site from UPI- for exsiting id',
+        CONSTANTS.DEPOSIT_INTO_EXISTING_ID_FROM_UPI,
       ).then(data => {
         navigation.dispatch(resetAction);
       });

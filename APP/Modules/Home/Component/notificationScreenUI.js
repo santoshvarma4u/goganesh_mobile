@@ -29,10 +29,10 @@ function NotificationScreen({navigation}) {
         </View>
         <View style={{marginLeft: 14}}>
           <Typography style={{color: Colors.appWhiteColor, fontSize: 14}}>
-            {item.notificationTitle}
+            {item?.notificationTitle}
           </Typography>
           <Typography style={{color: Colors.appWhiteColor, fontSize: 10}}>
-            {item.notificationMessage}
+            {item?.notificationMessage}
           </Typography>
         </View>
         <View

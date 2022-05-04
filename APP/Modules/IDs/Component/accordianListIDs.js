@@ -141,51 +141,51 @@ const AccordianListNew = props => {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={styles.moneyCard}>
-          <View style={styles.moneyCardContentGrid}>
-            <View style={styles.moneyRow1}>
-              <View style={styles.moneyCardIcon}>
-                <Icon
-                  name="sports-cricket"
-                  color={Colors.appPrimaryColor}
-                  size={18}
-                />
-              </View>
-              <Typography style={styles.moneyCardText}>Cricket</Typography>
-              <Typography style={styles.moneyCardPrice}>100</Typography>
-            </View>
+        {/*<View style={styles.moneyCard}>*/}
+        {/*  <View style={styles.moneyCardContentGrid}>*/}
+        {/*    <View style={styles.moneyRow1}>*/}
+        {/*      <View style={styles.moneyCardIcon}>*/}
+        {/*        <Icon*/}
+        {/*          name="sports-cricket"*/}
+        {/*          color={Colors.appPrimaryColor}*/}
+        {/*          size={18}*/}
+        {/*        />*/}
+        {/*      </View>*/}
+        {/*      <Typography style={styles.moneyCardText}>Cricket</Typography>*/}
+        {/*      <Typography style={styles.moneyCardPrice}>100</Typography>*/}
+        {/*    </View>*/}
 
-            <View style={styles.moneyRow2}>
-              <View style={styles.moneyCardIcon}>
-                <Icon
-                  name="sports-soccer"
-                  color={Colors.appPrimaryColor}
-                  size={18}
-                />
-              </View>
-              <Typography style={styles.moneyCardText}>Football</Typography>
-              <Typography style={styles.moneyCardPrice}>100</Typography>
-            </View>
-            <View style={styles.moneyRow3}>
-              <View style={styles.moneyCardIcon}>
-                <Icon
-                  name="sports-tennis"
-                  color={Colors.appPrimaryColor}
-                  size={18}
-                />
-              </View>
-              <Typography style={styles.moneyCardText}>Tennis</Typography>
-              <Typography style={styles.moneyCardPrice}>100</Typography>
-            </View>
-            <View style={styles.moneyRow3}>
-              <View style={styles.moneyCardIcon}>
-                <Icon name="casino" color={Colors.appPrimaryColor} size={18} />
-              </View>
-              <Typography style={styles.moneyCardText}>Live Casino</Typography>
-              <Typography style={styles.moneyCardPrice}>100</Typography>
-            </View>
-          </View>
-        </View>
+        {/*    <View style={styles.moneyRow2}>*/}
+        {/*      <View style={styles.moneyCardIcon}>*/}
+        {/*        <Icon*/}
+        {/*          name="sports-soccer"*/}
+        {/*          color={Colors.appPrimaryColor}*/}
+        {/*          size={18}*/}
+        {/*        />*/}
+        {/*      </View>*/}
+        {/*      <Typography style={styles.moneyCardText}>Football</Typography>*/}
+        {/*      <Typography style={styles.moneyCardPrice}>100</Typography>*/}
+        {/*    </View>*/}
+        {/*    <View style={styles.moneyRow3}>*/}
+        {/*      <View style={styles.moneyCardIcon}>*/}
+        {/*        <Icon*/}
+        {/*          name="sports-tennis"*/}
+        {/*          color={Colors.appPrimaryColor}*/}
+        {/*          size={18}*/}
+        {/*        />*/}
+        {/*      </View>*/}
+        {/*      <Typography style={styles.moneyCardText}>Tennis</Typography>*/}
+        {/*      <Typography style={styles.moneyCardPrice}>100</Typography>*/}
+        {/*    </View>*/}
+        {/*    <View style={styles.moneyRow3}>*/}
+        {/*      <View style={styles.moneyCardIcon}>*/}
+        {/*        <Icon name="casino" color={Colors.appPrimaryColor} size={18} />*/}
+        {/*      </View>*/}
+        {/*      <Typography style={styles.moneyCardText}>Live Casino</Typography>*/}
+        {/*      <Typography style={styles.moneyCardPrice}>100</Typography>*/}
+        {/*    </View>*/}
+        {/*  </View>*/}
+        {/*</View>*/}
         <TouchableOpacity
           style={{
             width: 100,

@@ -1,15 +1,19 @@
 import {useNavigation} from '@react-navigation/native';
 import {CommonActions} from '@react-navigation/native';
 import {Formik} from 'formik';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {TouchableWithoutFeedback, View, ScrollView} from 'react-native';
 import {Button, Checkbox} from 'react-native-paper';
+import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
 import * as Yup from 'yup';
 import FGLOGO2 from '../../../Assets/svgs/fglogo2';
+import CONSTANTS from '../../../Constants';
 import Storage from '../../../Modules/Common/Storage';
 import StorageKeys from '../../../Modules/Common/StorageKeys';
 import siteApi from '../../../Network/sites/sites';
+import {setWalletBalance} from '../../../Store/Slices/homeSlice';
+import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
 import {Typography} from '../../Common/Text';
@@ -56,8 +60,17 @@ function CreateIDScreen({route}) {
     MinRefill: '1,000',
     MinWidthdrawl: '1,000',
     MinMaintainBalance: '1,000',
-    MaxWithDrawl: '50,000 per day',
+    MaxWithDrawl: '25,00,000 per day',
   });
+
+  useEffect(() => {
+    reactotron.log('CreateIDScreen', navigation);
+    if (requestStatus === 'old') {
+      navigation.setOptions({
+        headerTitle: 'Deposit',
+      });
+    }
+  }, [navigation, requestStatus]);
 
   const submitRequest = async (sdid, values) => {
     let uid = await getUID();
@@ -77,7 +90,7 @@ function CreateIDScreen({route}) {
         values.DepositCoins,
         'CR',
         null,
-        'Deposit into existing ID- from wallet',
+        CONSTANTS.DEPOSIT_INTO_EXISTING_ID_FROM_WALLET,
       ).then(({data}) => {
         reactotron.log(
           '🚀 ~ file: createIDScreenUI.js ~ line 77 ~ ).then ~ data',
@@ -102,7 +115,7 @@ function CreateIDScreen({route}) {
         values.DepositCoins,
         'CR',
         null,
-        'Deposit into site form wallet- for create id',
+        CONSTANTS.DEPOSIT_INTO_SITE_WALLET_CREATE_ID,
       ).then(({data}) => {
         // data.paymentID
         reactotron.log(
