@@ -63,50 +63,50 @@ function PaymentOptionScreen({route}) {
           <Typography style={{color: 'white'}}>Pull to Refresh</Typography>
         </View>
         <View style={styles.paymentOptions}>
-          <TouchableWithoutFeedback
-            onPress={() => {
-              if (checkIfPaymentOptionAvailable('Paytm UPI')) {
-                navigation.navigate('Deposit', {
-                  sdid: sdid,
-                  planMoney: planMoney,
-                  paymentType: 'Paytm UPI',
-                  planType: planType,
-                  userName: userName,
-                  depositCoins: depositCoins,
-                  requestStatus: requestStatus,
-                });
-              } else {
-                alert('Payment Option Not Available');
-              }
-            }}>
-            <View style={styles.paymentMethod}>
-              <Image style={styles.paymentIcon} source={images.paytmupi} />
-              <Typography style={styles.paymentTypeTitle}>Paytm UPI</Typography>
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback
-            onPress={() => {
-              if (checkIfPaymentOptionAvailable('Paytm Wallet')) {
-                navigation.navigate('Deposit', {
-                  sdid: sdid,
-                  planMoney: planMoney,
-                  planType: planType,
-                  paymentType: 'Paytm Wallet',
-                  userName: userName,
-                  depositCoins: depositCoins,
-                  requestStatus: requestStatus,
-                });
-              } else {
-                alert('Payment Option Not Available');
-              }
-            }}>
-            <View style={styles.paymentMethod}>
-              <Image style={styles.paymentIcon} source={images.paytm} />
-              <Typography style={styles.paymentTypeTitle}>
-                Paytm Wallet
-              </Typography>
-            </View>
-          </TouchableWithoutFeedback>
+          {/*<TouchableWithoutFeedback*/}
+          {/*  onPress={() => {*/}
+          {/*    if (checkIfPaymentOptionAvailable('Paytm UPI')) {*/}
+          {/*      navigation.navigate('Deposit', {*/}
+          {/*        sdid: sdid,*/}
+          {/*        planMoney: planMoney,*/}
+          {/*        paymentType: 'Paytm UPI',*/}
+          {/*        planType: planType,*/}
+          {/*        userName: userName,*/}
+          {/*        depositCoins: depositCoins,*/}
+          {/*        requestStatus: requestStatus,*/}
+          {/*      });*/}
+          {/*    } else {*/}
+          {/*      alert('Payment Option Not Available');*/}
+          {/*    }*/}
+          {/*  }}>*/}
+          {/*  <View style={styles.paymentMethod}>*/}
+          {/*    <Image style={styles.paymentIcon} source={images.paytmupi} />*/}
+          {/*    <Typography style={styles.paymentTypeTitle}>Paytm UPI</Typography>*/}
+          {/*  </View>*/}
+          {/*</TouchableWithoutFeedback>*/}
+          {/*<TouchableWithoutFeedback*/}
+          {/*  onPress={() => {*/}
+          {/*    if (checkIfPaymentOptionAvailable('Paytm Wallet')) {*/}
+          {/*      navigation.navigate('Deposit', {*/}
+          {/*        sdid: sdid,*/}
+          {/*        planMoney: planMoney,*/}
+          {/*        planType: planType,*/}
+          {/*        paymentType: 'Paytm Wallet',*/}
+          {/*        userName: userName,*/}
+          {/*        depositCoins: depositCoins,*/}
+          {/*        requestStatus: requestStatus,*/}
+          {/*      });*/}
+          {/*    } else {*/}
+          {/*      alert('Payment Option Not Available');*/}
+          {/*    }*/}
+          {/*  }}>*/}
+          {/*  <View style={styles.paymentMethod}>*/}
+          {/*    <Image style={styles.paymentIcon} source={images.paytm} />*/}
+          {/*    <Typography style={styles.paymentTypeTitle}>*/}
+          {/*      Paytm Wallet*/}
+          {/*    </Typography>*/}
+          {/*  </View>*/}
+          {/*</TouchableWithoutFeedback>*/}
           <TouchableWithoutFeedback
             onPress={() => {
               if (checkIfPaymentOptionAvailable('Google Pay')) {
@@ -175,29 +175,29 @@ function PaymentOptionScreen({route}) {
               </Typography>
             </View>
           </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback
-            onPress={() => {
-              if (checkIfPaymentOptionAvailable('UPI Manual Transfer')) {
-                navigation.navigate('Deposit', {
-                  sdid: sdid,
-                  planMoney: planMoney,
-                  paymentType: 'UPI Manual Transfer',
-                  planType: planType,
-                  userName: userName,
-                  depositCoins: depositCoins,
-                  requestStatus: requestStatus,
-                });
-              } else {
-                alert('Payment Option Not Available');
-              }
-            }}>
-            <View style={styles.paymentMethod}>
-              <Image style={styles.paymentIcon} source={images.allupi} />
-              <Typography style={styles.paymentTypeTitle}>
-                UPI Manual Transfer
-              </Typography>
-            </View>
-          </TouchableWithoutFeedback>
+          {/*<TouchableWithoutFeedback*/}
+          {/*  onPress={() => {*/}
+          {/*    if (checkIfPaymentOptionAvailable('UPI Manual Transfer')) {*/}
+          {/*      navigation.navigate('Deposit', {*/}
+          {/*        sdid: sdid,*/}
+          {/*        planMoney: planMoney,*/}
+          {/*        paymentType: 'UPI Manual Transfer',*/}
+          {/*        planType: planType,*/}
+          {/*        userName: userName,*/}
+          {/*        depositCoins: depositCoins,*/}
+          {/*        requestStatus: requestStatus,*/}
+          {/*      });*/}
+          {/*    } else {*/}
+          {/*      alert('Payment Option Not Available');*/}
+          {/*    }*/}
+          {/*  }}>*/}
+          {/*  <View style={styles.paymentMethod}>*/}
+          {/*    <Image style={styles.paymentIcon} source={images.allupi} />*/}
+          {/*    <Typography style={styles.paymentTypeTitle}>*/}
+          {/*      UPI Manual Transfer*/}
+          {/*    </Typography>*/}
+          {/*  </View>*/}
+          {/*</TouchableWithoutFeedback>*/}
         </View>
       </ScrollView>
     </View>
