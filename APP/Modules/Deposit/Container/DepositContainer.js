@@ -3,7 +3,6 @@ import AllInOneSDKManager from 'paytm_allinone_react-native';
 import React from 'react';
 import {ScrollView, View} from 'react-native';
 import {Button, TextInput, Modal} from 'react-native-paper';
-import RazorpayCheckout from 'react-native-razorpay';
 import * as RNUpiPayment from 'react-native-upi-payment';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
@@ -77,38 +76,7 @@ const initiatePaymentGatewayTransaction = async amount => {
     });
 };
 
-const initiateRazorPay = async amount => {
-  const data = {
-    amount: amount * 100,
-    currency: 'INR',
-  };
-  const order = await PaymentOptionController.razorPayCreateOrder(data);
 
-  var options = {
-    name: 'Laxmi Trading Company',
-    description: 'Please pay here',
-    order_id: order.id,
-    key: 'rzp_live_ACt7o8qHr1kFb7',
-    prefill: {
-      email: 'useremail@example.com',
-      contact: '9191919191',
-      name: 'John Doe',
-    },
-    theme: {color: Colors.appPrimaryColor},
-  };
-  RazorpayCheckout.open(options)
-    .then(() => {
-      DepositController.depositIntoWallet(
-        2,
-        'Payment Gateway',
-        amount,
-        'CR',
-        true,
-        '',
-      ).then(data => {});
-    })
-    .catch(reactotron.log);
-};
 const DepositContainer = props => {
   const {navigation, walletBalance = 0} = props;
   const [amount, setAmount] = React.useState('');
@@ -250,7 +218,6 @@ const DepositContainer = props => {
               if (paymentMethod === 'gateway') {
                 // initiatePaymentGatewayTransaction(amount);
                 //intiateThroughUPI(amount);
-                initiateRazorPay(amount);
               } else {
                 navigation.navigate('PaymentOptions', {
                   depositCoins: amount,
