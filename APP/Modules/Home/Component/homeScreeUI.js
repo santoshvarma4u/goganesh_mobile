@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 import React, {useState, useEffect} from 'react';
 import {
   View,
@@ -51,6 +52,17 @@ function HomeScreen(props) {
   useEffect(() => {
     props.setWallet({walletBalance: wallet.data});
   }, [wallet.data]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      // Do something when the screen is focused
+      wallet.request();
+      return () => {
+        // alert('Screen was unfocused');
+        // Useful for cleanup functions
+      };
+    }, []),
+  );
 
   useEffect(() => {
     getUserBanks.data.map(item => {
