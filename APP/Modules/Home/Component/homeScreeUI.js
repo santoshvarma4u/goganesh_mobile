@@ -12,9 +12,8 @@ import {
 import {Icon} from 'react-native-elements';
 import {SliderBox} from 'react-native-image-slider-box';
 import LinearGradient from 'react-native-linear-gradient';
-import {Button} from 'react-native-paper';
+import {Button, IconButton} from 'react-native-paper';
 import {connect} from 'react-redux';
-import reactotron from 'reactotron-react-native';
 import NetworkAPI from '../../../Network/api/server';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetailsSlice';
@@ -27,6 +26,7 @@ import IdController from '../../IDs/Controller/IdController';
 import HomeListMyIDs from '../Component/homeListMyIDs';
 import HomeController from '../Controller/homeController';
 import styles from './Styles';
+
 function HomeScreen(props) {
   let banks = [];
   const navigation = useNavigation();
@@ -86,6 +86,7 @@ function HomeScreen(props) {
             setRefreshing(true);
             getUserBanks.request();
             getMyIDs.request();
+            wallet.request();
             setRefreshing(false);
           }}
         />
@@ -96,9 +97,25 @@ function HomeScreen(props) {
         end={{x: 1, y: 0.5}}
         colors={['#ff9100', '#ff3e30']}>
         <View style={styles.upperContainer}>
-          <Typography color={Colors.appWhiteColor} variant={'title'}>
-            Wallet Balance
-          </Typography>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginTop: 10,
+            }}>
+            <Typography color={Colors.appWhiteColor} variant={'title'}>
+              Wallet Balance
+            </Typography>
+            <Button
+              loading={wallet.loading}
+              uppercase={false}
+              icon={'reload'}
+              color={Colors.appWhiteColor}
+              onPress={() => {
+                wallet.request();
+              }}
+            />
+          </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Icon
               name="rupee"
