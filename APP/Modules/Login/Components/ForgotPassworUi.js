@@ -12,9 +12,10 @@ import sendOTP from '../Controllers/LoginController';
 import LoginController from '../Controllers/LoginController';
 
 const ForgotPassWordUI = props => {
+  const {phone: routePhone, type = ''} = props?.route?.params || {};
   let [otp, setOtp] = useState('');
   let [otpRequest, setOtpRequest] = useState(false);
-  let [phone, setPhone] = useState('');
+  let [phone, setPhone] = useState(routePhone || '');
   const [otpSession, setOtpSession] = React.useState('');
   const [resetPassword, setResetPassword] = useState(false);
 
@@ -52,7 +53,13 @@ const ForgotPassWordUI = props => {
     const updatePass = await LoginController.updatePassword(phone, pass);
     if (updatePass.message === 'USER was updated successfully.') {
       setResetPassword(true);
-      props.navigation.pop();
+      if (type === 'profile') {
+        props.navigation.navigate('Profile');
+        alert('Password updated successfully');
+      } else {
+        props.navigation.pop();
+        alert('Password updated successfully, please login again');
+      }
     } else {
       alert('Password Update failed');
     }
@@ -104,30 +111,36 @@ const ForgotPassWordUI = props => {
     </View>
   ) : (
     <View style={styles.container}>
-      <Typography style={styles.mainText}>
-        Please enter your Phone Number
-      </Typography>
       {!otpRequest && (
-        <Input
-          style={styles.textInput}
-          label={'Phone Number'}
-          onChangeText={value => {
-            setPhone(value);
-          }}
-          keyboardType={'numeric'}
-          inputContainerStyle={styles.containerStyle}
-          labelStyle={styles.labelStyle}
-        />
+        <>
+          <Typography style={styles.mainText}>
+            Please enter your Phone Number
+          </Typography>
+          <Input
+            style={styles.textInput}
+            label={'Phone Number'}
+            value={phone}
+            onChangeText={value => {
+              setPhone(value);
+            }}
+            keyboardType={'numeric'}
+            inputContainerStyle={styles.containerStyle}
+            labelStyle={styles.labelStyle}
+          />
+        </>
       )}
       {otpRequest && (
-        <OTPInputView
-          style={styles.otpInputView}
-          pinCount={4}
-          codeInputFieldStyle={styles.codeInputField}
-          onCodeChanged={code => {
-            setOtp(code);
-          }}
-        />
+        <>
+          <Typography style={styles.mainText}>Please enter OTP</Typography>
+          <OTPInputView
+            style={styles.otpInputView}
+            pinCount={4}
+            codeInputFieldStyle={styles.codeInputField}
+            onCodeChanged={code => {
+              setOtp(code);
+            }}
+          />
+        </>
       )}
       <View
         style={{

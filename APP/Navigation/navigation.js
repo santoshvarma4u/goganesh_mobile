@@ -367,6 +367,24 @@ const HomeStackNavigator = () => {
           ),
         })}
       />
+      <Stack.Screen
+        name="ChangePassword"
+        component={ForgotPassWord}
+        options={({navigation}) => ({
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitle: 'Change Password ',
+          headerTitleAlign: 'center',
+          headerTitleStyle: appHeaderStyle,
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => {
+                navigation.goBack();
+              }}
+            />
+          ),
+        })}
+      />
     </Stack.Navigator>
   );
 };
