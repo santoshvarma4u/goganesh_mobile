@@ -25,9 +25,21 @@ const getAllNotifications = async () => {
   return NetworkAPI.apiClient.get(`/notification/${userid}`);
 };
 
+const resetUserSitePassword = async data => {
+  let userid = await getUID();
+  return NetworkAPI.apiClient.post(
+    `/userSiteDetails/changePassword/${data.id}`,
+    {
+      ...data,
+      uid: userid,
+    },
+  );
+};
+
 export default {
   getUsers,
   createUser,
   getWalletBalance,
   getAllNotifications,
+  resetUserSitePassword,
 };

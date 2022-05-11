@@ -9,4 +9,21 @@ const getWalletBalance = () => useAPI(usersAPI.getWalletBalance);
 
 const getNotifications = () => useAPI(usersAPI.getAllNotifications);
 
-export default {useGetPromoImages, getWalletBalance, getNotifications};
+const resetUserSitePassword = async data => {
+  try {
+    const result = await usersAPI.resetUserSitePassword(data);
+    if (!result.ok) {
+      return alert(result.problem);
+    }
+    return result.data;
+  } catch (error) {
+    return alert(error);
+  }
+};
+
+export default {
+  useGetPromoImages,
+  getWalletBalance,
+  getNotifications,
+  resetUserSitePassword,
+};
