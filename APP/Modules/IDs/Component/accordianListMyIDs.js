@@ -396,6 +396,7 @@ const AccordianListNew = props => {
                         .resetUserSitePassword({
                           newPassword: password,
                           id: props.data.sd.sdid,
+                          usdid: props.data.usdid,
                         })
                         .then(() => {
                           setShowPasswordModal(false);
@@ -434,6 +435,7 @@ const AccordianListNew = props => {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.appBlackColorLight,
