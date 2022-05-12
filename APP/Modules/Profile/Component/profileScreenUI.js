@@ -46,7 +46,16 @@ function ProfileScreen({navigation}) {
             variant={'H4'}>
             Phone : {phone}
           </Typography>
-          <Chip title="Change Password" />
+          <Chip
+            title="Change Password"
+            onPress={() => {
+              navigation.navigate('ChangePassword', {
+                name: name,
+                phone: phone,
+                type: 'profile',
+              });
+            }}
+          />
         </View>
       </View>
     </View>

@@ -10,13 +10,14 @@ import {
   Modal,
   Dimensions,
 } from 'react-native';
-import {Divider, Icon} from 'react-native-elements';
-import {Button, Dialog, Modal as PaperModal, Portal} from 'react-native-paper';
+import {BottomSheet, Divider, Icon, ListItem} from 'react-native-elements';
+import {Button, Modal as PaperModal, Portal, Card} from 'react-native-paper';
 import WebView from 'react-native-webview';
 import {connect} from 'react-redux';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
 import {Typography} from '../../Common/Text';
+import homeController from '../Controller/homeController';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -26,6 +27,8 @@ const HomeListMyIDs = props => {
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [password, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   let banks = [];
   useEffect(() => {
@@ -75,6 +78,20 @@ const HomeListMyIDs = props => {
             {props.data.sd.sitename}
           </Typography>
         </View>
+        <View
+          style={{
+            flex: 1,
+          }}
+        />
+        <Icon
+          name="dots-vertical"
+          type="material-community"
+          color={Colors.appWhiteColor}
+          size={20}
+          onPress={() => {
+            setIsVisible(true);
+          }}
+        />
       </View>
     );
   }
@@ -163,11 +180,49 @@ const HomeListMyIDs = props => {
     );
   }
 
+  const list = [
+    {
+      title: 'Deposit',
+      onPress: () => {
+        setIsVisible(false);
+        props.navigation.navigate('CreateID', {
+          sdid: props.data.sd.sdid,
+          username: props.data.username,
+          requestStatus: 'old',
+        });
+      },
+    },
+    {
+      title: 'Withdraw',
+      onPress: () => {
+        setIsVisible(false);
+        props.navigation.navigate('Withdraw', {
+          banks: banks,
+          data: props.data,
+        });
+      },
+    },
+    {
+      title: 'Change Password',
+      onPress: () => {
+        setIsVisible(false);
+        setShowPasswordModal(true);
+      },
+    },
+    {
+      title: 'Cancel',
+      containerStyle: {backgroundColor: Colors.appRedColor},
+      titleStyle: {color: Colors.appWhiteColor},
+      onPress: () => {
+        setIsVisible(false);
+      },
+    },
+  ];
+
   return (
     <View style={styles.container}>
       {ListTitle()}
       {ListCollapse()}
-
       <Modal
         visible={showWebView}
         animationType="slide"
@@ -217,28 +272,6 @@ const HomeListMyIDs = props => {
             <Typography variant="H3">{props.walletBalance}</Typography>
           </View>
         </View>
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: 2,
-            backgroundColor: Colors.buttonBackgroundColor,
-            borderRadius: 5,
-            marginVertical: 5,
-            marginHorizontal: 5,
-          }}
-          onPress={() => {
-            setShowPasswordModal(true);
-          }}>
-          <Icon
-            type="material"
-            name="published-with-changes"
-            color={Colors.appBlackColor}
-            size={16}
-          />
-          <Typography color={Colors.appBlackColor}>Change Password</Typography>
-        </TouchableOpacity>
         <Divider />
         <View
           style={{
@@ -280,43 +313,109 @@ const HomeListMyIDs = props => {
         <Divider />
         <WebView source={{uri: props.data.sd.siteurl}} />
       </Modal>
+      <BottomSheet
+        isVisible={isVisible}
+        containerStyle={{backgroundColor: 'rgba(0.5, 0.25, 0, 0.7)'}}>
+        {list.map((l, i) => (
+          <ListItem
+            key={i}
+            containerStyle={l.containerStyle}
+            onPress={l.onPress}>
+            <ListItem.Content>
+              <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
+            </ListItem.Content>
+          </ListItem>
+        ))}
+      </BottomSheet>
       <Portal>
-        <Dialog
+        <PaperModal
           visible={showPasswordModal}
-          onRequestClose={() => {
-            setShowPasswordModal(false);
+          contentContainerStyle={{
+            backgroundColor: Colors.appBlackColorLight,
+            margin: 10,
           }}
           onDismiss={() => {
             setShowPasswordModal(false);
-          }}
-          style={{backgroundColor: 'white', zIndex: 10000}}>
-          <Dialog.Title>Alert</Dialog.Title>
-          <Dialog.Content>
-            <View
-              style={{
-                flex: 1,
-                // alignItems: 'center',
-              }}>
-              <View>
-                <CommonTextInput
-                  placeholder="Enter new password"
-                  onChangeText={text => {
-                    setNewPassword(text);
-                  }}
-                />
-                <CommonTextInput
-                  placeholder="Confirm new password"
-                  onChangeText={text => {
-                    setConfirmPassword(text);
-                  }}
-                />
-                <Button mode="contained">
-                  <Typography>Change Password</Typography>
-                </Button>
-              </View>
-            </View>
-          </Dialog.Content>
-        </Dialog>
+          }}>
+          <Card style={styles.modalContainer}>
+            <Card.Title
+              title={'Change Password'}
+              subtitle={`Site: ${props.data.sd.sitename} , username: ${props.data.username}`}
+            />
+            <Card.Content>
+              <CommonTextInput
+                mode="flat"
+                placeholder="Enter new password"
+                label="New Password"
+                value={password}
+                onChangeText={text => {
+                  setNewPassword(text);
+                }}
+              />
+              <CommonTextInput
+                mode="flat"
+                placeholder="Confirm new password"
+                label="Confirm new password"
+                value={confirmPassword}
+                onChangeText={text => {
+                  setConfirmPassword(text);
+                }}
+              />
+            </Card.Content>
+            <Card.Actions>
+              <View
+                style={{
+                  flex: 1,
+                  margin: 30,
+                }}
+              />
+              <Button
+                mode="contained"
+                uppercase={false}
+                onPress={() => {
+                  if (password === confirmPassword) {
+                    //change password
+                    if (password.length >= 8) {
+                      // logic to change password
+                      setIsLoading(true);
+                      homeController
+                        .resetUserSitePassword({
+                          newPassword: password,
+                          id: props.data.sd.sdid,
+                        })
+                        .then(() => {
+                          setShowPasswordModal(false);
+                          setIsLoading(false);
+                        })
+                        .catch(() => {
+                          setShowPasswordModal(false);
+                          setIsLoading(false);
+                        });
+                    } else {
+                      alert('Password must be at least 8 characters long');
+                    }
+                  } else {
+                    alert('Password does not match');
+                  }
+                }}>
+                Change password
+              </Button>
+              <Button
+                uppercase={false}
+                mode="contained"
+                style={{
+                  marginLeft: 10,
+                }}
+                onPress={() => {
+                  setShowPasswordModal(false);
+                  setNewPassword('');
+                  setConfirmPassword('');
+                }}>
+                Cancel
+              </Button>
+            </Card.Actions>
+          </Card>
+        </PaperModal>
       </Portal>
     </View>
   );
@@ -325,7 +424,7 @@ const HomeListMyIDs = props => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.appBlackColorLight,
-    borderRadius: 40,
+    borderRadius: 30,
     padding: 16,
     width: screenWidth,
     borderWidth: 10,
@@ -355,7 +454,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.appBlackColor,
     padding: 10,
-    borderRadius: 30,
+    borderRadius: 10,
   },
   credsCard: {
     marginTop: 10,

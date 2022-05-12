@@ -9,16 +9,30 @@ import {
   Clipboard,
   Modal,
 } from 'react-native';
-import {Icon} from 'react-native-elements';
-import {Button, Divider} from 'react-native-paper';
+import {BottomSheet, ListItem, Icon} from 'react-native-elements';
+
+import {
+  Button,
+  Card,
+  Divider,
+  Modal as PaperModal,
+  Portal,
+} from 'react-native-paper';
 import WebView from 'react-native-webview';
 
 import {connect} from 'react-redux';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import Colors from '../../../Theams/Colors';
+import CommonTextInput from '../../Common/CommonTextInput';
 import {Typography} from '../../Common/Text';
+import homeController from '../../Home/Controller/homeController';
 const AccordianListNew = props => {
   const [showWebView, setShowWebView] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [password, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   let banks = [];
   // const [expanded, setExpanded] = React.useState(true);
@@ -64,6 +78,20 @@ const AccordianListNew = props => {
             {props.data.sd.sitename}
           </Typography>
         </View>
+        <View
+          style={{
+            flex: 1,
+          }}
+        />
+        <Icon
+          name="dots-vertical"
+          type="material-community"
+          color={Colors.appWhiteColor}
+          size={20}
+          onPress={() => {
+            setIsVisible(true);
+          }}
+        />
       </View>
     );
   }
@@ -123,6 +151,45 @@ const AccordianListNew = props => {
     );
   }
 
+  const list = [
+    {
+      title: 'Deposit',
+      onPress: () => {
+        setIsVisible(false);
+        navigation.navigate('CreateID', {
+          sdid: props.data.sd.sdid,
+          username: props.data.username,
+          requestStatus: 'old',
+        });
+      },
+    },
+    {
+      title: 'Withdraw',
+      onPress: () => {
+        setIsVisible(false);
+        navigation.navigate('Withdraw', {
+          banks: banks,
+          data: props.data,
+        });
+      },
+    },
+    {
+      title: 'Change Password',
+      onPress: () => {
+        setIsVisible(false);
+        setShowPasswordModal(true);
+      },
+    },
+    {
+      title: 'Cancel',
+      containerStyle: {backgroundColor: Colors.appRedColor},
+      titleStyle: {color: Colors.appWhiteColor},
+      onPress: () => {
+        setIsVisible(false);
+      },
+    },
+  ];
+
   return (
     <View style={styles.container}>
       <View
@@ -180,25 +247,6 @@ const AccordianListNew = props => {
             <Typography variant="H3">{props.wallet}</Typography>
           </View>
         </View>
-        <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: 2,
-            backgroundColor: Colors.buttonBackgroundColor,
-            borderRadius: 5,
-            marginVertical: 5,
-            marginHorizontal: 5,
-          }}>
-          <Icon
-            type="material"
-            name="published-with-changes"
-            color={Colors.appBlackColor}
-            size={16}
-          />
-          <Typography color={Colors.appBlackColor}>Change Password</Typography>
-        </TouchableOpacity>
         <Divider />
         <View
           style={{
@@ -279,6 +327,110 @@ const AccordianListNew = props => {
           </Typography>
         </TouchableOpacity>
       </View>
+      <BottomSheet
+        isVisible={isVisible}
+        containerStyle={{backgroundColor: 'rgba(0.5, 0.25, 0, 0.7)'}}>
+        {list.map((l, i) => (
+          <ListItem
+            key={i}
+            containerStyle={l.containerStyle}
+            onPress={l.onPress}>
+            <ListItem.Content>
+              <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
+            </ListItem.Content>
+          </ListItem>
+        ))}
+      </BottomSheet>
+      <Portal>
+        <PaperModal
+          visible={showPasswordModal}
+          contentContainerStyle={{
+            backgroundColor: Colors.appBlackColorLight,
+            margin: 10,
+          }}
+          onDismiss={() => {
+            setShowPasswordModal(false);
+          }}>
+          <Card style={styles.modalContainer}>
+            <Card.Title
+              title={'Change Password'}
+              subtitle={`Site: ${props.data.sd.sitename} , username: ${props.data.username}`}
+            />
+            <Card.Content>
+              <CommonTextInput
+                mode="flat"
+                placeholder="Enter new password"
+                label="New Password"
+                value={password}
+                onChangeText={text => {
+                  setNewPassword(text);
+                }}
+              />
+              <CommonTextInput
+                mode="flat"
+                placeholder="Confirm new password"
+                label="Confirm new password"
+                value={confirmPassword}
+                onChangeText={text => {
+                  setConfirmPassword(text);
+                }}
+              />
+            </Card.Content>
+            <Card.Actions>
+              <View
+                style={{
+                  flex: 1,
+                  margin: 30,
+                }}
+              />
+              <Button
+                mode="contained"
+                uppercase={false}
+                onPress={() => {
+                  if (password === confirmPassword) {
+                    //change password
+                    if (password.length >= 8) {
+                      // logic to change password
+                      setIsLoading(true);
+                      homeController
+                        .resetUserSitePassword({
+                          newPassword: password,
+                          id: props.data.sd.sdid,
+                        })
+                        .then(() => {
+                          setShowPasswordModal(false);
+                          setIsLoading(false);
+                        })
+                        .catch(() => {
+                          setShowPasswordModal(false);
+                          setIsLoading(false);
+                        });
+                    } else {
+                      alert('Password must be at least 8 characters long');
+                    }
+                  } else {
+                    alert('Password does not match');
+                  }
+                }}>
+                Change password
+              </Button>
+              <Button
+                uppercase={false}
+                mode="contained"
+                style={{
+                  marginLeft: 10,
+                }}
+                onPress={() => {
+                  setShowPasswordModal(false);
+                  setNewPassword('');
+                  setConfirmPassword('');
+                }}>
+                Cancel
+              </Button>
+            </Card.Actions>
+          </Card>
+        </PaperModal>
+      </Portal>
     </View>
   );
 };
