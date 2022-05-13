@@ -4,9 +4,7 @@ import React, {PureComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import PushNotification from 'react-native-push-notification';
-import SplashLogo from '../../../Assets/svgs/SplashLogo';
-import FGLogo from '../../../Assets/svgs/fglogo1';
-import FGLOGO2 from '../../../Assets/svgs/fglogo2';
+import FGPUNTLOGO from '../../../Assets/svgs/fgpuntlogo';
 import authKey from '../../../Modules/Common/JWT';
 import NetworkAPI from '../../../Network/api/server';
 import NotificationsApi from '../../../Network/notifications/notificationAPI';
@@ -89,7 +87,7 @@ export default class Splash extends PureComponent {
           Colors.backgroundColor,
         ]}
         style={styles.splashContainer}>
-        <FGLOGO2 height={250} width={250} fill={Colors.appPrimaryColor} />
+        <FGPUNTLOGO height={250} width={250} fill={Colors.appPrimaryColor} />
         <LottieView
           style={{height: 250, width: '100%'}}
           source={Animations.splashLoading}

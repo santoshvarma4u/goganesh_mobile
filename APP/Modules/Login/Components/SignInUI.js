@@ -1,8 +1,6 @@
 import {CommonActions, useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {View, TextInput, TouchableOpacity, Image} from 'react-native';
-import SplashLogo from '../../../Assets/svgs/SplashLogo';
-import FGLOGO2 from '../../../Assets/svgs/fglogo2';
 import authKey from '../../../Modules/Common/JWT';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
@@ -13,6 +11,7 @@ import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
 import LoginController from '../Controllers/LoginController';
 import styles from './Styles';
+import FGPUNTLOGO from "../../../Assets/svgs/fgpuntlogo";
 function SignIn() {
   const navigation = useNavigation();
   const [number, onChangeNumber] = React.useState('');
@@ -99,7 +98,7 @@ function SignIn() {
               paddingTop: 50,
               alignItems: 'center',
             }}>
-            <FGLOGO2 width={200} height={200} />
+            <FGPUNTLOGO width={200} height={200} />
           </View>
           <View style={styles.offersContainer}>
             <View style={styles.SignINCard}>

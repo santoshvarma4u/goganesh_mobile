@@ -7,7 +7,7 @@ import {Button, Checkbox} from 'react-native-paper';
 import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
 import * as Yup from 'yup';
-import FGLOGO2 from '../../../Assets/svgs/fglogo2';
+import FGPUNTLOGO from '../../../Assets/svgs/fgpuntlogo';
 import CONSTANTS from '../../../Constants';
 import Storage from '../../../Modules/Common/Storage';
 import StorageKeys from '../../../Modules/Common/StorageKeys';
@@ -154,7 +154,7 @@ function CreateIDScreen({route}) {
         <View />
         <View style={styles.createIDContainer}>
           <View style={styles.topIcon}>
-            <FGLOGO2
+            <FGPUNTLOGO
               width={100}
               height={100}
               style={{marginTop: 50}}

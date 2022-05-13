@@ -12,7 +12,7 @@ const local = 'http://192.168.0.173:3000/';
 // To list your AVDs use :
 // ./emulator -list-avds
 
-export const env = live;
+export const env = local;
 
 const NetworkAPI = {
   apiClient: create({

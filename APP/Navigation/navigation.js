@@ -126,7 +126,7 @@ const HomeStackNavigator = () => {
               }}>
               <SmallLogo width={40} height={30} color={Colors.appWhiteColor} />
               <Typography variant="title" color={Colors.appWhiteColor}>
-                FGexch
+                FG Punt
               </Typography>
             </View>
           ),

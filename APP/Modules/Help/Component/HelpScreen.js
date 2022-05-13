@@ -49,7 +49,7 @@ function HelpScreen({route}) {
           onPress={() => {
             let url =
               'whatsapp://send?text= Please raise your concern here' +
-              '&phone=919398322333';
+              '&phone=919777087770';
             Linking.openURL(url);
           }}>
           <View

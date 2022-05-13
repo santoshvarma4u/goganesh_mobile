@@ -11,6 +11,7 @@ import {
   Alert,
 } from 'react-native';
 import {Icon} from 'react-native-elements';
+import FGPUNTLOGO from '../../../Assets/svgs/fgpuntlogo';
 import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
@@ -63,7 +64,11 @@ function PassbookScreen({navigation}) {
             renderItem={({item}) => (
               <View style={styles.trasactionsCard}>
                 <View style={{flexDirection: 'column'}}>
-                  <Image style={{height: 60, width: 60}} source={images.logo} />
+                  <FGPUNTLOGO
+                    width={60}
+                    height={60}
+                    fill={Colors.appPrimaryColor}
+                  />
                 </View>
                 <View style={{flexDirection: 'column', flex: 1}}>
                   <Typography style={{color: Colors.appWhiteColor}}>
@@ -84,7 +89,11 @@ function PassbookScreen({navigation}) {
                     {item.paymentMethod}
                   </Typography>
                   {item.reason && (
-                    <Typography variant="H4">Reason: {item.reason}</Typography>
+                    <Typography
+                      variant="H4"
+                      style={{color: Colors.appWhiteColor, marginTop: 5}}>
+                      Reason: {item.reason}
+                    </Typography>
                   )}
                 </View>
                 <View
