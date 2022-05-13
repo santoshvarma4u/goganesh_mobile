@@ -83,6 +83,9 @@ function PassbookScreen({navigation}) {
                     style={{color: Colors.appWhiteColor}}>
                     {item.paymentMethod}
                   </Typography>
+                  {item.reason && (
+                    <Typography variant="H4">Reason: {item.reason}</Typography>
+                  )}
                 </View>
                 <View
                   style={{

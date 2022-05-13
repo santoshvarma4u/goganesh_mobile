@@ -382,6 +382,7 @@ const HomeListMyIDs = props => {
                         .resetUserSitePassword({
                           newPassword: password,
                           id: props.data.sd.sdid,
+                          usdid: props.data.usdid,
                         })
                         .then(() => {
                           setShowPasswordModal(false);
