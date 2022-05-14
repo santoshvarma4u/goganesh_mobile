@@ -56,13 +56,9 @@ export default class Splash extends PureComponent {
 
   learnMorePress = async () => {
     let JWT = await Storage.getItemSync(StorageKeys.JWT);
-    let ID = await Storage.getItemSync(StorageKeys.ID);
-    let FCMTOKEN = await Storage.getItemSync(StorageKeys.FCMTOKEN);
-    authKey.token = JWT;
-    if (JWT) {
-      NetworkAPI.apiClient.setHeader('authorization', authKey.token);
-      await NetworkAPI.apiClient.patch(`/users/${ID}`, {fcm_id: FCMTOKEN});
-    }
+    // let ID = await Storage.getItemSync(StorageKeys.ID);
+    // let FCMTOKEN = await Storage.getItemSync(StorageKeys.FCMTOKEN);
+
     if (JWT) {
       const resetAction = CommonActions.reset({
         index: 0,

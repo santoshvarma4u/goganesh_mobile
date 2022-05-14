@@ -8,7 +8,7 @@ import {
 } from 'react-native-paper';
 import {Provider} from 'react-redux';
 import CONSTANTS from './APP/Constants';
-import {AppContainer} from './APP/Navigation/navigation';
+import {AppContainer, _navigationRef} from './APP/Navigation/navigation';
 import {store} from './APP/Store/Index';
 import Colors from './APP/Theams/Colors';
 // import GlobalFont from './GlobalFont';
@@ -112,7 +112,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <PaperProvider theme={theme}>
-          <NavigationContainer>
+          <NavigationContainer ref={_navigationRef}>
             <AppContainer />
           </NavigationContainer>
         </PaperProvider>

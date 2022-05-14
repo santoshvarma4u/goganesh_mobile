@@ -2,7 +2,6 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
-  DrawerActions,
 } from '@react-navigation/drawer';
 import React from 'react';
 import {Image, Text, View} from 'react-native';

@@ -11,16 +11,16 @@ import {
   RefreshControl,
 } from 'react-native';
 import {Icon} from 'react-native-elements';
-import {SliderBox} from 'react-native-image-slider-box';
+// import {SliderBox} from 'react-native-image-slider-box';
 import LinearGradient from 'react-native-linear-gradient';
-import {Button, IconButton} from 'react-native-paper';
+import {Button} from 'react-native-paper';
 import {connect} from 'react-redux';
-import NetworkAPI from '../../../Network/api/server';
+// import NetworkAPI from '../../../Network/api/server';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
-import Storage from '../../Common/Storage';
-import StorageKeys from '../../Common/StorageKeys';
+// import Storage from '../../Common/Storage';
+// import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
 import IDController from '../../IDs/Controller/IdController';
 import IdController from '../../IDs/Controller/IdController';
@@ -34,17 +34,17 @@ function HomeScreen(props) {
   const [sliderImgs, setSliderImgs] = useState([]);
 
   const [userBanks, setUserBanks] = React.useState([]);
-  const {data, success} = HomeController.useGetPromoImages();
+  // const {data, success} = HomeController.useGetPromoImages();
   const wallet = HomeController.getWalletBalance();
 
   const getUserBanks = IDController.getBankData();
 
-  const pushFcmToken = async () => {
-    let ID = await Storage.getItemSync(StorageKeys.ID);
-    let FCMTOKEN = await Storage.getItemSync(StorageKeys.FCMTOKEN);
+  // const pushFcmToken = async () => {
+  //   let ID = await Storage.getItemSync(StorageKeys.ID);
+  //   let FCMTOKEN = await Storage.getItemSync(StorageKeys.FCMTOKEN);
 
-    await NetworkAPI.apiClient.patch(`/users/${ID}`, {fcm_id: FCMTOKEN});
-  };
+  //   await NetworkAPI.apiClient.patch(`/users/${ID}`, {fcm_id: FCMTOKEN});
+  // };
   const getMyIDs = IdController.getUserSpecificIDs();
 
   const [refreshing, setRefreshing] = React.useState(false);
@@ -75,18 +75,18 @@ function HomeScreen(props) {
     props.reduxSetUserBanks(banks);
   }, [getUserBanks.data]);
 
-  useEffect(() => {
-    pushFcmToken();
-    if (success) {
-      let slides = [];
-      slides.push('https://i.ibb.co/VTXdFWZ/Screenshot-20220401-231028-2.png');
-      slides.push('https://i.ibb.co/gTDnHkq/Screenshot-20220401-231019-2.png');
-      data.map(i => {
-        slides.push(`http://139.59.11.217:3000/${i.promoImage}`);
-      });
-      setSliderImgs(slides);
-    }
-  }, [data, success]);
+  // useEffect(() => {
+  //   // pushFcmToken();
+  //   if (success) {
+  //     let slides = [];
+  //     slides.push('https://i.ibb.co/VTXdFWZ/Screenshot-20220401-231028-2.png');
+  //     slides.push('https://i.ibb.co/gTDnHkq/Screenshot-20220401-231019-2.png');
+  //     data.map(i => {
+  //       slides.push(`http://139.59.11.217:3000/${i.promoImage}`);
+  //     });
+  //     setSliderImgs(slides);
+  //   }
+  // }, [data, success]);
 
   return (
     <ScrollView
