@@ -100,7 +100,7 @@ function SingUp({route}) {
 
   return (
     <ScrollView contentContainerStyle={styles.containerMain}>
-      <View style={styles.profileContainer}>
+      <ScrollView contentContainerStyle={styles.profileContainer}>
         <View style={styles.bankDetails}>
           {isLoading && (
             <LottieView source={Animations.loading_ball} autoPlay loop />
@@ -144,6 +144,10 @@ function SingUp({route}) {
                     onChangeText={handleChange('phone')}
                   />
                   <CommonTextInput
+                    label="Enter Client Code"
+                    onChangeText={handleChange('client')}
+                  />
+                  <CommonTextInput
                     label={'Enter Password'}
                     type="password"
                     secureTextEntry
@@ -162,7 +166,7 @@ function SingUp({route}) {
                       onChangeText={handleChange('otp')}
                     />
                   )}
-                  <TouchableOpacity
+                  <Pressable
                     style={{
                       backgroundColor: Colors.appPrimaryColor,
                       paddingHorizontal: 60,
@@ -185,7 +189,7 @@ function SingUp({route}) {
                         ? 'Register'
                         : 'Send OTP'}
                     </Typography>
-                  </TouchableOpacity>
+                  </Pressable>
                   {errors.name && touched.name && (
                     <Typography style={{backgroundColor: 'white'}}>
                       {errors.name}
@@ -211,7 +215,7 @@ function SingUp({route}) {
             </Formik>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </ScrollView>
   );
 }

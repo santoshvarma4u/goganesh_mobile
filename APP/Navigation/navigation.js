@@ -1,8 +1,13 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {DrawerActions} from '@react-navigation/native';
+import {
+  CommonActions,
+  DrawerActions,
+  StackActions,
+  useNavigation,
+} from '@react-navigation/native';
 import {createStackNavigator, HeaderBackButton} from '@react-navigation/stack';
-import React from 'react';
+import React, {useRef} from 'react';
 import {View} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {Appbar} from 'react-native-paper';
@@ -42,6 +47,8 @@ const appHeaderStyle = {
   fontSize: 20,
 };
 
+const _navigationRef = React.createRef();
+
 function CustomNavigationBar({navigation, back, route}) {
   const {name} = route;
   return (
@@ -50,6 +57,14 @@ function CustomNavigationBar({navigation, back, route}) {
       <Appbar.Content title={name} />
     </Appbar.Header>
   );
+}
+
+function logoutAndResetNavigation() {
+  const resetAction = CommonActions.reset({
+    index: 0,
+    routes: [{name: 'Auth'}],
+  });
+  _navigationRef.dispatch(resetAction);
 }
 
 function AuthNavigator() {
@@ -103,7 +118,10 @@ function AuthNavigator() {
 
 function AppContainer() {
   return (
-    <Stack.Navigator initialRouteName="Splash" headerMode="none">
+    <Stack.Navigator
+      initialRouteName="Splash"
+      headerMode="none"
+      ref={_navigationRef}>
       <Stack.Screen name="Spalsh" component={Splash} />
       <Stack.Screen name="Auth" component={AuthNavigator} />
       <Stack.Screen name="App" component={MyDrawer} />
@@ -558,4 +576,4 @@ const BottomTabNavigator = () => {
   );
 };
 
-export {AppContainer};
+export {AppContainer, logoutAndResetNavigation};
