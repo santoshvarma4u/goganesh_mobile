@@ -12,6 +12,7 @@ import {
   View,
   StyleSheet,
   Button,
+  ScrollView,
 } from 'react-native';
 import reactotron from 'reactotron-react-native';
 import * as Yup from 'yup';
@@ -98,7 +99,7 @@ function SingUp({route}) {
   };
 
   return (
-    <View style={styles.containerMain}>
+    <ScrollView contentContainerStyle={styles.containerMain}>
       <View style={styles.profileContainer}>
         <View style={styles.bankDetails}>
           {isLoading && (
@@ -170,7 +171,6 @@ function SingUp({route}) {
                       borderRadius: 10,
                       alignItems: 'center',
                     }}
-                    disabled={isLoading}
                     onPress={handleSubmit}
                     underlayColor="transparent">
                     <Typography
@@ -186,19 +186,16 @@ function SingUp({route}) {
                         : 'Send OTP'}
                     </Typography>
                   </TouchableOpacity>
-
                   {errors.name && touched.name && (
                     <Typography style={{backgroundColor: 'white'}}>
                       {errors.name}
                     </Typography>
                   )}
-
                   {errors.phone && touched.phone && (
                     <Typography style={{backgroundColor: 'white'}}>
                       {errors.phone}
                     </Typography>
                   )}
-
                   {errors.confirmPassword && touched.confirmPassword && (
                     <Typography style={{backgroundColor: 'white'}}>
                       {errors.confirmPassword}
@@ -215,7 +212,7 @@ function SingUp({route}) {
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 

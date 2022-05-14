@@ -87,7 +87,6 @@ export default StyleSheet.create({
     borderRadius: 100,
   },
   bankDetails: {
-    flex: 0.75,
     padding: 15,
     marginTop: 20,
     backgroundColor: Colors.appBlackColor,

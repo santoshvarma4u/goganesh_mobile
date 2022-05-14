@@ -1,28 +1,16 @@
 import Moment from 'moment';
 import React, {useState, useEffect} from 'react';
-import {
-  Text,
-  View,
-  FlatList,
-  Image,
-  Modal,
-  Button,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
-import {Icon} from 'react-native-elements';
+import {View, FlatList} from 'react-native';
+import ImageModal from 'react-native-image-modal';
 import FGPUNTLOGO from '../../../Assets/svgs/fgpuntlogo';
 import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
-import images from '../../../Theams/Images';
 import {Typography} from '../../Common/Text';
 import PassBoookController from '../Controller/passBookController';
 
 import styles from './Styles';
 function PassbookScreen({navigation}) {
   const [refresh, setRefresh] = useState(false);
-  const [paymentReciept, setPaymentReciept] = useState('');
-  const [visible, setVisible] = useState(false);
   const {
     data,
     success,
@@ -33,6 +21,7 @@ function PassbookScreen({navigation}) {
     } else {
     }
   }, []);
+
   return (
     <View style={styles.containerMain}>
       <View />
@@ -109,63 +98,28 @@ function PassbookScreen({navigation}) {
                   <Typography
                     style={
                       item.paymentStatus === 'Accepted'
-                        ? {color: 'green'}
-                        : {color: 'red'}
+                        ? {color: 'green', margin: 5}
+                        : {color: 'red', margin: 5}
                     }>
                     {item.paymentStatus}
                   </Typography>
                   {item.paymentReciept.length > 0 && (
-                    <TouchableOpacity
+                    <ImageModal
+                      resizeMode="contain"
+                      imageBackgroundColor="#000000"
                       style={{
-                        padding: 2,
-                        marginTop: 10,
-                        alignItems: 'center',
-                        backgroundColor: Colors.appPrimaryColor,
-                        justifyContent: 'center',
-                        borderRadius: 5,
-                        flexDirection: 'row',
+                        width: 40,
+                        height: 60,
                       }}
-                      onPress={() => {
-                        setPaymentReciept(`${env}${item.paymentReciept}`);
-                        setVisible(!visible);
-                      }}>
-                      <Icon name="image" />
-                      <Typography style={{color: Colors.appBlackColor}}>
-                        Reference
-                      </Typography>
-                    </TouchableOpacity>
+                      source={{
+                        uri: `${env}${item.paymentReciept}`,
+                      }}
+                    />
                   )}
                 </View>
               </View>
             )}
           />
-          <View style={styles.centeredView}>
-            <Modal
-              animationType="slide"
-              transparent={true}
-              visible={visible}
-              onRequestClose={() => {
-                Alert.alert('Modal has been closed.');
-              }}>
-              <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                  <View
-                    style={{
-                      marginTop: 20,
-                    }}>
-                    <Image
-                      source={{uri: paymentReciept}}
-                      style={{padding: 5, width: 150, height: 200}}
-                    />
-                    <Button
-                      title="Close"
-                      onPress={() => setVisible(!visible)}
-                    />
-                  </View>
-                </View>
-              </View>
-            </Modal>
-          </View>
         </View>
       </View>
     </View>
