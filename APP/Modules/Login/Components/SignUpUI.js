@@ -149,10 +149,6 @@ function SingUp({route}) {
                     onChangeText={handleChange('password')}
                   />
                   <CommonTextInput
-                    label={'Enter Client Code'}
-                    type="referral" //Referral
-                  />
-                  <CommonTextInput
                     label="Confirm Password"
                     type="password"
                     secureTextEntry
