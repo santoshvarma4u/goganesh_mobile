@@ -18,8 +18,7 @@ const bankValidationSchema = yup.object().shape({
     .number('Account Number should be number')
     .required('Account Number is required'),
   IFSC: yup.string().required('IFSC is required'),
-  AccountHolderName: yup.string().required('Account holder name is required'),
-  branchCode: yup.string().required('Branch code is required'),
+  AccountHolderName: yup.string().required('Account holder name is required')
 });
 
 const EnterBankDetails = props => {
@@ -39,8 +38,7 @@ const EnterBankDetails = props => {
         bankName: bankData ? bankData.bankName : '',
         AccountNumber: bankData ? bankData.accountNumber : '',
         IFSC: bankData ? bankData.IFSC : '',
-        AccountHolderName: bankData ? bankData.accountHolderName : '',
-        branchCode: bankData ? bankData.branchCode : '',
+        AccountHolderName: bankData ? bankData.accountHolderName : ''
       }}
       onSubmit={onSubmit}>
       {({
@@ -150,16 +148,6 @@ const EnterBankDetails = props => {
           {errors.AccountHolderName && (
             <Typography style={{color: 'red', fontSize: 12}}>
               {errors.AccountHolderName}
-            </Typography>
-          )}
-          <CommonTextInput
-            label="Branch Code *"
-            value={values.branchCode}
-            onChangeText={handleChange('branchCode')}
-          />
-          {errors.branchCode && (
-            <Typography style={{color: 'red', fontSize: 12}}>
-              {errors.branchCode}
             </Typography>
           )}
           <View>

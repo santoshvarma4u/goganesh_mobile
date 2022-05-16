@@ -6977,6 +6977,11 @@ react-native-crisp-chat-sdk@^0.10.2:
   resolved "https://registry.yarnpkg.com/react-native-crisp-chat-sdk/-/react-native-crisp-chat-sdk-0.10.2.tgz#89c4bb7ed9d65767da8514cde0a1fee3bdb26ba5"
   integrity sha512-93IzZ5du4m/vFaVKBrsTgB3j6qlT0pSg8JQoy9hZo5AYYNmLmw5fO7nHsf47KpqgQWv3cxABoJQQ7M9+ApsdfA==
 
+react-native-device-info@^8.7.1:
+  version "8.7.1"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-8.7.1.tgz#fbb06f87dbbc4423abe713874699fb2e6e99fd15"
+  integrity sha512-cVMZztFa2Qn6qpQa601W61CtUwZQ1KXfqCOeltejAWEXmgIWivC692WGSdtGudj4upSi1UgMSaGcvKjfcpdGjg==
+
 react-native-dialog-input@^1.0.8:
   version "1.0.8"
   resolved "https://registry.npmjs.org/react-native-dialog-input/-/react-native-dialog-input-1.0.8.tgz"

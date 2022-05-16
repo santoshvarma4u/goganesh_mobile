@@ -21,7 +21,7 @@ function NotificationScreen({navigation}) {
           <Image
             style={{height: 18, width: 18}}
             source={
-              item.notificationTitle.includes('rejected')
+              item?.notificationTitle?.includes('rejected')
                 ? images.reject
                 : images.accept
             }

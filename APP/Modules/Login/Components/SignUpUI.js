@@ -144,7 +144,7 @@ function SingUp({route}) {
                     onChangeText={handleChange('phone')}
                   />
                   <CommonTextInput
-                    label="Enter Client Code"
+                    label="Enter Client Code(Optional)"
                     onChangeText={handleChange('client')}
                   />
                   <CommonTextInput
