@@ -21,18 +21,18 @@ function NotificationScreen({navigation}) {
           <Image
             style={{height: 18, width: 18}}
             source={
-              item?.notificationTitle?.includes('rejected')
+              item?.paymentStatus?.includes('Rejected')
                 ? images.reject
                 : images.accept
             }
           />
         </View>
-        <View style={{marginLeft: 14}}>
+        <View style={{marginLeft: 14, marginTop: 20}}>
           <Typography style={{color: Colors.appWhiteColor, fontSize: 14}}>
-            {item?.notificationTitle}
+            {item?.remarks}
           </Typography>
           <Typography style={{color: Colors.appWhiteColor, fontSize: 10}}>
-            {item?.notificationMessage}
+            `Amount : ₹{item?.paymentAmount}`
           </Typography>
         </View>
         <View

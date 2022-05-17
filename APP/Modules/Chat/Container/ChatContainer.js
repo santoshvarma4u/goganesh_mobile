@@ -27,7 +27,7 @@ const ChatContainer = props => {
     if (id && name && phone) {
       setTokenId(id);
       setUserEmail(`${id}@fairganesh.com`);
-      setUserNickname(id);
+      setUserNickname(name);
       setUserPhone(`${id}123456789`);
       setIsChatReady(true);
       pushSessionEvent('User Details Loaded', 1);

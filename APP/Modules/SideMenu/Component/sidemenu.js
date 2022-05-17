@@ -57,15 +57,15 @@ function CustomSidebarMenu({...props}) {
       {/*    return <Icon size={32} name={'info'} />;*/}
       {/*  }}*/}
       {/*/>*/}
-      <DrawerItem
-        label="Support"
-        onPress={() => {
-          props.navigation.navigate('Support');
-        }}
-        icon={(color, size) => {
-          return <Icon size={32} name={'help'} />;
-        }}
-      />
+      {/*<DrawerItem*/}
+      {/*  label="Support"*/}
+      {/*  onPress={() => {*/}
+      {/*    props.navigation.navigate('Support');*/}
+      {/*  }}*/}
+      {/*  icon={(color, size) => {*/}
+      {/*    return <Icon size={32} name={'help'} />;*/}
+      {/*  }}*/}
+      {/*/>*/}
       <DrawerItem
         label="Logout"
         onPress={() => {

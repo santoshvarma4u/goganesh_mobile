@@ -117,12 +117,12 @@ const AccordianListNew = props => {
           <View style={styles.credsCardID}>
             <Typography style={styles.credTitle}>Demo Id</Typography>
             <Typography style={{color: 'white', marginLeft: 'auto'}}>
-              goganesh
+              fgpunt
             </Typography>
             <TouchableOpacity
               style={{color: 'white', marginLeft: 15}}
               onPress={() => {
-                Clipboard.setString('goganesh');
+                Clipboard.setString('fgpunt');
               }}>
               <Icon name="content-copy" color="white" size={20} />
             </TouchableOpacity>

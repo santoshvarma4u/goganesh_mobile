@@ -1,14 +1,12 @@
 import {create} from 'apisauce';
 import DeviceInfo from 'react-native-device-info';
-import reactotron from 'reactotron-react-native';
 import {logoutAndResetNavigation} from '../../../APP/Navigation/navigation';
-import authKey from '../../Modules/Common/JWT';
 import Storage from '../../Modules/Common/Storage';
 import StorageKeys from '../../Modules/Common/StorageKeys';
 
-const live = 'http://159.89.171.125:3000/';
-const local = 'http://192.168.0.173:3000/';
-const prod = 'http://143.244.131.237:3000/';
+export const live = 'http://159.89.171.125:3000/';
+export const local = 'http://192.168.0.173:3000/';
+export const prod = 'http://143.244.131.237:3000/';
 //cd .. &&  cd home/admin/web/goganesh.bet/public_html/freelanceBackend/
 // cd ~/Library/Android/sdk/emulator
 // To run a certain AVD directly:
@@ -48,6 +46,7 @@ const createAPI = () => {
   api.addAsyncRequestTransform(request => async () => {
     request.headers.deviceid = deviceID || getdeviceId();
     request.headers.uid = await getUid();
+    request.headers.authorization = await Storage.getItemSync(StorageKeys.JWT);
   });
 
   api.addAsyncResponseTransform(response => async () => {

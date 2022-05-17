@@ -53,7 +53,7 @@ public class MainApplication extends Application implements ReactApplication {
 
     // Replace it with your WEBSITE_ID
     // Retrieve it using https://app.crisp.chat/website/[YOUR_WEBSITE_ID]/
-    Crisp.configure(getApplicationContext(),"7c314ca0-6879-43ba-af93-82aa52b57cb6");
+    Crisp.configure(getApplicationContext(),"2cb3faea-f91f-4300-9ae7-ea1eefc5b6db");
   }
 
   /**

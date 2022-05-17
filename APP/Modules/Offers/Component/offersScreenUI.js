@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import {Text, Image, View, StyleSheet} from 'react-native';
 import {SliderBox} from 'react-native-image-slider-box';
 import LinearGradient from 'react-native-linear-gradient';
+import {env} from '../../../Network/api/server';
 import Animations from '../../../Theams/Animations';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
@@ -16,7 +17,7 @@ function OffersScreen({navigation}) {
   useEffect(() => {
     if (success) {
       const offers = [];
-      data.map(i => offers.push(`http://139.59.11.217:3000/${i.oferrimage}`));
+      data.map(i => offers.push(`${env}${i.oferrimage}`));
       setOfferImages(offers);
     }
   }, [data, success]);

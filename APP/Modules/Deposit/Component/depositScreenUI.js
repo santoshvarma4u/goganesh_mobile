@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Image,
   Modal,
+  Clipboard,
 } from 'react-native';
 import {Divider, Icon} from 'react-native-elements';
 import * as ImagePicker from 'react-native-image-picker';
@@ -165,7 +166,7 @@ function DepositScreen({route}) {
               <View style={styles.offersContainer}>
                 <View style={styles.depositDetailsCardForBank}>
                   <Typography style={styles.depositTitile}>
-                    Send INR {planMoney} to GANESH on {paymentType}
+                    Send INR {planMoney} to FG Punt on {paymentType}
                   </Typography>
                   <Divider style={{backgroundColor: 'black', height: 5}} />
                   <View style={{flexDirection: 'row'}}>
@@ -176,6 +177,13 @@ function DepositScreen({route}) {
                       {' '}
                       {data.paymentkey}
                     </Typography>
+                    <TouchableOpacity
+                      style={{color: 'white', marginTop: 10}}
+                      onPress={() => {
+                        Clipboard.setString(data.paymentkey);
+                      }}>
+                      <Icon name="content-copy" color="white" size={20} />
+                    </TouchableOpacity>
                   </View>
                   <View style={{flexDirection: 'row'}}>
                     <Typography style={styles.depositTitile}>
@@ -184,6 +192,13 @@ function DepositScreen({route}) {
                     <Typography style={styles.phoneNumber}>
                       {data.IFSC}
                     </Typography>
+                    <TouchableOpacity
+                      style={{color: 'white', marginTop: 10}}
+                      onPress={() => {
+                        Clipboard.setString(data.paymentkey);
+                      }}>
+                      <Icon name="content-copy" color="white" size={20} />
+                    </TouchableOpacity>
                   </View>
                   <View style={{flexDirection: 'row'}}>
                     <Typography style={styles.depositTitile}>
@@ -200,6 +215,13 @@ function DepositScreen({route}) {
                     <Typography style={styles.phoneNumber}>
                       {data.paymentname}
                     </Typography>
+                    <TouchableOpacity
+                      style={{color: 'white', marginTop: 10}}
+                      onPress={() => {
+                        Clipboard.setString(data.paymentkey);
+                      }}>
+                      <Icon name="content-copy" color="white" size={20} />
+                    </TouchableOpacity>
                   </View>
                   <View style={{flexDirection: 'row'}}>
                     <Typography style={styles.depositTitile}>
@@ -260,7 +282,7 @@ function DepositScreen({route}) {
               </View>
               <View style={styles.depositDetailsCard}>
                 <Typography style={styles.depositTitile}>
-                  Send INR {planMoney} to Go Ganesh on {data.paymentkey}
+                  Send INR {planMoney} to FG Punt on {data.paymentkey}
                 </Typography>
                 <Divider
                   style={{
@@ -275,6 +297,13 @@ function DepositScreen({route}) {
                   <Typography variant="H4" style={styles.phoneNumber}>
                     {data.paymentkey}
                   </Typography>
+                  <TouchableOpacity
+                    style={{color: 'white', marginTop: 10}}
+                    onPress={() => {
+                      Clipboard.setString(data.paymentkey);
+                    }}>
+                    <Icon name="content-copy" color="white" size={20} />
+                  </TouchableOpacity>
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   <Typography style={styles.depositTitile}>
