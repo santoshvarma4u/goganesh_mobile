@@ -12,6 +12,7 @@ const ErrorPage = props => {
     message = 'Something went wrong. Try again ',
     color = Colors.appPrimaryColor,
     onRetryPress = () => {},
+    retryMessage,
   } = props;
 
   return (
@@ -35,7 +36,7 @@ const ErrorPage = props => {
           {message}
         </Typography>
         <Button mode="contained" onPress={onRetryPress}>
-          Retry
+          {retryMessage}
         </Button>
       </View>
     </View>
@@ -46,13 +47,15 @@ ErrorPage.propTypes = {
   color: PropTypes.string,
   message: PropTypes.string,
   onRetryPress: PropTypes.func,
+  retryMessage: PropTypes.string,
 };
 
 ErrorPage.defaultProps = {
-  // red but shade clor
+  // red but shade color
   color: '#28213b',
   message: 'Something went wrong. Try again ',
   onRetryPress: () => {},
+  retryMessage: 'Retry',
 };
 
 export default ErrorPage;

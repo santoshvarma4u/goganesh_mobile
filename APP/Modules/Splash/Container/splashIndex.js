@@ -1,17 +1,21 @@
 import {CommonActions} from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 import React, {PureComponent} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet, Linking} from 'react-native';
+import {getVersion} from 'react-native-device-info';
 import LinearGradient from 'react-native-linear-gradient';
 import PushNotification from 'react-native-push-notification';
+import reactotron from 'reactotron-react-native';
 import FGPUNTLOGO from '../../../Assets/svgs/fgpuntlogo';
 import authKey from '../../../Modules/Common/JWT';
 import NetworkAPI from '../../../Network/api/server';
 import NotificationsApi from '../../../Network/notifications/notificationAPI';
 import Animations from '../../../Theams/Animations';
 import Colors from '../../../Theams/Colors';
+import ErrorPage from '../../Common/ErrorPage';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
+import SplashApi from '../../Splash/Controller/SplashApi';
 
 PushNotification.configure({
   // (required) Called when a remote or local notification is opened or received
@@ -50,14 +54,37 @@ PushNotification.createChannel(
 );
 
 export default class Splash extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      forceUpdate: false,
+      forceUpdateMessage: '',
+      forceUpdateVersion: '',
+      forceUpdateUrl: '',
+    };
+  }
+
   componentDidMount = () => {
     this.learnMorePress();
   };
 
   learnMorePress = async () => {
+    // get current app version of the app
+    let version = getVersion();
+
+    const {data} = await SplashApi.CheckAppUpdate(version);
+
+    if (data?.status === 'update') {
+      this.setState({
+        forceUpdate: true,
+        forceUpdateMessage: data.message,
+        forceUpdateVersion: data?.data?.currentVersion,
+        forceUpdateUrl: data?.data?.url,
+      });
+      return;
+    }
+
     let JWT = await Storage.getItemSync(StorageKeys.JWT);
-    // let ID = await Storage.getItemSync(StorageKeys.ID);
-    // let FCMTOKEN = await Storage.getItemSync(StorageKeys.FCMTOKEN);
 
     if (JWT) {
       const resetAction = CommonActions.reset({
@@ -74,7 +101,23 @@ export default class Splash extends PureComponent {
     }
   };
 
+  onUpdate = () => {
+    Linking.openURL(this.state.forceUpdateUrl);
+  };
+
   render() {
+    const {forceUpdate, forceUpdateMessage} = this.state;
+
+    if (forceUpdate) {
+      return (
+        <ErrorPage
+          message={forceUpdateMessage}
+          onRetryPress={this.onUpdate}
+          retryMessage="Update Now"
+        />
+      );
+    }
+
     return (
       <LinearGradient
         colors={[
