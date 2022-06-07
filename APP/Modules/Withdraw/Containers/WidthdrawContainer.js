@@ -1,7 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
 import {Icon} from 'react-native-elements';
 import {Button, Modal} from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -22,11 +21,6 @@ const WithDrawContainer = props => {
   const [modalVisible, setModalVisible] = useState(false);
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [withdrawModalVisible, setWithdrawModalVisible] = useState(false);
-  //   const [paymentMethod, setPaymentMethod] = useState('gateway');
-
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([]);
 
   const onSubmit = async values => {
     let {data} = await paymentDetailsController.submitBankData(values);
@@ -41,13 +35,6 @@ const WithDrawContainer = props => {
     if (!reduxBankDetails || reduxBankDetails.length === 0) {
       setModalVisible(true);
     }
-    setItems(
-      reduxBankDetails.map(item => ({
-        label: item.value,
-        value: item.key,
-        key: item.key,
-      })),
-    );
   }, [reduxBankDetails]);
 
   return (
@@ -237,30 +224,18 @@ const WithDrawContainer = props => {
             padding: 20,
             alignItems: 'center',
           }}>
-          <Typography variant="subheader" color={Colors.appWhiteColor}>
-            Select a bank to withdraw
+          <Typography variant="P2" color={Colors.appWhiteColor}>
+            Confirm a bank to withdraw
           </Typography>
-          <DropDownPicker
-            open={open}
-            value={value}
-            items={items}
-            setOpen={setOpen}
-            setValue={setValue}
-            setItems={setItems}
+          <Typography
+            variant="title"
+            color={Colors.appWhiteColor}
             style={{
-              backgroundColor: Colors.appBlackColorLight,
               marginTop: 20,
-              borderColor: Colors.appWhiteColor,
-              borderRadius: 5,
-            }}
-            name={'bankName'}
-            theme="DARK"
-            listMode="MODAL"
-            modalTitle="Select a bank to withdraw"
-            modalTitleStyle={{
-              color: Colors.appWhiteColor,
-            }}
-          />
+              textAlign: 'center',
+            }}>
+            {reduxBankDetails && reduxBankDetails[0]?.value}
+          </Typography>
           <Button
             mode="contained"
             style={{
@@ -269,16 +244,11 @@ const WithDrawContainer = props => {
               color: Colors.appBlackColor,
             }}
             onPress={() => {
-              if (!value) {
-                alert('Please select a bank');
-                return;
-              }
-
               IdController.sendWalletWithDrawRequest(
                 'BANK',
                 amount,
                 'DR',
-                value,
+                reduxBankDetails[0].key,
                 CONSTANTS.WITHDRAW_FROM_WALLET_TO_BANK,
               )
                 .then(() => {

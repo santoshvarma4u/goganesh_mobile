@@ -1,3 +1,4 @@
+import reactotron from 'reactotron-react-native';
 import useAPI from '../../../Hooks/useAPI';
 import Storage from '../../../Modules/Common/Storage';
 import StorageKeys from '../../../Modules/Common/StorageKeys';
@@ -37,6 +38,7 @@ const sendWithDrawRequest = async (
     paymentType: paymentType,
     remarks: remarks || '',
   };
+  reactotron.log('🚀 ~ file: IdController.js ~ line 40 ~ data', data);
   const result = await transactionsApi.createWithdrawPayment(data);
   if (!result.ok) {
     return alert(result.problem);

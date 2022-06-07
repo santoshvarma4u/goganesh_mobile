@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Modal,
   TouchableOpacity,
@@ -7,13 +7,15 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import {Icon} from 'react-native-elements';
+import {connect} from 'react-redux';
+import {setUserBanks} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
 import EnterBankDetails from '../../Common/BankDetails';
 import {Typography} from '../../Common/Text';
 import PaymentDetailsController from '../Controller/paymentDetailsController';
 import styles from './Styles';
 
-function PaymentsScreen({navigation}) {
+function PaymentsScreen({navigation, reduxSetUserBanks}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [bankVales, setBankVales] = useState({});
   const [refresh, setRefresh] = useState(false);
@@ -24,8 +26,19 @@ function PaymentsScreen({navigation}) {
   const onSubmit = values => {
     PaymentDetailsController.submitBankData(values).then(() => {
       setModalVisible(!modalVisible);
+      mybanks.request();
     });
   };
+
+  useEffect(() => {
+    const rBanks = mybanks?.data.map(item => {
+      return {
+        value: item.bankName,
+        key: item.bid,
+      };
+    });
+    reduxSetUserBanks(rBanks);
+  }, [mybanks.data]);
 
   return (
     <View style={styles.containerMain}>
@@ -41,34 +54,36 @@ function PaymentsScreen({navigation}) {
               <View style={styles.bankCardDetails}>
                 <Icon type="material-community" name="bank" color="white" />
                 <Typography style={{color: 'white', padding: 5, left: 10}}>
-                  Your Saved Banks
+                  Your Saved Bank
                 </Typography>
-                <TouchableOpacity
-                  style={styles.addBankButton}
-                  activeOpacity={0.5}
-                  onPress={() => setModalVisible(true)}>
-                  <Typography style={styles.textStyle}> Add New </Typography>
-                  <View style={styles.centeredView}>
-                    <Modal
-                      animationType="slide"
-                      transparent={true}
-                      visible={modalVisible}
-                      onRequestClose={() => {
-                        setModalVisible(!modalVisible);
-                      }}>
-                      <KeyboardAvoidingView
-                        behavior={'padding'}
-                        style={styles.modalView}>
-                        <EnterBankDetails
-                          onClose={() => {
-                            setModalVisible(false);
-                          }}
-                          onSubmit={onSubmit}
-                        />
-                      </KeyboardAvoidingView>
-                    </Modal>
-                  </View>
-                </TouchableOpacity>
+                {mybanks && mybanks.data?.length === 0 && (
+                  <TouchableOpacity
+                    style={styles.addBankButton}
+                    activeOpacity={0.5}
+                    onPress={() => setModalVisible(true)}>
+                    <Typography style={styles.textStyle}> Add New </Typography>
+                    <View style={styles.centeredView}>
+                      <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={modalVisible}
+                        onRequestClose={() => {
+                          setModalVisible(!modalVisible);
+                        }}>
+                        <KeyboardAvoidingView
+                          behavior={'padding'}
+                          style={styles.modalView}>
+                          <EnterBankDetails
+                            onClose={() => {
+                              setModalVisible(false);
+                            }}
+                            onSubmit={onSubmit}
+                          />
+                        </KeyboardAvoidingView>
+                      </Modal>
+                    </View>
+                  </TouchableOpacity>
+                )}
               </View>
             )}
             refreshing={refresh}
@@ -179,4 +194,14 @@ function PaymentsScreen({navigation}) {
   );
 }
 
-export default PaymentsScreen;
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    reduxSetUserBanks: banks => dispatch(setUserBanks(banks)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentsScreen);

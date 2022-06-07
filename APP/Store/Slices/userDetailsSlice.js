@@ -10,10 +10,6 @@ const slice = createSlice({
   },
   reducers: {
     setUserBanks: (state, action) => {
-      reactotron.log(
-        '🚀 ~ file: userDetailsSlice.js ~ line 12 ~ action',
-        action,
-      );
       state.userBanks = action.payload;
     },
     removeUserBanks: (state, action) => {

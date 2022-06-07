@@ -2,12 +2,12 @@
 import React, {useState} from 'react';
 import {Image, Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Icon} from 'react-native-elements';
-import FlatListPicker from 'react-native-flatlist-picker';
-import {Button, Checkbox, Divider} from 'react-native-paper';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import {Button, RadioButton} from 'react-native-paper';
+import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
 import CONSTANTS from '../../../Constants';
 import {env} from '../../../Network/api/server';
+import {setUserBanks} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
 import {Typography} from '../../Common/Text';
@@ -45,18 +45,12 @@ function ListTitle(props) {
 }
 
 const WithdrawForm = props => {
-  let banks = props?.route?.params?.banks ? props.route.params.banks : [];
+  let banks = props.reduxBankDetails || [];
   let data = props?.route?.params?.data ? props.route.params.data : {};
-  reactotron.log('this is the log', data);
 
   const [amount, onAmountChange] = useState(null);
   const [checked, setChecked] = useState(false);
-  const [check, setCheckedDemo] = useState(0);
-  const [selectedBank, setSelectedBank] = useState('Select Bank');
-  const [selectedBankID, setSelectedBankID] = useState('');
-  const [open, setOpen] = useState(false);
 
-  reactotron.log('this is the data', banks);
   return (
     <View style={styles.withDrawForm}>
       {ListTitle(data)}
@@ -66,54 +60,38 @@ const WithdrawForm = props => {
         label="Enter Amount to Withdraw"
         keyboardType="numeric"
       />
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Checkbox
-          status={checked ? 'checked' : 'unchecked'}
-          color={Colors.appPrimaryColor}
-          uncheckedColor="white"
-          onPress={() => {
-            setChecked(!checked);
-          }}
-        />
-        <Typography style={{color: 'white'}}>Deposit to Wallet</Typography>
+      <View
+        style={{
+          marginVertical: 20,
+          width: '100%',
+        }}>
+        <RadioButton.Group
+          onValueChange={value => setChecked(value)}
+          value={checked}>
+          <RadioButton.Item
+            label="Wallet"
+            value="wallet"
+            position="leading"
+            color={Colors.appWhiteColor}
+            uncheckedColor={Colors.appWhiteColor}
+            labelStyle={{
+              textAlign: 'left',
+              color: Colors.appWhiteColor,
+            }}
+          />
+          <RadioButton.Item
+            label={`Bank  (${banks[0].value})`}
+            value="bank"
+            position="leading"
+            color={Colors.appWhiteColor}
+            uncheckedColor={Colors.appWhiteColor}
+            labelStyle={{
+              color: Colors.appWhiteColor,
+              textAlign: 'left',
+            }}
+          />
+        </RadioButton.Group>
       </View>
-      {!checked && (
-        <>
-          <Divider
-            style={{
-              backgroundColor: Colors.appPrimaryColor,
-              height: 1,
-              marginVertical: 10,
-            }}
-          />
-          <FlatListPicker
-            data={banks}
-            containerStyle={{
-              ...styles.container,
-              width: '80%',
-              marginTop: 10,
-            }}
-            dropdownStyle={{width: 180}}
-            dropdownTextStyle={{fontSize: 15}}
-            pickedTextStyle={{color: 'white', fontWeight: 'bold'}}
-            defaultValue={selectedBank}
-            renderDropdownIcon={() => (
-              <AntDesign
-                name="caretdown"
-                color="white"
-                size={15}
-                style={{padding: 15}}
-              />
-            )}
-            onValueChange={(value, index) => {
-              setSelectedBank(value);
-              setCheckedDemo(1);
-              let bankid = banks.find(o => o.value == value);
-              setSelectedBankID(bankid.key);
-            }}
-          />
-        </>
-      )}
       <View
         style={{
           alignItems: 'center',
@@ -125,7 +103,10 @@ const WithdrawForm = props => {
             width: '70%',
           }}
           onPress={() => {
-            if (checked) {
+            if (!amount || amount === '0') {
+              return alert('Enter amount to Withdraw');
+            }
+            if (checked === 'wallet') {
               depositController.depositIntoWallet(
                 data.uid,
                 'Wallet',
@@ -137,17 +118,12 @@ const WithdrawForm = props => {
                 data.sd.sdid,
               );
             } else {
-              if (selectedBankID.length == 0 || amount == 0) {
-                return alert(
-                  'Please select a bank or Enter amount to Withdraw',
-                );
-              }
               IdController.sendWithDrawRequest(
                 data.sd.sdid,
-                selectedBank,
+                banks[0].value,
                 amount,
                 'DR',
-                selectedBankID,
+                banks[0].key,
                 CONSTANTS.WITHDRAW_FROM_EXISTING_ID_TO_BANK,
               ).then(() => {
                 alert('WithDraw Request Sent Successfully ');
@@ -214,5 +190,19 @@ const styles = StyleSheet.create({
     margin: 20,
   },
 });
+// connect to redux
+const mapStateToProps = state => {
+  return {
+    reduxBankDetails: state.userdetails.userBanks,
+  };
+};
 
-export default WithdrawForm;
+const mapDispatchToProps = dispatch => {
+  return {
+    reduxSetBankDetails: bankDetails => {
+      dispatch(setUserBanks(bankDetails));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WithdrawForm);
