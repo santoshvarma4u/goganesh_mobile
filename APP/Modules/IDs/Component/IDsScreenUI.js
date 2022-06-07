@@ -142,13 +142,13 @@ const IDRoute = props => {
 function IDs({navigation}) {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    {key: 'first', title: 'Create ID', color: 'black'},
-    {key: 'second', title: 'My IDs'},
+    {key: 'first', title: 'My IDs'},
+    {key: 'second', title: 'Create ID', color: 'black'},
   ]);
 
   const renderScene = SceneMap({
-    first: IDRoute,
-    second: MyIDRoute,
+    first: MyIDRoute,
+    second: IDRoute,
   });
 
   return (

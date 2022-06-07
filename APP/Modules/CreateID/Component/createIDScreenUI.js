@@ -50,13 +50,14 @@ function CreateIDScreen({route}) {
   const navigation = useNavigation();
   const {sdid, url, sitename, requestStatus} = route.params;
   const [checked, setChecked] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const wallet = HomeController.getWalletBalance();
   const resetAction = CommonActions.reset({
     index: 0,
     routes: [{name: "ID's"}],
   });
   const [planDetails, setPlanDetails] = useState({
-    planHeader: 'Go Plan',
+    planHeader: 'FG Plan',
     MinRefill: '1,000',
     MinWidthdrawl: '1,000',
     MinMaintainBalance: '1,000',
@@ -73,6 +74,7 @@ function CreateIDScreen({route}) {
   }, [navigation, requestStatus]);
 
   const submitRequest = async (sdid, values) => {
+    setIsLoading(true);
     let uid = await getUID();
     if (requestStatus === 'old') {
       // Create payment request and withdraw from wallet
@@ -93,7 +95,7 @@ function CreateIDScreen({route}) {
         CONSTANTS.DEPOSIT_INTO_EXISTING_ID_FROM_WALLET,
       ).then(({data}) => {
         reactotron.log(
-          '🚀 ~ file: createIDScreenUI.js ~ line 77 ~ ).then ~ data',
+          '🚀 ~ file: createIDScreenUI.js ~ line 96 ~ ).then ~ data',
           data,
         );
         DepositController.debitFromWallet(
@@ -103,6 +105,7 @@ function CreateIDScreen({route}) {
           'Wallet',
           data.data.paymentID,
         ).then(() => {
+          setIsLoading(false);
           navigation.dispatch(resetAction);
           alert('success');
         });
@@ -141,6 +144,7 @@ function CreateIDScreen({route}) {
             'Wallet',
             data.data.paymentID,
           ).then(() => {
+            setIsLoading(false);
             navigation.dispatch(resetAction);
           });
         });
@@ -447,8 +451,9 @@ function CreateIDScreen({route}) {
                   <Button
                     mode="contained"
                     color={Colors.appPrimaryColor}
+                    disabled={isLoading}
                     onPress={handleSubmit}>
-                    Continue to Pay
+                    {isLoading ? 'Please wait...' : 'Continue to Pay'}
                   </Button>
                 </>
               )}

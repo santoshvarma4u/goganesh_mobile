@@ -1,4 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
+import {CommonActions, useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {Image, Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Icon} from 'react-native-elements';
@@ -48,13 +49,19 @@ const WithdrawForm = props => {
   let banks = props?.route?.params?.banks ? props.route.params.banks : [];
   let data = props?.route?.params?.data ? props.route.params.data : {};
   reactotron.log('this is the log', data);
-
+  const navigation = useNavigation();
   const [amount, onAmountChange] = useState(null);
   const [checked, setChecked] = useState(false);
   const [check, setCheckedDemo] = useState(0);
   const [selectedBank, setSelectedBank] = useState('Select Bank');
   const [selectedBankID, setSelectedBankID] = useState('');
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const resetAction = CommonActions.reset({
+    index: 0,
+    routes: [{name: "ID's"}],
+  });
 
   reactotron.log('this is the data', banks);
   return (
@@ -121,23 +128,31 @@ const WithdrawForm = props => {
         }}>
         <Button
           mode="contained"
+          disabled={isLoading}
           style={{
             width: '70%',
           }}
           onPress={() => {
+            setIsLoading(true);
             if (checked) {
-              depositController.depositIntoWallet(
-                data.uid,
-                'Wallet',
-                amount,
-                'DR',
-                true,
-                null,
-                CONSTANTS.WITHDRAW_FROM_EXISTING_ID_TO_WALLET,
-                data.sd.sdid,
-              );
+              depositController
+                .depositIntoWallet(
+                  data.uid,
+                  'Wallet',
+                  amount,
+                  'DR',
+                  true,
+                  null,
+                  CONSTANTS.WITHDRAW_FROM_EXISTING_ID_TO_WALLET,
+                  data.sd.sdid,
+                )
+                .then(() => {
+                  setIsLoading(false);
+                  navigation.dispatch(resetAction);
+                });
             } else {
               if (selectedBankID.length == 0 || amount == 0) {
+                setIsLoading(false);
                 return alert(
                   'Please select a bank or Enter amount to Withdraw',
                 );
@@ -150,6 +165,8 @@ const WithdrawForm = props => {
                 selectedBankID,
                 CONSTANTS.WITHDRAW_FROM_EXISTING_ID_TO_BANK,
               ).then(() => {
+                setIsLoading(false);
+                navigation.dispatch(resetAction);
                 alert('WithDraw Request Sent Successfully ');
               });
             }
@@ -158,7 +175,7 @@ const WithdrawForm = props => {
             variant="H3"
             color={Colors.appWhiteColor}
             style={{alignItems: 'center'}}>
-            Request Withdraw
+            {isLoading ? 'Please wait ...' : 'Request Withdraw'}
           </Typography>
         </Button>
         {/* <Button
