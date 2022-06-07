@@ -252,7 +252,10 @@ function DepositScreen({route}) {
                   <Button
                     title="submit"
                     onPress={() => {
-                      submitPayment();
+                      setProgress(true);
+                      setTimeout(() => {
+                        submitPayment();
+                      }, 1000);
                     }}
                   />
                 </View>
@@ -326,13 +329,7 @@ function DepositScreen({route}) {
                 Attach Payment Screenshot
               </Typography>
               <View style={styles.depostScreenshotCard}>
-                {isImageLoading ? (
-                  <ActivityIndicator
-                    animating={true}
-                    size="large"
-                    color="white"
-                  />
-                ) : filePath.uri ? (
+                {filePath.uri ? (
                   <Image
                     source={{uri: filePath.uri}}
                     style={styles.imageStyle}
@@ -372,7 +369,7 @@ function DepositScreen({route}) {
                 }}>
                 <Typography>
                   {' '}
-                  {isImageLoading ? 'Please wait ' : 'Submit'}
+                  {isImageLoading ? 'Please wait....' : 'Submit Payment'}
                 </Typography>
               </TouchableOpacity>
               {progress ? (
