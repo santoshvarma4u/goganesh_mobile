@@ -114,7 +114,7 @@ const WithdrawForm = props => {
             if (!amount || amount === '0') {
               return alert('Enter amount to Withdraw');
             }
-            isLoading(true);
+            setIsLoading(true);
             if (checked === 'wallet') {
               depositController
                 .depositIntoWallet(
@@ -129,7 +129,7 @@ const WithdrawForm = props => {
                 )
                 .then(res => {
                   navigation.dispatch(resetAction);
-                  isLoading(false);
+                  setIsLoading(false);
                   alert('WithDraw Request Sent Successfully ');
                 });
             } else {

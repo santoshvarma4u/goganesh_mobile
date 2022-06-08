@@ -2,6 +2,7 @@ import Moment from 'moment';
 import React, {useState, useEffect} from 'react';
 import {View, FlatList} from 'react-native';
 import ImageModal from 'react-native-image-modal';
+import reactotron from 'reactotron-react-native';
 import FGPUNTLOGO from '../../../Assets/svgs/fgpuntlogo';
 import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
@@ -77,11 +78,12 @@ function PassbookScreen({navigation}) {
                     style={{color: Colors.appWhiteColor}}>
                     {item.paymentMethod}
                   </Typography>
+                  {reactotron.log('reason-->', item.reason)}
                   {item?.reason && item.reason.length > 0 && (
                     <Typography
                       variant="H4"
                       style={{color: Colors.appWhiteColor, marginTop: 5}}>
-                      Reason: {item.reason}
+                      Reason: {item?.reason}
                     </Typography>
                   )}
                 </View>
