@@ -130,7 +130,7 @@ const WithDrawContainer = props => {
             color: Colors.appBlackColor,
           }}
           onPress={() => {
-            if (amount >= 1000) {
+            if (amount >= 1000 && amount <= reduxWallet) {
               setError(false);
               setWithdrawModalVisible(true);
             } else {
