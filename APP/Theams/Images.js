@@ -11,6 +11,7 @@ const images = {
   bottombg: require('../../assets/Images/bottombg.jpg'),
   concern: require('../../assets/Images/concern.png'),
   accept: require('../../assets/Images/accept.png'),
+  expired: require('../../assets/Images/expired.png'),
   reject: require('../../assets/Images/multiply.png'),
   whatsapp: require('../../assets/Images/whatsapp.png'),
 };

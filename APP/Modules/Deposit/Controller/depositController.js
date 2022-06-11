@@ -14,6 +14,7 @@ const submitData = async (
   userName,
   depositCoins,
   payementID,
+  setImageUpLoadProgress,
 ) => {
   const data = new FormData();
   data.append('uid', uid);
@@ -33,7 +34,7 @@ const submitData = async (
   data.append('userName', userName);
   data.append('depositCoins', depositCoins);
 
-  const result = await IDsApi.createID(data, progress => console.log(progress));
+  const result = await IDsApi.createID(data, setImageUpLoadProgress);
   if (!result.ok) {
     return alert(result.problem);
   }
@@ -48,6 +49,7 @@ const submitIntialDeposit = async (
   paymentType,
   paymentreciept,
   remarks,
+  setImageUpLoadProgress,
 ) => {
   reactotron.log(
     '🚀 ~ file: depositController.js ~ line 51 ~ remarks',
@@ -69,7 +71,10 @@ const submitIntialDeposit = async (
 
   data.append('paymentAmount', paymentAmount);
 
-  const result = await paymentDepositApi.createDepositPayment(data);
+  const result = await paymentDepositApi.createDepositPayment(
+    data,
+    setImageUpLoadProgress,
+  );
   if (!result.ok) {
     return alert(result.problem);
   }
@@ -85,6 +90,7 @@ const depositIntoWallet = async (
   paymentreciept,
   remarks,
   sdid,
+  setImageUpLoadProgress,
 ) => {
   const data = new FormData();
   data.append('uid', uid);
@@ -103,7 +109,10 @@ const depositIntoWallet = async (
   }
   data.append('paymentAmount', paymentAmount);
 
-  const result = await paymentDepositApi.createDepositPayment(data);
+  const result = await paymentDepositApi.createDepositPayment(
+    data,
+    setImageUpLoadProgress,
+  );
   if (!result.ok) {
     return alert(result.problem);
   } else {
@@ -119,6 +128,7 @@ const submitDataForMyID = async (
   paymentType,
   paymentreciept,
   remarks,
+  setImageUpLoadProgress,
 ) => {
   reactotron.log(
     '🚀 ~ file: depositController.js ~ line 111 ~ remarks',
@@ -140,7 +150,10 @@ const submitDataForMyID = async (
 
   data.append('paymentAmount', paymentAmount);
 
-  const result = await paymentDepositApi.createDepositPayment(data);
+  const result = await paymentDepositApi.createDepositPayment(
+    data,
+    setImageUpLoadProgress,
+  );
   if (!result.ok) {
     return alert(result.problem);
   }

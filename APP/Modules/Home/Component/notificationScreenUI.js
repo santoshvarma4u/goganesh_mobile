@@ -2,6 +2,8 @@
 import moment from 'moment';
 import React from 'react';
 import {Image, View, FlatList} from 'react-native';
+import {Icon} from 'react-native-elements';
+import CONSTANTS, {userFriendlyPaymentMessage} from '../../../Constants';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
 import {Typography} from '../../Common/Text';
@@ -10,29 +12,33 @@ import styles from './Styles';
 function NotificationScreen({navigation}) {
   const notifications = HomeController.getNotifications();
 
+  const renderStatusIcons = paymentStatus => {
+    if (paymentStatus?.includes('Rejected')) {
+      return images.reject;
+    } else if (paymentStatus?.includes('Pending')) {
+      return images.expired;
+    } else if (paymentStatus?.includes('Accepted')) {
+      return images.accept;
+    }
+  };
   const renderNotificationItem = item => {
-    let date = moment(item.updatedtime).format('DD MMMM YYYY HH:MM a');
+    let date = moment(item.updatedtime).format('Do MMMM YYYY, h:mm:ss a');
 
     return (
       <View style={styles.listContainer}>
         <View>
-          {/* for the rejected case add the source as source={true === accept ?  images.accept} */}
-
           <Image
             style={{height: 18, width: 18}}
-            source={
-              item?.paymentStatus?.includes('Rejected')
-                ? images.reject
-                : images.accept
-            }
+            source={renderStatusIcons(item.paymentStatus)}
           />
         </View>
         <View style={{marginLeft: 14, marginTop: 20}}>
           <Typography style={{color: Colors.appWhiteColor, fontSize: 14}}>
-            {item?.remarks}
+            {userFriendlyPaymentMessage(item?.remarks, item?.paymentStatus)}
           </Typography>
-          <Typography style={{color: Colors.appWhiteColor, fontSize: 10}}>
-            `Amount : ₹{item?.paymentAmount}`
+          <Typography
+            style={{color: Colors.appWhiteColor, fontSize: 12, marginTop: 10}}>
+            💸 Amount : ₹ {item?.paymentAmount}
           </Typography>
         </View>
         <View

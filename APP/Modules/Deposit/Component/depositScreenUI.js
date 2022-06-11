@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import {Divider, Icon} from 'react-native-elements';
 import * as ImagePicker from 'react-native-image-picker';
+import {ProgressBar} from 'react-native-paper';
 import reactotron from 'reactotron-react-native';
 import CONSTANTS from '../../../Constants';
 import Colors from '../../../Theams/Colors';
@@ -24,9 +25,8 @@ import styles from './Styles';
 function DepositScreen({route}) {
   const [progress, setProgress] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(false);
-
+  const [uploadProgress, setUploadProgress] = useState(0);
   const payeeDetils = DepositController.getPayeeDetails();
-
   const resetAction = CommonActions.reset({
     index: 0,
     routes: [{name: 'Home'}],
@@ -42,25 +42,29 @@ function DepositScreen({route}) {
     requestStatus,
   } = route.params;
   const navigation = useNavigation();
-
   const payee = payeeDetils.data.filter(
     data => data.paymenttype == paymentType,
   );
-
   useEffect(() => {
     getUID();
   }, []);
-
   const getUID = async () => {
     try {
       let UID = await Storage.getItemSync(StorageKeys.ID);
-
       setUid(UID);
     } catch (error) {}
   };
-
   const [filePath, setFilePath] = useState('');
-
+  const setImageUpLoadProgress = progressEvent => {
+    const percentCompleted = Math.round(
+      (progressEvent.loaded * 100) / progressEvent.total,
+    );
+    reactotron.log(
+      '🚀 ~ file: transactionsPassbook.js ~ line 59 ~ percentCompleted',
+      percentCompleted,
+    );
+    setUploadProgress(percentCompleted);
+  };
   const submitPayment = () => {
     reactotron.log('submitPayment', 'increament');
     if (filePath.length <= 0) {
@@ -76,6 +80,7 @@ function DepositScreen({route}) {
         'CR',
         filePath,
         CONSTANTS.DEPOSIT_INTO_SITE_UPI_CREATE_ID,
+        setImageUpLoadProgress,
       ).then(({data}) => {
         DepositController.submitData(
           parseInt(uid),
@@ -87,6 +92,7 @@ function DepositScreen({route}) {
           userName,
           depositCoins,
           data.data.paymentID,
+          setImageUpLoadProgress,
         ).then(data => {});
         setProgress(false);
         navigation.dispatch(resetAction);
@@ -101,6 +107,8 @@ function DepositScreen({route}) {
         true,
         filePath,
         CONSTANTS.DEPOSIT_INTO_WALLET_UPI,
+        null,
+        setImageUpLoadProgress,
       ).then(data => {
         navigation.dispatch(resetAction);
       });
@@ -150,7 +158,6 @@ function DepositScreen({route}) {
       }
     });
   };
-
   if (paymentType === 'Bank') {
     return (
       <View style={styles.containerMain}>
@@ -162,7 +169,6 @@ function DepositScreen({route}) {
                   Send Payment and Upload ScreenShot
                 </Typography>
               </View>
-
               <View style={styles.offersContainer}>
                 <View style={styles.depositDetailsCardForBank}>
                   <Typography style={styles.depositTitile}>
@@ -241,7 +247,6 @@ function DepositScreen({route}) {
                       Choose Image
                     </Typography>
                   </TouchableOpacity>
-
                   <Image
                     source={{uri: filePath.uri}}
                     style={{padding: 5, width: 150, height: 200}}
@@ -368,10 +373,17 @@ function DepositScreen({route}) {
                   submitPayment();
                 }}>
                 <Typography>
-                  {' '}
                   {isImageLoading ? 'Please wait....' : 'Submit Payment'}
                 </Typography>
               </TouchableOpacity>
+              {uploadProgress > 0 && (
+                <ProgressBar
+                  progress={uploadProgress}
+                  color={Colors.appPrimaryColor}
+                  width={200}
+                  height={10}
+                />
+              )}
               {progress ? (
                 <ActivityIndicator
                   animating={true}
