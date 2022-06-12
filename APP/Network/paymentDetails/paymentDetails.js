@@ -33,8 +33,15 @@ const updateUserBankDetails = async data => {
   return NetworkAPI.apiClient.patch(userBankDetails, data);
 };
 
+const getPendingWithdrawRequestsForUser = async () => {
+  let uid = await getUID();
+  const pendingWithdrawRequestsForUser = `/payment/getPendingWithdrawRequestsForUser/${uid}`;
+  return NetworkAPI.apiClient.get(pendingWithdrawRequestsForUser);
+};
+
 export default {
   getUserBankDetails,
   createUserBankDetails,
   updateUserBankDetails,
+  getPendingWithdrawRequestsForUser,
 };

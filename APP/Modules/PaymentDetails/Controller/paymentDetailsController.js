@@ -1,5 +1,5 @@
 import reactotron from 'reactotron-react-native';
-import useAPI from '../../../Hooks/useAPI';
+import useAPI, {useAPIWithParams} from '../../../Hooks/useAPI';
 import Storage from '../../../Modules/Common/Storage';
 import StorageKeys from '../../../Modules/Common/StorageKeys';
 import paymentsDetailsApi from '../../../Network/paymentDetails/paymentDetails';
@@ -50,4 +50,12 @@ const updateBankData = async (bankData, currentIndex) => {
 
 const getBankData = () => useAPI(paymentsDetailsApi.getUserBankDetails);
 
-export default {submitBankData, updateBankData, getBankData};
+const getPendingWithdrawRequestsForUser = () =>
+  useAPIWithParams(paymentsDetailsApi.getPendingWithdrawRequestsForUser);
+
+export default {
+  submitBankData,
+  updateBankData,
+  getBankData,
+  getPendingWithdrawRequestsForUser,
+};

@@ -2,40 +2,65 @@
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {Icon} from 'react-native-elements';
-import {Button, Modal} from 'react-native-paper';
+import {ActivityIndicator, Button, Modal} from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
+import reactotron from 'reactotron-react-native';
 import CONSTANTS from '../../../Constants';
 import {setUserBanks} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
 import EnterBankDetails from '../../Common/BankDetails';
 import CommonTextInput from '../../Common/CommonTextInput';
+import ErrorPage from '../../Common/ErrorPage';
 import {Typography} from '../../Common/Text';
 import IdController from '../../IDs/Controller/IdController';
 import paymentDetailsController from '../../PaymentDetails/Controller/paymentDetailsController';
 
 const WithDrawContainer = props => {
   const {navigation, reduxBankDetails, reduxWallet} = props;
+  const [enableWithdraw, setEnableWithdraw] = useState(false);
   const [amount, setAmount] = useState('');
   const [error, setError] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [withdrawModalVisible, setWithdrawModalVisible] = useState(false);
 
+  const {
+    data,
+    error: withDrawVerifyError,
+    loading: withDrawVerifyLoading,
+    request,
+  } = paymentDetailsController.getPendingWithdrawRequestsForUser();
+
   const onSubmit = async values => {
-    let {data} = await paymentDetailsController.submitBankData(values);
-    if (data.status === 'success') {
+    let {data: bankData} = await paymentDetailsController.submitBankData(
+      values,
+    );
+    if (bankData.status === 'success') {
       setModalVisible(false);
-      props.reduxSetBankDetails([...reduxBankDetails, data.data]);
+      props.reduxSetBankDetails([...reduxBankDetails, bankData.data]);
     }
   };
 
   useEffect(() => {
-    // Check if the bank details are set, if open a modal to set the bank details
+    // Check if the bank details are set, if open a modal to set the bank
     if (!reduxBankDetails || reduxBankDetails.length === 0) {
       setModalVisible(true);
     }
   }, [reduxBankDetails]);
+
+  useEffect(() => {
+    if (withDrawVerifyError) {
+      setError(withDrawVerifyError);
+    }
+    if (data && data?.length === 0 && !withDrawVerifyLoading) {
+      setEnableWithdraw(true);
+    }
+  }, [data, withDrawVerifyError, withDrawVerifyLoading]);
+
+  if (withDrawVerifyError) {
+    return <ErrorPage onRetryPress={request} />;
+  }
 
   return (
     <View
@@ -92,53 +117,75 @@ const WithDrawContainer = props => {
           </View>
         </View>
         {/* body */}
-        <View
-          style={{
-            marginHorizontal: 30,
-            marginTop: 20,
-          }}>
-          {/* <Typography variant="paragraph" color={Colors.appWhiteColor}>
+        {enableWithdraw ? (
+          <>
+            <View
+              style={{
+                marginHorizontal: 30,
+                marginTop: 20,
+              }}>
+              {/* <Typography variant="paragraph" color={Colors.appWhiteColor}>
             Withdrawable balance : 0
           </Typography> */}
-          <CommonTextInput
-            label="Withdraw coins"
-            mode="outlined"
-            style={{
-              marginTop: 20,
-            }}
-            value={amount}
-            onChangeText={value => {
-              setAmount(value);
-              setError(false);
-            }}
-            keyboardType="numeric"
-          />
-          <Typography
-            variant="paragraph"
-            color={error ? Colors.appRedColor : Colors.appWhiteColor}>
-            {error
-              ? 'Enter valid amount, Minimum amount is 1000 coins'
-              : '*Minimum withdraw Amount is 1000'}
-          </Typography>
-        </View>
-        <Button
-          mode="contained"
-          style={{
-            marginHorizontal: 30,
-            marginTop: 20,
-            backgroundColor: Colors.appPrimaryColor,
-            color: Colors.appBlackColor,
-          }}
-          onPress={() => {
-            if (amount >= 1000 && amount <= reduxWallet) {
-              setError(false);
-              setWithdrawModalVisible(true);
-            } else {
-              setError(true);
-            }
-          }}>
-          WITHDRAW COINS
-        </Button>
+              <CommonTextInput
+                label="Withdraw coins"
+                mode="outlined"
+                style={{
+                  marginTop: 20,
+                }}
+                value={amount}
+                onChangeText={value => {
+                  setAmount(value);
+                  setError(false);
+                }}
+                keyboardType="numeric"
+              />
+              <Typography
+                variant="paragraph"
+                color={error ? Colors.appRedColor : Colors.appWhiteColor}>
+                {error
+                  ? 'Enter valid amount, Minimum amount is 1000 coins'
+                  : '*Minimum withdraw Amount is 1000'}
+              </Typography>
+            </View>
+            <Button
+              mode="contained"
+              style={{
+                marginHorizontal: 30,
+                marginTop: 20,
+                backgroundColor: Colors.appPrimaryColor,
+                color: Colors.appBlackColor,
+              }}
+              onPress={() => {
+                if (amount >= 1000 && amount <= reduxWallet) {
+                  setError(false);
+                  setWithdrawModalVisible(true);
+                } else {
+                  setError(true);
+                }
+              }}>
+              WITHDRAW COINS
+            </Button>
+          </>
+        ) : (
+          <View style={{}}>
+            {withDrawVerifyLoading ? (
+              <ActivityIndicator />
+            ) : (
+              <Typography
+                variant="subheader"
+                color={Colors.appWhiteColor}
+                style={{
+                  marginHorizontal: 30,
+                  marginTop: 20,
+                  textAlign: 'center',
+                }}>
+                You have pending withdraw requests , you can withdraw after the
+                previous requests are approved
+              </Typography>
+            )}
+          </View>
+        )}
       </View>
       <Modal visible={modalVisible}>
         <EnterBankDetails
