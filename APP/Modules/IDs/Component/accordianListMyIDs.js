@@ -58,10 +58,7 @@ const AccordianListNew = props => {
             resizeMode="contain"
           />
         </View>
-        <View
-          style={{
-            flex: 1,
-          }}>
+        <View>
           <TouchableOpacity
             onPress={() => {
               setShowWebView(true);
@@ -71,10 +68,20 @@ const AccordianListNew = props => {
               alignItems: 'center',
               paddingRight: 10,
             }}>
-            <Typography style={styles.url}>{props.data.sd.siteurl}</Typography>
-            <Icon name="launch" color="white" size={16} />
+            <Typography variant="H4" style={styles.url}>
+              {props.data.sd.siteurl}
+            </Typography>
+            <Icon
+              name="launch"
+              color="white"
+              size={16}
+              style={{
+                marginLeft: 10,
+              }}
+            />
           </TouchableOpacity>
           <Typography style={styles.siteName}>
+            {' '}
             {props.data.sd.sitename}
           </Typography>
         </View>

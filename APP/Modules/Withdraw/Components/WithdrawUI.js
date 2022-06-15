@@ -108,17 +108,19 @@ const WithdrawForm = props => {
                   color: Colors.appWhiteColor,
                 }}
               />
-              <RadioButton.Item
-                label={`Bank  (${banks[0].value})`}
-                value="bank"
-                position="leading"
-                color={Colors.appWhiteColor}
-                uncheckedColor={Colors.appWhiteColor}
-                labelStyle={{
-                  color: Colors.appWhiteColor,
-                  textAlign: 'left',
-                }}
-              />
+              {banks?.length > 0 ? (
+                <RadioButton.Item
+                  label={`Bank  (${banks[0].value})`}
+                  value="bank"
+                  position="leading"
+                  color={Colors.appWhiteColor}
+                  uncheckedColor={Colors.appWhiteColor}
+                  labelStyle={{
+                    color: Colors.appWhiteColor,
+                    textAlign: 'left',
+                  }}
+                />
+              ) : null}
             </RadioButton.Group>
           </View>
           <View
