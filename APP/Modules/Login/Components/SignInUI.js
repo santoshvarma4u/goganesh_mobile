@@ -1,6 +1,13 @@
 import {CommonActions, useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {View, TextInput, TouchableOpacity, Image} from 'react-native';
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+} from 'react-native';
+import FGPUNTLOGO from '../../../Assets/svgs/fgpuntlogo';
 import authKey from '../../../Modules/Common/JWT';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
@@ -11,7 +18,6 @@ import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
 import LoginController from '../Controllers/LoginController';
 import styles from './Styles';
-import FGPUNTLOGO from "../../../Assets/svgs/fgpuntlogo";
 function SignIn() {
   const navigation = useNavigation();
   const [number, onChangeNumber] = React.useState('');
@@ -87,19 +93,20 @@ function SignIn() {
   };
 
   return (
-    <View style={styles.containerMain}>
+    <ScrollView contentContainerStyle={styles.containerMain}>
       {/*<ScrollView>*/}
       {!isError ? (
         <>
-          <View
+          <Typography
             style={{
-              width: '100%',
-              flex: 0.5,
-              paddingTop: 50,
+              color: Colors.appWhiteColor,
               alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 20,
+              fontSize: 28,
             }}>
-            <FGPUNTLOGO width={200} height={200} />
-          </View>
+            Login
+          </Typography>
           <View style={styles.offersContainer}>
             <View style={styles.SignINCard}>
               <View style={{flex: 1}}>
@@ -203,6 +210,14 @@ function SignIn() {
               </Typography>
             </TouchableOpacity>
           </View>
+          <View
+            style={{
+              width: '100%',
+              flex: 0.5,
+              alignItems: 'center',
+            }}>
+            <FGPUNTLOGO width={200} height={200} />
+          </View>
         </>
       ) : (
         <ErrorPage
@@ -213,7 +228,7 @@ function SignIn() {
           }}
         />
       )}
-    </View>
+    </ScrollView>
   );
 }
 
