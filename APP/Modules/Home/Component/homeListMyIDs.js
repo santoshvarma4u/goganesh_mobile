@@ -1,4 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
+import {BottomSheet, Divider, Icon, ListItem} from '@rneui/themed';
 import React, {useEffect, useState} from 'react';
 
 import {
@@ -10,7 +11,6 @@ import {
   Modal,
   Dimensions,
 } from 'react-native';
-import {BottomSheet, Divider, Icon, ListItem} from 'react-native-elements';
 import {Button, Modal as PaperModal, Portal, Card} from 'react-native-paper';
 import WebView from 'react-native-webview';
 import {connect} from 'react-redux';

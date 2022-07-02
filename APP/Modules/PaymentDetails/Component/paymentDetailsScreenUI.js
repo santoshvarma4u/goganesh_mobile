@@ -1,3 +1,4 @@
+import {Icon} from '@rneui/themed';
 import React, {useEffect, useState} from 'react';
 import {
   Modal,
@@ -6,7 +7,6 @@ import {
   FlatList,
   KeyboardAvoidingView,
 } from 'react-native';
-import {Icon} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {setUserBanks} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';

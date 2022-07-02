@@ -1,9 +1,9 @@
 /* eslint-disable no-alert */
+import {Input} from '@rneui/themed';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import React, {useState} from 'react';
 import {Alert} from 'react-native';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
-import {Input} from 'react-native-elements/dist/input/Input';
 import reactotron from 'reactotron-react-native';
 import Colors from '../../../Theams/Colors';
 import authKey from '../../Common/JWT';

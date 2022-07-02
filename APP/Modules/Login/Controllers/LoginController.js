@@ -76,4 +76,11 @@ const verifyOtp = async (otpSession, otp) => {
   } catch (error) {}
 };
 
-export default {checkUser, sendOTP, verifyOtp, updatePassword};
+const verifyUser = async phoneNumber => {
+  try {
+    const result = await authApi.verifyUser(phoneNumber);
+    return result.data;
+  } catch (error) {}
+};
+
+export default {checkUser, sendOTP, verifyOtp, updatePassword, verifyUser};

@@ -30,4 +30,10 @@ export const verifyOtp = (session, otp) => {
   return NetworkAPI.authApiClient.post(twoFactorApi, {From: 'FGEXCH'});
 };
 
-export default {loginCheck, sendOtp, verifyOtp,updatePassword};
+const verifyUser = phonenumber => {
+  return NetworkAPI.apiLoginClient.post('/loginSession/login/checkuser', {
+    phone: phonenumber,
+  });
+};
+
+export default {loginCheck, sendOtp, verifyOtp, updatePassword, verifyUser};

@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
+import {Icon} from '@rneui/themed';
 import React, {useState, useEffect} from 'react';
 import {
   View,
@@ -10,7 +11,6 @@ import {
   Linking,
   RefreshControl,
 } from 'react-native';
-import {Icon} from 'react-native-elements';
 // import {SliderBox} from 'react-native-image-slider-box';
 import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-paper';

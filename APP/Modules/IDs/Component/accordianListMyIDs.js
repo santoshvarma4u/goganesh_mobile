@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
+import {BottomSheet, Icon, Card as ElementsCard} from '@rneui/themed';
 import React, {useState, useEffect} from 'react';
 import {
   View,
@@ -8,8 +9,9 @@ import {
   TouchableOpacity,
   Clipboard,
   Modal,
+  FlatList,
+  Pressable,
 } from 'react-native';
-import {BottomSheet, ListItem, Icon} from 'react-native-elements';
 
 import {
   Button,
@@ -187,14 +189,6 @@ const AccordianListNew = props => {
         setShowPasswordModal(true);
       },
     },
-    {
-      title: 'Cancel',
-      containerStyle: {backgroundColor: Colors.appRedColor},
-      titleStyle: {color: Colors.appWhiteColor},
-      onPress: () => {
-        setIsVisible(false);
-      },
-    },
   ];
 
   return (
@@ -205,7 +199,6 @@ const AccordianListNew = props => {
           flex: 1,
         }}>
         <ListTitle />
-        <ListCollapse />
       </View>
       <Modal
         visible={showWebView}
@@ -336,17 +329,45 @@ const AccordianListNew = props => {
       </View>
       <BottomSheet
         isVisible={isVisible}
-        containerStyle={{backgroundColor: 'rgba(0.5, 0.25, 0, 0.7)'}}>
-        {list.map((l, i) => (
-          <ListItem
-            key={i}
-            containerStyle={l.containerStyle}
-            onPress={l.onPress}>
-            <ListItem.Content>
-              <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
-            </ListItem.Content>
-          </ListItem>
-        ))}
+        onBackdropPress={() => setIsVisible(false)}
+        containerStyle={{backgroundColor: 'rgba(0.5, 0.25, 0, 0.8)'}}>
+        <View
+          style={{
+            backgroundColor: Colors.appBlackColor,
+          }}>
+          <ElementsCard.Title>{props.data.sd.sitename}</ElementsCard.Title>
+          <ListCollapse />
+          <FlatList
+            data={list}
+            keyExtractor={(item, index) => index.toString()}
+            numColumns={2}
+            renderItem={({item}) => {
+              return (
+                <View
+                  style={{
+                    flex: 1,
+                  }}>
+                  <Button
+                    onPress={item.onPress}
+                    mode="contained"
+                    style={{
+                      margin: 5,
+                    }}
+                    color={Colors.appBlackColorLight}>
+                    <Typography>{item.title}</Typography>
+                  </Button>
+                </View>
+              );
+            }}
+          />
+          <Button
+            color={Colors.appRedColor}
+            onPress={() => {
+              setIsVisible(false);
+            }}>
+            cancel
+          </Button>
+        </View>
       </BottomSheet>
       <Portal>
         <PaperModal
@@ -446,7 +467,7 @@ const AccordianListNew = props => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.appBlackColorLight,
-    borderRadius: 30,
+    borderRadius: 6,
   },
   image: {
     width: 60,

@@ -3,9 +3,9 @@ import {
   DrawerItemList,
   DrawerItem,
 } from '@react-navigation/drawer';
+import {Icon} from '@rneui/themed';
 import React from 'react';
 import {Image, Text, View} from 'react-native';
-import {Icon} from 'react-native-elements';
 import SplashLogo from '../../../Assets/svgs/SplashLogo';
 import FGPUNTLOGO from '../../../Assets/svgs/fgpuntlogo';
 import Colors from '../../../Theams/Colors';

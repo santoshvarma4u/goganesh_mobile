@@ -1,6 +1,6 @@
+import {Chip, Icon} from '@rneui/themed';
 import React, {useState, useEffect} from 'react';
 import {Text, View} from 'react-native';
-import {Chip, Icon} from 'react-native-elements';
 import Colors from '../../../Theams/Colors';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';

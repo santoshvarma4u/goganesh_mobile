@@ -2,9 +2,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {CommonActions, DrawerActions} from '@react-navigation/native';
 import {createStackNavigator, HeaderBackButton} from '@react-navigation/stack';
+import {Icon} from '@rneui/themed';
 import React, {useRef} from 'react';
 import {View} from 'react-native';
-import {Icon} from 'react-native-elements';
 import {Appbar} from 'react-native-paper';
 import SmallLogo from '../Assets/svgs/SmallLogo';
 import ChatContainer from '../Modules/Chat/Container/ChatContainer';
@@ -20,6 +20,7 @@ import IDsScreenPage from '../Modules/IDs/Container/IDsIndex';
 import ForgotPassWord from '../Modules/Login/Containers/Signin/ForgotPassword';
 import SignInContainer from '../Modules/Login/Containers/Signin/SignInindex';
 import SignUpContainer from '../Modules/Login/Containers/Signin/SignUpContainer';
+import VerifyUserContainer from '../Modules/Login/Containers/Signin/VerifyUserContainer';
 import OffersScreen from '../Modules/Offers/Container/offersIndex';
 import PassbookScreen from '../Modules/Passbook/Container/passbookIndex';
 import PaymentsScreen from '../Modules/PaymentDetails/Container/paymentDetailsIndex';
@@ -65,16 +66,23 @@ function logoutAndResetNavigation() {
 function AuthNavigator() {
   return (
     <Stack.Navigator
-      initialRouteName="SignIn"
+      initialRouteName="VerifyUser"
       screenOptions={{
         headerShown: true,
       }}>
       <Stack.Screen
+        name="VerifyUser"
+        component={VerifyUserContainer}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
         name="SignIn"
         component={SignInContainer}
         options={({navigation}) => ({
-          headerStyle: {backgroundColor: Colors.appPrimaryColor, height: 0},
-          headerTitle: 'SignUp',
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitle: 'Login',
           headerTitleAlign: 'center',
           headerTitleStyle: appHeaderStyle,
         })}
@@ -84,7 +92,7 @@ function AuthNavigator() {
         component={SignUpContainer}
         options={({navigation}) => ({
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitle: 'SignUp',
+          headerTitle: 'Sign Up',
           headerTitleAlign: 'center',
           headerTitleStyle: appHeaderStyle,
         })}

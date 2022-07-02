@@ -1,4 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
+import {Icon} from '@rneui/themed';
 import * as React from 'react';
 import {
   View,
@@ -8,7 +9,6 @@ import {
   Clipboard,
   Linking,
 } from 'react-native';
-import {Button, Icon} from 'react-native-elements';
 // import {List} from 'react-native-paper';
 import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
@@ -222,14 +222,14 @@ const AccordianListNew = props => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.appBlackColorLight,
-    borderRadius: 30,
+    borderRadius: 10,
     padding: 14,
     flex: 1,
   },
   image: {
     width: 60,
     height: 60,
-    borderRadius: 30,
+    borderRadius: 10,
     backgroundColor: 'black',
   },
   url: {

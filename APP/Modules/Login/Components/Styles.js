@@ -10,11 +10,10 @@ export default StyleSheet.create({
   offersContainer: {
     flex: 1,
     flexDirection: 'column',
-    // backgroundColor: 'black',
     alignItems: 'center',
   },
   SignINCard: {
-    marginTop: 60,
+    // marginTop: 60,
     width: '90%',
     flexDirection: 'row',
     borderRadius: 10,
@@ -75,7 +74,6 @@ export default StyleSheet.create({
     marginLeft: 'auto',
   },
   profileDetails: {
-    flex: 0.15,
     padding: 10,
     alignItems: 'center',
     marginTop: 20,
@@ -92,7 +90,7 @@ export default StyleSheet.create({
     padding: 15,
     marginTop: 20,
     backgroundColor: Colors.appBlackColor,
-    width: '90%',
+    marginHorizontal: 10,
     borderRadius: 10,
   },
   bankCardDetails: {

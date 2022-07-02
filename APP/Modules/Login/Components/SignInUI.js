@@ -1,16 +1,13 @@
 import {CommonActions, useNavigation} from '@react-navigation/native';
+import {Formik} from 'formik';
 import React from 'react';
-import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-} from 'react-native';
-import FGPUNTLOGO from '../../../Assets/svgs/fgpuntlogo';
+import {View, TouchableOpacity, Platform} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
+import {Button} from 'react-native-paper';
+import * as Yup from 'yup';
+import FgPuntLogoName from '../../../Assets/svgs/fgpuntlogoname';
 import authKey from '../../../Modules/Common/JWT';
 import Colors from '../../../Theams/Colors';
-import images from '../../../Theams/Images';
 import CommonTextInput from '../../Common/CommonTextInput';
 import ErrorPage from '../../Common/ErrorPage';
 import Storage from '../../Common/Storage';
@@ -18,37 +15,35 @@ import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
 import LoginController from '../Controllers/LoginController';
 import styles from './Styles';
-function SignIn() {
+
+const SignInSchema = Yup.object().shape({
+  phoneNumber: Yup.string()
+    .min(10, 'Enter a valid phone number')
+    .required('Enter your phone number'),
+  password: Yup.string()
+    .min(6, 'Password must be at least 6 characters')
+    .required('Enter your password'),
+});
+
+function SignIn(props) {
   const navigation = useNavigation();
-  const [number, onChangeNumber] = React.useState('');
-  const [password, onChangePassword] = React.useState('');
-  const [otp, setOtp] = React.useState('');
-  const [otpSession, setOtpSession] = React.useState('');
-  const [otpverifyStatus, setOtpVerifyStatus] = React.useState('');
+  // const [number, onChangeNumber] = React.useState('');
+  // const [password, onChangePassword] = React.useState('');
+  // const [otp, setOtp] = React.useState('');
+  // const [otpSession, setOtpSession] = React.useState('');
+  // const [otpverifyStatus, setOtpVerifyStatus] = React.useState('');
   const [otpSentStatus, setOtpSentStatus] = React.useState(false);
   const [isError, setIsError] = React.useState(false);
 
-  // otp
-  const getToken = async () => {
-    let tok = await Storage.getItemSync(StorageKeys.JWT);
-
-    return tok;
-  };
-
-  const verifyPassword = async () => {
-    if (number.length < 10 || password.length < 1) {
-      setIsError(true);
-      return;
-    }
-    const checkUser = await LoginController.checkUser(number, password);
-
+  const onSubmit = async values => {
+    const {phoneNumber, password} = values;
+    const checkUser = await LoginController.checkUser(phoneNumber, password);
     if (checkUser.data.message === 'wrong password') {
       alert('Wrong password');
-      // navigation.navigate('SignUp', {phoneNumber: number});
     } else if (checkUser.data.message === 'user not found') {
       alert('no user found');
     } else {
-      if (authKey.usertype == 'user') {
+      if (authKey.usertype === 'user') {
         authKey.token = await getToken();
         const resetAction = CommonActions.reset({
           index: 0,
@@ -61,71 +56,80 @@ function SignIn() {
     }
   };
 
-  const verifyOtp = async () => {
-    const verifyOtpSession = await LoginController.verifyOtp(otpSession, otp);
-    setOtpVerifyStatus(verifyOtpSession.Status);
-    if (verifyOtpSession.Status === 'Success') {
-      const checkUser = await LoginController.checkUser(number);
-      if (checkUser.data.message === 'user not found') {
-        navigation.navigate('SignUp', {phoneNumber: number});
-      } else {
-        if (authKey.usertype == 'user') {
-          authKey.token = await getToken();
-          const resetAction = CommonActions.reset({
-            index: 0,
-            routes: [{name: 'App'}],
-          });
-          navigation.dispatch(resetAction);
-        } else {
-          alert('access denied');
-        }
-      }
-    }
-  };
-  const sendOtpAndRedirect = async () => {
-    if (number.length == 10) {
-      setOtpSentStatus(true);
-      const optSession = await LoginController.sendOTP(number);
-      setOtpSession(optSession.Details);
-    } else {
-      alert('enter 10 digits');
-    }
+  const getToken = async () => {
+    let tok = await Storage.getItemSync(StorageKeys.JWT);
+    return tok;
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.containerMain}>
-      {/*<ScrollView>*/}
+    <ScrollView
+      style={styles.containerMain}
+      contentContainerStyle={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       {!isError ? (
         <>
           <Typography
             style={{
-              color: Colors.appWhiteColor,
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginTop: 20,
-              fontSize: 28,
+              marginTop: '30%',
+              marginHorizontal: 20,
             }}>
-            Login
-          </Typography>
-          <View style={styles.offersContainer}>
-            <View style={styles.SignINCard}>
-              <View style={{flex: 1}}>
-                <CommonTextInput
-                  onChangeText={onChangeNumber}
-                  value={number}
-                  label="Enter Phone Number"
-                  keyboardType="numeric"
-                  maxLength={10}
-                />
-                <CommonTextInput
-                  onChangeText={onChangePassword}
-                  value={password}
-                  secureTextEntry={true}
-                  label="Enter password"
-                  maxLength={10}
-                />
-              </View>
-              {/* <TouchableOpacity
+            {/* <FgPuntLogoName width={200} height={50} /> */}
+            <Typography color={Colors.appWhiteColor} variant="H2">
+              Welcome back ,
+            </Typography>
+            <Typography color={Colors.appWhiteColor} variant="H3">
+              Login in to start Punting
+            </Typography>
+          </View>
+          <Formik
+            initialValues={{
+              phoneNumber: props.route.params?.phoneNumber || '',
+              password: '',
+            }}
+            validationSchema={SignInSchema}
+            onSubmit={values => onSubmit(values)}>
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+            }) => (
+              <View style={styles.offersContainer}>
+                <View style={styles.SignINCard}>
+                  <View style={{flex: 1}}>
+                    <CommonTextInput
+                      onChangeText={handleChange('phoneNumber')}
+                      value={values.phoneNumber}
+                      label="Enter Phone Number"
+                      onBlur={handleBlur('phoneNumber')}
+                      keyboardType="numeric"
+                      maxLength={10}
+                      disabled
+                      error={
+                        touched.phoneNumber && errors.phoneNumber ? true : false
+                      }
+                      helperText={
+                        touched.phoneNumber && errors.phoneNumber
+                          ? errors.phoneNumber
+                          : ''
+                      }
+                    />
+                    <CommonTextInput
+                      onChangeText={handleChange('password')}
+                      value={values.password}
+                      secureTextEntry={true}
+                      label="Enter password"
+                      error={touched.password && errors.password ? true : false}
+                      helperText={
+                        touched.password && errors.password
+                          ? errors.password
+                          : ''
+                      }
+                    />
+                  </View>
+                  {/* <TouchableOpacity
             style={styles.sendOtpButton}
             onPress={sendOtpAndRedirect}
             underlayColor="transparent">
@@ -134,90 +138,80 @@ function SignIn() {
               {otpSentStatus ? 'Resend OTP' : 'Send OTP'}{' '}
             </Typography>
           </TouchableOpacity> */}
-            </View>
-            {otpSentStatus ? (
-              <Typography style={{color: Colors.appWhiteColor, marginTop: 10}}>
-                OTP Sent Successfully, Please enter OTP below
-              </Typography>
-            ) : null}
-            <View
-              style={{
-                flexDirection: 'row',
-                marginHorizontal: 40,
-              }}>
-              <View style={{flex: 1}} />
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('ForgotPassword');
-                }}
-                underlayColor="transparent">
-                <Typography
+                </View>
+                {otpSentStatus ? (
+                  <Typography
+                    style={{color: Colors.appWhiteColor, marginTop: 10}}>
+                    OTP Sent Successfully, Please enter OTP below
+                  </Typography>
+                ) : null}
+                <View
                   style={{
-                    color: Colors.appWhiteColor,
-                    fontSize: 14,
-                    marginVertical: 10,
+                    flexDirection: 'row',
+                    marginHorizontal: 40,
                   }}>
-                  Forgot password ?
-                </Typography>
-              </TouchableOpacity>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                padding: 10,
-              }}>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: Colors.appPrimaryColor,
-                  paddingHorizontal: 60,
-                  paddingVertical: 10,
-                  marginHorizontal: 10,
-                  marginTop: 20,
-                  borderRadius: 10,
-                }}
-                onPress={verifyPassword}
-                underlayColor="transparent">
-                <Typography style={{color: 'white', fontSize: 16}}>
-                  Sign In
-                </Typography>
-              </TouchableOpacity>
-            </View>
-
-            <View>
-              <Typography
-                style={{
-                  fontSize: 15,
-                  color: Colors.appWhiteColor,
-                  marginVertical: 30,
-                }}>
-                --- OR ---
-              </Typography>
-            </View>
-
-            <TouchableOpacity
-              style={{
-                paddingHorizontal: 60,
-                paddingVertical: 10,
-                marginHorizontal: 10,
-                marginTop: 20,
-              }}
-              onPress={() => {
-                navigation.navigate('SignUp', {phoneNumber: number});
-              }}
-              underlayColor="transparent">
-              <Typography style={{color: Colors.appWhiteColor, fontSize: 16}}>
-                Are you a New User ?
-              </Typography>
-            </TouchableOpacity>
-          </View>
-          <View
-            style={{
-              width: '100%',
-              flex: 0.5,
-              alignItems: 'center',
-            }}>
-            <FGPUNTLOGO width={200} height={200} />
-          </View>
+                  <View style={{flex: 1}} />
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate('ForgotPassword');
+                    }}
+                    underlayColor="transparent">
+                    <Typography
+                      style={{
+                        color: Colors.appWhiteColor,
+                        fontSize: 14,
+                        marginVertical: 10,
+                      }}>
+                      Forgot password ?
+                    </Typography>
+                  </TouchableOpacity>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    padding: 10,
+                  }}>
+                  <Button
+                    mode="contained"
+                    onPress={handleSubmit}
+                    labelStyle={{color: Colors.appWhiteColor}}
+                    style={{
+                      minWidth: '40%',
+                    }}>
+                    Sign In
+                  </Button>
+                </View>
+                {/* <View>
+                  <Typography
+                    style={{
+                      fontSize: 15,
+                      color: Colors.appWhiteColor,
+                      marginVertical: 30,
+                    }}>
+                    --- OR ---
+                  </Typography>
+                </View>
+                <TouchableOpacity
+                  style={{
+                    paddingHorizontal: 60,
+                    paddingVertical: 10,
+                    marginHorizontal: 10,
+                    marginTop: 20,
+                  }}
+                  onPress={() => {
+                    navigation.navigate('SignUp', {
+                      phoneNumber: values.phoneNumber,
+                    });
+                  }}
+                  underlayColor="transparent">
+                  <Typography
+                    style={{color: Colors.appWhiteColor, fontSize: 16}}>
+                    Are you a New User ?
+                  </Typography>
+                </TouchableOpacity> */}
+              </View>
+            )}
+          </Formik>
         </>
       ) : (
         <ErrorPage

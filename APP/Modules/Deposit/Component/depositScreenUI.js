@@ -11,7 +11,7 @@ import {
   Modal,
   Clipboard,
 } from 'react-native';
-import {Divider, Icon} from 'react-native-elements';
+import {Divider, Icon} from '@rneui/themed';
 import * as ImagePicker from 'react-native-image-picker';
 import {ProgressBar} from 'react-native-paper';
 import reactotron from 'reactotron-react-native';

@@ -9,7 +9,7 @@ import {
   Modal,
   Linking,
 } from 'react-native';
-import {Divider, Icon} from 'react-native-elements';
+import {Divider, Icon} from '@rneui/themed';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
 import {Typography} from '../../Common/Text';

@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
+import {Icon} from '@rneui/themed';
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
-import {Icon} from 'react-native-elements';
 import {ActivityIndicator, Button, Modal} from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';

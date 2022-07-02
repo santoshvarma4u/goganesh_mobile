@@ -1,8 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
+import {Icon} from '@rneui/themed';
 import moment from 'moment';
 import React from 'react';
 import {Image, View, FlatList} from 'react-native';
-import {Icon} from 'react-native-elements';
 import CONSTANTS, {userFriendlyPaymentMessage} from '../../../Constants';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';

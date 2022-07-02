@@ -1,8 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import {CommonActions, useNavigation} from '@react-navigation/native';
+import {Icon} from '@rneui/themed';
 import React, {useEffect, useState} from 'react';
 import {Image, Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {Icon} from 'react-native-elements';
 import {ActivityIndicator, Button, RadioButton} from 'react-native-paper';
 import {connect} from 'react-redux';
 import CONSTANTS from '../../../Constants';

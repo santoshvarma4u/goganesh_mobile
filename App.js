@@ -94,6 +94,7 @@ const theme = {
   colors: {
     ...DefaultTheme.colors,
     primary: Colors.appPrimaryColor,
+    ...Colors,
   },
   fonts: configureFonts(fontConfig),
 };

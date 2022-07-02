@@ -78,7 +78,6 @@ function PassbookScreen({navigation}) {
                     style={{color: Colors.appWhiteColor}}>
                     {item.paymentMethod}
                   </Typography>
-                  {reactotron.log('reason-->', item.reason)}
                   {item?.reason && item.reason.length > 0 && (
                     <Typography
                       variant="H4"
