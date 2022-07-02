@@ -1,7 +1,15 @@
 import Moment from 'moment';
 import React, {useState, useEffect} from 'react';
-import {View, FlatList} from 'react-native';
+import {
+  View,
+  FlatList,
+  TouchableOpacity,
+  ImageBackground,
+  Image,
+  Dimensions,
+} from 'react-native';
 import ImageModal from 'react-native-image-modal';
+import {Modal} from 'react-native-paper';
 import reactotron from 'reactotron-react-native';
 import FGPUNTLOGO from '../../../Assets/svgs/fgpuntlogo';
 import {env} from '../../../Network/api/server';
@@ -10,8 +18,14 @@ import {Typography} from '../../Common/Text';
 import PassBoookController from '../Controller/passBookController';
 
 import styles from './Styles';
+
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+
 function PassbookScreen({navigation}) {
   const [refresh, setRefresh] = useState(false);
+  const [imageModal, showImageModel] = useState(false);
+  const [imageUrl, setImageUrl] = useState('');
   const {
     data,
     success,
@@ -105,17 +119,23 @@ function PassbookScreen({navigation}) {
                     {item.paymentStatus}
                   </Typography>
                   {item.paymentReciept.length > 0 && (
-                    <ImageModal
-                      resizeMode="contain"
-                      imageBackgroundColor="#000000"
-                      style={{
-                        width: 40,
-                        height: 60,
-                      }}
-                      source={{
-                        uri: `${env}${item.paymentReciept}`,
-                      }}
-                    />
+                    <>
+                      <TouchableOpacity
+                        onPress={() => {
+                          setImageUrl(`${env}${item.paymentReciept}`);
+                          reactotron.log(`${env}${item.paymentReciept}`);
+                          showImageModel(true);
+                        }}>
+                        <Typography
+                          variant={'h4'}
+                          style={{
+                            color: Colors.appWhiteColor,
+                            textDecorationLine: 'underline',
+                          }}>
+                          Payment Receipt
+                        </Typography>
+                      </TouchableOpacity>
+                    </>
                   )}
                 </View>
               </View>
@@ -123,6 +143,23 @@ function PassbookScreen({navigation}) {
           />
         </View>
       </View>
+      <Modal
+        visible={imageModal}
+        dismissable={true}
+        onDismiss={() => {
+          showImageModel(false);
+        }}>
+        <Image
+          style={{
+            marginHorizontal: 20,
+            width: screenWidth - 40,
+            height: (screenHeight * 3) / 4,
+          }}
+          source={{
+            uri: imageUrl,
+          }}
+        />
+      </Modal>
     </View>
   );
 }
