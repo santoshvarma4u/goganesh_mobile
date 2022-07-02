@@ -186,6 +186,7 @@ const AccordianListNew = props => {
       </View>
       <BottomSheet
         isVisible={isVisible}
+        containerStyle={{backgroundColor: 'rgba(0.5, 0.25, 0, 0.8)'}}
         onBackButtonPress={() => setIsVisible(false)}
         onBackdropPress={() => setIsVisible(false)}>
         <ListCollapse />
