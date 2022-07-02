@@ -73,7 +73,7 @@ const AccordianListNew = props => {
               paddingRight: 10,
             }}>
             <Typography variant="H4" style={styles.url}>
-              {props.data.sd.siteurl}
+              {props.data.sd.siteurl.substring(8, props.data.sd.siteurl.length)}
             </Typography>
             <Icon
               name="launch"
@@ -81,6 +81,7 @@ const AccordianListNew = props => {
               size={20}
               style={{
                 marginLeft: 10,
+                marginTop: 10,
               }}
             />
           </TouchableOpacity>

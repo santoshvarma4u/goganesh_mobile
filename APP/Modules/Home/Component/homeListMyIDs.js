@@ -64,7 +64,7 @@ const HomeListMyIDs = props => {
               alignItems: 'center',
             }}>
             <Typography variant={'subheader'} style={styles.url}>
-              {props.data.sd.siteurl}
+              {props.data.sd.siteurl.substring(8, props.data.sd.siteurl.length)}
             </Typography>
             <View style={styles.credIcon}>
               <TouchableOpacity
@@ -129,7 +129,7 @@ const HomeListMyIDs = props => {
               {props.data.password}
             </Typography>
             <TouchableOpacity
-              style={{color: 'white', marginLeft: 5}}
+              style={{color: 'white', marginLeft: 15}}
               onPress={() => {
                 Clipboard.setString(props.data.password);
               }}>

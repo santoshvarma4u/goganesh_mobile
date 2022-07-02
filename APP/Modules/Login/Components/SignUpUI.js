@@ -170,8 +170,8 @@ function SingUp({route}) {
                   }
                 />
                 <CommonTextInput
-                  label="Enter Client Code(Optional)"
-                  placeholder={'Enter Client Code'}
+                  label="Enter Referral Code(Optional)"
+                  placeholder={'Enter Referral Code'}
                   onChangeText={handleChange('client')}
                 />
                 {showOTP && (
