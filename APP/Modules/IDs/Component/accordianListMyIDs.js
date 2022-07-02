@@ -76,27 +76,81 @@ const AccordianListNew = props => {
             <Icon
               name="launch"
               color="white"
-              size={16}
+              size={20}
               style={{
                 marginLeft: 10,
               }}
             />
           </TouchableOpacity>
-          <Typography style={styles.siteName}>
-            {' '}
-            {props.data.sd.sitename}
-          </Typography>
+          <View style={{flexDirection: 'row'}}>
+            <Typography style={styles.siteName}>
+              {' '}
+              {props.data.sd.sitename}
+            </Typography>
+          </View>
         </View>
         <View
           style={{
             flex: 1,
           }}
         />
+
+        <View
+          style={[
+            styles.credIcon,
+            {
+              flexDirection: 'row',
+              alignItems: 'flex-end',
+              justifyContent: 'flex-end',
+              marginTop: 40,
+            },
+          ]}>
+          <TouchableOpacity
+            style={{
+              height: 40,
+              width: 40,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: Colors.appGreenColor,
+              borderRadius: 5,
+              marginHorizontal: 20,
+            }}
+            onPress={() => {
+              navigation.navigate('CreateID', {
+                sdid: props.data.sd.sdid,
+                username: props.data.username,
+                requestStatus: 'old',
+              });
+            }}>
+            <Typography variant={'H4'} style={styles.credTitle}>
+              D
+            </Typography>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              height: 40,
+              width: 40,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: Colors.appRedColor,
+              borderRadius: 5,
+            }}
+            onPress={() => {
+              navigation.navigate('Withdraw', {
+                banks: banks,
+                data: props.data,
+              });
+            }}>
+            <Typography variant={'H4'} style={styles.credTitle}>
+              W
+            </Typography>
+          </TouchableOpacity>
+        </View>
         <Icon
-          name="dots-vertical"
+          name="chevron-right"
           type="material-community"
           color={Colors.appWhiteColor}
-          size={20}
+          size={30}
           onPress={() => {
             setIsVisible(true);
           }}
@@ -294,39 +348,28 @@ const AccordianListNew = props => {
           backgroundColor: Colors.buttonBackgroundColor,
         }}
       />
-      <View style={styles.depositWithdraw}>
-        <TouchableOpacity
-          style={styles.bottomButton}
-          onPress={() => {
-            navigation.navigate('CreateID', {
-              sdid: props.data.sd.sdid,
-              username: props.data.username,
-              requestStatus: 'old',
-            });
-          }}>
-          <Typography style={{alignItems: 'center', color: 'white'}}>
-            Deposit
-          </Typography>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.bottomButton,
-            {
-              borderLeftColor: Colors.buttonBackgroundColor,
-              borderLeftWidth: 0.5,
-            },
-          ]}
-          onPress={() => {
-            navigation.navigate('Withdraw', {
-              banks: banks,
-              data: props.data,
-            });
-          }}>
-          <Typography style={{alignItems: 'center', color: 'white'}}>
-            Withdraw
-          </Typography>
-        </TouchableOpacity>
-      </View>
+      {/*<View style={styles.depositWithdraw}>*/}
+      {/*  <TouchableOpacity style={styles.bottomButton} onPress={() => {}}>*/}
+      {/*    <Typography style={{alignItems: 'center', color: 'white'}}>*/}
+      {/*      Deposit*/}
+      {/*    </Typography>*/}
+      {/*  </TouchableOpacity>*/}
+      {/*  <TouchableOpacity*/}
+      {/*    style={[*/}
+      {/*      styles.bottomButton,*/}
+      {/*      {*/}
+      {/*        borderLeftColor: Colors.buttonBackgroundColor,*/}
+      {/*        borderLeftWidth: 0.5,*/}
+      {/*      },*/}
+      {/*    ]}*/}
+      {/*    onPress={() => {*/}
+      {/*   */}
+      {/*    }}>*/}
+      {/*    <Typography style={{alignItems: 'center', color: 'white'}}>*/}
+      {/*      Withdraw*/}
+      {/*    </Typography>*/}
+      {/*  </TouchableOpacity>*/}
+      {/*</View>*/}
       <BottomSheet
         isVisible={isVisible}
         onBackdropPress={() => setIsVisible(false)}

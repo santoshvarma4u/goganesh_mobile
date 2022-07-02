@@ -4,8 +4,6 @@ export default StyleSheet.create({
   containerMain: {
     backgroundColor: Colors.appBlackColor,
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   offersContainer: {
     flex: 1,

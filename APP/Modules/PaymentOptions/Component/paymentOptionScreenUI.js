@@ -67,7 +67,7 @@ function PaymentOptionScreen({route}) {
     const map = {
       orderId: paymentId,
       orderAmount: amount,
-      appId: CONSTANTS.CASHFREE_APPID,
+      appId: '2028452d9b12aac9cd7c1e39b2548202',
       tokenData: response.data.data.cftoken,
       orderCurrency: 'INR',
       orderNote: 'To Laxmi Trading Company',
