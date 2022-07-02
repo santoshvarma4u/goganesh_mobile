@@ -1,81 +1,27 @@
 /* eslint-disable react-native/no-inline-styles */
+import {CommonActions} from '@react-navigation/native';
 import AllInOneSDKManager from 'paytm_allinone_react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView, View} from 'react-native';
-import {Button, TextInput, Modal} from 'react-native-paper';
+import {Button, TextInput, Modal, ActivityIndicator} from 'react-native-paper';
+import RNPgReactNativeSDK from 'react-native-pg-react-native-sdk';
+import Toast from 'react-native-root-toast';
 import * as RNUpiPayment from 'react-native-upi-payment';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
+import CONSTANTS from '../../../Constants';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
+import Storage from '../../Common/Storage';
+import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
 import {uuid} from '../../Common/uuidGenerator';
+import paymentDetailsController from '../../PaymentDetails/Controller/paymentDetailsController';
 import PaymentOptionController from '../../PaymentOptions/Controller/paymentController';
 import PaymentCard from '../Component/PaymentCard';
 import DepositController from '../Controller/depositController';
-
-const intiateThroughUPI = async amount => {
-  RNUpiPayment.initializePayment(
-    {
-      vpa: '9398322333-1@idfcfirst', // or can be john@ybl or mobileNo@upi
-      payeeName: 'Vinayaka Aqua Farms',
-      amount: amount,
-      transactionRef: 'aasd-234-dsfa-fn',
-    },
-    success => {
-      reactotron.log('Payment Success', success);
-    },
-    error => {
-      reactotron.log('Payment Failed', error);
-    },
-  );
-};
-
-const initiatePaymentGatewayTransaction = async amount => {
-  const ORDER_ID = uuid(10, 16);
-  const MID = 'QpTFhC62406352970762';
-  const CUST_ID = 'CUST_' + uuid(10);
-  const INDUSTRY_TYPE_ID = 'Retail';
-  const CHANNEL_ID = 'WAP';
-  const WEBSITE = 'WEBSTAGING';
-  const CALLBACK_URL =
-    'https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID=' + ORDER_ID;
-  const RETURN_URL =
-    'https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID=' + ORDER_ID;
-  const TXN_AMOUNT = amount;
-
-  //generate Checksum
-  const checkSumResponse = await PaymentOptionController.generatePaytmChecksum({
-    ORDER_ID,
-    MID,
-    CUST_ID,
-    INDUSTRY_TYPE_ID,
-    CHANNEL_ID,
-    WEBSITE,
-    TXN_AMOUNT,
-    CALLBACK_URL,
-  });
-  //call Paytm Payment Gateway
-  AllInOneSDKManager.startTransaction(
-    ORDER_ID,
-    MID,
-    checkSumResponse.data.data.checksum,
-    amount,
-    CALLBACK_URL,
-    true,
-    true,
-    'goganesh://',
-  )
-    .then(response => {
-      reactotron.log('Payment Gateway Response', response);
-    })
-    .catch(error => {
-      reactotron.log('Payment Gateway Error', error);
-    });
-};
-
 
 const DepositContainer = props => {
   const {navigation, walletBalance = 0} = props;
@@ -83,6 +29,96 @@ const DepositContainer = props => {
   const [error, setError] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
   const [paymentMethod, setPaymentMethod] = React.useState('');
+  const [isPaymentLaoding, setIsPaymentLoading] = React.useState(false);
+  const [isPaymentSuccess, setIsPaymentSuccess] = React.useState(false);
+  const [uid, setUid] = useState('');
+  const resetAction = CommonActions.reset({
+    index: 0,
+    routes: [{name: 'Home'}],
+  });
+  const getUID = async () => {
+    try {
+      let UID = await Storage.getItemSync(StorageKeys.ID);
+      setUid(UID);
+    } catch (error) {}
+  };
+  useEffect(() => {
+    getUID();
+  }, []);
+
+  const {
+    data,
+    error: depositVerifyError,
+    loading: depositVerifyLoading,
+    request,
+  } = paymentDetailsController.getPendingWithdrawRequestsForUser();
+
+  const initiatePayment = async amount => {
+    setIsPaymentLoading(true);
+    const paymentId = uuid(5, 16);
+    const response = await PaymentOptionController.generateCFToken({
+      orderId: paymentId,
+      orderAmount: amount,
+      orderCurrency: 'INR',
+    });
+    let name1 = await Storage.getItemSync(StorageKeys.NAME);
+    const env = 'TEST';
+    const map = {
+      orderId: paymentId,
+      orderAmount: amount,
+      appId: CONSTANTS.CASHFREE_APPID,
+      tokenData: response.data.data.cftoken,
+      orderCurrency: 'INR',
+      orderNote: 'To Laxmi Trading Company',
+      notifyUrl: 'https://test.gocashfree.com/notify',
+      customerName: name1 || 'Laxmi Trader',
+      verifyExpiry: '100',
+      customerPhone: '9999999999',
+      customerEmail: 'cashfree@cashfree.com',
+    };
+    RNPgReactNativeSDK.startPaymentWEB(map, env, result => {
+      reactotron.log(result);
+      const obj = JSON.parse(result, function (key, value) {
+        reactotron.log(key + '::' + value);
+        // Do something with the result
+        // Payment succeeded
+        if (key === 'txStatus' && value === 'SUCCESS') {
+          depositAmountIntoWallet(amount, result.referenceId);
+          setIsPaymentSuccess(true);
+        } else {
+          setIsPaymentLoading(false);
+          setIsPaymentSuccess(false);
+          Toast.show('Sorry Payment Failed! Please retry', {
+            duration: Toast.durations.LONG,
+            position: Toast.positions.BOTTOM,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0,
+          });
+        }
+      });
+    });
+  };
+
+  const depositAmountIntoWallet = (amount, referenceId) => {
+    setIsPaymentLoading(true);
+    DepositController.depositIntoWallet(
+      parseInt(uid),
+      'Payment Gateway',
+      amount,
+      'CR',
+      true,
+      null,
+      CONSTANTS.DEPOSIT_INTO_WALLET_PAYMENT_GATEWAY,
+      null,
+      null,
+      referenceId,
+    ).then(data => {
+      setIsPaymentLoading(false);
+      navigation.dispatch(resetAction);
+    });
+  };
 
   return (
     <View
@@ -154,28 +190,35 @@ const DepositContainer = props => {
               : '*Minimum Deposit Amount is 100 Coins'}
           </Typography>
         </View>
-        <Button
-          mode="contained"
-          style={{
-            marginHorizontal: 30,
-            marginTop: 20,
-            backgroundColor: Colors.appPrimaryColor,
-            color: Colors.appBlackColor,
-          }}
-          onPress={() => {
-            if (amount >= 100) {
-              setError(false);
-              setModalVisible(true);
-              // navigation.navigate('PaymentOptions', {
-              //   depositCoins: amount,
-              //   requestStatus: 'wallet',
-              // });
-            } else {
-              setError(true);
-            }
-          }}>
-          DEPOSIT COINS
-        </Button>
+        {isPaymentLaoding ? (
+          <ActivityIndicator animating={true} color={Colors.appPrimaryColor} />
+        ) : (
+          <Button
+            mode="contained"
+            disabled={isPaymentLaoding || !amount || amount < 100}
+            style={{
+              marginHorizontal: 30,
+              marginTop: 20,
+              backgroundColor: Colors.appPrimaryColor,
+              color: Colors.appBlackColor,
+            }}
+            onPress={() => {
+              if (amount >= 100) {
+                setError(false);
+                setModalVisible(true);
+                // navigation.navigate('PaymentOptions', {
+                //   depositCoins: amount,
+                //   requestStatus: 'wallet',
+                // });
+              } else {
+                setError(true);
+              }
+            }}>
+            <Typography variant="button" color={Colors.appWhiteColor}>
+              DEPOSIT COINS
+            </Typography>
+          </Button>
+        )}
       </View>
       <Modal visible={modalVisible} style={{color: Colors.appBlackColor}}>
         <ScrollView
@@ -204,6 +247,7 @@ const DepositContainer = props => {
           <PaymentCard
             paymentMethod={paymentMethod}
             setPaymentMethod={setPaymentMethod}
+            amount={amount}
           />
           <Button
             mode="contained"
@@ -213,10 +257,11 @@ const DepositContainer = props => {
               backgroundColor: Colors.appPrimaryColor,
               color: Colors.appBlackColor,
             }}
+            disabled={isPaymentLaoding}
             onPress={() => {
               setModalVisible(false);
               if (paymentMethod === 'gateway') {
-                // initiatePaymentGatewayTransaction(amount);
+                initiatePayment(amount);
                 //intiateThroughUPI(amount);
               } else {
                 navigation.navigate('PaymentOptions', {

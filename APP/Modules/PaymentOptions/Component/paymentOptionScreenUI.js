@@ -1,6 +1,6 @@
-import {useNavigation} from '@react-navigation/native';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 import AllInOneSDKManager from 'paytm_allinone_react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   TouchableWithoutFeedback,
@@ -8,8 +8,16 @@ import {
   ScrollView,
   RefreshControl,
 } from 'react-native';
+import RNPgReactNativeSDK from 'react-native-pg-react-native-sdk';
+import Toast from 'react-native-root-toast';
+import reactotron from 'reactotron-react-native';
+import CONSTANTS, {APPID} from '../../../Constants';
 import images from '../../../Theams/Images';
+import Storage from '../../Common/Storage';
+import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
+import {uuid} from '../../Common/uuidGenerator';
+import DepositController from '../../Deposit/Controller/depositController';
 import PaymentOptionController from '../Controller/paymentController';
 
 import styles from './Styles';
@@ -27,6 +35,119 @@ function PaymentOptionScreen({route}) {
 
   const navigation = useNavigation();
   const [refreshing, setRefreshing] = React.useState(false);
+  const [isPaymentLoading, setIsPaymentLoading] = React.useState(false);
+  const [isPaymentSuccess, setIsPaymentSuccess] = React.useState(false);
+  const [uid, setUid] = useState('');
+  const getUID = async () => {
+    try {
+      let UID = await Storage.getItemSync(StorageKeys.ID);
+      setUid(UID);
+    } catch (error) {}
+  };
+  useEffect(() => {
+    getUID();
+  }, []);
+
+  const resetAction = CommonActions.reset({
+    index: 0,
+    routes: [{name: 'Home'}],
+  });
+
+  // Launch payment gatway
+  const initiatePayment = async amount => {
+    setIsPaymentLoading(true);
+    const paymentId = uuid(5, 16);
+    const response = await PaymentOptionController.generateCFToken({
+      orderId: paymentId,
+      orderAmount: amount,
+      orderCurrency: 'INR',
+    });
+    let name1 = await Storage.getItemSync(StorageKeys.NAME);
+    const env = 'TEST';
+    const map = {
+      orderId: paymentId,
+      orderAmount: amount,
+      appId: CONSTANTS.CASHFREE_APPID,
+      tokenData: response.data.data.cftoken,
+      orderCurrency: 'INR',
+      orderNote: 'To Laxmi Trading Company',
+      notifyUrl: 'https://test.gocashfree.com/notify',
+      customerName: name1 || 'Laxmi Trader',
+      verifyExpiry: '100',
+      customerPhone: '9999999999',
+      customerEmail: 'cashfree@cashfree.com',
+    };
+    RNPgReactNativeSDK.startPaymentWEB(map, env, result => {
+      reactotron.log(result);
+      const obj = JSON.parse(result, function (key, value) {
+        reactotron.log(key + '::' + value);
+        // Do something with the result
+        // Payment succeeded
+        if (key === 'txStatus' && value === 'SUCCESS') {
+          depositAmount(result.referenceId);
+          setIsPaymentSuccess(true);
+        } else {
+          setIsPaymentSuccess(false);
+          Toast.show('Sorry Payment Failed! Please retry', {
+            duration: Toast.durations.LONG,
+            position: Toast.positions.BOTTOM,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0,
+          });
+        }
+        setIsPaymentLoading(false);
+      });
+    });
+  };
+
+  // Deposit amount
+  const depositAmount = referenceId => {
+    if (requestStatus === 'new') {
+      DepositController.submitIntialDeposit(
+        parseInt(uid),
+        sdid,
+        'Payment Gateway',
+        depositCoins,
+        'CR',
+        null,
+        CONSTANTS.DEPOSIT_INTO_SITE_CREATE_ID_PAYMENT_GATEWAY,
+        null,
+        referenceId,
+      ).then(({data}) => {
+        DepositController.submitData(
+          parseInt(uid),
+          sdid,
+          planType,
+          'Payment Gateway',
+          'Pending',
+          null,
+          userName,
+          depositCoins,
+          data.data.paymentID,
+          null,
+        ).then(data => {});
+
+        navigation.dispatch(resetAction);
+      });
+    } else {
+      const paymentMethod = 'Payment Gateway';
+      DepositController.submitDataForMyID(
+        parseInt(uid),
+        sdid,
+        paymentMethod,
+        depositCoins,
+        'CR',
+        null,
+        CONSTANTS.DEPOSIT_INTO_EXISTING_ID_FROM_PAYMENT_GATEWAY,
+        null,
+        referenceId,
+      ).then(data => {
+        navigation.dispatch(resetAction);
+      });
+    }
+  };
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -63,51 +184,32 @@ function PaymentOptionScreen({route}) {
           <Typography style={{color: 'white'}}>Pull to Refresh</Typography>
         </View>
         <View style={styles.paymentOptions}>
-          {/*<TouchableWithoutFeedback*/}
-          {/*  onPress={() => {*/}
-          {/*    if (checkIfPaymentOptionAvailable('Paytm UPI')) {*/}
-          {/*      navigation.navigate('Deposit', {*/}
-          {/*        sdid: sdid,*/}
-          {/*        planMoney: planMoney,*/}
-          {/*        paymentType: 'Paytm UPI',*/}
-          {/*        planType: planType,*/}
-          {/*        userName: userName,*/}
-          {/*        depositCoins: depositCoins,*/}
-          {/*        requestStatus: requestStatus,*/}
-          {/*      });*/}
-          {/*    } else {*/}
-          {/*      alert('Payment Option Not Available');*/}
-          {/*    }*/}
-          {/*  }}>*/}
-          {/*  <View style={styles.paymentMethod}>*/}
-          {/*    <Image style={styles.paymentIcon} source={images.paytmupi} />*/}
-          {/*    <Typography style={styles.paymentTypeTitle}>Paytm UPI</Typography>*/}
-          {/*  </View>*/}
-          {/*</TouchableWithoutFeedback>*/}
-          {/*<TouchableWithoutFeedback*/}
-          {/*  onPress={() => {*/}
-          {/*    if (checkIfPaymentOptionAvailable('Paytm Wallet')) {*/}
-          {/*      navigation.navigate('Deposit', {*/}
-          {/*        sdid: sdid,*/}
-          {/*        planMoney: planMoney,*/}
-          {/*        planType: planType,*/}
-          {/*        paymentType: 'Paytm Wallet',*/}
-          {/*        userName: userName,*/}
-          {/*        depositCoins: depositCoins,*/}
-          {/*        requestStatus: requestStatus,*/}
-          {/*      });*/}
-          {/*    } else {*/}
-          {/*      alert('Payment Option Not Available');*/}
-          {/*    }*/}
-          {/*  }}>*/}
-          {/*  <View style={styles.paymentMethod}>*/}
-          {/*    <Image style={styles.paymentIcon} source={images.paytm} />*/}
-          {/*    <Typography style={styles.paymentTypeTitle}>*/}
-          {/*      Paytm Wallet*/}
-          {/*    </Typography>*/}
-          {/*  </View>*/}
-          {/*</TouchableWithoutFeedback>*/}
           <TouchableWithoutFeedback
+            disabled={isPaymentLoading}
+            onPress={() => {
+              if (
+                checkIfPaymentOptionAvailable('Payment Gateway') &&
+                depositCoins <= 10000
+              ) {
+                // Navigate to payment gatway
+                initiatePayment(depositCoins);
+              } else {
+                alert(
+                  depositCoins > 10000
+                    ? 'Maximum allowed from payment gateway is 10000'
+                    : 'Payment gateway currently disabled',
+                );
+              }
+            }}>
+            <View style={styles.paymentMethod}>
+              <Image style={styles.paymentIcon} source={images.gateway} />
+              <Typography style={styles.paymentTypeTitle}>
+                Payment Gateway
+              </Typography>
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback
+            disabled={isPaymentLoading}
             onPress={() => {
               if (checkIfPaymentOptionAvailable('Google Pay')) {
                 navigation.navigate('Deposit', {
@@ -132,6 +234,7 @@ function PaymentOptionScreen({route}) {
           </TouchableWithoutFeedback>
 
           <TouchableWithoutFeedback
+            disabled={isPaymentLoading}
             onPress={() => {
               if (checkIfPaymentOptionAvailable('Phone Pay')) {
                 navigation.navigate('Deposit', {
@@ -153,6 +256,7 @@ function PaymentOptionScreen({route}) {
             </View>
           </TouchableWithoutFeedback>
           <TouchableWithoutFeedback
+            disabled={isPaymentLoading}
             onPress={() => {
               if (checkIfPaymentOptionAvailable('Bank')) {
                 navigation.navigate('Deposit', {
@@ -175,29 +279,6 @@ function PaymentOptionScreen({route}) {
               </Typography>
             </View>
           </TouchableWithoutFeedback>
-          {/*<TouchableWithoutFeedback*/}
-          {/*  onPress={() => {*/}
-          {/*    if (checkIfPaymentOptionAvailable('UPI Manual Transfer')) {*/}
-          {/*      navigation.navigate('Deposit', {*/}
-          {/*        sdid: sdid,*/}
-          {/*        planMoney: planMoney,*/}
-          {/*        paymentType: 'UPI Manual Transfer',*/}
-          {/*        planType: planType,*/}
-          {/*        userName: userName,*/}
-          {/*        depositCoins: depositCoins,*/}
-          {/*        requestStatus: requestStatus,*/}
-          {/*      });*/}
-          {/*    } else {*/}
-          {/*      alert('Payment Option Not Available');*/}
-          {/*    }*/}
-          {/*  }}>*/}
-          {/*  <View style={styles.paymentMethod}>*/}
-          {/*    <Image style={styles.paymentIcon} source={images.allupi} />*/}
-          {/*    <Typography style={styles.paymentTypeTitle}>*/}
-          {/*      UPI Manual Transfer*/}
-          {/*    </Typography>*/}
-          {/*  </View>*/}
-          {/*</TouchableWithoutFeedback>*/}
         </View>
       </ScrollView>
     </View>

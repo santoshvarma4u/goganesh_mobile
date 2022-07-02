@@ -39,9 +39,16 @@ const getPendingWithdrawRequestsForUser = async () => {
   return NetworkAPI.apiClient.get(pendingWithdrawRequestsForUser);
 };
 
+const getPendingDepositRequestsForUser = async () => {
+  let uid = await getUID();
+  const pendingWithdrawRequestsForUser = `/payment/getPendingWithdrawRequestsForUser/${uid}`;
+  return NetworkAPI.apiClient.get(pendingWithdrawRequestsForUser);
+};
+
 export default {
   getUserBankDetails,
   createUserBankDetails,
   updateUserBankDetails,
   getPendingWithdrawRequestsForUser,
+  getPendingDepositRequestsForUser,
 };

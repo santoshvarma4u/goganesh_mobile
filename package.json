@@ -55,6 +55,7 @@
     "react-native-otp-textinput": "^0.0.8",
     "react-native-pager-view": "^5.1.7",
     "react-native-paper": "^4.12.1",
+    "react-native-pg-react-native-sdk": "^2.1.8",
     "react-native-push-notification": "^7.3.1",
     "react-native-reanimated": "^2.1.0",
     "react-native-root-toast": "^3.2.1",

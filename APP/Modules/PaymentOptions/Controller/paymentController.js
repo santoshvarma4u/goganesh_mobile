@@ -10,6 +10,14 @@ const generatePaytmChecksum = async data => {
   return NetworkAPI.apiClient.post(paytmChecksum, data, headers);
 };
 
+const generateCFToken = async data => {
+  const headers = {
+    'Content-type': 'application/json',
+  };
+  const paytmChecksum = 'payment/getCFToken';
+  return NetworkAPI.apiClient.post(paytmChecksum, data, headers);
+};
+
 const razorPayCreateOrder = async data => {
   const headers = {
     'Content-type': 'application/json',
@@ -22,4 +30,5 @@ export default {
   getPayeeDetails,
   generatePaytmChecksum,
   razorPayCreateOrder,
+  generateCFToken,
 };

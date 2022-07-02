@@ -14,7 +14,7 @@ const images = {
   expired: require('../../assets/Images/expired.png'),
   reject: require('../../assets/Images/multiply.png'),
   whatsapp: require('../../assets/Images/whatsapp.png'),
+  gateway: require('../../assets/Images/gatway.png'),
 };
-
 
 export default images;

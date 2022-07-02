@@ -50,6 +50,7 @@ const submitIntialDeposit = async (
   paymentreciept,
   remarks,
   setImageUpLoadProgress,
+  referenceId,
 ) => {
   reactotron.log(
     '🚀 ~ file: depositController.js ~ line 51 ~ remarks',
@@ -60,6 +61,7 @@ const submitIntialDeposit = async (
   data.append('sdid', sdid);
   data.append('paymentType', paymentType);
   data.append('paymentMethod', paymentMethod);
+  data.append('referenceId', referenceId);
   data.append('remarks', remarks || '');
   if (paymentreciept !== null) {
     data.append('depositpayreciept', {
@@ -91,6 +93,7 @@ const depositIntoWallet = async (
   remarks,
   sdid,
   setImageUpLoadProgress,
+  referenceId,
 ) => {
   const data = new FormData();
   data.append('uid', uid);
@@ -98,6 +101,7 @@ const depositIntoWallet = async (
   data.append('paymentMethod', paymentMethod);
   data.append('isWallet', isWallet);
   data.append('remarks', remarks);
+  data.append('referenceId', referenceId);
   data.append('sdid', sdid || '');
 
   if (paymentreciept !== null) {
@@ -129,6 +133,7 @@ const submitDataForMyID = async (
   paymentreciept,
   remarks,
   setImageUpLoadProgress,
+  referenceId,
 ) => {
   reactotron.log(
     '🚀 ~ file: depositController.js ~ line 111 ~ remarks',
@@ -139,6 +144,7 @@ const submitDataForMyID = async (
   data.append('sdid', sdid);
   data.append('paymentType', paymentType);
   data.append('paymentMethod', paymentMethod);
+  data.append('referenceId', referenceId);
   data.append('remarks', remarks || '');
   if (paymentreciept !== null) {
     data.append('depositpayreciept', {
