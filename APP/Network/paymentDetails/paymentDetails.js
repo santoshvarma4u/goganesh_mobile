@@ -41,7 +41,7 @@ const getPendingWithdrawRequestsForUser = async () => {
 
 const getPendingDepositRequestsForUser = async () => {
   let uid = await getUID();
-  const pendingWithdrawRequestsForUser = `/payment/getPendingWithdrawRequestsForUser/${uid}`;
+  const pendingWithdrawRequestsForUser = `/payment/getPendingDepositRequestsForUser/${uid}`;
   return NetworkAPI.apiClient.get(pendingWithdrawRequestsForUser);
 };
 

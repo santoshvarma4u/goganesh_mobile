@@ -1,17 +1,15 @@
 import {useNavigation} from '@react-navigation/native';
 import {CommonActions} from '@react-navigation/native';
+import {Divider, Icon} from '@rneui/themed';
 import React, {useState, useEffect} from 'react';
 import {
-  Text,
   View,
   Button,
   ActivityIndicator,
   TouchableOpacity,
   Image,
-  Modal,
   Clipboard,
 } from 'react-native';
-import {Divider, Icon} from '@rneui/themed';
 import * as ImagePicker from 'react-native-image-picker';
 import {ProgressBar} from 'react-native-paper';
 import reactotron from 'reactotron-react-native';
@@ -48,6 +46,7 @@ function DepositScreen({route}) {
   useEffect(() => {
     getUID();
   }, []);
+
   const getUID = async () => {
     try {
       let UID = await Storage.getItemSync(StorageKeys.ID);
@@ -158,6 +157,7 @@ function DepositScreen({route}) {
       }
     });
   };
+
   if (paymentType === 'Bank') {
     return (
       <View style={styles.containerMain}>

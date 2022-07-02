@@ -11,6 +11,7 @@ import {
   Modal,
   FlatList,
   Pressable,
+  Linking,
 } from 'react-native';
 
 import {
@@ -63,7 +64,8 @@ const AccordianListNew = props => {
         <View>
           <TouchableOpacity
             onPress={() => {
-              setShowWebView(true);
+              // setShowWebView(true);
+              Linking.openURL(props.data.sd.siteurl);
             }}
             style={{
               flexDirection: 'row',

@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {CommonActions} from '@react-navigation/native';
+import LottieView from 'lottie-react-native';
 import AllInOneSDKManager from 'paytm_allinone_react-native';
 import React, {useEffect, useState} from 'react';
 import {ScrollView, View} from 'react-native';
@@ -12,8 +13,10 @@ import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
 import CONSTANTS from '../../../Constants';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
+import animations from '../../../Theams/Animations';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
+import ErrorPage from '../../Common/ErrorPage';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
@@ -36,6 +39,13 @@ const DepositContainer = props => {
     index: 0,
     routes: [{name: 'Home'}],
   });
+
+  const {
+    data,
+    error: depositVerifyError,
+    loading: depositVerifyLoading,
+    request: checkDepositRequest,
+  } = paymentDetailsController.getPendingDepositRequestsForUser();
   const getUID = async () => {
     try {
       let UID = await Storage.getItemSync(StorageKeys.ID);
@@ -45,13 +55,6 @@ const DepositContainer = props => {
   useEffect(() => {
     getUID();
   }, []);
-
-  const {
-    data,
-    error: depositVerifyError,
-    loading: depositVerifyLoading,
-    request,
-  } = paymentDetailsController.getPendingWithdrawRequestsForUser();
 
   const initiatePayment = async amount => {
     setIsPaymentLoading(true);
@@ -119,6 +122,52 @@ const DepositContainer = props => {
       navigation.dispatch(resetAction);
     });
   };
+
+  if (depositVerifyLoading) {
+    return <ActivityIndicator size="large" color={Colors.primary} />;
+  }
+
+  if (depositVerifyError) {
+    return <ErrorPage onRetryPress={checkDepositRequest} />;
+  }
+
+  if (data?.creadtedtime) {
+    // check if current time is greater than created time + 2 mins
+    const createdTime = new Date(data.creadtedtime);
+    const currentTime = new Date();
+    const diff = currentTime.getTime() - createdTime.getTime();
+    const diffMinutes = Math.round(diff / 60000);
+    if (diffMinutes < 2) {
+      return (
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            backgroundColor: Colors.appBlackColor,
+            paddingHorizontal: 20,
+          }}>
+          <LottieView
+            source={animations.timer}
+            autoPlay
+            loop
+            style={{
+              width: 200,
+              height: 200,
+            }}
+          />
+          <Typography
+            color={Colors.appWhiteColor}
+            variant="H4"
+            style={{
+              textAlign: 'center',
+            }}>
+            Sorry, you have already made a deposit request in the last 2
+            minutes. Please try again after 2 minutes.
+          </Typography>
+        </View>
+      );
+    }
+  }
 
   return (
     <View

@@ -10,6 +10,7 @@ import {
   Clipboard,
   Modal,
   Dimensions,
+  Linking,
 } from 'react-native';
 import {Button, Modal as PaperModal, Portal, Card} from 'react-native-paper';
 import WebView from 'react-native-webview';
@@ -68,7 +69,8 @@ const HomeListMyIDs = props => {
             <View style={styles.credIcon}>
               <TouchableOpacity
                 onPress={() => {
-                  onSiteUrlPress();
+                  // onSiteUrlPress();
+                  Linking.openURL(props.data.sd.siteurl);
                 }}>
                 <Icon name="launch" color="white" size={14} />
               </TouchableOpacity>

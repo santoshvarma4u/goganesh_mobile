@@ -1,10 +1,10 @@
 import {useNavigation} from '@react-navigation/native';
 import {CommonActions} from '@react-navigation/native';
 import {Formik} from 'formik';
+import AnimatedLottieView from 'lottie-react-native';
 import React, {useEffect, useState} from 'react';
 import {TouchableWithoutFeedback, View, ScrollView} from 'react-native';
-import {Button, Checkbox} from 'react-native-paper';
-import {connect} from 'react-redux';
+import {ActivityIndicator, Button, Checkbox} from 'react-native-paper';
 import reactotron from 'reactotron-react-native';
 import * as Yup from 'yup';
 import FGPUNTLOGO from '../../../Assets/svgs/fgpuntlogo';
@@ -12,14 +12,17 @@ import CONSTANTS from '../../../Constants';
 import Storage from '../../../Modules/Common/Storage';
 import StorageKeys from '../../../Modules/Common/StorageKeys';
 import siteApi from '../../../Network/sites/sites';
-import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetailsSlice';
+import animations from '../../../Theams/Animations';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
+import ErrorPage from '../../Common/ErrorPage';
 import {Typography} from '../../Common/Text';
 import DepositController from '../../Deposit/Controller/depositController';
 import HomeController from '../../Home/Controller/homeController';
+import paymentDetailsController from '../../PaymentDetails/Controller/paymentDetailsController';
 import styles from './Styles';
+
 const getUID = async () => {
   try {
     let UID = await Storage.getItemSync(StorageKeys.ID);
@@ -56,6 +59,14 @@ function CreateIDScreen({route}) {
     index: 0,
     routes: [{name: "ID's"}],
   });
+
+  const {
+    data,
+    error: depositVerifyError,
+    loading: depositVerifyLoading,
+    request: checkDepositRequest,
+  } = paymentDetailsController.getPendingDepositRequestsForUser();
+
   const [planDetails, setPlanDetails] = useState({
     planHeader: 'FG Plan',
     MinRefill: '1,000',
@@ -151,6 +162,56 @@ function CreateIDScreen({route}) {
       });
     }
   };
+
+  if (depositVerifyLoading) {
+    return <ActivityIndicator size="large" color={Colors.primary} />;
+  }
+
+  if (depositVerifyError) {
+    return <ErrorPage onRetryPress={checkDepositRequest} />;
+  }
+
+  if (data?.creadtedtime) {
+    // check if current time is greater than created time + 2 mins
+    const createdTime = new Date(data.creadtedtime);
+    const currentTime = new Date();
+    const diff = currentTime.getTime() - createdTime.getTime();
+    const diffMinutes = Math.round(diff / 60000);
+    reactotron.log(
+      '🚀 ~ file: createIDScreenUI.js ~ line 180 ~ CreateIDScreen ~ diffMinutes',
+      diffMinutes,
+    );
+    if (diffMinutes < 2) {
+      return (
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            backgroundColor: Colors.appBlackColor,
+            paddingHorizontal: 20,
+          }}>
+          <AnimatedLottieView
+            source={animations.timer}
+            autoPlay
+            loop
+            style={{
+              width: 200,
+              height: 200,
+            }}
+          />
+          <Typography
+            color={Colors.appWhiteColor}
+            variant="H4"
+            style={{
+              textAlign: 'center',
+            }}>
+            Sorry, you have already made a deposit request in the last 2
+            minutes. Please try again after 2 minutes.
+          </Typography>
+        </View>
+      );
+    }
+  }
 
   return (
     <ScrollView>
