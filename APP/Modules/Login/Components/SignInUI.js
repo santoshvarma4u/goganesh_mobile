@@ -5,7 +5,6 @@ import {View, TouchableOpacity, Platform} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Button} from 'react-native-paper';
 import * as Yup from 'yup';
-import FgPuntLogoName from '../../../Assets/svgs/fgpuntlogoname';
 import authKey from '../../../Modules/Common/JWT';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
@@ -68,7 +67,7 @@ function SignIn(props) {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       {!isError ? (
         <>
-          <Typography
+          <View
             style={{
               marginTop: '30%',
               marginHorizontal: 20,
@@ -181,34 +180,6 @@ function SignIn(props) {
                     Sign In
                   </Button>
                 </View>
-                {/* <View>
-                  <Typography
-                    style={{
-                      fontSize: 15,
-                      color: Colors.appWhiteColor,
-                      marginVertical: 30,
-                    }}>
-                    --- OR ---
-                  </Typography>
-                </View>
-                <TouchableOpacity
-                  style={{
-                    paddingHorizontal: 60,
-                    paddingVertical: 10,
-                    marginHorizontal: 10,
-                    marginTop: 20,
-                  }}
-                  onPress={() => {
-                    navigation.navigate('SignUp', {
-                      phoneNumber: values.phoneNumber,
-                    });
-                  }}
-                  underlayColor="transparent">
-                  <Typography
-                    style={{color: Colors.appWhiteColor, fontSize: 16}}>
-                    Are you a New User ?
-                  </Typography>
-                </TouchableOpacity> */}
               </View>
             )}
           </Formik>
