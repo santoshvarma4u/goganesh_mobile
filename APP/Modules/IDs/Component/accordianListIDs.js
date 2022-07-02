@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import {Icon} from '@rneui/themed';
+import {BottomSheet, Icon} from '@rneui/themed';
 import * as React from 'react';
 import {
   View,
@@ -9,8 +9,8 @@ import {
   Clipboard,
   Linking,
 } from 'react-native';
+import {Button, IconButton} from 'react-native-paper';
 // import {List} from 'react-native-paper';
-import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
 import {Typography} from '../../Common/Text';
 
@@ -18,37 +18,68 @@ const AccordianListNew = props => {
   // const [expanded, setExpanded] = React.useState(false);
   const navigation = useNavigation();
   // const handlePress = () => setExpanded(!expanded);
+  const [isVisible, setIsVisible] = React.useState(false);
 
   function ListTitle() {
     return (
       <View style={styles.ListTitle}>
-        <Image style={styles.image} source={{uri: props.data.siteimage}} />
-        <View
-          style={{
-            flex: 1,
-          }}>
+        <View style={styles.image}>
+          <Image
+            style={styles.image}
+            source={{uri: props.data.siteimage}}
+            resizeMode="contain"
+          />
+        </View>
+        <View>
+          <Typography style={styles.siteName}>{props.data.sitename}</Typography>
           <TouchableOpacity
             onPress={() => {
-              // setShowWebView(true);
+              Linking.openURL(props.data.siteurl);
             }}
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-              paddingRight: 10,
+              flexWrap: 'wrap',
             }}>
-            <Typography variant="H4" style={styles.url}>
-              {props.data.siteurl}
+            <Typography
+              variant="caption"
+              style={{
+                ...styles.url,
+                textDecorationLine: 'underline',
+                textAlign: 'left',
+              }}>
+              {props.data?.siteurl?.substring(0, props.data?.siteurl?.length)}
             </Typography>
             <Icon
               name="launch"
               color="white"
               size={16}
               style={{
-                marginLeft: 10,
+                marginLeft: 5,
               }}
             />
           </TouchableOpacity>
-          <Typography style={styles.siteName}>{props.data.sitename}</Typography>
+          <Button
+            compact
+            mode="contained"
+            uppercase={false}
+            labelStyle={{
+              fontSize: 12,
+              fontWeight: '600',
+            }}
+            style={{
+              marginLeft: 10,
+              marginTop: 10,
+              width: 100,
+            }}
+            onPress={() => {
+              navigation.navigate('CreateID', {
+                sdid: props.data.sdid,
+                requestStatus: 'new',
+              });
+            }}>
+            Create ID
+          </Button>
         </View>
       </View>
     );
@@ -57,51 +88,13 @@ const AccordianListNew = props => {
   function ListCollapse() {
     return (
       <View style={styles.containerCollapse}>
-        <View style={styles.icons}>
-          <Icon
-            name="sports-cricket"
-            style={{marginHorizontal: 8}}
-            color="white"
-            size={24}
-          />
-          <Icon
-            name="sports-soccer"
-            style={{marginHorizontal: 8}}
-            color="white"
-            size={24}
-          />
-          <Icon
-            name="sports-tennis"
-            style={{marginHorizontal: 8}}
-            color="white"
-            size={24}
-          />
-          <Icon
-            name="casino"
-            style={{marginHorizontal: 8}}
-            color="white"
-            size={24}
-          />
-          <Icon
-            name="style"
-            style={{marginHorizontal: 8}}
-            color="white"
-            size={24}
-          />
-          <Icon
-            name="business"
-            style={{marginHorizontal: 8}}
-            color="white"
-            size={24}
-          />
-        </View>
         <View style={styles.credsCard}>
           <View style={styles.credsCardHeader}>
             <Typography style={styles.credTitle}>Demo</Typography>
             <View style={styles.credIcon}>
               <TouchableOpacity
                 onPress={() => {
-                  Linking.openURL('https://' + props.data.siteurl);
+                  Linking.openURL(props.data.siteurl);
                 }}>
                 <Icon name="launch" color="white" size={20} />
               </TouchableOpacity>
@@ -141,60 +134,46 @@ const AccordianListNew = props => {
             </TouchableOpacity>
           </View>
         </View>
-        {/*<View style={styles.moneyCard}>*/}
-        {/*  <View style={styles.moneyCardContentGrid}>*/}
-        {/*    <View style={styles.moneyRow1}>*/}
-        {/*      <View style={styles.moneyCardIcon}>*/}
-        {/*        <Icon*/}
-        {/*          name="sports-cricket"*/}
-        {/*          color={Colors.appPrimaryColor}*/}
-        {/*          size={18}*/}
-        {/*        />*/}
-        {/*      </View>*/}
-        {/*      <Typography style={styles.moneyCardText}>Cricket</Typography>*/}
-        {/*      <Typography style={styles.moneyCardPrice}>100</Typography>*/}
-        {/*    </View>*/}
+        <Button
+          mode="contained"
+          onPress={() => {
+            navigation.navigate('CreateID', {
+              sdid: props.data.sdid,
+              requestStatus: 'new',
+            });
+          }}>
+          Create ID
+        </Button>
+        <Button
+          onPress={() => {
+            setIsVisible(false);
+          }}>
+          Cancel
+        </Button>
+      </View>
+    );
+  }
 
-        {/*    <View style={styles.moneyRow2}>*/}
-        {/*      <View style={styles.moneyCardIcon}>*/}
-        {/*        <Icon*/}
-        {/*          name="sports-soccer"*/}
-        {/*          color={Colors.appPrimaryColor}*/}
-        {/*          size={18}*/}
-        {/*        />*/}
-        {/*      </View>*/}
-        {/*      <Typography style={styles.moneyCardText}>Football</Typography>*/}
-        {/*      <Typography style={styles.moneyCardPrice}>100</Typography>*/}
-        {/*    </View>*/}
-        {/*    <View style={styles.moneyRow3}>*/}
-        {/*      <View style={styles.moneyCardIcon}>*/}
-        {/*        <Icon*/}
-        {/*          name="sports-tennis"*/}
-        {/*          color={Colors.appPrimaryColor}*/}
-        {/*          size={18}*/}
-        {/*        />*/}
-        {/*      </View>*/}
-        {/*      <Typography style={styles.moneyCardText}>Tennis</Typography>*/}
-        {/*      <Typography style={styles.moneyCardPrice}>100</Typography>*/}
-        {/*    </View>*/}
-        {/*    <View style={styles.moneyRow3}>*/}
-        {/*      <View style={styles.moneyCardIcon}>*/}
-        {/*        <Icon name="casino" color={Colors.appPrimaryColor} size={18} />*/}
-        {/*      </View>*/}
-        {/*      <Typography style={styles.moneyCardText}>Live Casino</Typography>*/}
-        {/*      <Typography style={styles.moneyCardPrice}>100</Typography>*/}
-        {/*    </View>*/}
-        {/*  </View>*/}
-        {/*</View>*/}
-        <TouchableOpacity
+  return (
+    <View style={styles.container}>
+      <ListTitle />
+      <View
+        style={{
+          alignItems: 'flex-end',
+          justifyContent: 'space-between',
+        }}>
+        <IconButton
+          size={30}
+          onPress={() => setIsVisible(true)}
+          icon={'arrow-right-circle'}
+          color={Colors.appWhiteColor}
+        />
+        {/* <Button
+          compact
+          mode="contained"
+          uppercase={false}
           style={{
-            width: 100,
-            margin: 20,
-            padding: 8,
-            alignItems: 'center',
-            backgroundColor: Colors.appPrimaryColor,
-            justifyContent: 'center',
-            borderRadius: 5,
+            marginLeft: 10,
           }}
           onPress={() => {
             navigation.navigate('CreateID', {
@@ -202,40 +181,39 @@ const AccordianListNew = props => {
               requestStatus: 'new',
             });
           }}>
-          <Typography
-            color={Colors.appWhiteColor}
-            variant={'H4'}
-            style={{alignItems: 'center'}}>
-            Create ID
-          </Typography>
-        </TouchableOpacity>
+          Create ID
+        </Button> */}
       </View>
-    );
-  }
-  return (
-    <View style={styles.container}>
-      <ListTitle />
-      <ListCollapse />
+      <BottomSheet
+        isVisible={isVisible}
+        onBackButtonPress={() => setIsVisible(false)}
+        onBackdropPress={() => setIsVisible(false)}>
+        <ListCollapse />
+      </BottomSheet>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.appBlackColorLight,
     borderRadius: 10,
     padding: 14,
     flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
   },
   image: {
     width: 60,
     height: 60,
+    backgroundColor: Colors.appBlackColor,
+    overflow: 'hidden',
     borderRadius: 10,
-    backgroundColor: 'black',
   },
   url: {
     marginLeft: 10,
     color: Colors.appWhiteColor,
-    flexWrap: 'wrap',
   },
   siteName: {
     marginLeft: 10,
@@ -244,10 +222,12 @@ const styles = StyleSheet.create({
   ListTitle: {
     flexDirection: 'row',
     flex: 1,
+    margin: 2,
   },
   containerCollapse: {
     padding: 10,
     width: '100%',
+    backgroundColor: Colors.appBlackColor,
     alignItems: 'center',
   },
   icons: {
@@ -279,41 +259,6 @@ const styles = StyleSheet.create({
   credsCardPassword: {
     padding: 5,
     flexDirection: 'row',
-  },
-  moneyCard: {
-    marginTop: 10,
-    padding: 10,
-    backgroundColor: Colors.appBlackColor,
-    borderRadius: 30,
-    width: '100%',
-  },
-  moneyCardText: {
-    color: 'white',
-    flexDirection: 'row-reverse',
-  },
-  moneyCardPrice: {
-    color: 'white',
-    marginLeft: 'auto',
-    right: 0,
-  },
-  moneyCardIcon: {
-    color: 'white',
-    marginRight: 10,
-  },
-  moneyRow1: {
-    flexDirection: 'row',
-    padding: 5,
-  },
-  moneyRow2: {
-    flexDirection: 'row',
-    padding: 5,
-  },
-  moneyRow3: {
-    flexDirection: 'row',
-    padding: 5,
-  },
-  moneyCardContentGrid: {
-    padding: 5,
   },
 });
 
