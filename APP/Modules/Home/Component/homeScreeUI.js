@@ -12,10 +12,12 @@ import {
   RefreshControl,
 } from 'react-native';
 // import {SliderBox} from 'react-native-image-slider-box';
+import {SliderBox} from 'react-native-image-slider-box';
 import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-paper';
 import {connect} from 'react-redux';
 // import NetworkAPI from '../../../Network/api/server';
+import {env} from '../../../Network/api/server';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
@@ -38,6 +40,8 @@ function HomeScreen(props) {
   const wallet = HomeController.getWalletBalance();
 
   const getUserBanks = IDController.getBankData();
+
+  const promoImages = HomeController.useGetPromoImages();
 
   // const pushFcmToken = async () => {
   //   let ID = await Storage.getItemSync(StorageKeys.ID);
@@ -75,34 +79,31 @@ function HomeScreen(props) {
     props.reduxSetUserBanks(banks);
   }, [getUserBanks.data]);
 
-  // useEffect(() => {
-  //   // pushFcmToken();
-  //   if (success) {
-  //     let slides = [];
-  //     slides.push('https://i.ibb.co/VTXdFWZ/Screenshot-20220401-231028-2.png');
-  //     slides.push('https://i.ibb.co/gTDnHkq/Screenshot-20220401-231019-2.png');
-  //     data.map(i => {
-  //       slides.push(`http://139.59.11.217:3000/${i.promoImage}`);
-  //     });
-  //     setSliderImgs(slides);
-  //   }
-  // }, [data, success]);
+  useEffect(() => {
+    // pushFcmToken();
+    let slides = [];
+    promoImages.data.map(i => {
+      slides.push(`${env}${i.promoImage}`);
+    });
+    setSliderImgs(slides);
+  }, [promoImages.data]);
 
   return (
-    <ScrollView
-      contentContainerStyle={styles.containerMain}
-      refreshControl={
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={() => {
-            setRefreshing(true);
-            getUserBanks.request();
-            getMyIDs.request();
-            wallet.request();
-            setRefreshing(false);
-          }}
-        />
-      }>
+    <ScrollView contentContainerStyle={styles.containerMain}>
+      {
+        // refreshControl={
+        //   <RefreshControl
+        //     refreshing={refreshing}
+        //     onRefresh={() => {
+        //       setRefreshing(true);
+        //       getUserBanks.request();
+        //       getMyIDs.request();
+        //       wallet.request();
+        //       setRefreshing(false);
+        //     }}
+        //   />
+        // }>
+      }
       <LinearGradient
         style={{flex: 1}}
         start={{x: 0, y: 0}}
@@ -187,24 +188,24 @@ function HomeScreen(props) {
           </View>
         </View>
         <ScrollView style={styles.lowerContainer}>
-          {/* <View style={styles.lowerBox1}>
-          <SliderBox
-            images={sliderImgs}
-            dotColor={Colors.appPrimaryColor}
-            inactiveDotColor={Colors.appPrimaryColor}
-            paginationBoxVerticalPadding={20}
-            ImageComponentStyle={{overflow: 'hidden'}}
-            resizeMode={'contain'}
-            autoplay
-            circleLoop
-          />
-        </View> */}
+          <View style={styles.lowerBox1}>
+            <SliderBox
+              images={sliderImgs}
+              dotColor={Colors.appPrimaryColor}
+              inactiveDotColor={Colors.appPrimaryColor}
+              paginationBoxVerticalPadding={20}
+              ImageComponentStyle={{overflow: 'hidden'}}
+              resizeMode={'contain'}
+              autoplay
+              circleLoop
+              autoplayInterval={30000}
+            />
+          </View>
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'space-around',
-              marginTop: 20,
               marginHorizontal: 20,
             }}>
             <View
@@ -251,9 +252,6 @@ function HomeScreen(props) {
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-              marginVertical: 20,
-            }}
             pagingEnabled
             data={getMyIDs.data}
             renderItem={({item}) => (
@@ -294,21 +292,13 @@ function HomeScreen(props) {
           </View>
           <View
             style={{
-              marginHorizontal: 20,
+              marginHorizontal: 10,
               marginTop: 5,
+              justifyContent: 'center',
+              alignItems: 'center',
             }}>
-            <Typography color={Colors.appWhiteColor} variant={'H4'}>
-              WhatsApp Support
-            </Typography>
-            <Typography
-              color={Colors.appWhiteColor}
-              style={styles.marginVertical}
-              variant="caption">
-              Get your Queries,new updates and latest offers via WhatsApp
-              support
-            </Typography>
             <Button
-              style={styles.marginVertical}
+              style={[styles.marginVertical, {width: '80%'}]}
               mode={'contained'}
               icon={'whatsapp'}
               color={Colors.appGreenColor}
@@ -318,8 +308,15 @@ function HomeScreen(props) {
                   '&phone=919777087770';
                 Linking.openURL(url);
               }}>
-              Click Here for Support
+              WhatsApp Support
             </Button>
+            <Typography
+              color={Colors.appWhiteColor}
+              style={styles.marginVertical}
+              variant="caption">
+              Get your Queries,new updates and latest offers via WhatsApp
+              support
+            </Typography>
           </View>
         </ScrollView>
       </LinearGradient>

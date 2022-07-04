@@ -57,15 +57,23 @@ const DepositContainer = props => {
   }, []);
 
   const initiatePayment = async amount => {
+    reactotron.log('initiatePayment');
     setIsPaymentLoading(true);
     const paymentId = uuid(5, 16);
-    const response = await PaymentOptionController.generateCFToken({
-      orderId: paymentId,
-      orderAmount: amount,
-      orderCurrency: 'INR',
-    });
+    let response = {};
+    try {
+      response = await PaymentOptionController.generateCFToken({
+        orderId: paymentId,
+        orderAmount: amount,
+        orderCurrency: 'INR',
+      });
+    } catch (e) {
+      //Error
+      reactotron.log(e);
+    }
+
     let name1 = await Storage.getItemSync(StorageKeys.NAME);
-    const env = 'TEST';
+    const env = 'PROD';
     const map = {
       orderId: paymentId,
       orderAmount: amount,

@@ -63,9 +63,18 @@ const HomeListMyIDs = props => {
               justifyContent: 'space-around',
               alignItems: 'center',
             }}>
-            <Typography variant={'subheader'} style={styles.url}>
-              {props.data.sd.siteurl.substring(8, props.data.sd.siteurl.length)}
-            </Typography>
+            <TouchableOpacity
+              onPress={() => {
+                // onSiteUrlPress();
+                Linking.openURL(props.data.sd.siteurl);
+              }}>
+              <Typography variant={'subheader'} style={styles.url}>
+                {props.data.sd.siteurl.substring(
+                  8,
+                  props.data.sd.siteurl.length,
+                )}
+              </Typography>
+            </TouchableOpacity>
             <View style={styles.credIcon}>
               <TouchableOpacity
                 onPress={() => {

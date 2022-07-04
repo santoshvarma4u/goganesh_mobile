@@ -86,9 +86,15 @@ const AccordianListNew = props => {
             />
           </TouchableOpacity>
           <View style={{flexDirection: 'row'}}>
-            <Typography style={styles.siteName}>
+            <Typography style={styles.siteName} variant={'h4'}>
               {' '}
               {props.data.sd.sitename}
+            </Typography>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <Typography style={styles.siteName}>
+              {' '}
+              {props?.data?.username}
             </Typography>
           </View>
         </View>

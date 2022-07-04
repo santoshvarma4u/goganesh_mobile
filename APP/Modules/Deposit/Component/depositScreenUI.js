@@ -239,36 +239,65 @@ function DepositScreen({route}) {
                   </View>
                 </View>
                 <View style={styles.depostScreenshotCard}>
+                  {filePath.uri ? (
+                    <Image
+                      source={{uri: filePath.uri}}
+                      style={styles.imageStyle}
+                    />
+                  ) : (
+                    <Icon
+                      name="add-to-photos"
+                      color={Colors.appPrimaryColor}
+                      size={48}
+                      onPress={() => chooseFile()}
+                    />
+                  )}
                   <TouchableOpacity
                     activeOpacity={0.5}
                     style={styles.buttonStyle}
                     onPress={() => chooseFile()}>
-                    <Typography style={styles.textStyle}>
-                      Choose Image
+                    <Typography style={styles.textStyleButton} variant="H1">
+                      Upload
+                    </Typography>
+                    <Typography style={styles.textStyle2}>
+                      payment screenshot here
                     </Typography>
                   </TouchableOpacity>
-                  <Image
-                    source={{uri: filePath.uri}}
-                    style={{padding: 5, width: 150, height: 200}}
-                  />
-                  <Typography style={styles.textStyle}>
-                    {filePath.uri}
-                  </Typography>
-                  <Button
-                    title="submit"
-                    onPress={() => {
-                      setProgress(true);
-                      setTimeout(() => {
-                        submitPayment();
-                      }, 1000);
-                    }}
-                  />
+                  {/*<Typography style={styles.textStyle}>{filePath.uri}</Typography>*/}
                 </View>
-                <ActivityIndicator
-                  animating={progress}
-                  size="large"
-                  color="white"
-                />
+                <TouchableOpacity
+                  disabled={isImageLoading}
+                  style={{
+                    backgroundColor: Colors.appPrimaryColor,
+                    paddingVertical: 10,
+                    paddingHorizontal: 100,
+                    borderRadius: 10,
+                    marginTop: 50,
+                  }}
+                  onPress={() => {
+                    submitPayment();
+                  }}>
+                  <Typography>
+                    {isImageLoading ? 'Please wait....' : 'Submit Payment'}
+                  </Typography>
+                </TouchableOpacity>
+                {uploadProgress > 0 && (
+                  <ProgressBar
+                    progress={uploadProgress}
+                    color={Colors.appPrimaryColor}
+                    width={200}
+                    height={10}
+                  />
+                )}
+                {progress ? (
+                  <ActivityIndicator
+                    animating={true}
+                    size="large"
+                    color="white"
+                  />
+                ) : (
+                  <Typography>''</Typography>
+                )}
               </View>
             </View>
           );

@@ -90,12 +90,13 @@ function CreateIDScreen({route}) {
     if (requestStatus === 'old') {
       // Create payment request and withdraw from wallet
 
-      reactotron.log(
-        '🚀 ~ file: createIDScreenUI.js ~ line 63 ~ submitRequest ~ sdid',
-        sdid,
-        requestStatus,
-      );
+      //Fetch and check wallet balance
+
       const paymentMethod = 'wallet';
+      if (wallet.data < values.DepositCoins) {
+        setIsLoading(false);
+        return alert('Insufficient Balance');
+      }
       DepositController.submitDataForMyID(
         parseInt(uid),
         sdid,

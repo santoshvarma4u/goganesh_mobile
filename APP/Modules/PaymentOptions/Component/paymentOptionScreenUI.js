@@ -63,7 +63,7 @@ function PaymentOptionScreen({route}) {
       orderCurrency: 'INR',
     });
     let name1 = await Storage.getItemSync(StorageKeys.NAME);
-    const env = 'TEST';
+    const env = 'PROD';
     const map = {
       orderId: paymentId,
       orderAmount: amount,

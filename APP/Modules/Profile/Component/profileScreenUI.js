@@ -6,6 +6,7 @@ import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
 import styles from './Styles';
+import {Button} from "@rneui/base";
 function ProfileScreen({navigation}) {
   const [name, setName] = useState(false);
   const [phone, setPhone] = useState(false);
@@ -46,7 +47,7 @@ function ProfileScreen({navigation}) {
             variant={'H4'}>
             Phone : {phone}
           </Typography>
-          <Chip
+          <Button
             title="Change Password"
             onPress={() => {
               navigation.navigate('ChangePassword', {
