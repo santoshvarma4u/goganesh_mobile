@@ -23,9 +23,6 @@ const CommonTextInput = props => {
             text: Colors.appWhiteColor,
           },
         }}
-        style={{
-          marginTop: 10,
-        }}
         {...props}
       />
       <Caption style={{color: helperTextColor}}>{helperText}</Caption>

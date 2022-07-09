@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "285872690248",
+    "project_id": "go-ganesh-user",
+    "storage_bucket": "go-ganesh-user.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:285872690248:android:144a816a38c10abaed747d",
+        "android_client_info": {
+          "package_name": "com.demopractice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "285872690248-j8gqchodd1dtju5h29hmc1g1maachm2q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0E5m0DY0WKe8NbicY4_UE4kyS3aNa0vE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "285872690248-j8gqchodd1dtju5h29hmc1g1maachm2q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

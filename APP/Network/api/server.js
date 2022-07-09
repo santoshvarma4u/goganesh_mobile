@@ -5,7 +5,7 @@ import Storage from '../../Modules/Common/Storage';
 import StorageKeys from '../../Modules/Common/StorageKeys';
 
 export const live = 'http://159.89.171.125:3000/';
-export const local = 'http://192.168.0.103:3000/';
+export const local = 'http://192.168.0.173:3000/';
 export const prod = 'http://143.244.131.237:3000/';
 //cd .. &&  cd home/admin/web/goganesh.bet/public_html/freelanceBackend/
 // cd ~/Library/Android/sdk/emulator
@@ -14,7 +14,7 @@ export const prod = 'http://143.244.131.237:3000/';
 // To list your AVDs use :
 // ./emulator -list-avds
 
-export const env = local;
+export const env = prod;
 
 let deviceID = null;
 

@@ -2,7 +2,13 @@ import {CommonActions, useNavigation} from '@react-navigation/native';
 import {Formik} from 'formik';
 import LottieView from 'lottie-react-native';
 import React, {useState} from 'react';
-import {Pressable, View, KeyboardAvoidingView, Platform} from 'react-native';
+import {
+  Pressable,
+  View,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from 'react-native';
 import * as Yup from 'yup';
 import Animations from '../../../Theams/Animations';
 import Colors from '../../../Theams/Colors';
@@ -88,131 +94,137 @@ function SingUp({route}) {
   return (
     <KeyboardAvoidingView
       style={styles.containerMain}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <View style={styles.bankDetails}>
-        <View>
-          <Typography color={Colors.appWhiteColor} variant="title">
-            Register
-          </Typography>
-          <Formik
-            validationSchema={SignupSchema}
-            initialValues={{
-              name: '',
-              phone: route.params?.phoneNumber || '',
-              password: '',
-              confirmPassword: '',
-            }}
-            onSubmit={values => {
-              submitUser(values);
-            }}>
-            {({
-              handleChange,
-              handleSubmit,
-              values,
-              errors,
-              touched,
-              isValid,
-            }) => (
-              <>
-                <CommonTextInput
-                  keyboardType="numeric"
-                  label="Phone Number"
-                  maxLength={10}
-                  placeholder={'Enter Your Phone Number'}
-                  onChangeText={handleChange('phone')}
-                  disabled
-                  value={values.phone}
-                  error={touched.phone && errors.phone ? errors.phone : false}
-                  helperText={
-                    touched.phone && errors.phone ? errors.phone : ' '
-                  }
-                />
-                <CommonTextInput
-                  label="Name"
-                  placeholder={'Enter Your name'}
-                  onChangeText={handleChange('name')}
-                  value={values.name}
-                  error={touched.name && errors.name ? errors.name : false}
-                  helperText={touched.name && errors.name ? errors.name : ' '}
-                />
-                <CommonTextInput
-                  label={'Password'}
-                  placeholder={'Enter Your Password'}
-                  type="password"
-                  secureTextEntry
-                  onChangeText={handleChange('password')}
-                  value={values.password}
-                  error={
-                    touched.password && errors.password
-                      ? errors.password
-                      : false
-                  }
-                  helperText={
-                    touched.password && errors.password ? errors.password : ' '
-                  }
-                />
-                <CommonTextInput
-                  label="Confirm Password"
-                  placeholder={'Confirm Your Password'}
-                  type="password"
-                  secureTextEntry
-                  onChangeText={handleChange('confirmPassword')}
-                  value={values.confirmPassword}
-                  error={
-                    touched.confirmPassword && errors.confirmPassword
-                      ? errors.confirmPassword
-                      : false
-                  }
-                  helperText={
-                    touched.confirmPassword && errors.confirmPassword
-                      ? errors.confirmPassword
-                      : ' '
-                  }
-                />
-                <CommonTextInput
-                  label="Enter Referral Code(Optional)"
-                  placeholder={'Enter Referral Code'}
-                  onChangeText={handleChange('client')}
-                />
-                {showOTP && (
+      behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+      enabled
+      keyboardVerticalOffset={10}>
+      <ScrollView>
+        <View style={styles.bankDetails}>
+          <View>
+            <Typography color={Colors.appWhiteColor} variant="title">
+              Register
+            </Typography>
+            <Formik
+              validationSchema={SignupSchema}
+              initialValues={{
+                name: '',
+                phone: route.params?.phoneNumber || '',
+                password: '',
+                confirmPassword: '',
+              }}
+              onSubmit={values => {
+                submitUser(values);
+              }}>
+              {({
+                handleChange,
+                handleSubmit,
+                values,
+                errors,
+                touched,
+                isValid,
+              }) => (
+                <>
                   <CommonTextInput
                     keyboardType="numeric"
-                    label="Enter OTP "
-                    onChangeText={handleChange('otp')}
+                    label="Phone Number"
+                    maxLength={10}
+                    placeholder={'Enter Your Phone Number'}
+                    onChangeText={handleChange('phone')}
+                    disabled
+                    value={values.phone}
+                    error={touched.phone && errors.phone ? errors.phone : false}
+                    helperText={
+                      touched.phone && errors.phone ? errors.phone : ' '
+                    }
                   />
-                )}
-                <Pressable
-                  style={{
-                    backgroundColor: Colors.appPrimaryColor,
-                    paddingHorizontal: 60,
-                    paddingVertical: 10,
-                    marginTop: 40,
-                    borderRadius: 10,
-                    alignItems: 'center',
-                  }}
-                  onPress={handleSubmit}
-                  underlayColor="transparent">
-                  <Typography
+                  <CommonTextInput
+                    label="Name"
+                    placeholder={'Enter Your name'}
+                    onChangeText={handleChange('name')}
+                    value={values.name}
+                    error={touched.name && errors.name ? errors.name : false}
+                    helperText={touched.name && errors.name ? errors.name : ' '}
+                  />
+                  <CommonTextInput
+                    label={'Password'}
+                    placeholder={'Enter Your Password'}
+                    type="password"
+                    secureTextEntry
+                    onChangeText={handleChange('password')}
+                    value={values.password}
+                    error={
+                      touched.password && errors.password
+                        ? errors.password
+                        : false
+                    }
+                    helperText={
+                      touched.password && errors.password
+                        ? errors.password
+                        : ' '
+                    }
+                  />
+                  <CommonTextInput
+                    label="Confirm Password"
+                    placeholder={'Confirm Your Password'}
+                    type="password"
+                    secureTextEntry
+                    onChangeText={handleChange('confirmPassword')}
+                    value={values.confirmPassword}
+                    error={
+                      touched.confirmPassword && errors.confirmPassword
+                        ? errors.confirmPassword
+                        : false
+                    }
+                    helperText={
+                      touched.confirmPassword && errors.confirmPassword
+                        ? errors.confirmPassword
+                        : ' '
+                    }
+                  />
+                  <CommonTextInput
+                    label="Enter Referral Code(Optional)"
+                    placeholder={'Enter Referral Code'}
+                    onChangeText={handleChange('client')}
+                  />
+                  {showOTP && (
+                    <CommonTextInput
+                      keyboardType="numeric"
+                      label="Enter OTP "
+                      onChangeText={handleChange('otp')}
+                    />
+                  )}
+                  <Pressable
                     style={{
-                      color: '#fff',
-                      fontSize: 16,
+                      backgroundColor: Colors.appPrimaryColor,
+                      paddingHorizontal: 60,
+                      paddingVertical: 10,
+                      marginTop: 20,
+                      borderRadius: 10,
                       alignItems: 'center',
-                    }}>
-                    {isLoading
-                      ? 'Please wait'
-                      : showOTP
-                      ? 'Register'
-                      : 'Send OTP'}
-                  </Typography>
-                </Pressable>
-              </>
-            )}
-          </Formik>
+                    }}
+                    onPress={handleSubmit}
+                    underlayColor="transparent">
+                    <Typography
+                      style={{
+                        color: '#fff',
+                        fontSize: 16,
+                        alignItems: 'center',
+                      }}>
+                      {isLoading
+                        ? 'Please wait'
+                        : showOTP
+                        ? 'Register'
+                        : 'Send OTP'}
+                    </Typography>
+                  </Pressable>
+                </>
+              )}
+            </Formik>
+          </View>
+          {isLoading && (
+            <LottieView source={Animations.loading_ball} autoPlay loop />
+          )}
         </View>
-        {isLoading && (
-          <LottieView source={Animations.loading_ball} autoPlay loop />
-        )}
-      </View>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }
