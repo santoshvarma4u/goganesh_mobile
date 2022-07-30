@@ -15,6 +15,7 @@ const userSchema = Yup.object().shape({
     .min(10, ' Enter phone Number Correctly')
     .max(10, ' Enter phone Number Correctly'),
 });
+
 const VerifyUser = ({onSubmit}) => {
   return (
     <View>
@@ -57,6 +58,7 @@ const VerifyUser = ({onSubmit}) => {
                 onBlur={handleBlur('phoneNumber')}
                 value={values.phoneNumber}
                 maxLength={10}
+                keyboardType="numeric"
                 error={
                   touched.phoneNumber && errors.phoneNumber
                     ? errors.phoneNumber

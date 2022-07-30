@@ -12,6 +12,7 @@ import {Typography} from '../Modules/Common/Text';
 import TypographyStyles from '../Modules/Common/Text/Text.styles';
 import CreateIDScreen from '../Modules/CreateID/Container/createIDIndex';
 import DepositContainer from '../Modules/Deposit/Container/DepositContainer';
+import DepositContainerV2 from '../Modules/Deposit/Container/DepositContainerV2';
 import DepositScreen from '../Modules/Deposit/Container/depositIndex';
 import HelpScreen from '../Modules/Help/Container/helpIndex';
 import NotificationScreen from '../Modules/Home/Component/notificationScreenUI';
@@ -291,6 +292,25 @@ const HomeStackNavigator = () => {
         })}
       />
       <Stack.Screen
+        name="DepositV2"
+        component={DepositContainerV2}
+        options={({navigation}) => ({
+          headerTitle: 'Deposit',
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitleAlign: 'center',
+          headerTitleStyle: appHeaderStyle,
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              tintColor={Colors.appWhiteColor}
+              onPress={() => {
+                navigation.pop();
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
         name="Notification"
         component={NotificationScreen}
         options={({navigation}) => ({
@@ -498,6 +518,25 @@ const IDsStackNavigator = () => {
               tintColor={Colors.appWhiteColor}
               onPress={() => {
                 navigation.navigate('PaymentOptions');
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="DepositV2"
+        component={DepositContainerV2}
+        options={({navigation}) => ({
+          headerTitle: 'Deposit',
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitleAlign: 'center',
+          headerTitleStyle: appHeaderStyle,
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              tintColor={Colors.appWhiteColor}
+              onPress={() => {
+                navigation.pop();
               }}
             />
           ),

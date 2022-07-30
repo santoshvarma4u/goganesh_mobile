@@ -13,6 +13,7 @@ import Colors from '../../../Theams/Colors';
 import EnterBankDetails from '../../Common/BankDetails';
 import {Typography} from '../../Common/Text';
 import PaymentDetailsController from '../Controller/paymentDetailsController';
+import UPINumberPicker from './PickUpiNumbers';
 import styles from './Styles';
 
 function PaymentsScreen({navigation, reduxSetUserBanks}) {
@@ -152,6 +153,10 @@ function PaymentsScreen({navigation, reduxSetUserBanks}) {
               </View>
             )}
           />
+          {/*
+            UI for Upi numbers , for the PhonePay, Gpay, Paytm
+          */}
+          <UPINumberPicker />
           <Modal
             animationType="slide"
             transparent={true}

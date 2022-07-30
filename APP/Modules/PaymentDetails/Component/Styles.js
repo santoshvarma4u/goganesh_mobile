@@ -40,7 +40,6 @@ export default StyleSheet.create({
     borderRadius: 100,
   },
   bankDetails: {
-    flex: 0.75,
     marginTop: 20,
     width: '100%',
     borderRadius: 10,

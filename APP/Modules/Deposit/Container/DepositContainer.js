@@ -321,7 +321,7 @@ const DepositContainer = props => {
                 initiatePayment(amount);
                 //intiateThroughUPI(amount);
               } else {
-                navigation.navigate('PaymentOptions', {
+                navigation.navigate('DepositV2', {
                   depositCoins: amount,
                   requestStatus: 'wallet',
                 });

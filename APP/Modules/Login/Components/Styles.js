@@ -9,6 +9,7 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
+    marginTop: 8,
   },
   SignINCard: {
     // marginTop: 60,
