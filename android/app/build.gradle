@@ -141,7 +141,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.svapps.fgpuntdev"
+        applicationId "com.demopractice"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

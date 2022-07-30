@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.svapps.fgpuntdev">
+  package="com.demopractice">
 
     <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission

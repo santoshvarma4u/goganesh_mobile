@@ -14,7 +14,7 @@ export const prod = 'http://143.244.131.237:3000/';
 // To list your AVDs use :
 // ./emulator -list-avds
 
-export const env = prod;
+export const env = local;
 
 let deviceID = null;
 

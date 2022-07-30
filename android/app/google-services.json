@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "511833169510",
-    "project_id": "fgpuntdev",
-    "storage_bucket": "fgpuntdev.appspot.com"
+    "project_number": "285872690248",
+    "project_id": "go-ganesh-user",
+    "storage_bucket": "go-ganesh-user.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:511833169510:android:af116a1a1aeb8a7f7fd7a7",
+        "mobilesdk_app_id": "1:285872690248:android:144a816a38c10abaed747d",
         "android_client_info": {
-          "package_name": "com.svapps.fgpuntdev"
+          "package_name": "com.demopractice"
         }
       },
       "oauth_client": [
         {
-          "client_id": "511833169510-t0ugpd8al6cji9jo28opodfikitpb60r.apps.googleusercontent.com",
+          "client_id": "285872690248-j8gqchodd1dtju5h29hmc1g1maachm2q.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBcNb6u6Kh4PKRzDl5qQRdQwE2t8KmWtJQ"
+          "current_key": "AIzaSyC0E5m0DY0WKe8NbicY4_UE4kyS3aNa0vE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "511833169510-t0ugpd8al6cji9jo28opodfikitpb60r.apps.googleusercontent.com",
+              "client_id": "285872690248-j8gqchodd1dtju5h29hmc1g1maachm2q.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

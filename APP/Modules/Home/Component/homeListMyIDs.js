@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {BottomSheet, Divider, Icon, ListItem} from '@rneui/themed';
+import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 
 import {
@@ -15,6 +16,7 @@ import {
 import {Button, Modal as PaperModal, Portal, Card} from 'react-native-paper';
 import WebView from 'react-native-webview';
 import {connect} from 'react-redux';
+import reactotron from 'reactotron-react-native';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
 import {Typography} from '../../Common/Text';
@@ -31,6 +33,7 @@ const HomeListMyIDs = props => {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  reactotron.log(props);
   let banks = [];
   useEffect(() => {
     props.bank.data.map(item => {
@@ -125,26 +128,26 @@ const HomeListMyIDs = props => {
               <Icon name="content-copy" color="white" size={15} />
             </TouchableOpacity>
           </View>
-          <View style={styles.credsCardPassword}>
-            {/* <Icon
-              name="user-secret"
-              type={'fontisto'}
-              color="white"
-              size={12}
-            /> */}
-            <Typography style={styles.credTitle}> Password </Typography>
-            <View style={{flex: 1}} />
-            <Typography style={{color: 'white', marginLeft: 10}}>
-              {props.data.password}
-            </Typography>
-            <TouchableOpacity
-              style={{color: 'white', marginLeft: 15}}
-              onPress={() => {
-                Clipboard.setString(props.data.password);
-              }}>
-              <Icon name="content-copy" color="white" size={15} />
-            </TouchableOpacity>
-          </View>
+          {moment().diff(
+            moment(props.data.creadtedtime).utc(),
+            'hours',
+            false,
+          ) < 2 && (
+            <View style={styles.credsCardPassword}>
+              <Typography style={styles.credTitle}> Password </Typography>
+              <View style={{flex: 1}} />
+              <Typography style={{color: 'white', marginLeft: 10}}>
+                {props.data.password}
+              </Typography>
+              <TouchableOpacity
+                style={{color: 'white', marginLeft: 15}}
+                onPress={() => {
+                  Clipboard.setString(props.data.password);
+                }}>
+                <Icon name="content-copy" color="white" size={15} />
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
         <View style={styles.depositWithdraw}>
           <TouchableOpacity
