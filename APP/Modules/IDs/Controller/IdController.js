@@ -46,6 +46,18 @@ const sendWithDrawRequest = async (
   return;
 };
 
+const closeID = async usdid => {
+  const data = {
+    usdid: usdid,
+    siteStatus: false,
+  };
+  reactotron.log('🚀 ~ file: IdController.js ~ line 40 ~ data', data);
+  const result = await IDsApi.closeID(usdid, data);
+  if (!result.ok) {
+    return alert(result.problem);
+  }
+  return;
+};
 const sendWalletWithDrawRequest = async (
   paymentMethod,
   paymentAmount,
@@ -77,4 +89,5 @@ export default {
   getBankData,
   sendWithDrawRequest,
   sendWalletWithDrawRequest,
+  closeID
 };

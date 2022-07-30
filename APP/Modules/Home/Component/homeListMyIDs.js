@@ -132,7 +132,7 @@ const HomeListMyIDs = props => {
             moment(props.data.creadtedtime).utc(),
             'hours',
             false,
-          ) < 2 && (
+          ) <= 2 && (
             <View style={styles.credsCardPassword}>
               <Typography style={styles.credTitle}> Password </Typography>
               <View style={{flex: 1}} />

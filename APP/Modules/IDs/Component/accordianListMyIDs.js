@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/native';
 import {BottomSheet, Icon, Card as ElementsCard} from '@rneui/themed';
+import moment from 'moment';
 import React, {useState, useEffect} from 'react';
 import {
   View,
@@ -24,11 +25,13 @@ import {
 import WebView from 'react-native-webview';
 
 import {connect} from 'react-redux';
+import reactotron from 'reactotron-react-native';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
 import {Typography} from '../../Common/Text';
 import homeController from '../../Home/Controller/homeController';
+import IdController from '../Controller/IdController';
 const AccordianListNew = props => {
   const [showWebView, setShowWebView] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -36,6 +39,8 @@ const AccordianListNew = props => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [showCloseIDAlert, setShowCloseIDAlert] = useState(false);
 
   let banks = [];
   // const [expanded, setExpanded] = React.useState(true);
@@ -50,6 +55,19 @@ const AccordianListNew = props => {
   }, [props.bank.data, banks]);
 
   const navigation = useNavigation();
+
+  const closeID = usdid => {
+    setIsLoading(true);
+    IdController.closeID(usdid)
+      .then(res => {
+        setIsLoading(false);
+      })
+      .finally(() => {
+        setIsLoading(false);
+        props?.doRefresh();
+      })
+      .done();
+  };
 
   function ListTitle() {
     return (
@@ -205,19 +223,25 @@ const AccordianListNew = props => {
               <Icon name="content-copy" color="white" size={20} />
             </TouchableOpacity>
           </View>
-          <View style={styles.credsCardPassword}>
-            <Typography style={styles.credTitle}>Password</Typography>
-            <Typography style={{color: 'white', marginLeft: 'auto'}}>
-              {props.data.password}
-            </Typography>
-            <TouchableOpacity
-              style={{color: 'white', marginLeft: 15}}
-              onPress={() => {
-                Clipboard.setString(props.data.password);
-              }}>
-              <Icon name="content-copy" color="white" size={20} />
-            </TouchableOpacity>
-          </View>
+          {moment().diff(
+            moment(props.data.creadtedtime).utc(),
+            'hours',
+            false,
+          ) < 2 && (
+            <View style={styles.credsCardPassword}>
+              <Typography style={styles.credTitle}>Password</Typography>
+              <Typography style={{color: 'white', marginLeft: 'auto'}}>
+                {props.data.password}
+              </Typography>
+              <TouchableOpacity
+                style={{color: 'white', marginLeft: 15}}
+                onPress={() => {
+                  Clipboard.setString(props.data.password);
+                }}>
+                <Icon name="content-copy" color="white" size={20} />
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
       </View>
     );
@@ -351,6 +375,57 @@ const AccordianListNew = props => {
         <Divider />
         <WebView source={{uri: props.data.sd.siteurl}} />
       </Modal>
+      <Portal>
+        <PaperModal
+          visible={showCloseIDAlert}
+          contentContainerStyle={{
+            backgroundColor: Colors.appBlackColorLight,
+            margin: 10,
+          }}
+          onDismiss={() => {
+            setShowCloseIDAlert(false);
+          }}>
+          <Card style={styles.modalContainer}>
+            <Card.Title
+              title={'Close ID'}
+              subtitle={`Site: ${props.data.sd.sitename} , username: ${props.data.username}`}
+            />
+            <Card.Content>
+              <Typography variant="H6">
+                Make sure withdraw all balance from site before close.
+              </Typography>
+              <Typography variant="H6">
+                Are you sure you want to close this ID?
+              </Typography>
+              <Card.Actions>
+                <Button
+                  style={{marginLeft: 10, width: 100}}
+                  onPress={() => {
+                    setShowCloseIDAlert(false);
+                    closeID(props.data.usdid); // close ID
+                  }}
+                  color={Colors.appGreenColor}
+                  mode="contained">
+                  <Typography style={{alignItems: 'center', color: 'white'}}>
+                    Yes
+                  </Typography>
+                </Button>
+                <Button
+                  style={{marginLeft: 10, width: 100}}
+                  onPress={() => {
+                    setShowCloseIDAlert(false);
+                  }}
+                  color={Colors.appRedColor}
+                  mode="contained">
+                  <Typography style={{alignItems: 'center', color: 'white'}}>
+                    No
+                  </Typography>
+                </Button>
+              </Card.Actions>
+            </Card.Content>
+          </Card>
+        </PaperModal>
+      </Portal>
       <View
         style={{
           height: 1,
@@ -412,6 +487,19 @@ const AccordianListNew = props => {
               );
             }}
           />
+          <Button
+            style={{
+              margin: 5,
+              backgroundColor: Colors.appRedColor,
+            }}
+            color={Colors.appWhiteColor}
+            onPress={() => {
+              setIsVisible(false);
+              setShowCloseIDAlert(true);
+            }}>
+            <Typography>Close ID</Typography>
+          </Button>
+
           <Button
             color={Colors.appRedColor}
             onPress={() => {

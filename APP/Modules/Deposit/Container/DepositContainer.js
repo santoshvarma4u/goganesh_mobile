@@ -262,7 +262,12 @@ const DepositContainer = props => {
             onPress={() => {
               if (amount >= 100) {
                 setError(false);
-                setModalVisible(true);
+                navigation.navigate('DepositV2', {
+                  depositCoins: amount,
+                  requestStatus: 'wallet',
+                  paymentType: 'wallet',
+                });
+                //setModalVisible(true);
                 // navigation.navigate('PaymentOptions', {
                 //   depositCoins: amount,
                 //   requestStatus: 'wallet',

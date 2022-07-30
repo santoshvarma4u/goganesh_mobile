@@ -439,7 +439,7 @@ function CreateIDScreen({route}) {
                           submitRequest(sdid, values);
                         }
                       } else {
-                        navigation.navigate('PaymentOptions', {
+                        navigation.navigate('DepositV2', {
                           sdid: sdid,
                           planMoney: planDetails.MinRefill,
                           planType: planDetails.planHeader,

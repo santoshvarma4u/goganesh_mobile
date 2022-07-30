@@ -1,3 +1,4 @@
+import {CommonActions, useNavigation} from '@react-navigation/native';
 import {Icon} from '@rneui/themed';
 import React, {useEffect, useState} from 'react';
 import {
@@ -13,14 +14,28 @@ import {Button, IconButton} from 'react-native-paper';
 import reactotron from 'reactotron-react-native';
 import GooglePaySvg from '../../../Assets/svgs/GooglePaySvg';
 import PhonePeSvg from '../../../Assets/svgs/PhonePeSvg';
+import CONSTANTS from '../../../Constants';
 import useAPI from '../../../Hooks/useAPI';
 import payeeApi from '../../../Network/payee/payeeApi';
 import Colors from '../../../Theams/Colors';
+import Storage from '../../Common/Storage';
+import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
 import depositController from '../Controller/depositController';
+import DepositController from '../Controller/depositController';
 
 const DepositContainerV2 = props => {
-  const [amount, setAmount] = useState('1000');
+  const [amount, setAmount] = useState(' ');
+  const [progress, setProgress] = useState(false);
+  const [uid, setUid] = useState('');
+  const {
+    sdid,
+    planType,
+    planMoney,
+    userName,
+    depositCoins,
+    requestStatus,
+  } = props.route.params;
   // gpay,phonepe,bank
 
   const [selectedMedium, setSelectedMedium] = useState('bank');
@@ -28,8 +43,38 @@ const DepositContainerV2 = props => {
   const [phonePe, setPhonePe] = useState('');
   const [googlePay, setGooglePay] = useState('');
   const [bank, setBank] = useState({});
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [paymentType, setPaymentType] = useState('Bank');
 
   const {data, request, loading, error} = depositController.getPayeeDetails();
+  useEffect(() => {
+    setAmount(depositCoins);
+    getUID();
+  }, []);
+
+  const getUID = async () => {
+    try {
+      let UID = await Storage.getItemSync(StorageKeys.ID);
+      setUid(UID);
+    } catch (error) {}
+  };
+  const navigation = useNavigation();
+
+  const resetAction = CommonActions.reset({
+    index: 0,
+    routes: [{name: 'Home'}],
+  });
+
+  const setImageUpLoadProgress = progressEvent => {
+    const percentCompleted = Math.round(
+      (progressEvent.loaded * 100) / progressEvent.total,
+    );
+    reactotron.log(
+      '🚀 ~ file: transactionsPassbook.js ~ line 59 ~ percentCompleted',
+      percentCompleted,
+    );
+    setUploadProgress(percentCompleted);
+  };
 
   useEffect(() => {
     if (data) {
@@ -71,33 +116,136 @@ const DepositContainerV2 = props => {
     });
   };
 
+  const handlePayment = () => {
+    // Handle Payment
+    if (filePath.length <= 0) {
+      return alert('please upload payment reference image');
+    }
+    setProgress(true);
+    if (requestStatus === 'wallet') {
+      const paymentMethod = paymentType;
+      DepositController.depositIntoWallet(
+        parseInt(uid),
+        paymentMethod,
+        depositCoins,
+        'CR',
+        true,
+        filePath,
+        CONSTANTS.DEPOSIT_INTO_WALLET_UPI,
+        null,
+        setImageUpLoadProgress,
+      ).then(data => {
+        navigation.dispatch(resetAction);
+      });
+    } else if (requestStatus === 'new') {
+      DepositController.submitIntialDeposit(
+        parseInt(uid),
+        sdid,
+        paymentType,
+        depositCoins,
+        'CR',
+        filePath,
+        CONSTANTS.DEPOSIT_INTO_SITE_UPI_CREATE_ID,
+        setImageUpLoadProgress,
+      ).then(({data}) => {
+        DepositController.submitData(
+          parseInt(uid),
+          sdid,
+          planType,
+          paymentType,
+          'Pending',
+          filePath,
+          userName,
+          depositCoins,
+          data.data.paymentID,
+          setImageUpLoadProgress,
+        ).then(data => {});
+        setProgress(false);
+        navigation.dispatch(resetAction);
+      });
+    } else {
+      const paymentMethod = paymentType;
+      DepositController.submitDataForMyID(
+        parseInt(uid),
+        sdid,
+        paymentMethod,
+        depositCoins,
+        'CR',
+        filePath,
+        CONSTANTS.DEPOSIT_INTO_EXISTING_ID_FROM_UPI,
+      )
+        .then(data => {
+          navigation.dispatch(resetAction);
+        })
+        .catch(error => {
+          reactotron.log(
+            '🚀 ~ file: transactionsPassbook.js ~ line 132 ~ error',
+            error,
+          );
+        });
+    }
+    setProgress(false);
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Typography variant="H2" style={styles.text}>
-          Pay amount {amount}
+          Pay amount ₹ {amount}
         </Typography>
         <View style={styles.payRow}>
           <Typography style={styles.text}>Pay manually</Typography>
-          <Typography style={styles.text}>Upto 30 minutes</Typography>
         </View>
         <View style={styles.underline} />
         <View style={styles.paymentItems}>
           <TouchableOpacity
-            style={styles.paymentItem}
-            onPress={() => setSelectedMedium('gpay')}>
+            style={[
+              styles.paymentItem,
+              {
+                backgroundColor:
+                  selectedMedium === 'gpay'
+                    ? Colors.appBlackColor
+                    : Colors.appBlackColorLight,
+              },
+            ]}
+            onPress={() => {
+              setSelectedMedium('gpay');
+              setPaymentType('Google Pay');
+            }}>
             <GooglePaySvg />
             <Typography style={styles.textCenter}>Google Pay</Typography>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.paymentItem}
-            onPress={() => setSelectedMedium('phonepe')}>
+            style={[
+              styles.paymentItem,
+              {
+                backgroundColor:
+                  selectedMedium === 'phonepe'
+                    ? Colors.appBlackColor
+                    : Colors.appBlackColorLight,
+              },
+            ]}
+            onPress={() => {
+              setSelectedMedium('phonepe');
+              setPaymentType('Phone Pay');
+            }}>
             <PhonePeSvg />
             <Typography style={styles.textCenter}>PhonePe</Typography>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.paymentItem}
-            onPress={() => setSelectedMedium('bank')}>
+            style={[
+              styles.paymentItem,
+              {
+                backgroundColor:
+                  selectedMedium === 'bank'
+                    ? Colors.appBlackColor
+                    : Colors.appBlackColorLight,
+              },
+            ]}
+            onPress={() => {
+              setSelectedMedium('bank');
+              setPaymentType('Bank');
+            }}>
             <Icon
               name="bank"
               size={48}
@@ -200,7 +348,7 @@ const DepositContainerV2 = props => {
               color={Colors.appPrimaryColor}
               size={48}
             />
-            <Typography style={styles.textCenter} variant="H2">
+            <Typography style={styles.textCenter} variant="H4">
               Upload
             </Typography>
             <Typography style={styles.textCenter}>
@@ -211,7 +359,10 @@ const DepositContainerV2 = props => {
         )}
 
         <View>
-          <Button mode="contained" disabled={!filePath.uri}>
+          <Button
+            mode="contained"
+            disabled={!filePath.uri || progress}
+            onPress={handlePayment}>
             <Typography>Confirm</Typography>
           </Button>
         </View>
