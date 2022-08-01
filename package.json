@@ -68,6 +68,7 @@
     "react-native-svg": "^12.3.0",
     "react-native-tab-view": "^3.0.1",
     "react-native-upi-payment": "^1.0.3",
+    "react-native-upload-aws-s3": "^0.8.1",
     "react-native-vector-icons": "^8.1.0",
     "react-native-webview": "^11.18.1",
     "react-redux": "^7.2.6",

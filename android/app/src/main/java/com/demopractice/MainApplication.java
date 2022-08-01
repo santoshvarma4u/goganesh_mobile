@@ -49,7 +49,7 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
-    initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+    //initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
 
     // Replace it with your WEBSITE_ID
     // Retrieve it using https://app.crisp.chat/website/[YOUR_WEBSITE_ID]/

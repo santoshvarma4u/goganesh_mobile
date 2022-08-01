@@ -7,7 +7,7 @@ import StorageKeys from '../../Modules/Common/StorageKeys';
 
 export const live = 'http://159.89.171.125:3000/';
 export const local = 'http://192.168.1.8:3000/';
-export const prod = 'http://143.244.131.237:3000/';
+export const prod = 'https://api.fgpunt.com/';
 //cd .. &&  cd home/admin/web/goganesh.bet/public_html/freelanceBackend/
 // cd ~/Library/Android/sdk/emulator
 // To run a certain AVD directly:
@@ -15,7 +15,7 @@ export const prod = 'http://143.244.131.237:3000/';
 // To list your AVDs use :
 // ./emulator -list-avds
 
-export const env = local;
+export const env = prod;
 
 let deviceID = null;
 
