@@ -2,9 +2,26 @@
 import {CommonActions, useNavigation} from '@react-navigation/native';
 import {Icon} from '@rneui/themed';
 import React, {useEffect, useState} from 'react';
-import {Image, Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
-import {ActivityIndicator, Button, RadioButton} from 'react-native-paper';
+import {
+  Image,
+  Linking,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  ScrollView,
+} from 'react-native';
+import {
+  ActivityIndicator,
+  Button,
+  Divider,
+  RadioButton,
+  TouchableRipple,
+} from 'react-native-paper';
 import {connect} from 'react-redux';
+import reactotron from 'reactotron-react-native';
+import GooglePaySvg from '../../../Assets/svgs/GooglePaySvg';
+import PaytmSvg from '../../../Assets/svgs/PaytmSvg';
+import PhonePeSvg from '../../../Assets/svgs/PhonePeSvg';
 import CONSTANTS from '../../../Constants';
 import {env} from '../../../Network/api/server';
 import {setUserBanks} from '../../../Store/Slices/userDetailsSlice';
@@ -46,6 +63,18 @@ function ListTitle(props) {
   );
 }
 
+const upiMap = {
+  phone_pay: 'Phone Pay',
+  google_pay: 'Google Pay',
+  paytm: 'Paytm',
+};
+
+const upiSvg = {
+  phone_pay: <PhonePeSvg />,
+  google_pay: <GooglePaySvg />,
+  paytm: <PaytmSvg />,
+};
+
 const WithdrawForm = props => {
   let banks = props.reduxBankDetails || [];
   let data = props?.route?.params?.data ? props.route.params.data : {};
@@ -62,6 +91,7 @@ const WithdrawForm = props => {
     loading: withDrawVerifyLoading,
     request,
   } = paymentDetailsController.getPendingWithdrawRequestsForUser();
+  const {data: upiData} = paymentDetailsController.fetchUpiDetails();
 
   const resetAction = CommonActions.reset({
     index: 0,
@@ -78,10 +108,15 @@ const WithdrawForm = props => {
     return <ErrorPage onRetryPress={request} />;
   }
 
+  console.log(
+    '🚀 ~ file: WithdrawUI.js ~ line 255 ~ {upiData.map ~ upiData',
+    upiData,
+  );
+
   return (
-    <View style={styles.withDrawForm}>
+    <ScrollView contentContainerStyle={styles.withDrawForm}>
       {ListTitle(data)}
-      {enableWithdraw ? (
+      {true ? (
         <>
           <CommonTextInput
             onChangeText={onAmountChange}
@@ -121,6 +156,42 @@ const WithdrawForm = props => {
                   }}
                 />
               ) : null}
+              {upiData.map((item, index) => {
+                return (
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}>
+                    <RadioButton value={item.upiName} />
+                    <TouchableRipple
+                      onPress={() => {
+                        setChecked(item.upiName);
+                      }}>
+                      <View
+                        style={{
+                          padding: 10,
+                          flexDirection: 'row',
+                          height: 80,
+                          alignItems: 'center',
+                        }}>
+                        {upiSvg[item.upiName]}
+                        <View
+                          style={{
+                            marginLeft: 10,
+                          }}>
+                          <Typography color={Colors.appWhiteColor}>
+                            {upiMap[item.upiName]}
+                          </Typography>
+                          <Typography color={Colors.appWhiteColor}>
+                            {item.upiNumber}
+                          </Typography>
+                        </View>
+                      </View>
+                    </TouchableRipple>
+                  </View>
+                );
+              })}
             </RadioButton.Group>
           </View>
           <View
@@ -135,10 +206,16 @@ const WithdrawForm = props => {
                 width: '70%',
               }}
               onPress={() => {
+                if (!checked) {
+                  alert('Please select a payment method');
+                  return;
+                }
+
                 if (!amount || amount === '0') {
                   return alert('Enter amount to Withdraw');
                 }
                 setIsLoading(true);
+
                 if (checked === 'wallet') {
                   depositController
                     .depositIntoWallet(
@@ -155,6 +232,28 @@ const WithdrawForm = props => {
                       navigation.dispatch(resetAction);
                       setIsLoading(false);
                       alert('WithDraw Request Sent Successfully ');
+                    });
+                } else if (
+                  checked === 'google_pay' ||
+                  checked === 'phone_pay' ||
+                  checked === 'paytm'
+                ) {
+                  IdController.sendWithDrawRequest(
+                    data.sd.sdid,
+                    'UPI',
+                    amount,
+                    'DR',
+                    upiData.find(item => item.upiName === checked).upiId,
+                    CONSTANTS.WITHDRAW_FROM_EXISTING_ID_TO_UPI,
+                  )
+                    .then(() => {
+                      setIsLoading(false);
+                      navigation.dispatch(resetAction);
+                      alert('WithDraw Request Sent Successfully ');
+                    })
+                    .catch(error => {
+                      setIsLoading(false);
+                      alert('WithDraw Request Failed');
                     });
                 } else {
                   IdController.sendWithDrawRequest(
@@ -205,21 +304,16 @@ const WithdrawForm = props => {
                 textAlign: 'center',
               }}>
               You have pending withdraw requests , you can withdraw after the
-              previous requests are approved
+              previous requests are approved.
             </Typography>
           )}
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    borderRadius: 10,
-    padding: 10,
-    margin: 5,
-  },
   withDrawForm: {
     padding: 20,
     flex: 1,

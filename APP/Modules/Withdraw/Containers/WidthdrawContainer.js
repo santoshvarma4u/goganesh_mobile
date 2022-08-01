@@ -2,10 +2,19 @@
 import {Icon} from '@rneui/themed';
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
-import {ActivityIndicator, Button, Modal} from 'react-native-paper';
+import {
+  ActivityIndicator,
+  Button,
+  Divider,
+  Modal,
+  RadioButton,
+  TouchableRipple,
+} from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
-import reactotron from 'reactotron-react-native';
+import GooglePaySvg from '../../../Assets/svgs/GooglePaySvg';
+import PaytmSvg from '../../../Assets/svgs/PaytmSvg';
+import PhonePeSvg from '../../../Assets/svgs/PhonePeSvg';
 import CONSTANTS from '../../../Constants';
 import {setUserBanks} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
@@ -16,6 +25,18 @@ import {Typography} from '../../Common/Text';
 import IdController from '../../IDs/Controller/IdController';
 import paymentDetailsController from '../../PaymentDetails/Controller/paymentDetailsController';
 
+const upiMap = {
+  phone_pay: 'Phone Pay',
+  google_pay: 'Google Pay',
+  paytm: 'Paytm',
+};
+
+const upiSvg = {
+  phone_pay: <PhonePeSvg />,
+  google_pay: <GooglePaySvg />,
+  paytm: <PaytmSvg />,
+};
+
 const WithDrawContainer = props => {
   const {navigation, reduxBankDetails, reduxWallet} = props;
   const [enableWithdraw, setEnableWithdraw] = useState(false);
@@ -25,12 +46,16 @@ const WithDrawContainer = props => {
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [withdrawModalVisible, setWithdrawModalVisible] = useState(false);
 
+  const [value, setValue] = React.useState('');
+
   const {
     data,
     error: withDrawVerifyError,
     loading: withDrawVerifyLoading,
     request,
   } = paymentDetailsController.getPendingWithdrawRequestsForUser();
+
+  const {data: upiData} = paymentDetailsController.fetchUpiDetails();
 
   const onSubmit = async values => {
     let {data: bankData} = await paymentDetailsController.submitBankData(
@@ -310,7 +335,90 @@ const WithDrawContainer = props => {
               setWithdrawModalVisible(false);
             }}>
             <Typography variant="H4" color={Colors.appWhiteColor}>
-              Withdraw
+              Bank Withdraw
+            </Typography>
+          </Button>
+          <Divider
+            style={{
+              marginTop: 20,
+              marginBottom: 20,
+              borderBottomColor: Colors.appWhiteColor,
+              borderBottomWidth: 2,
+              width: '80%',
+            }}
+          />
+          <Typography color={Colors.appWhiteColor}>
+            Or, you can withdraw to your upi
+          </Typography>
+          <RadioButton.Group
+            onValueChange={newValue => setValue(newValue)}
+            value={value}>
+            {upiData.map((item, index) => {
+              return (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
+                  <RadioButton value={item.upiName} />
+                  <TouchableRipple
+                    onPress={() => {
+                      setValue(item.upiName);
+                    }}>
+                    <View
+                      style={{
+                        padding: 10,
+                        flexDirection: 'row',
+                        height: 80,
+                        alignItems: 'center',
+                      }}>
+                      {upiSvg[item.upiName]}
+                      <View
+                        style={{
+                          marginLeft: 10,
+                        }}>
+                        <Typography color={Colors.appWhiteColor}>
+                          {upiMap[item.upiName]}
+                        </Typography>
+                        <Typography color={Colors.appWhiteColor}>
+                          {item.upiNumber}
+                        </Typography>
+                      </View>
+                    </View>
+                  </TouchableRipple>
+                </View>
+              );
+            })}
+          </RadioButton.Group>
+          <Button
+            mode="contained"
+            style={{
+              marginTop: 20,
+            }}
+            onPress={() => {
+              if (!value) {
+                alert('Please select a UPI');
+                return;
+              }
+
+              IdController.sendWalletWithDrawRequest(
+                'UPI',
+                amount,
+                'DR',
+                upiData.find(item => item.upiName === value).upiId,
+                CONSTANTS.WITHDRAW_FROM_WALLET_TO_UPI,
+              )
+                .then(() => {
+                  alert('WithDraw Request Sent Successfully ');
+                  navigation.pop();
+                })
+                .catch(() => {
+                  alert('Error in Withdrawing coins, Please try again later');
+                });
+              setWithdrawModalVisible(false);
+            }}>
+            <Typography variant="H4" color={Colors.appWhiteColor}>
+              UPI WithDraw
             </Typography>
           </Button>
         </View>

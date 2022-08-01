@@ -16,6 +16,8 @@ const CONSTANTS = {
   WITHDRAW_FROM_EXISTING_ID_TO_WALLET: 'Withdraw from exsiting ID to wallet',
   WITHDRAW_FROM_EXISTING_ID_TO_BANK: 'Withdraw from exsiting ID to Bank',
   WITHDRAW_FROM_WALLET_TO_BANK: 'Withdraw from wallet to bank',
+  WITHDRAW_FROM_WALLET_TO_UPI: 'Withdraw from wallet to UPI',
+  WITHDRAW_FROM_EXISTING_ID_TO_UPI: 'Withdraw from existing ID to UPI',
 };
 
 const USER_FRIENDLY_PAYMENT_MESSAGE = {
@@ -85,6 +87,18 @@ const USER_FRIENDLY_PAYMENT_MESSAGE = {
       'Yay!! Congratulations!! Your withdraw from wallet to bank has been approved. Please check bank balance Enjoy with FG Punt 😍',
     Rejected: 'Nay!! Your withdraw from wallet to bank has been rejected 😥',
     Pending: 'Wait!! Your withdraw from wallet to bank is Pending 😞',
+  },
+  [CONSTANTS.WITHDRAW_FROM_WALLET_TO_UPI]: {
+    Accepted:
+      'Yay!! Congratulations!! Your withdraw from wallet to UPI has been approved. Please check UPI balance Enjoy with FG Punt 😍',
+    Rejected: 'Nay!! Your withdraw from wallet to UPI has been rejected 😥',
+    Pending: 'Wait!! Your withdraw from wallet to UPI is Pending 😞',
+  },
+  [CONSTANTS.WITHDRAW_FROM_EXISTING_ID_TO_UPI]: {
+    Accepted:
+      'Yay!! Congratulations!! Your withdraw from ID to UPI has been approved. Please check UPI balance Enjoy with FG Punt 😍',
+    Rejected: 'Nay!! Your withdraw from ID to UPI has been rejected 😥',
+    Pending: 'Wait!! Your withdraw from ID to UPI is Pending 😞',
   },
 };
 

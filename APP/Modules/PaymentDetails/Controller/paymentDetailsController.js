@@ -56,10 +56,13 @@ const getPendingWithdrawRequestsForUser = () =>
 const getPendingDepositRequestsForUser = () =>
   useAPIWithParams(paymentsDetailsApi.getPendingDepositRequestsForUser);
 
+const fetchUpiDetails = () => useAPI(paymentsDetailsApi.getUpiDetails);
+
 export default {
   submitBankData,
   updateBankData,
   getBankData,
   getPendingWithdrawRequestsForUser,
   getPendingDepositRequestsForUser,
+  fetchUpiDetails,
 };

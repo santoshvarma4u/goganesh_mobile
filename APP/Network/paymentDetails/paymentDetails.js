@@ -45,10 +45,25 @@ const getPendingDepositRequestsForUser = async () => {
   return NetworkAPI.apiClient.get(pendingWithdrawRequestsForUser);
 };
 
+const getUpiDetails = async () => {
+  let uid = await getUID();
+  const upiDetails = `/userUpi/byUser/${uid}`;
+  return NetworkAPI.apiClient.get(upiDetails);
+};
+
+const updateUserUpiDetails = async data => {
+  let uid = await getUID();
+  data.uid = uid;
+  const upiDetails = '/userUpi/';
+  return NetworkAPI.apiClient.patch(upiDetails, data);
+};
+
 export default {
   getUserBankDetails,
   createUserBankDetails,
   updateUserBankDetails,
   getPendingWithdrawRequestsForUser,
   getPendingDepositRequestsForUser,
+  getUpiDetails,
+  updateUserUpiDetails,
 };

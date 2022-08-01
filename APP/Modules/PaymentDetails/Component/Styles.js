@@ -110,6 +110,9 @@ export default StyleSheet.create({
     borderRadius: 10,
     color: Colors.appWhiteColor,
     fontSize: 15,
-    // marginBottom: 15,
+  },
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

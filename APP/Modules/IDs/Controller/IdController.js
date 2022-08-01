@@ -38,7 +38,6 @@ const sendWithDrawRequest = async (
     paymentType: paymentType,
     remarks: remarks || '',
   };
-  reactotron.log('🚀 ~ file: IdController.js ~ line 40 ~ data', data);
   const result = await transactionsApi.createWithdrawPayment(data);
   if (!result.ok) {
     return alert(result.problem);
@@ -58,6 +57,7 @@ const closeID = async usdid => {
   }
   return;
 };
+
 const sendWalletWithDrawRequest = async (
   paymentMethod,
   paymentAmount,
@@ -89,5 +89,5 @@ export default {
   getBankData,
   sendWithDrawRequest,
   sendWalletWithDrawRequest,
-  closeID
+  closeID,
 };

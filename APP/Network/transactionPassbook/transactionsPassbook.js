@@ -31,11 +31,6 @@ const createWithdrawPayment = data => {
   try {
     return NetworkAPI.apiClient.post(paymentWithDrawEndPoint, data);
   } catch (error) {
-    reactotron.log(
-      '🚀 ~ file: transactionsPassbook.js ~ line 33 ~ error',
-      error,
-    );
-
     throw new Error(error);
   }
   // return NetworkAPI.apiClient.post(paymentWithDrawEndPoint, data);

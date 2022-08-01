@@ -1,11 +1,12 @@
 import {create} from 'apisauce';
 import DeviceInfo from 'react-native-device-info';
+import reactotron from 'reactotron-react-native';
 import {logoutAndResetNavigation} from '../../../APP/Navigation/navigation';
 import Storage from '../../Modules/Common/Storage';
 import StorageKeys from '../../Modules/Common/StorageKeys';
 
 export const live = 'http://159.89.171.125:3000/';
-export const local = 'http://192.168.0.173:3000/';
+export const local = 'http://192.168.1.8:3000/';
 export const prod = 'http://143.244.131.237:3000/';
 //cd .. &&  cd home/admin/web/goganesh.bet/public_html/freelanceBackend/
 // cd ~/Library/Android/sdk/emulator
