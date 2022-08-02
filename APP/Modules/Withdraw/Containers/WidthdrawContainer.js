@@ -169,7 +169,7 @@ const WithDrawContainer = props => {
                 variant="paragraph"
                 color={error ? Colors.appRedColor : Colors.appWhiteColor}>
                 {error
-                  ? 'Enter valid amount, Minimum amount is 1000 coins'
+                  ? 'Enter valid amount, Less than wallet balance and Minimum amount is 1000 '
                   : '*Minimum withdraw Amount is 1000'}
               </Typography>
             </View>
@@ -348,7 +348,7 @@ const WithDrawContainer = props => {
             }}
           />
           <Typography color={Colors.appWhiteColor}>
-            Or, you can withdraw to your upi
+            Or, If bank fails we will try one of the following
           </Typography>
           <RadioButton.Group
             onValueChange={newValue => setValue(newValue)}
@@ -360,11 +360,8 @@ const WithDrawContainer = props => {
                     flexDirection: 'row',
                     alignItems: 'center',
                   }}>
-                  <RadioButton value={item.upiName} />
-                  <TouchableRipple
-                    onPress={() => {
-                      setValue(item.upiName);
-                    }}>
+                  {/*<RadioButton value={item.upiName} />*/}
+                  <View>
                     <View
                       style={{
                         padding: 10,
@@ -385,42 +382,41 @@ const WithDrawContainer = props => {
                         </Typography>
                       </View>
                     </View>
-                  </TouchableRipple>
+                  </View>
                 </View>
               );
             })}
           </RadioButton.Group>
-          <Button
-            mode="contained"
-            style={{
-              marginTop: 20,
-            }}
-            onPress={() => {
-              if (!value) {
-                alert('Please select a UPI');
-                return;
-              }
-
-              IdController.sendWalletWithDrawRequest(
-                'UPI',
-                amount,
-                'DR',
-                upiData.find(item => item.upiName === value).upiId,
-                CONSTANTS.WITHDRAW_FROM_WALLET_TO_UPI,
-              )
-                .then(() => {
-                  alert('WithDraw Request Sent Successfully ');
-                  navigation.pop();
-                })
-                .catch(() => {
-                  alert('Error in Withdrawing coins, Please try again later');
-                });
-              setWithdrawModalVisible(false);
-            }}>
-            <Typography variant="H4" color={Colors.appWhiteColor}>
-              UPI WithDraw
-            </Typography>
-          </Button>
+          {/*<Button*/}
+          {/*  mode="contained"*/}
+          {/*  style={{*/}
+          {/*    marginTop: 20,*/}
+          {/*  }}*/}
+          {/*  onPress={() => {*/}
+          {/*    if (!value) {*/}
+          {/*      alert('Please select a UPI');*/}
+          {/*      return;*/}
+          {/*    }*/}
+          {/*    IdController.sendWalletWithDrawRequest(*/}
+          {/*      'UPI',*/}
+          {/*      amount,*/}
+          {/*      'DR',*/}
+          {/*      upiData.find(item => item.upiName === value).upiId,*/}
+          {/*      CONSTANTS.WITHDRAW_FROM_WALLET_TO_UPI,*/}
+          {/*    )*/}
+          {/*      .then(() => {*/}
+          {/*        alert('WithDraw Request Sent Successfully ');*/}
+          {/*        navigation.pop();*/}
+          {/*      })*/}
+          {/*      .catch(() => {*/}
+          {/*        alert('Error in Withdrawing coins, Please try again later');*/}
+          {/*      });*/}
+          {/*    setWithdrawModalVisible(false);*/}
+          {/*  }}>*/}
+          {/*  <Typography variant="H4" color={Colors.appWhiteColor}>*/}
+          {/*    UPI WithDraw*/}
+          {/*  </Typography>*/}
+          {/*</Button>*/}
         </View>
       </Modal>
     </View>

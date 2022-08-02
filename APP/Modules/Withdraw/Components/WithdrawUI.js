@@ -156,43 +156,42 @@ const WithdrawForm = props => {
                   }}
                 />
               ) : null}
-              {upiData.map((item, index) => {
-                return (
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                    }}>
-                    <RadioButton value={item.upiName} />
-                    <TouchableRipple
-                      onPress={() => {
-                        setChecked(item.upiName);
+            </RadioButton.Group>
+            <Typography color={Colors.appWhiteColor}>
+              If bank fails we will try one of the following
+            </Typography>
+            {upiData.map((item, index) => {
+              return (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
+                  <View>
+                    <View
+                      style={{
+                        padding: 10,
+                        flexDirection: 'row',
+                        height: 80,
+                        alignItems: 'center',
                       }}>
+                      {upiSvg[item.upiName]}
                       <View
                         style={{
-                          padding: 10,
-                          flexDirection: 'row',
-                          height: 80,
-                          alignItems: 'center',
+                          marginLeft: 10,
                         }}>
-                        {upiSvg[item.upiName]}
-                        <View
-                          style={{
-                            marginLeft: 10,
-                          }}>
-                          <Typography color={Colors.appWhiteColor}>
-                            {upiMap[item.upiName]}
-                          </Typography>
-                          <Typography color={Colors.appWhiteColor}>
-                            {item.upiNumber}
-                          </Typography>
-                        </View>
+                        <Typography color={Colors.appWhiteColor}>
+                          {upiMap[item.upiName]}
+                        </Typography>
+                        <Typography color={Colors.appWhiteColor}>
+                          {item.upiNumber}
+                        </Typography>
                       </View>
-                    </TouchableRipple>
+                    </View>
                   </View>
-                );
-              })}
-            </RadioButton.Group>
+                </View>
+              );
+            })}
           </View>
           <View
             style={{
@@ -233,29 +232,31 @@ const WithdrawForm = props => {
                       setIsLoading(false);
                       alert('WithDraw Request Sent Successfully ');
                     });
-                } else if (
-                  checked === 'google_pay' ||
-                  checked === 'phone_pay' ||
-                  checked === 'paytm'
-                ) {
-                  IdController.sendWithDrawRequest(
-                    data.sd.sdid,
-                    'UPI',
-                    amount,
-                    'DR',
-                    upiData.find(item => item.upiName === checked).upiId,
-                    CONSTANTS.WITHDRAW_FROM_EXISTING_ID_TO_UPI,
-                  )
-                    .then(() => {
-                      setIsLoading(false);
-                      navigation.dispatch(resetAction);
-                      alert('WithDraw Request Sent Successfully ');
-                    })
-                    .catch(error => {
-                      setIsLoading(false);
-                      alert('WithDraw Request Failed');
-                    });
-                } else {
+                }
+                // } else if (
+                //   checked === 'google_pay' ||
+                //   checked === 'phone_pay' ||
+                //   checked === 'paytm'
+                // ) {
+                //   IdController.sendWithDrawRequest(
+                //     data.sd.sdid,
+                //     'UPI',
+                //     amount,
+                //     'DR',
+                //     upiData.find(item => item.upiName === checked).upiId,
+                //     CONSTANTS.WITHDRAW_FROM_EXISTING_ID_TO_UPI,
+                //   )
+                //     .then(() => {
+                //       setIsLoading(false);
+                //       navigation.dispatch(resetAction);
+                //       alert('WithDraw Request Sent Successfully ');
+                //     })
+                //     .catch(error => {
+                //       setIsLoading(false);
+                //       alert('WithDraw Request Failed');
+                //     });
+                // }
+                else {
                   IdController.sendWithDrawRequest(
                     data.sd.sdid,
                     banks[0].value,

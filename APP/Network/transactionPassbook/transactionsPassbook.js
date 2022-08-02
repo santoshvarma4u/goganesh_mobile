@@ -21,9 +21,9 @@ const createDepositPayment = data => {
   const headers = {
     'Content-Type': 'multipart/form-data',
   };
-  const tempApi = NetworkAPI.apiClient;
-  tempApi.setHeader('Content-Type', 'multipart/form-data');
-  return tempApi.post(paymentEndPoint, data);
+  // const tempApi = NetworkAPI.apiClient;
+  // tempApi.setHeader('Content-Type', 'multipart/form-data');
+  return NetworkAPI.apiClient.post(paymentEndPoint, data, {headers});
 };
 
 const createWithdrawPayment = data => {
