@@ -13,18 +13,22 @@ import {
 import * as ImagePicker from 'react-native-image-picker';
 import {Button, IconButton} from 'react-native-paper';
 import {RNS3} from 'react-native-upload-aws-s3';
+import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
 import GooglePaySvg from '../../../Assets/svgs/GooglePaySvg';
 import PhonePeSvg from '../../../Assets/svgs/PhonePeSvg';
 import CONSTANTS from '../../../Constants';
 import useAPI from '../../../Hooks/useAPI';
 import payeeApi from '../../../Network/payee/payeeApi';
+import {setWalletBalance} from '../../../Store/Slices/homeSlice';
+import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
 import depositController from '../Controller/depositController';
 import DepositController from '../Controller/depositController';
+import withPreventDoubleClick from "../../../Utils/withPreventDoubleClick";
 
 const DepositContainerV2 = props => {
   const [amount, setAmount] = useState(' ');
@@ -47,6 +51,10 @@ const DepositContainerV2 = props => {
   const [bank, setBank] = useState({});
   const [uploadProgress, setUploadProgress] = useState(0);
   const [paymentType, setPaymentType] = useState('Bank');
+  const [walletBalance, setWalletBalance] = useState(props.wallet);
+
+
+  const ButtonEx = withPreventDoubleClick(Button);
 
   const {data, request, loading, error} = depositController.getPayeeDetails();
   useEffect(() => {
@@ -361,12 +369,12 @@ const DepositContainerV2 = props => {
         )}
 
         <View>
-          <Button
+          <ButtonEx
             mode="contained"
             disabled={!filePath.uri || progress}
             onPress={handlePayment}>
             <Typography>Confirm</Typography>
-          </Button>
+          </ButtonEx>
         </View>
       </ScrollView>
     </View>
@@ -451,4 +459,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DepositContainerV2;
+const mapStateToProps = state => {
+  return {
+    wallet: state.home.walletBalance,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setWallet: wallet => dispatch(setWalletBalance(wallet)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DepositContainerV2);

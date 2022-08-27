@@ -110,12 +110,12 @@ const AccordianListNew = props => {
           <View style={styles.credsCardID}>
             <Typography style={styles.credTitle}>Demo Id</Typography>
             <Typography style={{color: 'white', marginLeft: 'auto'}}>
-              fgpunt
+              {props.data.demoid}
             </Typography>
             <TouchableOpacity
               style={{color: 'white', marginLeft: 15}}
               onPress={() => {
-                Clipboard.setString('fgpunt');
+                Clipboard.setString(props.data.demoid);
               }}>
               <Icon name="content-copy" color="white" size={20} />
             </TouchableOpacity>
@@ -123,12 +123,12 @@ const AccordianListNew = props => {
           <View style={styles.credsCardPassword}>
             <Typography style={styles.credTitle}>Demo password</Typography>
             <Typography style={{color: 'white', marginLeft: 'auto'}}>
-              123456
+              {props.data.demopassword}
             </Typography>
             <TouchableOpacity
               style={{color: 'white', marginLeft: 15}}
               onPress={() => {
-                Clipboard.setString('123456');
+                Clipboard.setString(props.data.demopassword);
               }}>
               <Icon name="content-copy" color="white" size={20} />
             </TouchableOpacity>

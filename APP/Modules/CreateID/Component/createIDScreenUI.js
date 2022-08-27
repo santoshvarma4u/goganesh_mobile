@@ -5,6 +5,7 @@ import AnimatedLottieView from 'lottie-react-native';
 import React, {useEffect, useState} from 'react';
 import {TouchableWithoutFeedback, View, ScrollView} from 'react-native';
 import {ActivityIndicator, Button, Checkbox} from 'react-native-paper';
+import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
 import * as Yup from 'yup';
 import FGPUNTLOGO from '../../../Assets/svgs/fgpuntlogo';
@@ -12,9 +13,11 @@ import CONSTANTS from '../../../Constants';
 import Storage from '../../../Modules/Common/Storage';
 import StorageKeys from '../../../Modules/Common/StorageKeys';
 import siteApi from '../../../Network/sites/sites';
+import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetailsSlice';
 import animations from '../../../Theams/Animations';
 import Colors from '../../../Theams/Colors';
+import withPreventDoubleClick from '../../../Utils/withPreventDoubleClick';
 import CommonTextInput from '../../Common/CommonTextInput';
 import ErrorPage from '../../Common/ErrorPage';
 import {Typography} from '../../Common/Text';
@@ -30,6 +33,8 @@ const getUID = async () => {
     return UID;
   } catch (error) {}
 };
+
+const ButtonEx = withPreventDoubleClick(Button);
 
 const usernameAndDepositSchema = Yup.object().shape({
   UserName: Yup.string()
@@ -49,12 +54,12 @@ const userNameValidation = Yup.object().shape({
     .required('DepositCoins Required'),
 });
 
-function CreateIDScreen({route}) {
+function CreateIDScreen({route, wallet}) {
   const navigation = useNavigation();
   const {sdid, url, sitename, requestStatus} = route.params;
   const [checked, setChecked] = React.useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const wallet = HomeController.getWalletBalance();
+  const [formDepositCoins, setFormDepositCoins] = useState(0);
   const resetAction = CommonActions.reset({
     index: 0,
     routes: [{name: "ID's"}],
@@ -506,17 +511,24 @@ function CreateIDScreen({route}) {
                         setChecked(!checked);
                       }}
                     />
-                    <Typography style={{color: 'white'}}>
-                      Use Amount From Wallet
-                    </Typography>
+                    <View style={{flexDirection: 'column'}}>
+                      <Typography style={{color: 'white'}}>
+                        Use Amount From Wallet
+                      </Typography>
+                      <Typography style={{color: 'white'}}>
+                        (Current Wallet Balance {wallet - formDepositCoins})
+                      </Typography>
+                    </View>
                   </View>
-                  <Button
+                  <ButtonEx
                     mode="contained"
                     color={Colors.appPrimaryColor}
                     disabled={isLoading}
                     onPress={handleSubmit}>
-                    {isLoading ? 'Please wait...' : 'Continue to Pay'}
-                  </Button>
+                    {isLoading
+                      ? 'Please wait...'
+                      : 'Continue to Pay ' + formDepositCoins + ' Rs'}
+                  </ButtonEx>
                 </>
               )}
             </Formik>
@@ -527,4 +539,16 @@ function CreateIDScreen({route}) {
   );
 }
 
-export default CreateIDScreen;
+const mapStateToProps = state => {
+  return {
+    wallet: state.home.walletBalance,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setWallet: wallet => dispatch(setWalletBalance(wallet)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateIDScreen);
