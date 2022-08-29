@@ -8,6 +8,7 @@ import Svg, {
   Text,
   TSpan,
 } from 'react-native-svg';
+import Colors from '../../Theams/Colors';
 
 const FGPUNTLOGO = props => (
   <Svg
@@ -24,8 +25,8 @@ const FGPUNTLOGO = props => (
         x2={0}
         y2={1}
         gradientUnits="objectBoundingBox">
-        <Stop offset={0} stopColor="#fea730" />
-        <Stop offset={1} stopColor="#f7465c" />
+        <Stop offset={0} stopColor={Colors.appPrimaryColor} />
+        <Stop offset={1} stopColor={Colors.appPrimaryColor} />
       </LinearGradient>
       <LinearGradient id="b" x1={0.833} y1={0.063} x2={0.046} xlinkHref="#a" />
     </Defs>

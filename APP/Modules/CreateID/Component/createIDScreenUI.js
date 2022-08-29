@@ -17,6 +17,7 @@ import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetailsSlice';
 import animations from '../../../Theams/Animations';
 import Colors from '../../../Theams/Colors';
+import LoadingIndicator from '../../../Utils/loadingIndicator';
 import withPreventDoubleClick from '../../../Utils/withPreventDoubleClick';
 import CommonTextInput from '../../Common/CommonTextInput';
 import ErrorPage from '../../Common/ErrorPage';
@@ -59,7 +60,7 @@ function CreateIDScreen({route, wallet}) {
   const {sdid, url, sitename, requestStatus} = route.params;
   const [checked, setChecked] = React.useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [formDepositCoins, setFormDepositCoins] = useState(0);
+  const [isCreatingId, setIsCreatingID] = useState(false);
   const resetAction = CommonActions.reset({
     index: 0,
     routes: [{name: "ID's"}],
@@ -91,6 +92,7 @@ function CreateIDScreen({route, wallet}) {
 
   const submitRequest = async (sdid, values) => {
     setIsLoading(true);
+    setIsCreatingID(true);
     let uid = await getUID();
     if (requestStatus === 'old') {
       // Create payment request and withdraw from wallet
@@ -122,6 +124,7 @@ function CreateIDScreen({route, wallet}) {
           'Wallet',
           data.data.paymentID,
         ).then(() => {
+          setIsCreatingID(false);
           setIsLoading(false);
           navigation.dispatch(resetAction);
           alert('success');
@@ -162,6 +165,7 @@ function CreateIDScreen({route, wallet}) {
             data.data.paymentID,
           ).then(() => {
             setIsLoading(false);
+            setIsCreatingID(false);
             navigation.dispatch(resetAction);
           });
         });
@@ -170,7 +174,7 @@ function CreateIDScreen({route, wallet}) {
   };
 
   if (depositVerifyLoading) {
-    return <ActivityIndicator size="large" color={Colors.primary} />;
+    return <LoadingIndicator loadingText={'Please wait...'} />;
   }
 
   if (depositVerifyError) {
@@ -221,6 +225,9 @@ function CreateIDScreen({route, wallet}) {
 
   return (
     <ScrollView>
+      {isCreatingId ? (
+        <LoadingIndicator loadingText={requestStatus === 'old' ? 'Please wait...' : 'Please wait! Creating ID for you...'} />
+      ) : null}
       <View style={styles.containerMain}>
         <View />
         <View style={styles.createIDContainer}>
@@ -416,6 +423,7 @@ function CreateIDScreen({route, wallet}) {
                 DepositCoins: '',
               }}
               onSubmit={values => {
+                setIsCreatingID(true);
                 siteApi
                   .validateUsername(values.UserName, sdid)
                   .then(validateUsername => {
@@ -439,11 +447,13 @@ function CreateIDScreen({route, wallet}) {
                       );
                       if (checked) {
                         if (parseInt(wallet.data) < values.DepositCoins) {
+                          setIsCreatingID(false);
                           return alert('Insufficient Funds In Wallet');
                         } else {
                           submitRequest(sdid, values);
                         }
                       } else {
+                        setIsCreatingID(false);
                         navigation.navigate('DepositV2', {
                           sdid: sdid,
                           planMoney: planDetails.MinRefill,
@@ -454,11 +464,12 @@ function CreateIDScreen({route, wallet}) {
                         });
                       }
                     } else {
+                      setIsCreatingID(false);
                       alert('Username already taken, please try different one');
                     }
                   });
               }}>
-              {({handleChange, handleSubmit, errors, touched}) => (
+              {({handleChange, handleSubmit, errors, touched, values}) => (
                 <>
                   {route.params.username && (
                     <CommonTextInput
@@ -516,7 +527,8 @@ function CreateIDScreen({route, wallet}) {
                         Use Amount From Wallet
                       </Typography>
                       <Typography style={{color: 'white'}}>
-                        (Current Wallet Balance {wallet - formDepositCoins})
+                        (Current Wallet Balance{' '}
+                        {wallet - (checked ? values.DepositCoins : 0)})
                       </Typography>
                     </View>
                   </View>
@@ -527,7 +539,7 @@ function CreateIDScreen({route, wallet}) {
                     onPress={handleSubmit}>
                     {isLoading
                       ? 'Please wait...'
-                      : 'Continue to Pay ' + formDepositCoins + ' Rs'}
+                      : 'Continue to Pay ' + values.DepositCoins + ' Rs'}
                   </ButtonEx>
                 </>
               )}

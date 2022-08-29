@@ -10,6 +10,8 @@ import {
   ScrollView,
   Linking,
   RefreshControl,
+  ImageBackground,
+  Dimensions,
 } from 'react-native';
 // import {SliderBox} from 'react-native-image-slider-box';
 import {SliderBox} from 'react-native-image-slider-box';
@@ -23,12 +25,16 @@ import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetail
 import Colors from '../../../Theams/Colors';
 // import Storage from '../../Common/Storage';
 // import StorageKeys from '../../Common/StorageKeys';
+import Images from '../../../Theams/Images';
 import {Typography} from '../../Common/Text';
 import IDController from '../../IDs/Controller/IdController';
 import IdController from '../../IDs/Controller/IdController';
 import HomeListMyIDs from '../Component/homeListMyIDs';
 import HomeController from '../Controller/homeController';
 import styles from './Styles';
+
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 function HomeScreen(props) {
   let banks = [];
@@ -104,11 +110,15 @@ function HomeScreen(props) {
         //   />
         // }>
       }
-      <LinearGradient
-        style={{flex: 1}}
-        start={{x: 0, y: 0}}
-        end={{x: 1, y: 0.5}}
-        colors={['#ff9100', '#ff3e30']}>
+      <ImageBackground
+          source={Images.homeback}
+          style={{flex: 1, width: screenWidth}}
+          resizeMode={'repeat'}>
+      {/*<LinearGradient*/}
+      {/*  style={{flex: 1}}*/}
+      {/*  start={{x: 0, y: 0}}*/}
+      {/*  end={{x: 1, y: 0.5}}*/}
+      {/*  colors={['#FCC504', '#FCC504']}>*/}
         <View style={styles.upperContainer}>
           <View
             style={{
@@ -116,14 +126,14 @@ function HomeScreen(props) {
               alignItems: 'center',
               marginTop: 10,
             }}>
-            <Typography color={Colors.appWhiteColor} variant={'title'}>
+            <Typography color={Colors.appThemeTextColor} variant={'title'}>
               Wallet Balance
             </Typography>
             <Button
               loading={wallet.loading}
               uppercase={false}
               icon={'reload'}
-              color={Colors.appWhiteColor}
+              color={Colors.appThemeTextColor}
               onPress={() => {
                 wallet.request();
               }}
@@ -132,12 +142,12 @@ function HomeScreen(props) {
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Icon
               name="rupee"
-              color={Colors.appWhiteColor}
+              color={Colors.appThemeTextColor}
               size={16}
               type={'font-awesome'}
             />
             <Typography
-              color={Colors.appWhiteColor}
+              color={Colors.appThemeTextColor}
               variant={'H1'}
               style={{
                 marginLeft: 6,
@@ -159,11 +169,11 @@ function HomeScreen(props) {
               onPress={() => navigation.navigate('DepositForm', {})}>
               <Icon
                 name="arrow-down-bold-circle"
-                color={Colors.appWhiteColor}
+                color={Colors.appThemeTextColor}
                 size={30}
                 type={'material-community'}
               />
-              <Typography color={Colors.appWhiteColor} variant="H3">
+              <Typography color={Colors.appThemeTextColor} variant="H3">
                 Deposit
               </Typography>
             </TouchableOpacity>
@@ -177,11 +187,11 @@ function HomeScreen(props) {
               onPress={() => navigation.navigate('WithdrawContainer', {})}>
               <Icon
                 name="arrow-up-bold-circle"
-                color={Colors.appWhiteColor}
+                color={Colors.appThemeTextColor}
                 size={30}
                 type={'material-community'}
               />
-              <Typography color={Colors.appWhiteColor} variant="H3">
+              <Typography color={Colors.appThemeTextColor} variant="H3">
                 Withdraw
               </Typography>
             </TouchableOpacity>
@@ -319,7 +329,7 @@ function HomeScreen(props) {
             </Typography>
           </View>
         </ScrollView>
-      </LinearGradient>
+      </ImageBackground>
     </ScrollView>
   );
 }

@@ -23,12 +23,13 @@ import payeeApi from '../../../Network/payee/payeeApi';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
+import withPreventDoubleClick from '../../../Utils/withPreventDoubleClick';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
 import depositController from '../Controller/depositController';
 import DepositController from '../Controller/depositController';
-import withPreventDoubleClick from "../../../Utils/withPreventDoubleClick";
+import LoadingIndicator from "../../../Utils/loadingIndicator";
 
 const DepositContainerV2 = props => {
   const [amount, setAmount] = useState(' ');
@@ -52,7 +53,7 @@ const DepositContainerV2 = props => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [paymentType, setPaymentType] = useState('Bank');
   const [walletBalance, setWalletBalance] = useState(props.wallet);
-
+  const [isCreatingId, setIsCreatingID] = useState(false);
 
   const ButtonEx = withPreventDoubleClick(Button);
 
@@ -131,6 +132,7 @@ const DepositContainerV2 = props => {
     if (filePath.length <= 0) {
       return alert('please upload payment reference image');
     }
+    setIsCreatingID(true);
     setProgress(true);
     if (requestStatus === 'wallet') {
       const paymentMethod = paymentType;
@@ -145,6 +147,8 @@ const DepositContainerV2 = props => {
         null,
         setImageUpLoadProgress,
       ).then(data => {
+        setProgress(false);
+        setIsCreatingID(false);
         navigation.dispatch(resetAction);
       });
     } else if (requestStatus === 'new') {
@@ -171,6 +175,7 @@ const DepositContainerV2 = props => {
           setImageUpLoadProgress,
         ).then(data => {});
         setProgress(false);
+        setIsCreatingID(false);
         navigation.dispatch(resetAction);
       });
     } else {
@@ -185,20 +190,27 @@ const DepositContainerV2 = props => {
         CONSTANTS.DEPOSIT_INTO_EXISTING_ID_FROM_UPI,
       )
         .then(data => {
+            setProgress(false);
+            setIsCreatingID(false);
           navigation.dispatch(resetAction);
         })
         .catch(error => {
+            setProgress(false);
+            setIsCreatingID(false);
           reactotron.log(
             '🚀 ~ file: transactionsPassbook.js ~ line 132 ~ error',
             error,
           );
         });
     }
-    setProgress(false);
   };
 
   return (
+
     <View style={styles.container}>
+      {isCreatingId ? (
+          <LoadingIndicator loadingText={'Please wait....'} />
+      ) : null}
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Typography variant="H2" style={styles.text}>
           Pay amount ₹ {amount}
@@ -311,9 +323,14 @@ const DepositContainerV2 = props => {
                 />
               </View>
               <View style={styles.bankItems}>
-                <Typography style={styles.text}>Account Type</Typography>
+                <Typography style={styles.text}>Account Type:</Typography>
                 <View style={styles.flex1} />
                 <Typography style={styles.text}>{bank.accountType}</Typography>
+              </View>
+              <View style={styles.bankItems}>
+                <Typography style={styles.text}>Bank:</Typography>
+                <View style={styles.flex1} />
+                <Typography style={styles.text}>{bank.branch}</Typography>
               </View>
             </>
           ) : (
@@ -321,9 +338,21 @@ const DepositContainerV2 = props => {
               <Typography style={styles.text}>
                 {selectedMedium === 'gpay' ? 'Google Pay' : 'PhonePe'}
               </Typography>
-              <Typography style={styles.text} variant="H3">
-                {selectedMedium === 'gpay' ? googlePay : phonePe}
-              </Typography>
+              <View style={{flexDirection: 'row'}}>
+                <Typography style={styles.text} variant="H3">
+                  {selectedMedium === 'gpay' ? googlePay : phonePe}
+                </Typography>
+                <Icon
+                  name="content-copy"
+                  color="white"
+                  size={18}
+                  onPress={() => {
+                    Clipboard.setString(
+                      selectedMedium === 'gpay' ? googlePay : phonePe,
+                    );
+                  }}
+                />
+              </View>
             </>
           )}
         </View>

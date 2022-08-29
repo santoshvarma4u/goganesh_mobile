@@ -15,6 +15,7 @@ const images = {
   reject: require('../../assets/Images/multiply.png'),
   whatsapp: require('../../assets/Images/whatsapp.png'),
   gateway: require('../../assets/Images/gatway.png'),
+  homeback: require('../../assets/Images/yellow-bg.jpg'),
 };
 
 export default images;

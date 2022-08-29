@@ -40,7 +40,7 @@ const Drawer = createDrawerNavigator();
 
 const appHeaderStyle = {
   ...TypographyStyles.H3,
-  color: Colors.appWhiteColor,
+  color: Colors.appThemeTextColor,
   fontSize: 20,
 };
 
@@ -143,8 +143,8 @@ const HomeStackNavigator = () => {
               style={{
                 flexDirection: 'row',
               }}>
-              <SmallLogo width={40} height={30} color={Colors.appWhiteColor} />
-              <Typography variant="title" color={Colors.appWhiteColor}>
+              <SmallLogo width={40} height={30} color={Colors.appThemeTextColor} />
+              <Typography variant="title" color={Colors.appThemeTextColor}>
                 FG Punt
               </Typography>
             </View>
@@ -157,7 +157,7 @@ const HomeStackNavigator = () => {
                 <Icon
                   name="menu"
                   size={28}
-                  color={Colors.appWhiteColor}
+                  color={Colors.appThemeTextColor}
                   onPress={() =>
                     navigation.dispatch(DrawerActions.openDrawer())
                   }
@@ -170,7 +170,7 @@ const HomeStackNavigator = () => {
               <Icon
                 name="notifications"
                 size={28}
-                color={Colors.appWhiteColor}
+                color={Colors.appThemeTextColor}
                 onPress={() => navigation.navigate('Notification')}
               />
             </View>
@@ -207,7 +207,7 @@ const HomeStackNavigator = () => {
           headerLeft: props => (
             <HeaderBackButton
               {...props}
-              tintColor={Colors.appWhiteColor}
+              tintColor={Colors.appThemeTextColor}
               onPress={() => {
                 navigation.navigate('Home');
               }}
@@ -226,7 +226,7 @@ const HomeStackNavigator = () => {
           headerLeft: props => (
             <HeaderBackButton
               {...props}
-              tintColor={Colors.appWhiteColor}
+              tintColor={Colors.appThemeTextColor}
               onPress={() => {
                 navigation.navigate('Home');
               }}
@@ -245,7 +245,7 @@ const HomeStackNavigator = () => {
           headerLeft: props => (
             <HeaderBackButton
               {...props}
-              tintColor={Colors.appWhiteColor}
+              tintColor={Colors.appThemeTextColor}
               onPress={() => {
                 navigation.navigate('Home');
               }}

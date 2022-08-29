@@ -123,6 +123,7 @@ export default StyleSheet.create({
   upperContainer: {
     marginBottom: 15,
     marginHorizontal: 20,
+
   },
   lowerContainer: {
     backgroundColor: Colors.appBlackColor,
