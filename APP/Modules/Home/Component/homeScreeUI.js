@@ -18,6 +18,7 @@ import {SliderBox} from 'react-native-image-slider-box';
 import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-paper';
 import {connect} from 'react-redux';
+import FgPuntLogoName from '../../../Assets/svgs/fgpuntlogoname';
 // import NetworkAPI from '../../../Network/api/server';
 import {env} from '../../../Network/api/server';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
@@ -110,17 +111,14 @@ function HomeScreen(props) {
         //   />
         // }>
       }
-      <ImageBackground
-          source={Images.homeback}
-          style={{flex: 1, width: screenWidth}}
-          resizeMode={'repeat'}>
-      {/*<LinearGradient*/}
-      {/*  style={{flex: 1}}*/}
-      {/*  start={{x: 0, y: 0}}*/}
-      {/*  end={{x: 1, y: 0.5}}*/}
-      {/*  colors={['#FCC504', '#FCC504']}>*/}
+      {/* <View style={{flex: 1, width: screenWidth}}> */}
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: Colors.appPrimaryColor,
+        }}>
         <View style={styles.upperContainer}>
-          <View
+          {/* <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
@@ -138,8 +136,8 @@ function HomeScreen(props) {
                 wallet.request();
               }}
             />
-          </View>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          </View> */}
+          {/* <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Icon
               name="rupee"
               color={Colors.appThemeTextColor}
@@ -155,45 +153,71 @@ function HomeScreen(props) {
               }}>
               {props.wallet}
             </Typography>
-          </View>
-
+          </View> */}
           <View
             style={{
               flexDirection: 'row',
-              justifyContent: 'space-around',
               alignItems: 'center',
-              marginTop: 20,
+              marginHorizontal: '10%',
             }}>
             <TouchableOpacity
-              style={styles.depositCard}
+              style={[
+                styles.depositCard,
+                {
+                  borderTopLeftRadius: 10,
+                  borderBottomLeftRadius: 10,
+                },
+              ]}
               onPress={() => navigation.navigate('DepositForm', {})}>
-              <Icon
-                name="arrow-down-bold-circle"
-                color={Colors.appThemeTextColor}
-                size={30}
-                type={'material-community'}
-              />
-              <Typography color={Colors.appThemeTextColor} variant="H3">
+              <Typography color={Colors.appWhiteColor} variant="H4">
                 Deposit
               </Typography>
-            </TouchableOpacity>
-            <View
-              style={{
-                width: '10%',
-              }}
-            />
-            <TouchableOpacity
-              style={styles.depositCard}
-              onPress={() => navigation.navigate('WithdrawContainer', {})}>
               <Icon
-                name="arrow-up-bold-circle"
-                color={Colors.appThemeTextColor}
+                name="chevron-double-down"
+                color={Colors.appGreenColor}
                 size={30}
                 type={'material-community'}
               />
-              <Typography color={Colors.appThemeTextColor} variant="H3">
+            </TouchableOpacity>
+            <View style={styles.centerCard}>
+              <FgPuntLogoName width={50} height={50} color={Colors.app} />
+              <Typography color={Colors.appWhiteColor} variant="P3">
+                WALLET BALANCE
+              </Typography>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Icon
+                  name="rupee"
+                  color={Colors.appWhiteColor}
+                  size={16}
+                  type={'font-awesome'}
+                />
+                <Typography color={Colors.appWhiteColor} variant={'H3'}>
+                  {props.wallet}
+                </Typography>
+              </View>
+            </View>
+            <TouchableOpacity
+              style={[
+                styles.depositCard,
+                {
+                  borderTopRightRadius: 10,
+                  borderBottomRightRadius: 10,
+                },
+              ]}
+              onPress={() => navigation.navigate('WithdrawContainer', {})}>
+              <Typography color={Colors.appWhiteColor} variant="H4">
                 Withdraw
               </Typography>
+              <Icon
+                name="chevron-double-up"
+                color={Colors.appRedColor}
+                size={30}
+                type={'material-community'}
+              />
             </TouchableOpacity>
           </View>
         </View>
@@ -329,7 +353,7 @@ function HomeScreen(props) {
             </Typography>
           </View>
         </ScrollView>
-      </ImageBackground>
+      </View>
     </ScrollView>
   );
 }

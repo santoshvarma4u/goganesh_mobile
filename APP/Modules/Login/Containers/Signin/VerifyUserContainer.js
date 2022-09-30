@@ -33,8 +33,10 @@ const VerifyUserContainer = props => {
       style={{
         flex: 1,
         backgroundColor: Colors.appBlackColor,
+        justifyContent: 'center',
+        alignItems: 'center',
       }}>
-      <FgPuntLogoName height={200} width={400} />
+      <FgPuntLogoName height={150} width={150} color={Colors.appPrimaryColor} />
       <View style={{marginTop: 20}}>
         <VerifyUser onSubmit={onSubmit} />
       </View>
