@@ -143,7 +143,11 @@ const HomeStackNavigator = () => {
               style={{
                 flexDirection: 'row',
               }}>
-              <SmallLogo width={40} height={30} color={Colors.appThemeTextColor} />
+              <SmallLogo
+                width={40}
+                height={30}
+                color={Colors.appThemeTextColor}
+              />
               <Typography variant="title" color={Colors.appThemeTextColor}>
                 FG Punt
               </Typography>

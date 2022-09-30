@@ -317,7 +317,6 @@ const WithdrawForm = props => {
 const styles = StyleSheet.create({
   withDrawForm: {
     padding: 20,
-    flex: 1,
     backgroundColor: Colors.appBlackColor,
   },
   image: {

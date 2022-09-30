@@ -60,6 +60,7 @@ function CreateIDScreen({route, wallet}) {
   const {sdid, url, sitename, requestStatus} = route.params;
   const [checked, setChecked] = React.useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [disablePayment, setDisablePayment] = useState(false);
   const [isCreatingId, setIsCreatingID] = useState(false);
   const resetAction = CommonActions.reset({
     index: 0,
@@ -100,7 +101,7 @@ function CreateIDScreen({route, wallet}) {
       //Fetch and check wallet balance
 
       const paymentMethod = 'wallet';
-      if (wallet.data < values.DepositCoins) {
+      if (wallet < values.DepositCoins) {
         setIsLoading(false);
         return alert('Insufficient Balance');
       }
@@ -226,7 +227,13 @@ function CreateIDScreen({route, wallet}) {
   return (
     <ScrollView>
       {isCreatingId ? (
-        <LoadingIndicator loadingText={requestStatus === 'old' ? 'Please wait...' : 'Please wait! Creating ID for you...'} />
+        <LoadingIndicator
+          loadingText={
+            requestStatus === 'old'
+              ? 'Please wait...'
+              : 'Please wait! Creating ID for you...'
+          }
+        />
       ) : null}
       <View style={styles.containerMain}>
         <View />
@@ -535,7 +542,15 @@ function CreateIDScreen({route, wallet}) {
                   <ButtonEx
                     mode="contained"
                     color={Colors.appPrimaryColor}
-                    disabled={isLoading}
+                    disabled={
+                      (checked
+                        ? parseInt(wallet) - values.DepositCoins >= 0
+                          ? false
+                          : true
+                        : false) ||
+                      values.DepositCoins < 1000 ||
+                      isLoading
+                    }
                     onPress={handleSubmit}>
                     {isLoading
                       ? 'Please wait...'

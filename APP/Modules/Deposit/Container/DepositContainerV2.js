@@ -23,13 +23,13 @@ import payeeApi from '../../../Network/payee/payeeApi';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
+import LoadingIndicator from '../../../Utils/loadingIndicator';
 import withPreventDoubleClick from '../../../Utils/withPreventDoubleClick';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
 import depositController from '../Controller/depositController';
 import DepositController from '../Controller/depositController';
-import LoadingIndicator from "../../../Utils/loadingIndicator";
 
 const DepositContainerV2 = props => {
   const [amount, setAmount] = useState(' ');
@@ -49,6 +49,8 @@ const DepositContainerV2 = props => {
   const [filePath, setFilePath] = useState('');
   const [phonePe, setPhonePe] = useState('');
   const [googlePay, setGooglePay] = useState('');
+  const [googlePaymentName, setGooglePaymentName] = useState('');
+  const [phonePePaymentName, setPhonePePaymentName] = useState('');
   const [bank, setBank] = useState({});
   const [uploadProgress, setUploadProgress] = useState(0);
   const [paymentType, setPaymentType] = useState('Bank');
@@ -92,8 +94,10 @@ const DepositContainerV2 = props => {
       data.map(item => {
         if (item.paymenttype === 'Google Pay') {
           setGooglePay(item.paymentkey);
+          setGooglePaymentName(' - ' + item.paymentname);
         } else if (item.paymenttype === 'Phone Pay') {
           setPhonePe(item.paymentkey);
+          setPhonePePaymentName(' - ' + item.paymentname);
         } else if (item.paymenttype === 'Bank') {
           setBank(item);
         }
@@ -190,13 +194,13 @@ const DepositContainerV2 = props => {
         CONSTANTS.DEPOSIT_INTO_EXISTING_ID_FROM_UPI,
       )
         .then(data => {
-            setProgress(false);
-            setIsCreatingID(false);
+          setProgress(false);
+          setIsCreatingID(false);
           navigation.dispatch(resetAction);
         })
         .catch(error => {
-            setProgress(false);
-            setIsCreatingID(false);
+          setProgress(false);
+          setIsCreatingID(false);
           reactotron.log(
             '🚀 ~ file: transactionsPassbook.js ~ line 132 ~ error',
             error,
@@ -206,10 +210,9 @@ const DepositContainerV2 = props => {
   };
 
   return (
-
     <View style={styles.container}>
       {isCreatingId ? (
-          <LoadingIndicator loadingText={'Please wait....'} />
+        <LoadingIndicator loadingText={'Please wait....'} />
       ) : null}
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Typography variant="H2" style={styles.text}>
@@ -341,6 +344,11 @@ const DepositContainerV2 = props => {
               <View style={{flexDirection: 'row'}}>
                 <Typography style={styles.text} variant="H3">
                   {selectedMedium === 'gpay' ? googlePay : phonePe}
+                </Typography>
+                <Typography style={styles.text} variant="H3">
+                  {selectedMedium === 'gpay'
+                    ? googlePaymentName
+                    : phonePePaymentName}
                 </Typography>
                 <Icon
                   name="content-copy"

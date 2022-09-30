@@ -5,7 +5,7 @@ import {logoutAndResetNavigation} from '../../../APP/Navigation/navigation';
 import Storage from '../../Modules/Common/Storage';
 import StorageKeys from '../../Modules/Common/StorageKeys';
 
-export const live = 'http://159.89.171.125:3000/';
+export const dev = 'http://159.89.171.125:3000/';
 export const local = 'http://192.168.0.173:3000/';
 export const prod = 'https://api.fgpunt.com/';
 //cd .. &&  cd home/admin/web/goganesh.bet/public_html/freelanceBackend/

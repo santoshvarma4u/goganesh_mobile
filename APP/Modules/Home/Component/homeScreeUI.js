@@ -110,15 +110,15 @@ function HomeScreen(props) {
         //   />
         // }>
       }
-      <ImageBackground
-          source={Images.homeback}
-          style={{flex: 1, width: screenWidth}}
-          resizeMode={'repeat'}>
-      {/*<LinearGradient*/}
-      {/*  style={{flex: 1}}*/}
-      {/*  start={{x: 0, y: 0}}*/}
-      {/*  end={{x: 1, y: 0.5}}*/}
-      {/*  colors={['#FCC504', '#FCC504']}>*/}
+      {/*<ImageBackground*/}
+      {/*    source={Images.homeback}*/}
+      {/*    style={{flex: 1, width: screenWidth}}*/}
+      {/*    resizeMode={'repeat'}>*/}
+      <LinearGradient
+        style={{flex: 1}}
+        start={{x: 0, y: 0}}
+        end={{x: 1, y: 0.5}}
+        colors={['#FCC504', '#FCC504']}>
         <View style={styles.upperContainer}>
           <View
             style={{
@@ -329,7 +329,7 @@ function HomeScreen(props) {
             </Typography>
           </View>
         </ScrollView>
-      </ImageBackground>
+      </LinearGradient>
     </ScrollView>
   );
 }
