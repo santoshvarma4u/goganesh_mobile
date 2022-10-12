@@ -137,7 +137,7 @@ const HomeStackNavigator = () => {
         name="Home"
         component={HomeScreen}
         options={({navigation}) => ({
-          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerStyle: {backgroundColor: Colors.appPrimaryColor, height: 50},
           headerTitle: props => (
             <View
               style={{
@@ -160,7 +160,7 @@ const HomeStackNavigator = () => {
               <View style={{marginLeft: 10}}>
                 <Icon
                   name="menu"
-                  size={28}
+                  size={24}
                   color={Colors.appThemeTextColor}
                   onPress={() =>
                     navigation.dispatch(DrawerActions.openDrawer())
@@ -173,7 +173,7 @@ const HomeStackNavigator = () => {
             <View style={{marginRight: 10, flexDirection: 'row'}}>
               <Icon
                 name="bank"
-                size={28}
+                size={24}
                 style={{marginHorizontal: 20}}
                 color={Colors.appThemeTextColor}
                 type={'material-community'}
@@ -181,7 +181,7 @@ const HomeStackNavigator = () => {
               />
               <Icon
                 name="notifications"
-                size={28}
+                size={24}
                 color={Colors.appThemeTextColor}
                 onPress={() => navigation.navigate('Notification')}
               />

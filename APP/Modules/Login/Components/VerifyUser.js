@@ -1,16 +1,17 @@
 import {Formik} from 'formik';
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Dimensions, Text, View} from 'react-native';
 import {Button} from 'react-native-paper';
 import * as Yup from 'yup';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
 import {Typography} from '../../Common/Text';
-
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 const userSchema = Yup.object().shape({
   phoneNumber: Yup.string()
-    .required('phone Number is Required')
+    .required('Phone Number is Required')
     .matches(phoneRegExp, 'Invalid Phone Number')
     .min(10, ' Enter phone Number Correctly')
     .max(10, ' Enter phone Number Correctly'),
@@ -48,7 +49,7 @@ const VerifyUser = ({onSubmit}) => {
             }}>
             <View
               style={{
-                width: '100%',
+                width: screenWidth - 60,
               }}>
               <CommonTextInput
                 label="Phone Number"
@@ -73,9 +74,10 @@ const VerifyUser = ({onSubmit}) => {
             <Button
               mode="contained"
               onPress={handleSubmit}
-              style={{marginTop: 10}}
+              style={{marginTop: 10, paddingHorizontal: 30}}
+              uppercase={false}
               labelStyle={{
-                color: Colors.appBlackColor,
+                color: Colors.appWhiteColor,
               }}>
               Submit
             </Button>

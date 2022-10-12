@@ -70,10 +70,9 @@ function PassbookScreen({navigation}) {
                 <View style={{flexDirection: 'column', width: 60, height: 60}}>
                   <Image
                     source={require('../../../Assets/Images/logo_only.png')}
+                    style={{height: 60, width: 60}}
                     resizeMode={'contain'}
                     flex={1}
-                    height={60}
-                    width={60}
                   />
                 </View>
                 <View style={{flexDirection: 'column', flex: 1}}>
@@ -92,7 +91,7 @@ function PassbookScreen({navigation}) {
                   <Typography
                     variant="H4"
                     style={{color: Colors.appWhiteColor}}>
-                    {item.paymentMethod}
+                    Payment Method: {item.paymentMethod}
                   </Typography>
                   {item?.reason && item.reason.length > 0 && (
                     <Typography
