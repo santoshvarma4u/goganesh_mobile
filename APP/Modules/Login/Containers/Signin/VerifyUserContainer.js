@@ -1,10 +1,13 @@
 import React from 'react';
-import {View} from 'react-native';
+import {Dimensions, Image, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import FgPuntLogoName from '../../../../Assets/svgs/fgpuntlogoname';
 import Colors from '../../../../Theams/Colors';
 import VerifyUser from '../../Components/VerifyUser';
 import LoginController from '../../Controllers/LoginController';
+
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 const VerifyUserContainer = props => {
   const onSubmit = async values => {
@@ -36,8 +39,13 @@ const VerifyUserContainer = props => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <FgPuntLogoName height={150} width={150} color={Colors.appPrimaryColor} />
-      <View style={{marginTop: 20}}>
+      <Image
+        source={require('../../../../Assets/Images/logo_only.png')}
+        resizeMode={'contain'}
+        width={screenWidth / 2}
+        height={screenHeight / 2}
+      />
+      <View>
         <VerifyUser onSubmit={onSubmit} />
       </View>
     </SafeAreaView>

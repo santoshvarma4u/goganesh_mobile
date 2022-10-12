@@ -1,7 +1,7 @@
 import {CommonActions, useNavigation} from '@react-navigation/native';
 import {Formik} from 'formik';
 import React from 'react';
-import {View, TouchableOpacity, Platform} from 'react-native';
+import {View, TouchableOpacity, Platform, Image} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {Button} from 'react-native-paper';
 import * as Yup from 'yup';

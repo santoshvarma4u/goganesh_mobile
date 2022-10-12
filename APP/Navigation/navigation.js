@@ -143,11 +143,11 @@ const HomeStackNavigator = () => {
               style={{
                 flexDirection: 'row',
               }}>
-              <SmallLogo
-                width={30}
-                height={30}
-                color={Colors.appThemeTextColor}
-              />
+              {/*<SmallLogo*/}
+              {/*  width={30}*/}
+              {/*  height={30}*/}
+              {/*  color={Colors.appThemeTextColor}*/}
+              {/*/>*/}
               {/* <Typography variant="title" color={Colors.appThemeTextColor}>
                 FG Punt
               </Typography> */}
@@ -170,7 +170,15 @@ const HomeStackNavigator = () => {
             )
           ),
           headerRight: () => (
-            <View style={{marginRight: 10}}>
+            <View style={{marginRight: 10, flexDirection: 'row'}}>
+              <Icon
+                name="bank"
+                size={28}
+                style={{marginHorizontal: 20}}
+                color={Colors.appThemeTextColor}
+                type={'material-community'}
+                onPress={() => navigation.navigate('Payments')}
+              />
               <Icon
                 name="notifications"
                 size={28}

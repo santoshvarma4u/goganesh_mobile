@@ -31,7 +31,12 @@ function CustomSidebarMenu({...props}) {
           borderTopRightRadius: 30,
           justifyContent: 'center',
         }}>
-        <FGPUNTLOGO width={120} height={120} fill={Colors.appPrimaryColor} />
+        <Image
+          source={require('../../../Assets/Images/logo_only.png')}
+          resizeMode={'contain'}
+          width={60}
+          height={60}
+        />
       </View>
       <DrawerItemList {...props} />
       <DrawerItem

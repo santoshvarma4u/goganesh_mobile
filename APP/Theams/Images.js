@@ -16,6 +16,7 @@ const images = {
   whatsapp: require('../../assets/Images/whatsapp.png'),
   gateway: require('../../assets/Images/gatway.png'),
   homeback: require('../../assets/Images/yellow-bg.jpg'),
+  newLogoOnly: require('../../assets/Images/logo_only.png'),
 };
 
 export default images;

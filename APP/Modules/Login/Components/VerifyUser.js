@@ -21,7 +21,7 @@ const VerifyUser = ({onSubmit}) => {
     <View>
       <Typography
         color={Colors.appWhiteColor}
-        variant={'header'}
+        variant={'title'}
         style={{
           textAlign: 'center',
         }}>
@@ -44,7 +44,6 @@ const VerifyUser = ({onSubmit}) => {
           <View
             style={{
               alignItems: 'center',
-              marginHorizontal: 20,
               marginTop: 20,
             }}>
             <View
@@ -76,7 +75,7 @@ const VerifyUser = ({onSubmit}) => {
               onPress={handleSubmit}
               style={{marginTop: 10}}
               labelStyle={{
-                color: Colors.appWhiteColor,
+                color: Colors.appBlackColor,
               }}>
               Submit
             </Button>

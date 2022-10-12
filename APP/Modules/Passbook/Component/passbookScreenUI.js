@@ -67,11 +67,13 @@ function PassbookScreen({navigation}) {
             data={data}
             renderItem={({item}) => (
               <View style={styles.trasactionsCard}>
-                <View style={{flexDirection: 'column'}}>
-                  <FGPUNTLOGO
-                    width={60}
+                <View style={{flexDirection: 'column', width: 60, height: 60}}>
+                  <Image
+                    source={require('../../../Assets/Images/logo_only.png')}
+                    resizeMode={'contain'}
+                    flex={1}
                     height={60}
-                    fill={Colors.appPrimaryColor}
+                    width={60}
                   />
                 </View>
                 <View style={{flexDirection: 'column', flex: 1}}>

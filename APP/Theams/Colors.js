@@ -1,6 +1,6 @@
 const Colors = {
   backgroundColor: 'black',
-  appPrimaryColor: '#FFE502',
+  appPrimaryColor: '#E5A329',
   appWhiteColor: '#ffffff',
   appBlackColor: '#000000',
   appGreenColor: '#49BE5D',

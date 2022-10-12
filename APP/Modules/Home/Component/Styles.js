@@ -80,6 +80,7 @@ export default StyleSheet.create({
   createTextOnly: {
     color: Colors.appWhiteColor,
     marginHorizontal: 10,
+    fontSize: 12,
   },
   myids: {
     color: 'white',
@@ -101,7 +102,7 @@ export default StyleSheet.create({
     paddingHorizontal: 5,
     paddingVertical: 10,
     height: 80,
-    width: '30%',
+    width: '35%',
     alignItems: 'center',
     justifyContent: 'space-around',
   },
@@ -111,8 +112,8 @@ export default StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: Colors.appBlackColor,
     borderRadius: 10,
-    width: '40%',
-    height: 150,
+    width: '42%',
+    height: 120,
   },
   blankCard: {
     flex: 0.4,
@@ -129,7 +130,8 @@ export default StyleSheet.create({
   },
   upperContainer: {
     marginBottom: 15,
-    marginHorizontal: 20,
+    marginHorizontal: 30,
+    width: '75%',
   },
   lowerContainer: {
     backgroundColor: Colors.appBlackColor,
