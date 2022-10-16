@@ -8,6 +8,7 @@ const H1 = 'H1';
 const H2 = 'H2';
 const H3 = 'H3';
 const H4 = 'H4';
+const H5 = 'H5';
 const P1 = 'P1';
 const P2 = 'P2';
 const P3 = 'P3';
@@ -23,6 +24,7 @@ export const typeShape = oneOf([
   H2,
   H3,
   H4,
+  H5,
   P1,
   P2,
   P3,

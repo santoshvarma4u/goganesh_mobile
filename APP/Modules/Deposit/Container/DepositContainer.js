@@ -57,7 +57,6 @@ const DepositContainer = props => {
   }, []);
 
   const initiatePayment = async amount => {
-    reactotron.log('initiatePayment');
     setIsPaymentLoading(true);
     const paymentId = uuid(5, 16);
     let response = {};

@@ -7,6 +7,7 @@ const Colors = {
   appRedColor: '#ff2400',
   appBlackColorLight: '#1B2430',
   buttonBackgroundColor: '#FFFFFF33',
+  backgroundColorLight: '#1B2430',
   disabled: '#a2a2a3',
   appThemeTextColor: '#0B2031',
 };

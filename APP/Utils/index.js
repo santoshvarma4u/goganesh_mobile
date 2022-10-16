@@ -22,3 +22,19 @@ export const generateUnsignedJwt = async () => {
       console.log(err);
     });
 };
+
+export function removeHttpOrWww(url) {
+  if (url.startsWith('https://')) {
+    const https = 'https://';
+    return url.slice(https.length);
+  }
+  if (url.startsWith('http://')) {
+    const http = 'http://';
+    return url.slice(http.length);
+  }
+  if (url.startsWith('www.')) {
+    const www = 'www.';
+    return url.slice(www.length);
+  }
+  return url;
+}

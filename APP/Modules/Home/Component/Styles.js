@@ -101,7 +101,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.appBlackColor,
     paddingHorizontal: 5,
     paddingVertical: 10,
-    height: 80,
+    height: 120,
     width: '35%',
     alignItems: 'center',
     justifyContent: 'space-around',
@@ -113,7 +113,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.appBlackColor,
     borderRadius: 10,
     width: '42%',
-    height: 120,
+    height: 180,
   },
   blankCard: {
     flex: 0.4,

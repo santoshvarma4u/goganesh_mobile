@@ -6,7 +6,6 @@ import React, {useEffect, useState} from 'react';
 import {TouchableWithoutFeedback, View, ScrollView, Image} from 'react-native';
 import {ActivityIndicator, Button, Checkbox} from 'react-native-paper';
 import {connect} from 'react-redux';
-import reactotron from 'reactotron-react-native';
 import * as Yup from 'yup';
 import FGPUNTLOGO from '../../../Assets/svgs/fgpuntlogo';
 import CONSTANTS from '../../../Constants';
@@ -14,7 +13,6 @@ import Storage from '../../../Modules/Common/Storage';
 import StorageKeys from '../../../Modules/Common/StorageKeys';
 import siteApi from '../../../Network/sites/sites';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
-import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetailsSlice';
 import animations from '../../../Theams/Animations';
 import Colors from '../../../Theams/Colors';
 import LoadingIndicator from '../../../Utils/loadingIndicator';
@@ -23,7 +21,6 @@ import CommonTextInput from '../../Common/CommonTextInput';
 import ErrorPage from '../../Common/ErrorPage';
 import {Typography} from '../../Common/Text';
 import DepositController from '../../Deposit/Controller/depositController';
-import HomeController from '../../Home/Controller/homeController';
 import paymentDetailsController from '../../PaymentDetails/Controller/paymentDetailsController';
 import styles from './Styles';
 
@@ -82,7 +79,6 @@ function CreateIDScreen({route, wallet}) {
   });
 
   useEffect(() => {
-    reactotron.log('CreateIDScreen', navigation);
     if (requestStatus === 'old') {
       navigation.setOptions({
         headerTitle: 'Deposit',
@@ -96,9 +92,7 @@ function CreateIDScreen({route, wallet}) {
     let uid = await getUID();
     if (requestStatus === 'old') {
       // Create payment request and withdraw from wallet
-
       //Fetch and check wallet balance
-
       const paymentMethod = 'wallet';
       if (wallet.data < values.DepositCoins) {
         setIsLoading(false);
@@ -113,10 +107,6 @@ function CreateIDScreen({route, wallet}) {
         null,
         CONSTANTS.DEPOSIT_INTO_EXISTING_ID_FROM_WALLET,
       ).then(({data}) => {
-        reactotron.log(
-          '🚀 ~ file: createIDScreenUI.js ~ line 96 ~ ).then ~ data',
-          data,
-        );
         DepositController.debitFromWallet(
           parseInt(uid),
           values.DepositCoins,
@@ -141,11 +131,6 @@ function CreateIDScreen({route, wallet}) {
         CONSTANTS.DEPOSIT_INTO_SITE_WALLET_CREATE_ID,
       ).then(({data}) => {
         // data.paymentID
-        reactotron.log(
-          '🚀 ~ file: createIDScreenUI.js ~ line 97 ~ submitRequest ~ data.paymentID',
-          data,
-          data.data.paymentID,
-        );
         DepositController.submitData(
           parseInt(uid),
           sdid,
@@ -187,10 +172,6 @@ function CreateIDScreen({route, wallet}) {
     const currentTime = new Date();
     const diff = currentTime.getTime() - createdTime.getTime();
     const diffMinutes = Math.round(diff / 60000);
-    reactotron.log(
-      '🚀 ~ file: createIDScreenUI.js ~ line 180 ~ CreateIDScreen ~ diffMinutes',
-      diffMinutes,
-    );
     if (diffMinutes < 2) {
       return (
         <View
@@ -224,7 +205,7 @@ function CreateIDScreen({route, wallet}) {
   }
 
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={styles.container}>
       {isCreatingId ? (
         <LoadingIndicator
           loadingText={
@@ -434,23 +415,10 @@ function CreateIDScreen({route, wallet}) {
                   .validateUsername(values.UserName, sdid)
                   .then(validateUsername => {
                     let {data} = validateUsername;
-                    reactotron.log(
-                      '🚀 ~ file: createIDScreenUI.js ~ line 337 ~ CreateIDScreen ~ route.params.username',
-                      route.params.username,
-                      data,
-                      data.details.data.length,
-                    );
-
                     if (
                       data.details.data.length === 0 ||
                       route.params.username
                     ) {
-                      reactotron.log(
-                        '🚀 ~ file: createIDScreenUI.js ~ line 337 ~ CreateIDScreen ~ route.params.username',
-                        route.params.username,
-                        checked,
-                        data,
-                      );
                       if (checked) {
                         if (parseInt(wallet.data) < values.DepositCoins) {
                           setIsCreatingID(false);

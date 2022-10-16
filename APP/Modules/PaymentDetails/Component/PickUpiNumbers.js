@@ -35,10 +35,6 @@ const UPINumberPicker = () => {
 
   useEffect(() => {
     if (data) {
-      reactotron.log(
-        '🚀 ~ file: PickUpiNumbers.js ~ line 37 ~ useEffect ~ data',
-        data,
-      );
       data.map(item => {
         if (item.upiName === 'phone_pay') {
           formik.setFieldValue('phone_pay', item.upiNumber);

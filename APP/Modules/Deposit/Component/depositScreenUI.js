@@ -58,14 +58,9 @@ function DepositScreen({route}) {
     const percentCompleted = Math.round(
       (progressEvent.loaded * 100) / progressEvent.total,
     );
-    reactotron.log(
-      '🚀 ~ file: transactionsPassbook.js ~ line 59 ~ percentCompleted',
-      percentCompleted,
-    );
     setUploadProgress(percentCompleted);
   };
   const submitPayment = () => {
-    reactotron.log('submitPayment', 'increament');
     if (filePath.length <= 0) {
       return alert('please upload payment reference image');
     }

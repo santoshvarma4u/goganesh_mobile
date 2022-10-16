@@ -9,7 +9,6 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    // marginHorizontal: 20,
     width: '100%',
     borderRadius: 20,
   },

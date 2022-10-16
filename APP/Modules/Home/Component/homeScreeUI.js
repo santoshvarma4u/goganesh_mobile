@@ -28,6 +28,7 @@ import Colors from '../../../Theams/Colors';
 // import Storage from '../../Common/Storage';
 // import StorageKeys from '../../Common/StorageKeys';
 import Images from '../../../Theams/Images';
+import FGImage from '../../Common/FGImage';
 import {Typography} from '../../Common/Text';
 import IDController from '../../IDs/Controller/IdController';
 import IdController from '../../IDs/Controller/IdController';
@@ -98,68 +99,16 @@ function HomeScreen(props) {
 
   return (
     <ScrollView contentContainerStyle={styles.containerMain}>
-      {
-        // refreshControl={
-        //   <RefreshControl
-        //     refreshing={refreshing}
-        //     onRefresh={() => {
-        //       setRefreshing(true);
-        //       getUserBanks.request();
-        //       getMyIDs.request();
-        //       wallet.request();
-        //       setRefreshing(false);
-        //     }}
-        //   />
-        // }>
-      }
-      {/* <View style={{flex: 1, width: screenWidth}}> */}
       <View
         style={{
           flex: 1,
-          // backgroundColor: Colors.appPrimaryColor,
         }}>
         <ImageBackground
           resizeMode={'cover'} // or cover
-          style={{height: 150}} // must be passed from the parent, the number may vary depending upon your screen size
-          height={150}
+          style={{height: 200}} // must be passed from the parent, the number may vary depending upon your screen size
+          height={200}
           source={Images.homeback}>
           <View style={styles.upperContainer}>
-            {/* <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginTop: 10,
-            }}>
-            <Typography color={Colors.appThemeTextColor} variant={'title'}>
-              Wallet Balance
-            </Typography>
-            <Button
-              loading={wallet.loading}
-              uppercase={false}
-              icon={'reload'}
-              color={Colors.appThemeTextColor}
-              onPress={() => {
-                wallet.request();
-              }}
-            />
-          </View> */}
-            {/* <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Icon
-              name="rupee"
-              color={Colors.appThemeTextColor}
-              size={16}
-              type={'font-awesome'}
-            />
-            <Typography
-              color={Colors.appThemeTextColor}
-              variant={'H1'}
-              style={{
-                marginLeft: 6,
-                marginTop: 6,
-              }}>
-              {props.wallet}
-            </Typography>
-          </View> */}
             <View
               style={{
                 flexDirection: 'row',
@@ -185,7 +134,7 @@ function HomeScreen(props) {
                 />
               </TouchableOpacity>
               <View style={styles.centerCard}>
-                <Image
+                <FGImage
                   style={{width: 70, height: 70}}
                   source={Images.newLogoOnly}
                   resizeMode={'cover'}

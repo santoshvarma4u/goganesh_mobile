@@ -108,11 +108,6 @@ const WithdrawForm = props => {
     return <ErrorPage onRetryPress={request} />;
   }
 
-  console.log(
-    '🚀 ~ file: WithdrawUI.js ~ line 255 ~ {upiData.map ~ upiData',
-    upiData,
-  );
-
   return (
     <ScrollView contentContainerStyle={styles.withDrawForm}>
       {ListTitle(data)}

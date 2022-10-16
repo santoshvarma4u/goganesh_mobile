@@ -19,6 +19,7 @@ import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
+import FGImage from '../../Common/FGImage';
 import {Typography} from '../../Common/Text';
 import homeController from '../Controller/homeController';
 
@@ -33,7 +34,6 @@ const HomeListMyIDs = props => {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  reactotron.log(props);
   let banks = [];
   useEffect(() => {
     props.bank.data.map(item => {
@@ -53,7 +53,7 @@ const HomeListMyIDs = props => {
     return (
       <View style={styles.ListTitle}>
         <View>
-          <Image
+          <FGImage
             style={styles.image}
             source={{uri: props.data.sd.siteimage}}
             resizeMode="stretch"

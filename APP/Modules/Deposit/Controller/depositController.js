@@ -52,10 +52,6 @@ const submitIntialDeposit = async (
   setImageUpLoadProgress,
   referenceId,
 ) => {
-  reactotron.log(
-    '🚀 ~ file: depositController.js ~ line 51 ~ remarks',
-    remarks,
-  );
   const data = new FormData();
   data.append('uid', uid);
   data.append('sdid', sdid);
@@ -135,10 +131,6 @@ const submitDataForMyID = async (
   setImageUpLoadProgress,
   referenceId,
 ) => {
-  reactotron.log(
-    '🚀 ~ file: depositController.js ~ line 111 ~ remarks',
-    remarks,
-  );
   const data = new FormData();
   data.append('uid', uid);
   data.append('sdid', sdid);

@@ -1,3 +1,4 @@
+import {Divider, Icon} from '@rneui/themed';
 import React, {useState, useEffect} from 'react';
 import {
   Text,
@@ -9,9 +10,9 @@ import {
   Modal,
   Linking,
 } from 'react-native';
-import {Divider, Icon} from '@rneui/themed';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
+import FGImage from '../../Common/FGImage';
 import {Typography} from '../../Common/Text';
 import styles from '../../Splash/Component/Styles';
 function HelpScreen({route}) {
@@ -62,7 +63,7 @@ function HelpScreen({route}) {
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-            <Image style={{height: 20, width: 20}} source={images.whatsapp} />
+            <FGImage style={{height: 20, width: 20}} source={images.whatsapp} />
             <Typography> Whatsapp </Typography>
           </View>
         </TouchableOpacity>

@@ -23,6 +23,7 @@ import SignInContainer from '../Modules/Login/Containers/Signin/SignInindex';
 import SignUpContainer from '../Modules/Login/Containers/Signin/SignUpContainer';
 import VerifyUserContainer from '../Modules/Login/Containers/Signin/VerifyUserContainer';
 import OffersScreen from '../Modules/Offers/Container/offersIndex';
+import PassBookDetails from '../Modules/Passbook/Container/PassbookDetails';
 import PassbookScreen from '../Modules/Passbook/Container/passbookIndex';
 import PaymentsScreen from '../Modules/PaymentDetails/Container/paymentDetailsIndex';
 import PaymentOptionsScreen from '../Modules/PaymentOptions/Container/paymentOptionsIndex';
@@ -481,6 +482,24 @@ const PassbookStackNavigator = () => {
         options={() => ({
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleStyle: appHeaderStyle,
+        })}
+      />
+      <Stack.Screen
+        name="PassbookDetails"
+        component={PassBookDetails}
+        options={({navigation}) => ({
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitle: 'Passbook Details',
+          headerTitleAlign: 'center',
+          headerTitleStyle: appHeaderStyle,
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => {
+                navigation.goBack();
+              }}
+            />
+          ),
         })}
       />
     </Stack.Navigator>

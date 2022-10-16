@@ -5,13 +5,11 @@ import moment from 'moment';
 import React, {useState, useEffect} from 'react';
 import {
   View,
-  Image,
   StyleSheet,
   TouchableOpacity,
   Clipboard,
   Modal,
   FlatList,
-  Pressable,
   Linking,
 } from 'react-native';
 
@@ -25,10 +23,11 @@ import {
 import WebView from 'react-native-webview';
 
 import {connect} from 'react-redux';
-import reactotron from 'reactotron-react-native';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import Colors from '../../../Theams/Colors';
+import {removeHttpOrWww} from '../../../Utils';
 import CommonTextInput from '../../Common/CommonTextInput';
+import FGImage from '../../Common/FGImage';
 import {Typography} from '../../Common/Text';
 import homeController from '../../Home/Controller/homeController';
 import IdController from '../Controller/IdController';
@@ -73,7 +72,7 @@ const AccordianListNew = props => {
     return (
       <View style={styles.ListTitle}>
         <View style={styles.image}>
-          <Image
+          <FGImage
             style={styles.image}
             source={{uri: props.data.sd.siteimage}}
             resizeMode="contain"
@@ -90,28 +89,18 @@ const AccordianListNew = props => {
               alignItems: 'center',
               paddingRight: 10,
             }}>
-            <Typography variant="H4" style={styles.url}>
-              {props.data.sd.siteurl.substring(8, props.data.sd.siteurl.length)}
+            <Typography variant="caption" style={styles.url}>
+              {removeHttpOrWww(props.data.sd.siteurl)}
             </Typography>
-            <Icon
-              name="launch"
-              color="white"
-              size={20}
-              style={{
-                marginLeft: 10,
-                marginTop: 10,
-              }}
-            />
           </TouchableOpacity>
-          <View style={{flexDirection: 'row'}}>
+          {/* <View style={{flexDirection: 'row'}}>
             <Typography style={styles.siteName} variant={'h4'}>
               {' '}
               {props.data.sd.sitename}
             </Typography>
-          </View>
+          </View> */}
           <View style={{flexDirection: 'row'}}>
-            <Typography style={styles.siteName}>
-              {' '}
+            <Typography variant="caption" style={styles.siteName}>
               {props?.data?.username}
             </Typography>
           </View>
@@ -127,19 +116,19 @@ const AccordianListNew = props => {
             styles.credIcon,
             {
               flexDirection: 'row',
-              alignItems: 'flex-end',
-              justifyContent: 'flex-end',
-              marginTop: 40,
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginHorizontal: 5,
             },
           ]}>
           <TouchableOpacity
             style={{
-              height: 40,
-              width: 40,
+              height: 30,
+              width: 30,
               justifyContent: 'center',
               alignItems: 'center',
               backgroundColor: Colors.appGreenColor,
-              borderRadius: 5,
+              borderRadius: 20,
               marginHorizontal: 20,
             }}
             onPress={() => {
@@ -155,12 +144,12 @@ const AccordianListNew = props => {
           </TouchableOpacity>
           <TouchableOpacity
             style={{
-              height: 40,
-              width: 40,
+              height: 30,
+              width: 30,
               justifyContent: 'center',
               alignItems: 'center',
               backgroundColor: Colors.appRedColor,
-              borderRadius: 5,
+              borderRadius: 20,
             }}
             onPress={() => {
               navigation.navigate('Withdraw', {
@@ -174,10 +163,10 @@ const AccordianListNew = props => {
           </TouchableOpacity>
         </View>
         <Icon
-          name="chevron-right"
+          name="dots-vertical"
           type="material-community"
           color={Colors.appWhiteColor}
-          size={30}
+          size={25}
           onPress={() => {
             setIsVisible(true);
           }}
@@ -432,28 +421,6 @@ const AccordianListNew = props => {
           backgroundColor: Colors.buttonBackgroundColor,
         }}
       />
-      {/*<View style={styles.depositWithdraw}>*/}
-      {/*  <TouchableOpacity style={styles.bottomButton} onPress={() => {}}>*/}
-      {/*    <Typography style={{alignItems: 'center', color: 'white'}}>*/}
-      {/*      Deposit*/}
-      {/*    </Typography>*/}
-      {/*  </TouchableOpacity>*/}
-      {/*  <TouchableOpacity*/}
-      {/*    style={[*/}
-      {/*      styles.bottomButton,*/}
-      {/*      {*/}
-      {/*        borderLeftColor: Colors.buttonBackgroundColor,*/}
-      {/*        borderLeftWidth: 0.5,*/}
-      {/*      },*/}
-      {/*    ]}*/}
-      {/*    onPress={() => {*/}
-      {/*   */}
-      {/*    }}>*/}
-      {/*    <Typography style={{alignItems: 'center', color: 'white'}}>*/}
-      {/*      Withdraw*/}
-      {/*    </Typography>*/}
-      {/*  </TouchableOpacity>*/}
-      {/*</View>*/}
       <BottomSheet
         isVisible={isVisible}
         onBackdropPress={() => setIsVisible(false)}
@@ -610,8 +577,8 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   image: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     borderRadius: 30,
     overflow: 'hidden',
     backgroundColor: 'black',
@@ -630,6 +597,7 @@ const styles = StyleSheet.create({
   ListTitle: {
     flexDirection: 'row',
     flex: 1,
+    alignItems: 'center',
   },
   containerCollapse: {
     padding: 6,
@@ -649,6 +617,7 @@ const styles = StyleSheet.create({
   },
   credIcon: {
     marginLeft: 'auto',
+    borderRadius: 30,
   },
   credTitle: {
     color: 'white',

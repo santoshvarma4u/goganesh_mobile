@@ -23,13 +23,13 @@ import payeeApi from '../../../Network/payee/payeeApi';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
+import LoadingIndicator from '../../../Utils/loadingIndicator';
 import withPreventDoubleClick from '../../../Utils/withPreventDoubleClick';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
 import depositController from '../Controller/depositController';
 import DepositController from '../Controller/depositController';
-import LoadingIndicator from "../../../Utils/loadingIndicator";
 
 const DepositContainerV2 = props => {
   const [amount, setAmount] = useState(' ');
@@ -79,10 +79,6 @@ const DepositContainerV2 = props => {
   const setImageUpLoadProgress = progressEvent => {
     const percentCompleted = Math.round(
       (progressEvent.loaded * 100) / progressEvent.total,
-    );
-    reactotron.log(
-      '🚀 ~ file: transactionsPassbook.js ~ line 59 ~ percentCompleted',
-      percentCompleted,
     );
     setUploadProgress(percentCompleted);
   };
@@ -190,26 +186,21 @@ const DepositContainerV2 = props => {
         CONSTANTS.DEPOSIT_INTO_EXISTING_ID_FROM_UPI,
       )
         .then(data => {
-            setProgress(false);
-            setIsCreatingID(false);
+          setProgress(false);
+          setIsCreatingID(false);
           navigation.dispatch(resetAction);
         })
         .catch(error => {
-            setProgress(false);
-            setIsCreatingID(false);
-          reactotron.log(
-            '🚀 ~ file: transactionsPassbook.js ~ line 132 ~ error',
-            error,
-          );
+          setProgress(false);
+          setIsCreatingID(false);
         });
     }
   };
 
   return (
-
     <View style={styles.container}>
       {isCreatingId ? (
-          <LoadingIndicator loadingText={'Please wait....'} />
+        <LoadingIndicator loadingText={'Please wait....'} />
       ) : null}
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Typography variant="H2" style={styles.text}>

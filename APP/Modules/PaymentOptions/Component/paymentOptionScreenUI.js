@@ -78,7 +78,6 @@ function PaymentOptionScreen({route}) {
       customerEmail: 'cashfree@cashfree.com',
     };
     RNPgReactNativeSDK.startPaymentWEB(map, env, result => {
-      reactotron.log(result);
       const obj = JSON.parse(result, function (key, value) {
         reactotron.log(key + '::' + value);
         // Do something with the result
