@@ -3,7 +3,7 @@ import {CommonActions} from '@react-navigation/native';
 import {Formik} from 'formik';
 import AnimatedLottieView from 'lottie-react-native';
 import React, {useEffect, useState} from 'react';
-import {TouchableWithoutFeedback, View, ScrollView} from 'react-native';
+import {TouchableWithoutFeedback, View, ScrollView, Image} from 'react-native';
 import {ActivityIndicator, Button, Checkbox} from 'react-native-paper';
 import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
@@ -226,17 +226,23 @@ function CreateIDScreen({route, wallet}) {
   return (
     <ScrollView>
       {isCreatingId ? (
-        <LoadingIndicator loadingText={requestStatus === 'old' ? 'Please wait...' : 'Please wait! Creating ID for you...'} />
+        <LoadingIndicator
+          loadingText={
+            requestStatus === 'old'
+              ? 'Please wait...'
+              : 'Please wait! Creating ID for you...'
+          }
+        />
       ) : null}
       <View style={styles.containerMain}>
         <View />
         <View style={styles.createIDContainer}>
           <View style={styles.topIcon}>
-            <FGPUNTLOGO
+            <Image
+              source={require('../../../Assets/Images/logo_only.png')}
+              resizeMode={'contain'}
               width={100}
               height={100}
-              style={{marginTop: 50}}
-              fill={Colors.appPrimaryColor}
             />
             <Typography
               style={{alignItems: 'center', color: 'white', marginTop: 5}}>

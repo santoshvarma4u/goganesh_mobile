@@ -27,6 +27,7 @@ import PassbookScreen from '../Modules/Passbook/Container/passbookIndex';
 import PaymentsScreen from '../Modules/PaymentDetails/Container/paymentDetailsIndex';
 import PaymentOptionsScreen from '../Modules/PaymentOptions/Container/paymentOptionsIndex';
 import ProfileScreen from '../Modules/Profile/Container/profileIndex';
+import RulesScreen from '../Modules/Rules/Container/rulesIndex';
 import CustomSidebarMenu from '../Modules/SideMenu/Component/sidemenu';
 import Splash from '../Modules/Splash/Container/splashIndex';
 import WithdrawForm from '../Modules/Withdraw/Components/WithdrawUI';
@@ -403,6 +404,25 @@ const HomeStackNavigator = () => {
         component={ChatContainer}
         options={({navigation}) => ({
           headerTitle: 'Support',
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitleAlign: 'center',
+          headerTitleStyle: appHeaderStyle,
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              tintColor={Colors.appWhiteColor}
+              onPress={() => {
+                navigation.pop();
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Rules"
+        component={RulesScreen}
+        options={({navigation}) => ({
+          headerTitle: 'Rules',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
           headerTitleStyle: appHeaderStyle,

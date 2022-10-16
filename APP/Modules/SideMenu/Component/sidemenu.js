@@ -53,6 +53,13 @@ function CustomSidebarMenu({...props}) {
           return <Icon size={32} name={'account-balance'} />;
         }}
       />
+      <DrawerItem
+        label="Rules"
+        onPress={() => props.navigation.navigate('Rules')}
+        icon={(color, size) => {
+          return <Icon size={32} name={'info'} />;
+        }}
+      />
       {/*<DrawerItem*/}
       {/*  label="Help"*/}
       {/*  onPress={() => {*/}
