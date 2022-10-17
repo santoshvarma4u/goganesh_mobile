@@ -1,5 +1,4 @@
 import {CommonActions, useNavigation} from '@react-navigation/native';
-import AllInOneSDKManager from 'paytm_allinone_react-native';
 import React, {useEffect, useState} from 'react';
 import {
   View,

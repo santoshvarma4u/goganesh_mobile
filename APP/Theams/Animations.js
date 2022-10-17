@@ -4,5 +4,6 @@ const animations = {
   not_found: require('../Assets/Animations/wicketout.json'),
   loading_ball: require('../Assets/Animations/loadingball.json'),
   timer: require('../Assets/Animations/timer.json'),
+  winning: require('../Assets/Animations/winning.json'),
 };
 export default animations;

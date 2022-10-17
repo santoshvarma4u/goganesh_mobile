@@ -2,8 +2,8 @@ import {Formik} from 'formik';
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {View} from 'react-native';
+import {ScrollView} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import {ScrollView} from 'react-native-gesture-handler';
 import {Button} from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as yup from 'yup';
@@ -18,7 +18,7 @@ const bankValidationSchema = yup.object().shape({
     .number('Account Number should be number')
     .required('Account Number is required'),
   IFSC: yup.string().required('IFSC is required'),
-  AccountHolderName: yup.string().required('Account holder name is required')
+  AccountHolderName: yup.string().required('Account holder name is required'),
 });
 
 const EnterBankDetails = props => {
@@ -38,7 +38,7 @@ const EnterBankDetails = props => {
         bankName: bankData ? bankData.bankName : '',
         AccountNumber: bankData ? bankData.accountNumber : '',
         IFSC: bankData ? bankData.IFSC : '',
-        AccountHolderName: bankData ? bankData.accountHolderName : ''
+        AccountHolderName: bankData ? bankData.accountHolderName : '',
       }}
       onSubmit={onSubmit}>
       {({

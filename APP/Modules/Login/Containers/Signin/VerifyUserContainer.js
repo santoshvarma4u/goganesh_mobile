@@ -31,6 +31,10 @@ const VerifyUserContainer = props => {
     }
   };
 
+  const howItWorksClick = () => {
+    props.navigation.navigate('HowItWorks');
+  };
+
   return (
     <SafeAreaView
       style={{
@@ -46,7 +50,7 @@ const VerifyUserContainer = props => {
         height={screenHeight / 2}
       />
       <View>
-        <VerifyUser onSubmit={onSubmit} />
+        <VerifyUser onSubmit={onSubmit} howItWorksClick={howItWorksClick} />
       </View>
     </SafeAreaView>
   );

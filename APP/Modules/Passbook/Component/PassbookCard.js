@@ -3,8 +3,7 @@
 
 import moment from 'moment';
 import React, {useState} from 'react';
-import {Pressable, TouchableOpacity} from 'react-native';
-import {View} from 'react-native-animatable';
+import {Pressable, TouchableOpacity, View} from 'react-native';
 import {userFriendlyPaymentMessage} from '../../../Constants';
 import Colors from '../../../Theams/Colors';
 import FGImage from '../../Common/FGImage';

@@ -17,6 +17,7 @@ import DepositScreen from '../Modules/Deposit/Container/depositIndex';
 import HelpScreen from '../Modules/Help/Container/helpIndex';
 import NotificationScreen from '../Modules/Home/Component/notificationScreenUI';
 import HomeScreen from '../Modules/Home/Container/homeIndex';
+import HowItWorks from '../Modules/HowItWorks';
 import IDsScreenPage from '../Modules/IDs/Container/IDsIndex';
 import ForgotPassWord from '../Modules/Login/Containers/Signin/ForgotPassword';
 import SignInContainer from '../Modules/Login/Containers/Signin/SignInindex';
@@ -116,6 +117,16 @@ function AuthNavigator() {
               }}
             />
           ),
+        })}
+      />
+      <Stack.Screen
+        name="HowItWorks"
+        component={HowItWorks}
+        options={({navigation}) => ({
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitle: 'How It Works',
+          headerTitleAlign: 'center',
+          headerTitleStyle: appHeaderStyle,
         })}
       />
     </Stack.Navigator>

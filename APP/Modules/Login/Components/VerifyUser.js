@@ -1,11 +1,12 @@
 import {Formik} from 'formik';
 import React from 'react';
-import {Dimensions, Text, View} from 'react-native';
+import {Dimensions, Text, TouchableHighlight, View} from 'react-native';
 import {Button} from 'react-native-paper';
 import * as Yup from 'yup';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
 import {Typography} from '../../Common/Text';
+import HowItWorks from '../../HowItWorks';
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -17,7 +18,7 @@ const userSchema = Yup.object().shape({
     .max(10, ' Enter phone Number Correctly'),
 });
 
-const VerifyUser = ({onSubmit}) => {
+const VerifyUser = ({onSubmit, howItWorksClick}) => {
   return (
     <View>
       <Typography
@@ -84,6 +85,19 @@ const VerifyUser = ({onSubmit}) => {
           </View>
         )}
       </Formik>
+      <TouchableHighlight
+        onPress={() => {
+          howItWorksClick();
+        }}>
+        <Typography
+          style={{
+            color: Colors.appWhiteColor,
+            textAlign: 'center',
+            marginTop: 20,
+          }}>
+          How it works ?
+        </Typography>
+      </TouchableHighlight>
     </View>
   );
 };
