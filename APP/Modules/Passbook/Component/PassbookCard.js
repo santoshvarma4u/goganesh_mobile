@@ -59,7 +59,11 @@ const PassbookCard = ({item, navigation}) => {
       }}>
       <View style={styles.mainView}>
         <FGImage
-          source={require('../../../Assets/Images/logo_only.png')}
+          source={
+            item?.sd?.siteimage
+              ? {uri: item.sd.siteimage}
+              : require('../../../Assets/Images/logo_only.png')
+          }
           style={styles.transactionsCardImage}
           resizeMode={'contain'}
           flex={1}

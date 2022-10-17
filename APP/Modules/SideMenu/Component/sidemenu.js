@@ -25,7 +25,7 @@ function CustomSidebarMenu({...props}) {
     <DrawerContentScrollView {...props} contentContainerStyle={{paddingTop: 0}}>
       <View
         style={{
-          height: 180,
+          height: 150,
           backgroundColor: Colors.appBlackColor,
           alignItems: 'center',
           borderTopRightRadius: 30,
@@ -58,6 +58,15 @@ function CustomSidebarMenu({...props}) {
         onPress={() => props.navigation.navigate('Rules')}
         icon={(color, size) => {
           return <Icon size={32} name={'info'} />;
+        }}
+      />
+      <DrawerItem
+        label="How it works"
+        onPress={() => {
+          props.navigation.navigate('HowItWorks');
+        }}
+        icon={(color, size) => {
+          return <Icon size={32} name={'help'} />;
         }}
       />
       {/*<DrawerItem*/}

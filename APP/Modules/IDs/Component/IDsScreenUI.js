@@ -1,5 +1,4 @@
-import {useWhyDidYouUpdate} from 'ahooks';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   ActivityIndicator,
   View,
@@ -9,6 +8,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import {useDispatch, useSelector} from 'react-redux';
+import reactotron from 'reactotron-react-native';
+import {updateIdState} from '../../../Store/Slices/idStateSlice';
 import Colors from '../../../Theams/Colors';
 import {Typography} from '../../Common/Text';
 import IdController from '../Controller/IdController';
@@ -97,11 +99,6 @@ const IDRoute = props => {
   const getIDs = IdController.useGetIDs();
 
   const [refresh, setRefresh] = useState(false);
-  let a = getIDs.data;
-  useWhyDidYouUpdate('idroute', {
-    ...props,
-    a,
-  });
 
   return (
     <View style={styles.containerMain}>
@@ -147,8 +144,10 @@ const IDRoute = props => {
   );
 };
 
-function IDs({navigation}) {
-  const [index, setIndex] = React.useState(0);
+function IDs({navigation, route}) {
+  const index = useSelector(state => state.idState.index);
+  const dispatch = useDispatch();
+
   const [routes] = React.useState([
     {key: 'first', title: 'My IDs'},
     {key: 'second', title: 'Create ID', color: 'black'},
@@ -164,7 +163,9 @@ function IDs({navigation}) {
       <TabView
         navigationState={{index, routes}}
         renderScene={renderScene}
-        onIndexChange={setIndex}
+        onIndexChange={index => {
+          dispatch(updateIdState({index}));
+        }}
         initialLayout={{width: Dimensions.get('window').width}}
         renderTabBar={props => (
           <TabBar

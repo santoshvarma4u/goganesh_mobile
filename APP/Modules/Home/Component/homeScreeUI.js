@@ -18,11 +18,12 @@ import {
 import {SliderBox} from 'react-native-image-slider-box';
 import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-paper';
-import {connect} from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 import FgPuntLogoName from '../../../Assets/svgs/fgpuntlogoname';
 // import NetworkAPI from '../../../Network/api/server';
 import {env} from '../../../Network/api/server';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
+import {updateIdState} from '../../../Store/Slices/idStateSlice';
 import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
 // import Storage from '../../Common/Storage';
@@ -41,6 +42,7 @@ const screenHeight = Dimensions.get('window').height;
 
 function HomeScreen(props) {
   let banks = [];
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const [sliderImgs, setSliderImgs] = useState([]);
 
@@ -234,7 +236,10 @@ function HomeScreen(props) {
                 justifyContent: 'center',
                 backgroundColor: Colors.buttonBackgroundColor,
               }}
-              onPress={() => navigation.navigate("ID's")}>
+              onPress={() => {
+                navigation.navigate("ID's");
+                dispatch(updateIdState({index: 1}));
+              }}>
               <Icon
                 type="antdesign"
                 name="pluscircle"
@@ -253,7 +258,10 @@ function HomeScreen(props) {
                 marginLeft: 10,
                 backgroundColor: Colors.buttonBackgroundColor,
               }}
-              onPress={() => navigation.navigate("ID's")}>
+              onPress={() => {
+                navigation.navigate("ID's");
+                dispatch(updateIdState({index: 0}));
+              }}>
               <Typography style={styles.createTextOnly}>View All</Typography>
             </TouchableOpacity>
           </View>

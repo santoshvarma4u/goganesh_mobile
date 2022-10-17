@@ -450,6 +450,16 @@ const HomeStackNavigator = () => {
         })}
       />
       <Stack.Screen
+        name="HowItWorks"
+        component={HowItWorks}
+        options={({navigation}) => ({
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitle: 'How It Works',
+          headerTitleAlign: 'center',
+          headerTitleStyle: appHeaderStyle,
+        })}
+      />
+      <Stack.Screen
         name="ChangePassword"
         component={ForgotPassWord}
         options={({navigation}) => ({
