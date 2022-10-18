@@ -4,5 +4,11 @@
   "docwriter.progress.trackMethods": true,
   "docwriter.progress.trackTypes": true,
   "docwriter.progress.trackFunctions": true,
-  "cSpell.words": ["fgpuntlogo", "formik", "Pressable", "sitename"]
+  "cSpell.words": [
+    "fgpuntlogo",
+    "formik",
+    "paymenttype",
+    "Pressable",
+    "sitename"
+  ]
 }

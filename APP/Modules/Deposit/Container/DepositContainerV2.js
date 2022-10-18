@@ -1,36 +1,30 @@
 import {CommonActions, useNavigation} from '@react-navigation/native';
 import {Icon} from '@rneui/themed';
-import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 import {
   Image,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  Clipboard,
   View,
 } from 'react-native';
+import {FlatList} from 'react-native-gesture-handler';
 import * as ImagePicker from 'react-native-image-picker';
 import {Button, IconButton} from 'react-native-paper';
-import {RNS3} from 'react-native-upload-aws-s3';
 import {connect} from 'react-redux';
-import reactotron from 'reactotron-react-native';
-import GooglePaySvg from '../../../Assets/svgs/GooglePaySvg';
-import PhonePeSvg from '../../../Assets/svgs/PhonePeSvg';
 import CONSTANTS from '../../../Constants';
-import useAPI from '../../../Hooks/useAPI';
-import payeeApi from '../../../Network/payee/payeeApi';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
-import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
 import LoadingIndicator from '../../../Utils/loadingIndicator';
 import withPreventDoubleClick from '../../../Utils/withPreventDoubleClick';
+import ErrorPage from '../../Common/ErrorPage';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
 import depositController from '../Controller/depositController';
 import DepositController from '../Controller/depositController';
-import UpiLogo from "../../../Assets/svgs/UpiLogo";
+import PaymentDetail from './PaymentDetail';
+import PaymentMedium from './PaymentMedium';
 
 const DepositContainerV2 = props => {
   const [amount, setAmount] = useState(' ');
@@ -39,21 +33,18 @@ const DepositContainerV2 = props => {
   const {
     sdid,
     planType,
-    planMoney,
     userName,
     depositCoins,
     requestStatus,
   } = props.route.params;
-  // gpay,phonepe,bank
 
-  const [selectedMedium, setSelectedMedium] = useState('bank');
+  const [selectedMedium, setSelectedMedium] = useState({
+    type: '',
+    data: {},
+  });
   const [filePath, setFilePath] = useState('');
-  const [phonePe, setPhonePe] = useState('');
-  const [googlePay, setGooglePay] = useState('');
-  const [bank, setBank] = useState({});
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [paymentType, setPaymentType] = useState('Bank');
-  const [walletBalance, setWalletBalance] = useState(props.wallet);
+  const [paymentType, setPaymentType] = useState('');
   const [isCreatingId, setIsCreatingID] = useState(false);
 
   const ButtonEx = withPreventDoubleClick(Button);
@@ -62,6 +53,7 @@ const DepositContainerV2 = props => {
   useEffect(() => {
     setAmount(depositCoins);
     getUID();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getUID = async () => {
@@ -83,20 +75,6 @@ const DepositContainerV2 = props => {
     );
     setUploadProgress(percentCompleted);
   };
-
-  useEffect(() => {
-    if (data) {
-      data.map(item => {
-        if (item.paymenttype === 'Google Pay') {
-          setGooglePay(item.paymentkey);
-        } else if (item.paymenttype === 'Phone Pay') {
-          setPhonePe(item.paymentkey);
-        } else if (item.paymenttype === 'Bank') {
-          setBank(item);
-        }
-      });
-    }
-  }, [data]);
 
   const chooseFile = () => {
     let options = {
@@ -129,6 +107,10 @@ const DepositContainerV2 = props => {
     if (filePath.length <= 0) {
       return alert('please upload payment reference image');
     }
+    if (!paymentType) {
+      return alert('please select payment type');
+    }
+
     setIsCreatingID(true);
     setProgress(true);
     if (requestStatus === 'wallet') {
@@ -198,6 +180,21 @@ const DepositContainerV2 = props => {
     }
   };
 
+  if (loading) {
+    return <LoadingIndicator />;
+  }
+
+  if (error) {
+    return (
+      <ErrorPage
+        onRetryPress={() => {
+          request();
+        }}>
+        {error}
+      </ErrorPage>
+    );
+  }
+
   return (
     <View style={styles.container}>
       {isCreatingId ? (
@@ -211,166 +208,37 @@ const DepositContainerV2 = props => {
           <Typography style={styles.text}>Pay manually</Typography>
         </View>
         <View style={styles.underline} />
-        <View style={styles.paymentItems}>
-          <TouchableOpacity
-            style={[
-              styles.paymentItem,
-              {
-                backgroundColor:
-                  selectedMedium === 'gpay'
-                    ? Colors.appBlackColor
-                    : Colors.appBlackColorLight,
-              },
-            ]}
-            onPress={() => {
-              setSelectedMedium('gpay');
-              setPaymentType('Google Pay');
-            }}>
-            <GooglePaySvg />
-            <Typography style={styles.textCenter}>Google Pay</Typography>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.paymentItem,
-              {
-                backgroundColor:
-                  selectedMedium === 'phonepe'
-                    ? Colors.appBlackColor
-                    : Colors.appBlackColorLight,
-              },
-            ]}
-            onPress={() => {
-              setSelectedMedium('phonepe');
-              setPaymentType('Phone Pay');
-            }}>
-            <PhonePeSvg />
-            <Typography style={styles.textCenter}>PhonePe</Typography>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.paymentItem,
-              {
-                backgroundColor:
-                  selectedMedium === 'bank'
-                    ? Colors.appBlackColor
-                    : Colors.appBlackColorLight,
-              },
-            ]}
-            onPress={() => {
-              setSelectedMedium('bank');
-              setPaymentType('Bank');
-            }}>
-            <Icon
-              name="bank"
-              size={48}
-              type={'font-awesome'}
-              color={Colors.appPrimaryColor}
-            />
-            <Typography style={styles.textCenter}>Bank</Typography>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
-              styles.paymentItem,
-              {
-                backgroundColor:
-                  selectedMedium === 'upi'
-                    ? Colors.appBlackColor
-                    : Colors.appBlackColorLight,
-              },
-            ]}
-            onPress={() => {
-              setSelectedMedium('upi');
-              setPaymentType('UPI');
-            }}>
-
-            <UpiLogo />
-            <Typography style={styles.textCenter}>UPI</Typography>
-          </TouchableOpacity>
+        <View
+          style={{
+            marginVertical: 10,
+            height: 100,
+            backgroundColor: Colors.backgroundColorLight,
+            padding: 5,
+          }}>
+          <FlatList
+            data={data}
+            horizontal
+            renderItem={({item}) => {
+              return (
+                <PaymentMedium
+                  data={item}
+                  selectedMedium={selectedMedium}
+                  setSelectedMedium={setSelectedMedium}
+                  setPaymentType={setPaymentType}
+                  isSelected={selectedMedium.type === item.paymenttype}
+                />
+              );
+            }}
+            keyExtractor={item => item.id}
+          />
         </View>
         {/*
             show details below depending on selected medium
         */}
-        <View style={styles.mediumContainer}>
-          {selectedMedium === 'bank' ? (
-            <>
-              <View style={styles.bankItems}>
-                <Typography style={styles.text}>Account:</Typography>
-                <View style={styles.flex1} />
-                <Typography style={styles.text}>{bank.paymentname}</Typography>
-                <Icon
-                  name="content-copy"
-                  color="white"
-                  size={18}
-                  onPress={() => {
-                    Clipboard.setString(bank.paymentname || '');
-                  }}
-                />
-              </View>
-              <View style={styles.bankItems}>
-                <Typography style={styles.text}>Account No:</Typography>
-                <View style={styles.flex1} />
-                <Typography style={styles.text}>{bank.paymentkey}</Typography>
-                <Icon
-                  name="content-copy"
-                  color="white"
-                  size={18}
-                  onPress={() => {
-                    Clipboard.setString(bank.paymentkey || '');
-                  }}
-                />
-              </View>
-              <View style={styles.bankItems}>
-                <Typography style={styles.text}>IFSC Code:</Typography>
-                <View style={styles.flex1} />
-                <Typography style={styles.text}>{bank.IFSC}</Typography>
-                <Icon
-                  name="content-copy"
-                  color="white"
-                  size={18}
-                  onPress={() => {
-                    Clipboard.setString(bank.IFSC || '');
-                  }}
-                />
-              </View>
-              <View style={styles.bankItems}>
-                <Typography style={styles.text}>Account Type:</Typography>
-                <View style={styles.flex1} />
-                <Typography style={styles.text}>{bank.accountType}</Typography>
-              </View>
-              <View style={styles.bankItems}>
-                <Typography style={styles.text}>Bank:</Typography>
-                <View style={styles.flex1} />
-                <Typography style={styles.text}>{bank.branch}</Typography>
-              </View>
-            </>
-          ) : (
-            <>
-              <Typography style={styles.text}>
-                {selectedMedium === 'gpay' ? 'Google Pay' : 'PhonePe'}
-              </Typography>
-              <View style={{flexDirection: 'row'}}>
-                <Typography style={styles.text} variant="H3">
-                  {selectedMedium === 'gpay' ? googlePay : phonePe}
-                </Typography>
-                <Icon
-                  name="content-copy"
-                  color="white"
-                  size={18}
-                  onPress={() => {
-                    Clipboard.setString(
-                      selectedMedium === 'gpay' ? googlePay : phonePe,
-                    );
-                  }}
-                />
-              </View>
-            </>
-          )}
-        </View>
-
+        <PaymentDetail selectedMedium={selectedMedium} />
         {/*
         upload component for proof of payment
       */}
-
         {filePath.uri ? (
           <View
             style={[
@@ -403,10 +271,8 @@ const DepositContainerV2 = props => {
             <Typography style={styles.textCenter}>
               Payment Screenshot here
             </Typography>
-            {/*<Typography style={styles.textStyle}>{filePath.uri}</Typography>*/}
           </TouchableOpacity>
         )}
-
         <View>
           <ButtonEx
             mode="contained"
@@ -426,9 +292,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: Colors.appBlackColor,
   },
-  flex1: {
-    flex: 1,
-  },
   scrollContainer: {
     paddingTop: 10,
     paddingBottom: 20,
@@ -447,39 +310,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 14,
   },
-  bankItems: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    // justifyContent: 'space-between',
-    marginTop: 6,
-  },
   underline: {
     borderBottomColor: Colors.appPrimaryColor,
     borderBottomWidth: 3,
     marginVertical: 10,
     width: 60,
-  },
-  paymentItems: {
-    flexDirection: 'row',
-    padding: 8,
-    backgroundColor: Colors.appBlackColorLight,
-    borderRadius: 5,
-  },
-  paymentItem: {
-    height: 80,
-    width: '30%',
-    borderColor: Colors.appWhiteColor + 50,
-    borderWidth: 1,
-    margin: 2,
-    borderRadius: 5,
-    padding: 8,
-    alignItems: 'center',
-  },
-  mediumContainer: {
-    marginVertical: 10,
-    backgroundColor: Colors.appBlackColorLight,
-    borderRadius: 5,
-    padding: 8,
   },
   depositScreenshotCard: {
     backgroundColor: Colors.appBlackColorLight,
