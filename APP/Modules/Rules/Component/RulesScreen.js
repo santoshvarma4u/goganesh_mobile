@@ -19,9 +19,9 @@ import {Typography} from '../../Common/Text';
 import styles from '../../Splash/Component/Styles';
 
 const RULES = [
-  'MIN Deposit - 1,000 1,000 MIN Withdraw - 1,000',
-  'Deposit Processing Time 5 to 10 Minutes Withdraw Processing Time 30 min Hour',
-  'Circket Winning Limit Per Day - 25 Lakhs Casino Winning Limit Per Day - 10Lakhs',
+  'MIN Deposit - 1,000 MIN Withdraw - 1,000',
+  'Deposit Processing Time 5 to 10 Minutes Withdraw Processing Time 30 min ',
+  'Circket Winning Limit Per Day - 25 Lakhs Casino Winning Limit Per Day - 25 Lakhs',
   'Per Day Withdraw Limit-25 Lakhs Per Day Deposit Limit - 25 Lakhs',
   'We Make Bank Account and Paytm Transfers Only... Must and Should Everyone Register Your Permanent Bank Account Details Only With Us. Before Asking withdraws',
   'We are Not Responsible with Payments & Withdraws Through using Phone pe & Google pay When its Goes to Pending... U have to Face it',

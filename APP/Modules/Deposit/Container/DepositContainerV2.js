@@ -30,6 +30,7 @@ import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
 import depositController from '../Controller/depositController';
 import DepositController from '../Controller/depositController';
+import UpiLogo from "../../../Assets/svgs/UpiLogo";
 
 const DepositContainerV2 = props => {
   const [amount, setAmount] = useState(' ');
@@ -263,9 +264,27 @@ const DepositContainerV2 = props => {
               name="bank"
               size={48}
               type={'font-awesome'}
-              color={Colors.buttonBackgroundColor}
+              color={Colors.appPrimaryColor}
             />
-            <Typography style={styles.textCenter}>Bank </Typography>
+            <Typography style={styles.textCenter}>Bank</Typography>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.paymentItem,
+              {
+                backgroundColor:
+                  selectedMedium === 'upi'
+                    ? Colors.appBlackColor
+                    : Colors.appBlackColorLight,
+              },
+            ]}
+            onPress={() => {
+              setSelectedMedium('upi');
+              setPaymentType('UPI');
+            }}>
+
+            <UpiLogo />
+            <Typography style={styles.textCenter}>UPI</Typography>
           </TouchableOpacity>
         </View>
         {/*
