@@ -51,8 +51,20 @@ const HomeListMyIDs = props => {
 
   function ListTitle() {
     return (
-      <View style={styles.ListTitle}>
-        <View>
+      <View
+        style={[
+          styles.ListTitle,
+          {justifyContent: 'center', alignItems: 'center'},
+        ]}>
+        <View
+          style={{
+            width: 50,
+            height: 50,
+            backgroundColor: Colors.appBlackColor,
+            overflow: 'hidden',
+            borderRadius: 30,
+            justifyContent: 'center',
+          }}>
           <FGImage
             style={styles.image}
             source={{uri: props.data.sd.siteimage}}
@@ -65,6 +77,7 @@ const HomeListMyIDs = props => {
               flexDirection: 'row',
               justifyContent: 'space-around',
               alignItems: 'center',
+              marginLeft: 5,
             }}>
             <TouchableOpacity
               onPress={() => {
@@ -88,9 +101,6 @@ const HomeListMyIDs = props => {
               </TouchableOpacity>
             </View>
           </View>
-          {/*<Typography variant={'subheader'} style={styles.url}>*/}
-          {/*  {props.data.sd.sitename}*/}
-          {/*</Typography>*/}
         </View>
         <View
           style={{
@@ -449,7 +459,6 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 30,
-    marginRight: 10,
   },
   url: {
     color: Colors.appWhiteColor,
