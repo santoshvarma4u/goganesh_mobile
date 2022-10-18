@@ -150,6 +150,7 @@ function HomeScreen(props) {
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
+                    marginTop: 10,
                   }}>
                   <Icon
                     name="rupee"

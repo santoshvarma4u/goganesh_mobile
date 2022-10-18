@@ -88,9 +88,9 @@ const HomeListMyIDs = props => {
               </TouchableOpacity>
             </View>
           </View>
-          <Typography variant={'subheader'} style={styles.url}>
-            {props.data.sd.sitename}
-          </Typography>
+          {/*<Typography variant={'subheader'} style={styles.url}>*/}
+          {/*  {props.data.sd.sitename}*/}
+          {/*</Typography>*/}
         </View>
         <View
           style={{
