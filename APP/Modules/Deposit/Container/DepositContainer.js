@@ -122,6 +122,7 @@ const DepositContainer = props => {
       null,
       null,
       referenceId,
+        data?.usdid
     ).then(data => {
       setIsPaymentLoading(false);
       navigation.dispatch(resetAction);

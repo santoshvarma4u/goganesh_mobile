@@ -141,6 +141,7 @@ function PaymentOptionScreen({route}) {
         CONSTANTS.DEPOSIT_INTO_EXISTING_ID_FROM_PAYMENT_GATEWAY,
         null,
         referenceId,
+        usdid,
       ).then(data => {
         navigation.dispatch(resetAction);
       });

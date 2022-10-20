@@ -165,6 +165,7 @@ const HomeListMyIDs = props => {
               props.navigation.navigate('CreateID', {
                 sdid: props.data.sd.sdid,
                 username: props.data.username,
+                usdid: props.data.usdid,
                 requestStatus: 'old',
               });
             }}>

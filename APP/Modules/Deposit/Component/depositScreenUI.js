@@ -38,6 +38,7 @@ function DepositScreen({route}) {
     userName,
     depositCoins,
     requestStatus,
+    usdid = null,
   } = route.params;
   const navigation = useNavigation();
   const payee = payeeDetils.data.filter(
@@ -103,6 +104,8 @@ function DepositScreen({route}) {
         CONSTANTS.DEPOSIT_INTO_WALLET_UPI,
         null,
         setImageUpLoadProgress,
+          null,
+          usdid
       ).then(data => {
         navigation.dispatch(resetAction);
       });
@@ -116,6 +119,9 @@ function DepositScreen({route}) {
         'CR',
         filePath,
         CONSTANTS.DEPOSIT_INTO_EXISTING_ID_FROM_UPI,
+        null,
+        null,
+        usdid,
       ).then(data => {
         navigation.dispatch(resetAction);
       });

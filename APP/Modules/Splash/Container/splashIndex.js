@@ -1,7 +1,7 @@
 import {CommonActions} from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
 import React, {PureComponent} from 'react';
-import {StyleSheet, Linking, Image} from 'react-native';
+import {StyleSheet, Linking, Image, Dimensions} from 'react-native';
 import {getVersion} from 'react-native-device-info';
 import LinearGradient from 'react-native-linear-gradient';
 import PushNotification from 'react-native-push-notification';
@@ -17,6 +17,9 @@ import ErrorPage from '../../Common/ErrorPage';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import SplashApi from '../../Splash/Controller/SplashApi';
+
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 PushNotification.configure({
   // (required) Called when a remote or local notification is opened or received
@@ -127,6 +130,13 @@ export default class Splash extends PureComponent {
           Colors.appBlackColor,
         ]}
         style={styles.splashContainer}>
+        <Image
+          source={require('../../../Assets/Images/logo_only.png')}
+          resizeMode={'contain'}
+          width={screenWidth / 2}
+          height={screenHeight / 2}
+        />
+
         {/*<LottieView*/}
         {/*  style={{height: 250, width: '100%'}}*/}
         {/*  source={Animations.splashLoading}*/}

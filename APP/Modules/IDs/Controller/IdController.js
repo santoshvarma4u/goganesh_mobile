@@ -26,6 +26,7 @@ const sendWithDrawRequest = async (
   paymentType,
   bid,
   remarks,
+  usdid,
 ) => {
   let userid = await getUID();
 
@@ -37,6 +38,7 @@ const sendWithDrawRequest = async (
     userBankID: bid,
     paymentType: paymentType,
     remarks: remarks || '',
+    usdid: usdid,
   };
   const result = await transactionsApi.createWithdrawPayment(data);
   if (!result.ok) {

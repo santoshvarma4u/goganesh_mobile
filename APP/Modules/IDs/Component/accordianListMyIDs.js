@@ -23,6 +23,7 @@ import {
 import WebView from 'react-native-webview';
 
 import {connect} from 'react-redux';
+import reactotron from 'reactotron-react-native';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import Colors from '../../../Theams/Colors';
 import {removeHttpOrWww} from '../../../Utils';
@@ -132,10 +133,11 @@ const AccordianListNew = props => {
               marginHorizontal: 20,
             }}
             onPress={() => {
-              navigation.navigate('CreateID', {
+              props.navigation.navigate('CreateID', {
                 sdid: props.data.sd.sdid,
                 username: props.data.username,
                 requestStatus: 'old',
+                usdid: props.data?.usdid,
               });
             }}>
             <Typography variant={'H4'} style={styles.credTitle}>
@@ -152,7 +154,7 @@ const AccordianListNew = props => {
               borderRadius: 20,
             }}
             onPress={() => {
-              navigation.navigate('Withdraw', {
+              props.navigation.navigate('Withdraw', {
                 banks: banks,
                 data: props.data,
               });
@@ -241,10 +243,12 @@ const AccordianListNew = props => {
       title: 'Deposit',
       onPress: () => {
         setIsVisible(false);
+        reactotron.log('props', props.data);
         navigation.navigate('CreateID', {
           sdid: props.data.sd.sdid,
           username: props.data.username,
           requestStatus: 'old',
+          usdid: props.data?.usdid,
         });
       },
     },

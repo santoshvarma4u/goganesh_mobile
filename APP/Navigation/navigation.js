@@ -124,7 +124,7 @@ function AuthNavigator() {
         component={HowItWorks}
         options={({navigation}) => ({
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitle: 'How It Works',
+          headerTitle: 'How to use',
           headerTitleAlign: 'center',
           headerTitleStyle: appHeaderStyle,
         })}
@@ -454,7 +454,7 @@ const HomeStackNavigator = () => {
         component={HowItWorks}
         options={({navigation}) => ({
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitle: 'How It Works',
+          headerTitle: 'How to use',
           headerTitleAlign: 'center',
           headerTitleStyle: appHeaderStyle,
         })}

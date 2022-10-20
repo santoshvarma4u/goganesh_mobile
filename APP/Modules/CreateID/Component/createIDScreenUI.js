@@ -6,6 +6,7 @@ import React, {useEffect, useState} from 'react';
 import {TouchableWithoutFeedback, View, ScrollView, Image} from 'react-native';
 import {ActivityIndicator, Button, Checkbox} from 'react-native-paper';
 import {connect} from 'react-redux';
+import reactotron from 'reactotron-react-native';
 import * as Yup from 'yup';
 import FGPUNTLOGO from '../../../Assets/svgs/fgpuntlogo';
 import CONSTANTS from '../../../Constants';
@@ -54,7 +55,7 @@ const userNameValidation = Yup.object().shape({
 
 function CreateIDScreen({route, wallet}) {
   const navigation = useNavigation();
-  const {sdid, url, sitename, requestStatus} = route.params;
+  const {sdid, url, sitename, requestStatus, usdid = null} = route.params;
   const [checked, setChecked] = React.useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isCreatingId, setIsCreatingID] = useState(false);
@@ -98,6 +99,7 @@ function CreateIDScreen({route, wallet}) {
         setIsLoading(false);
         return alert('Insufficient Balance');
       }
+      reactotron.log('usdid', usdid);
       DepositController.submitDataForMyID(
         parseInt(uid),
         sdid,
@@ -106,6 +108,9 @@ function CreateIDScreen({route, wallet}) {
         'CR',
         null,
         CONSTANTS.DEPOSIT_INTO_EXISTING_ID_FROM_WALLET,
+        null,
+        null,
+        usdid,
       ).then(({data}) => {
         DepositController.debitFromWallet(
           parseInt(uid),
@@ -435,6 +440,7 @@ function CreateIDScreen({route, wallet}) {
                           userName: values.UserName,
                           depositCoins: values.DepositCoins,
                           requestStatus: requestStatus,
+                          usdid: usdid,
                         });
                       }
                     } else {

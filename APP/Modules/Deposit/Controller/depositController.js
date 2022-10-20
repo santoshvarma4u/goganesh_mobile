@@ -1,3 +1,4 @@
+import react from 'react';
 import reactotron from 'reactotron-react-native';
 import useAPI from '../../../Hooks/useAPI';
 import IDsApi from '../../../Network/IDs/IDs';
@@ -90,7 +91,9 @@ const depositIntoWallet = async (
   sdid,
   setImageUpLoadProgress,
   referenceId,
+  usdid,
 ) => {
+  reactotron.log('usdid', usdid);
   const data = new FormData();
   data.append('uid', uid);
   data.append('paymentType', paymentType);
@@ -99,6 +102,7 @@ const depositIntoWallet = async (
   data.append('remarks', remarks);
   data.append('referenceId', referenceId);
   data.append('sdid', sdid || '');
+  data.append('usdid', usdid || 0);
 
   if (paymentreciept !== null) {
     data.append('depositpayreciept', {
@@ -130,13 +134,16 @@ const submitDataForMyID = async (
   remarks,
   setImageUpLoadProgress,
   referenceId,
+  usdid,
 ) => {
+  reactotron.log('usdid', usdid);
   const data = new FormData();
   data.append('uid', uid);
   data.append('sdid', sdid);
   data.append('paymentType', paymentType);
   data.append('paymentMethod', paymentMethod);
   data.append('referenceId', referenceId);
+  data.append('usdid', usdid);
   data.append('remarks', remarks || '');
   if (paymentreciept !== null) {
     data.append('depositpayreciept', {
@@ -147,6 +154,8 @@ const submitDataForMyID = async (
   }
 
   data.append('paymentAmount', paymentAmount);
+
+  reactotron.log('payment Amount', data);
 
   const result = await paymentDepositApi.createDepositPayment(
     data,

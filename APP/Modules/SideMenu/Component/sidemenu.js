@@ -61,7 +61,7 @@ function CustomSidebarMenu({...props}) {
         }}
       />
       <DrawerItem
-        label="How it works"
+        label="How to use"
         onPress={() => {
           props.navigation.navigate('HowItWorks');
         }}

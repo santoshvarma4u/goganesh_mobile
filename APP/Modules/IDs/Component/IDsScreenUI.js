@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useContext, useState} from 'react';
 import {
   ActivityIndicator,
@@ -17,83 +18,6 @@ import IdController from '../Controller/IdController';
 import styles from './Styles';
 import AccordionListItem from './accordianListIDs';
 import AccordionMyIDs from './accordianListMyIDs';
-
-const MyIDRoute = props => {
-  const getMyIDs = IdController.getUserSpecificIDs();
-  const getUserBanks = IdController.getBankData();
-
-  const [refresh, setRefresh] = useState(false);
-
-  return (
-    <View style={styles.containerMain}>
-      <View style={styles.list}>
-        {getMyIDs.error && (
-          <>
-            <Typography
-              style={{alignItems: 'center', color: Colors.appPrimaryColor}}>
-              No IDs Found
-            </Typography>
-            <TouchableOpacity
-              style={{
-                backgroundColor: Colors.appPrimaryColor,
-                paddingHorizontal: 60,
-                paddingVertical: 10,
-                borderRadius: 10,
-                marginTop: 40,
-                alignItems: 'center',
-              }}
-              onPress={() => {
-                getMyIDs.request();
-              }}
-              underlayColor="transparent">
-              <Typography style={{color: Colors.appWhiteColor, fontSize: 16}}>
-                Retry
-              </Typography>
-            </TouchableOpacity>
-          </>
-        )}
-        {getMyIDs.loading ? (
-          <ActivityIndicator
-            animating={getMyIDs.loading}
-            size="large"
-            color="white"
-          />
-        ) : null}
-        <FlatList
-          data={getMyIDs.data}
-          refreshing={refresh}
-          removeClippedSubviews={true}
-          keyboardShouldPersistTaps={'always'}
-          keyExtractor={(item, index) => index.toString()}
-          onRefresh={() => {
-            getMyIDs.request();
-            getUserBanks.request();
-            setRefresh(false);
-          }}
-          ItemSeparatorComponent={() => (
-            <View
-              style={{
-                height: 10,
-                width: '100%',
-              }}
-            />
-          )}
-          renderItem={({item}) => (
-            <AccordionMyIDs
-              data={item}
-              bank={getUserBanks}
-              doRefresh={() => {
-                getMyIDs.request();
-                getUserBanks.request();
-                setRefresh(false);
-              }}
-            />
-          )}
-        />
-      </View>
-    </View>
-  );
-};
 
 const IDRoute = props => {
   const getIDs = IdController.useGetIDs();
@@ -147,12 +71,88 @@ const IDRoute = props => {
 function IDs({navigation, route}) {
   const index = useSelector(state => state.idState.index);
   const dispatch = useDispatch();
-
   const [routes] = React.useState([
     {key: 'first', title: 'My IDs'},
     {key: 'second', title: 'Create ID', color: 'black'},
   ]);
 
+  const MyIDRoute = () => {
+    const getMyIDs = IdController.getUserSpecificIDs();
+    const getUserBanks = IdController.getBankData();
+
+    const [refresh, setRefresh] = useState(false);
+
+    return (
+      <View style={styles.containerMain}>
+        <View style={styles.list}>
+          {getMyIDs.error && (
+            <>
+              <Typography
+                style={{alignItems: 'center', color: Colors.appPrimaryColor}}>
+                No IDs Found
+              </Typography>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: Colors.appPrimaryColor,
+                  paddingHorizontal: 60,
+                  paddingVertical: 10,
+                  borderRadius: 10,
+                  marginTop: 40,
+                  alignItems: 'center',
+                }}
+                onPress={() => {
+                  getMyIDs.request();
+                }}
+                underlayColor="transparent">
+                <Typography style={{color: Colors.appWhiteColor, fontSize: 16}}>
+                  Retry
+                </Typography>
+              </TouchableOpacity>
+            </>
+          )}
+          {getMyIDs.loading ? (
+            <ActivityIndicator
+              animating={getMyIDs.loading}
+              size="large"
+              color="white"
+            />
+          ) : null}
+          <FlatList
+            data={getMyIDs.data}
+            refreshing={refresh}
+            removeClippedSubviews={true}
+            keyboardShouldPersistTaps={'always'}
+            keyExtractor={(item, index) => index.toString()}
+            onRefresh={() => {
+              getMyIDs.request();
+              getUserBanks.request();
+              setRefresh(false);
+            }}
+            ItemSeparatorComponent={() => (
+              <View
+                style={{
+                  height: 10,
+                  width: '100%',
+                }}
+              />
+            )}
+            renderItem={({item}) => (
+              <AccordionMyIDs
+                navigation={navigation}
+                data={item}
+                bank={getUserBanks}
+                doRefresh={() => {
+                  getMyIDs.request();
+                  getUserBanks.request();
+                  setRefresh(false);
+                }}
+              />
+            )}
+          />
+        </View>
+      </View>
+    );
+  };
   const renderScene = SceneMap({
     first: MyIDRoute,
     second: IDRoute,

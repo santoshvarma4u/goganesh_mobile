@@ -95,7 +95,7 @@ const VerifyUser = ({onSubmit, howItWorksClick}) => {
             textAlign: 'center',
             marginTop: 20,
           }}>
-          How it works ?
+          How to use ?
         </Typography>
       </TouchableHighlight>
     </View>

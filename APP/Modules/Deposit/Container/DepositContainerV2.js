@@ -36,6 +36,7 @@ const DepositContainerV2 = props => {
     userName,
     depositCoins,
     requestStatus,
+    usdid = null,
   } = props.route.params;
 
   const [selectedMedium, setSelectedMedium] = useState({
@@ -125,6 +126,8 @@ const DepositContainerV2 = props => {
         CONSTANTS.DEPOSIT_INTO_WALLET_UPI,
         null,
         setImageUpLoadProgress,
+          null,
+          usdid
       ).then(data => {
         setProgress(false);
         setIsCreatingID(false);
@@ -167,6 +170,9 @@ const DepositContainerV2 = props => {
         'CR',
         filePath,
         CONSTANTS.DEPOSIT_INTO_EXISTING_ID_FROM_UPI,
+        null,
+        null,
+        usdid,
       )
         .then(data => {
           setProgress(false);

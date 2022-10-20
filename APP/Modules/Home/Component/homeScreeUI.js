@@ -72,12 +72,15 @@ function HomeScreen(props) {
     React.useCallback(() => {
       // Do something when the screen is focused
       wallet.request();
+      getMyIDs.request();
       return () => {
         // alert('Screen was unfocused');
         // Useful for cleanup functions
       };
     }, []),
   );
+
+
 
   useEffect(() => {
     getUserBanks.data.map(item => {
@@ -100,7 +103,20 @@ function HomeScreen(props) {
   }, [promoImages.data]);
 
   return (
-    <ScrollView contentContainerStyle={styles.containerMain}>
+    <ScrollView
+      contentContainerStyle={styles.containerMain}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={() => {
+            setRefreshing(true);
+            getUserBanks.request();
+            getMyIDs.request();
+            wallet.request();
+            setRefreshing(false);
+          }}
+        />
+      }>
       <View
         style={{
           flex: 1,

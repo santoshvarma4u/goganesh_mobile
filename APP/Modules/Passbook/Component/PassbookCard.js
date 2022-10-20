@@ -85,7 +85,7 @@ const PassbookCard = ({item, navigation}) => {
             </Typography>
           )}
           <Typography variant="caption" style={{color: Colors.appWhiteColor}}>
-            {moment(item.creadtedtime).format('lll').toString()}
+            {moment(item.creadtedtime).format('DD MMM YY hh:mm:ss A')}
           </Typography>
         </View>
         <View>
@@ -120,7 +120,7 @@ const PassbookCard = ({item, navigation}) => {
           <RenderTitleAndValue title={'Reference No.'} value={item.pymid} />
           <RenderTitleAndValue
             title={'Request Date'}
-            value={item.creadtedtime}
+            value={moment(item.creadtedtime).format('DD MMM YY hh:mm:ss A')}
           />
         </View>
       )}

@@ -7,7 +7,7 @@ import {Modal} from 'react-native-paper';
 import {userFriendlyPaymentMessage} from '../../../Constants';
 import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
-import {removeHttpOrWww} from '../../../Utils';
+import {convertSecondsToHHMMSS, removeHttpOrWww} from '../../../Utils';
 import FGImage from '../../Common/FGImage';
 import {Typography} from '../../Common/Text';
 
@@ -92,9 +92,11 @@ const PassBookDetails = ({route}) => {
           <Typography variant="caption" style={{color: Colors.appWhiteColor}}>
             Time Taken :{' '}
             {item.approved_rejected_time && item.creadtedtime
-              ? moment(item.approved_rejected_time).diff(
-                  moment(item.creadtedtime),
-                  'minutes',
+              ? convertSecondsToHHMMSS(
+                  moment(item.approved_rejected_time).diff(
+                    moment(item.creadtedtime),
+                    'seconds',
+                  ),
                 )
               : ''}
           </Typography>
@@ -121,13 +123,15 @@ const PassBookDetails = ({route}) => {
         />
         <RenderDetails
           title={'Request Date'}
-          value={moment(item.creadtedtime).format('DD MMM YY hh:mm A')}
+          value={moment(item.creadtedtime).format('DD MMM YY hh:mm:ss A')}
         />
         <RenderDetails
           title={'Approved/Rejected Date'}
           value={
             item.approved_rejected_time
-              ? moment(item.approved_rejected_time).format('DD MMM YY hh:mm A')
+              ? moment(item.approved_rejected_time).format(
+                  'DD MMM YY hh:mm:ss A',
+                )
               : 'NA'
           }
         />
