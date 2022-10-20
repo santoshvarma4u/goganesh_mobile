@@ -31,6 +31,11 @@ const TypographyStyles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 19,
   },
+  H5: {
+    fontFamily: PRIMARY_FONT_BOLD,
+    fontSize: 12,
+    lineHeight: 16,
+  },
   P1: {
     fontFamily: PRIMARY_FONT_REGULAR,
     fontSize: 16,

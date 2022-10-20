@@ -1,13 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import {CommonActions} from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
-import AllInOneSDKManager from 'paytm_allinone_react-native';
 import React, {useEffect, useState} from 'react';
 import {ScrollView, View} from 'react-native';
-import {Button, TextInput, Modal, ActivityIndicator} from 'react-native-paper';
+import {Button, Modal, ActivityIndicator} from 'react-native-paper';
 import RNPgReactNativeSDK from 'react-native-pg-react-native-sdk';
 import Toast from 'react-native-root-toast';
-import * as RNUpiPayment from 'react-native-upi-payment';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
@@ -57,7 +55,6 @@ const DepositContainer = props => {
   }, []);
 
   const initiatePayment = async amount => {
-    reactotron.log('initiatePayment');
     setIsPaymentLoading(true);
     const paymentId = uuid(5, 16);
     let response = {};
@@ -125,6 +122,7 @@ const DepositContainer = props => {
       null,
       null,
       referenceId,
+        data?.usdid
     ).then(data => {
       setIsPaymentLoading(false);
       navigation.dispatch(resetAction);

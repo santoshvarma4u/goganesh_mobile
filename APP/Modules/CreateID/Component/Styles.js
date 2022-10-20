@@ -1,6 +1,10 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import Colors from '../../../Theams/Colors';
 export default StyleSheet.create({
+  container: {
+    paddingBottom: 40,
+    backgroundColor: Colors.appBlackColor,
+  },
   containerMain: {
     backgroundColor: Colors.appPrimaryColor,
     flex: 1,

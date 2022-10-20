@@ -26,6 +26,7 @@ const sendWithDrawRequest = async (
   paymentType,
   bid,
   remarks,
+  usdid,
 ) => {
   let userid = await getUID();
 
@@ -37,6 +38,7 @@ const sendWithDrawRequest = async (
     userBankID: bid,
     paymentType: paymentType,
     remarks: remarks || '',
+    usdid: usdid,
   };
   const result = await transactionsApi.createWithdrawPayment(data);
   if (!result.ok) {
@@ -50,7 +52,6 @@ const closeID = async usdid => {
     usdid: usdid,
     siteStatus: false,
   };
-  reactotron.log('🚀 ~ file: IdController.js ~ line 40 ~ data', data);
   const result = await IDsApi.closeID(usdid, data);
   if (!result.ok) {
     return alert(result.problem);

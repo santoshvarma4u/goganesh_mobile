@@ -80,6 +80,7 @@ export default StyleSheet.create({
   createTextOnly: {
     color: Colors.appWhiteColor,
     marginHorizontal: 10,
+    fontSize: 12,
   },
   myids: {
     color: 'white',
@@ -97,15 +98,22 @@ export default StyleSheet.create({
     borderRadius: 20,
   },
   depositCard: {
-    flexDirection: 'row',
-    borderRadius: 20,
-    backgroundColor: Colors.buttonBackgroundColor,
-    paddingHorizontal: 20,
-    paddingVertical: 5,
-    minWidth: 100,
-    flex: 1,
+    backgroundColor: Colors.appBlackColor,
+    paddingHorizontal: 5,
+    paddingVertical: 10,
+    height: 120,
+    width: '35%',
     alignItems: 'center',
     justifyContent: 'space-around',
+  },
+  centerCard: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.appBlackColor,
+    borderRadius: 10,
+    width: '42%',
+    height: 180,
   },
   blankCard: {
     flex: 0.4,
@@ -122,8 +130,8 @@ export default StyleSheet.create({
   },
   upperContainer: {
     marginBottom: 15,
-    marginHorizontal: 20,
-
+    marginHorizontal: 30,
+    width: '75%',
   },
   lowerContainer: {
     backgroundColor: Colors.appBlackColor,

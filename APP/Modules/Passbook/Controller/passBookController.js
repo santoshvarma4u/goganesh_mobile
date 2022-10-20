@@ -1,8 +1,7 @@
-import React from 'react';
 import useAPI from '../../../Hooks/useAPI';
 import paymentDepositApi from '../../../Network/transactionPassbook/transactionsPassbook';
 
-const useGetUserTransasctions = () =>
+const useGetUserTransactions = () =>
   useAPI(paymentDepositApi.getUserTransactions);
 
-export default {useGetUserTransasctions};
+export default {useGetUserTransactions: useGetUserTransactions};

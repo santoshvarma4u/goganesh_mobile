@@ -3,7 +3,7 @@ import {CommonActions} from '@react-navigation/native';
 import {Formik} from 'formik';
 import AnimatedLottieView from 'lottie-react-native';
 import React, {useEffect, useState} from 'react';
-import {TouchableWithoutFeedback, View, ScrollView} from 'react-native';
+import {TouchableWithoutFeedback, View, ScrollView, Image} from 'react-native';
 import {ActivityIndicator, Button, Checkbox} from 'react-native-paper';
 import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
@@ -14,7 +14,6 @@ import Storage from '../../../Modules/Common/Storage';
 import StorageKeys from '../../../Modules/Common/StorageKeys';
 import siteApi from '../../../Network/sites/sites';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
-import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetailsSlice';
 import animations from '../../../Theams/Animations';
 import Colors from '../../../Theams/Colors';
 import LoadingIndicator from '../../../Utils/loadingIndicator';
@@ -23,7 +22,6 @@ import CommonTextInput from '../../Common/CommonTextInput';
 import ErrorPage from '../../Common/ErrorPage';
 import {Typography} from '../../Common/Text';
 import DepositController from '../../Deposit/Controller/depositController';
-import HomeController from '../../Home/Controller/homeController';
 import paymentDetailsController from '../../PaymentDetails/Controller/paymentDetailsController';
 import styles from './Styles';
 
@@ -57,7 +55,7 @@ const userNameValidation = Yup.object().shape({
 
 function CreateIDScreen({route, wallet}) {
   const navigation = useNavigation();
-  const {sdid, url, sitename, requestStatus} = route.params;
+  const {sdid, url, sitename, requestStatus, usdid = null} = route.params;
   const [checked, setChecked] = React.useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [disablePayment, setDisablePayment] = useState(false);
@@ -83,7 +81,6 @@ function CreateIDScreen({route, wallet}) {
   });
 
   useEffect(() => {
-    reactotron.log('CreateIDScreen', navigation);
     if (requestStatus === 'old') {
       navigation.setOptions({
         headerTitle: 'Deposit',
@@ -97,14 +94,13 @@ function CreateIDScreen({route, wallet}) {
     let uid = await getUID();
     if (requestStatus === 'old') {
       // Create payment request and withdraw from wallet
-
       //Fetch and check wallet balance
-
       const paymentMethod = 'wallet';
       if (wallet < values.DepositCoins) {
         setIsLoading(false);
         return alert('Insufficient Balance');
       }
+      reactotron.log('usdid', usdid);
       DepositController.submitDataForMyID(
         parseInt(uid),
         sdid,
@@ -113,11 +109,10 @@ function CreateIDScreen({route, wallet}) {
         'CR',
         null,
         CONSTANTS.DEPOSIT_INTO_EXISTING_ID_FROM_WALLET,
+        null,
+        null,
+        usdid,
       ).then(({data}) => {
-        reactotron.log(
-          '🚀 ~ file: createIDScreenUI.js ~ line 96 ~ ).then ~ data',
-          data,
-        );
         DepositController.debitFromWallet(
           parseInt(uid),
           values.DepositCoins,
@@ -142,11 +137,6 @@ function CreateIDScreen({route, wallet}) {
         CONSTANTS.DEPOSIT_INTO_SITE_WALLET_CREATE_ID,
       ).then(({data}) => {
         // data.paymentID
-        reactotron.log(
-          '🚀 ~ file: createIDScreenUI.js ~ line 97 ~ submitRequest ~ data.paymentID',
-          data,
-          data.data.paymentID,
-        );
         DepositController.submitData(
           parseInt(uid),
           sdid,
@@ -188,10 +178,6 @@ function CreateIDScreen({route, wallet}) {
     const currentTime = new Date();
     const diff = currentTime.getTime() - createdTime.getTime();
     const diffMinutes = Math.round(diff / 60000);
-    reactotron.log(
-      '🚀 ~ file: createIDScreenUI.js ~ line 180 ~ CreateIDScreen ~ diffMinutes',
-      diffMinutes,
-    );
     if (diffMinutes < 2) {
       return (
         <View
@@ -225,7 +211,7 @@ function CreateIDScreen({route, wallet}) {
   }
 
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={styles.container}>
       {isCreatingId ? (
         <LoadingIndicator
           loadingText={
@@ -239,11 +225,11 @@ function CreateIDScreen({route, wallet}) {
         <View />
         <View style={styles.createIDContainer}>
           <View style={styles.topIcon}>
-            <FGPUNTLOGO
+            <Image
+              source={require('../../../Assets/Images/logo_only.png')}
+              resizeMode={'contain'}
               width={100}
               height={100}
-              style={{marginTop: 50}}
-              fill={Colors.appPrimaryColor}
             />
             <Typography
               style={{alignItems: 'center', color: 'white', marginTop: 5}}>
@@ -345,78 +331,78 @@ function CreateIDScreen({route, wallet}) {
               </View>
             </TouchableWithoutFeedback>
           </View>
-          <View style={styles.planDeatils}>
-            <Typography
-              style={{
-                color: Colors.appWhiteColor,
-                marginLeft: 20,
-                marginTop: 8,
-                fontSize: 16,
-              }}>
-              {planDetails.planHeader}
-            </Typography>
-            <View
-              style={{
-                borderBottomColor: Colors.appPrimaryColor,
-                borderBottomWidth: 3,
-                marginTop: 5,
-                width: 40,
-                marginLeft: 20,
-              }}
-            />
-            <View style={{flexDirection: 'row', marginTop: 10}}>
-              <Typography
-                style={{
-                  color: Colors.appWhiteColor,
-                  marginLeft: 20,
-                  marginTop: 10,
-                }}>
-                Min Refill
-              </Typography>
-              <Typography style={[styles.planDetailsText, {marginTop: 6}]}>
-                {planDetails.MinRefill}
-              </Typography>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-              <Typography
-                style={{
-                  color: Colors.appWhiteColor,
-                  marginLeft: 20,
-                  marginTop: 6,
-                }}>
-                Min Withdrawal
-              </Typography>
-              <Typography style={[styles.planDetailsText, {marginTop: 4}]}>
-                {planDetails.MinRefill}
-              </Typography>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-              <Typography
-                style={{
-                  color: Colors.appWhiteColor,
-                  marginLeft: 20,
-                  marginTop: 6,
-                }}>
-                Min Maintaining Balance
-              </Typography>
-              <Typography style={[styles.planDetailsText, {marginTop: 4}]}>
-                {planDetails.MinRefill}
-              </Typography>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-              <Typography
-                style={{
-                  color: Colors.appWhiteColor,
-                  marginLeft: 20,
-                  marginTop: 6,
-                }}>
-                Max Withdrawal
-              </Typography>
-              <Typography style={[styles.planDetailsText, {marginTop: 4}]}>
-                {planDetails.MaxWithDrawl}
-              </Typography>
-            </View>
-          </View>
+          {/*<View style={styles.planDeatils}>*/}
+          {/*  <Typography*/}
+          {/*    style={{*/}
+          {/*      color: Colors.appWhiteColor,*/}
+          {/*      marginLeft: 20,*/}
+          {/*      marginTop: 8,*/}
+          {/*      fontSize: 16,*/}
+          {/*    }}>*/}
+          {/*    {planDetails.planHeader}*/}
+          {/*  </Typography>*/}
+          {/*  <View*/}
+          {/*    style={{*/}
+          {/*      borderBottomColor: Colors.appPrimaryColor,*/}
+          {/*      borderBottomWidth: 3,*/}
+          {/*      marginTop: 5,*/}
+          {/*      width: 40,*/}
+          {/*      marginLeft: 20,*/}
+          {/*    }}*/}
+          {/*  />*/}
+          {/*  <View style={{flexDirection: 'row', marginTop: 10}}>*/}
+          {/*    <Typography*/}
+          {/*      style={{*/}
+          {/*        color: Colors.appWhiteColor,*/}
+          {/*        marginLeft: 20,*/}
+          {/*        marginTop: 10,*/}
+          {/*      }}>*/}
+          {/*      Min Refill*/}
+          {/*    </Typography>*/}
+          {/*    <Typography style={[styles.planDetailsText, {marginTop: 6}]}>*/}
+          {/*      {planDetails.MinRefill}*/}
+          {/*    </Typography>*/}
+          {/*  </View>*/}
+          {/*  <View style={{flexDirection: 'row'}}>*/}
+          {/*    <Typography*/}
+          {/*      style={{*/}
+          {/*        color: Colors.appWhiteColor,*/}
+          {/*        marginLeft: 20,*/}
+          {/*        marginTop: 6,*/}
+          {/*      }}>*/}
+          {/*      Min Withdrawal*/}
+          {/*    </Typography>*/}
+          {/*    <Typography style={[styles.planDetailsText, {marginTop: 4}]}>*/}
+          {/*      {planDetails.MinRefill}*/}
+          {/*    </Typography>*/}
+          {/*  </View>*/}
+          {/*  <View style={{flexDirection: 'row'}}>*/}
+          {/*    <Typography*/}
+          {/*      style={{*/}
+          {/*        color: Colors.appWhiteColor,*/}
+          {/*        marginLeft: 20,*/}
+          {/*        marginTop: 6,*/}
+          {/*      }}>*/}
+          {/*      Min Maintaining Balance*/}
+          {/*    </Typography>*/}
+          {/*    <Typography style={[styles.planDetailsText, {marginTop: 4}]}>*/}
+          {/*      {planDetails.MinRefill}*/}
+          {/*    </Typography>*/}
+          {/*  </View>*/}
+          {/*  <View style={{flexDirection: 'row'}}>*/}
+          {/*    <Typography*/}
+          {/*      style={{*/}
+          {/*        color: Colors.appWhiteColor,*/}
+          {/*        marginLeft: 20,*/}
+          {/*        marginTop: 6,*/}
+          {/*      }}>*/}
+          {/*      Max Withdrawal*/}
+          {/*    </Typography>*/}
+          {/*    <Typography style={[styles.planDetailsText, {marginTop: 4}]}>*/}
+          {/*      {planDetails.MaxWithDrawl}*/}
+          {/*    </Typography>*/}
+          {/*  </View>*/}
+          {/*</View>*/}
 
           <View style={styles.planDeatils}>
             <Formik
@@ -435,23 +421,10 @@ function CreateIDScreen({route, wallet}) {
                   .validateUsername(values.UserName, sdid)
                   .then(validateUsername => {
                     let {data} = validateUsername;
-                    reactotron.log(
-                      '🚀 ~ file: createIDScreenUI.js ~ line 337 ~ CreateIDScreen ~ route.params.username',
-                      route.params.username,
-                      data,
-                      data.details.data.length,
-                    );
-
                     if (
                       data.details.data.length === 0 ||
                       route.params.username
                     ) {
-                      reactotron.log(
-                        '🚀 ~ file: createIDScreenUI.js ~ line 337 ~ CreateIDScreen ~ route.params.username',
-                        route.params.username,
-                        checked,
-                        data,
-                      );
                       if (checked) {
                         if (parseInt(wallet.data) < values.DepositCoins) {
                           setIsCreatingID(false);
@@ -468,6 +441,7 @@ function CreateIDScreen({route, wallet}) {
                           userName: values.UserName,
                           depositCoins: values.DepositCoins,
                           requestStatus: requestStatus,
+                          usdid: usdid,
                         });
                       }
                     } else {

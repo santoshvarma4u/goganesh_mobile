@@ -17,16 +17,19 @@ import DepositScreen from '../Modules/Deposit/Container/depositIndex';
 import HelpScreen from '../Modules/Help/Container/helpIndex';
 import NotificationScreen from '../Modules/Home/Component/notificationScreenUI';
 import HomeScreen from '../Modules/Home/Container/homeIndex';
+import HowItWorks from '../Modules/HowItWorks';
 import IDsScreenPage from '../Modules/IDs/Container/IDsIndex';
 import ForgotPassWord from '../Modules/Login/Containers/Signin/ForgotPassword';
 import SignInContainer from '../Modules/Login/Containers/Signin/SignInindex';
 import SignUpContainer from '../Modules/Login/Containers/Signin/SignUpContainer';
 import VerifyUserContainer from '../Modules/Login/Containers/Signin/VerifyUserContainer';
 import OffersScreen from '../Modules/Offers/Container/offersIndex';
+import PassBookDetails from '../Modules/Passbook/Container/PassbookDetails';
 import PassbookScreen from '../Modules/Passbook/Container/passbookIndex';
 import PaymentsScreen from '../Modules/PaymentDetails/Container/paymentDetailsIndex';
 import PaymentOptionsScreen from '../Modules/PaymentOptions/Container/paymentOptionsIndex';
 import ProfileScreen from '../Modules/Profile/Container/profileIndex';
+import RulesScreen from '../Modules/Rules/Container/rulesIndex';
 import CustomSidebarMenu from '../Modules/SideMenu/Component/sidemenu';
 import Splash from '../Modules/Splash/Container/splashIndex';
 import WithdrawForm from '../Modules/Withdraw/Components/WithdrawUI';
@@ -116,6 +119,16 @@ function AuthNavigator() {
           ),
         })}
       />
+      <Stack.Screen
+        name="HowItWorks"
+        component={HowItWorks}
+        options={({navigation}) => ({
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitle: 'How to use',
+          headerTitleAlign: 'center',
+          headerTitleStyle: appHeaderStyle,
+        })}
+      />
     </Stack.Navigator>
   );
 }
@@ -137,20 +150,20 @@ const HomeStackNavigator = () => {
         name="Home"
         component={HomeScreen}
         options={({navigation}) => ({
-          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerStyle: {backgroundColor: Colors.appPrimaryColor, height: 50},
           headerTitle: props => (
             <View
               style={{
                 flexDirection: 'row',
               }}>
-              <SmallLogo
-                width={40}
-                height={30}
-                color={Colors.appThemeTextColor}
-              />
-              <Typography variant="title" color={Colors.appThemeTextColor}>
+              {/*<SmallLogo*/}
+              {/*  width={30}*/}
+              {/*  height={30}*/}
+              {/*  color={Colors.appThemeTextColor}*/}
+              {/*/>*/}
+              {/* <Typography variant="title" color={Colors.appThemeTextColor}>
                 FG Punt
-              </Typography>
+              </Typography> */}
             </View>
           ),
           headerTitleAlign: 'center',
@@ -160,7 +173,7 @@ const HomeStackNavigator = () => {
               <View style={{marginLeft: 10}}>
                 <Icon
                   name="menu"
-                  size={28}
+                  size={24}
                   color={Colors.appThemeTextColor}
                   onPress={() =>
                     navigation.dispatch(DrawerActions.openDrawer())
@@ -170,10 +183,18 @@ const HomeStackNavigator = () => {
             )
           ),
           headerRight: () => (
-            <View style={{marginRight: 10}}>
+            <View style={{marginRight: 10, flexDirection: 'row'}}>
+              <Icon
+                name="bank"
+                size={24}
+                style={{marginHorizontal: 20}}
+                color={Colors.appThemeTextColor}
+                type={'material-community'}
+                onPress={() => navigation.navigate('Payments')}
+              />
               <Icon
                 name="notifications"
-                size={28}
+                size={24}
                 color={Colors.appThemeTextColor}
                 onPress={() => navigation.navigate('Notification')}
               />
@@ -410,6 +431,35 @@ const HomeStackNavigator = () => {
         })}
       />
       <Stack.Screen
+        name="Rules"
+        component={RulesScreen}
+        options={({navigation}) => ({
+          headerTitle: 'Rules',
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitleAlign: 'center',
+          headerTitleStyle: appHeaderStyle,
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              tintColor={Colors.appWhiteColor}
+              onPress={() => {
+                navigation.pop();
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="HowItWorks"
+        component={HowItWorks}
+        options={({navigation}) => ({
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitle: 'How to use',
+          headerTitleAlign: 'center',
+          headerTitleStyle: appHeaderStyle,
+        })}
+      />
+      <Stack.Screen
         name="ChangePassword"
         component={ForgotPassWord}
         options={({navigation}) => ({
@@ -453,6 +503,24 @@ const PassbookStackNavigator = () => {
         options={() => ({
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleStyle: appHeaderStyle,
+        })}
+      />
+      <Stack.Screen
+        name="PassbookDetails"
+        component={PassBookDetails}
+        options={({navigation}) => ({
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitle: 'Passbook Details',
+          headerTitleAlign: 'center',
+          headerTitleStyle: appHeaderStyle,
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              onPress={() => {
+                navigation.goBack();
+              }}
+            />
+          ),
         })}
       />
     </Stack.Navigator>

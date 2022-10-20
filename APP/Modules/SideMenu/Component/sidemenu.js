@@ -25,13 +25,18 @@ function CustomSidebarMenu({...props}) {
     <DrawerContentScrollView {...props} contentContainerStyle={{paddingTop: 0}}>
       <View
         style={{
-          height: 180,
+          height: 150,
           backgroundColor: Colors.appBlackColor,
           alignItems: 'center',
           borderTopRightRadius: 30,
           justifyContent: 'center',
         }}>
-        <FGPUNTLOGO width={120} height={120} fill={Colors.appPrimaryColor} />
+        <Image
+          source={require('../../../Assets/Images/logo_only.png')}
+          resizeMode={'contain'}
+          width={60}
+          height={60}
+        />
       </View>
       <DrawerItemList {...props} />
       <DrawerItem
@@ -46,6 +51,22 @@ function CustomSidebarMenu({...props}) {
         onPress={() => props.navigation.navigate('Payments')}
         icon={(color, size) => {
           return <Icon size={32} name={'account-balance'} />;
+        }}
+      />
+      <DrawerItem
+        label="Rules"
+        onPress={() => props.navigation.navigate('Rules')}
+        icon={(color, size) => {
+          return <Icon size={32} name={'info'} />;
+        }}
+      />
+      <DrawerItem
+        label="How to use"
+        onPress={() => {
+          props.navigation.navigate('HowItWorks');
+        }}
+        icon={(color, size) => {
+          return <Icon size={32} name={'help'} />;
         }}
       />
       {/*<DrawerItem*/}

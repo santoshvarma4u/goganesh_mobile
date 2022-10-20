@@ -12,20 +12,24 @@ import {
   RefreshControl,
   ImageBackground,
   Dimensions,
+  Image,
 } from 'react-native';
 // import {SliderBox} from 'react-native-image-slider-box';
 import {SliderBox} from 'react-native-image-slider-box';
 import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-paper';
-import {connect} from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
+import FgPuntLogoName from '../../../Assets/svgs/fgpuntlogoname';
 // import NetworkAPI from '../../../Network/api/server';
 import {env} from '../../../Network/api/server';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
+import {updateIdState} from '../../../Store/Slices/idStateSlice';
 import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
 // import Storage from '../../Common/Storage';
 // import StorageKeys from '../../Common/StorageKeys';
 import Images from '../../../Theams/Images';
+import FGImage from '../../Common/FGImage';
 import {Typography} from '../../Common/Text';
 import IDController from '../../IDs/Controller/IdController';
 import IdController from '../../IDs/Controller/IdController';
@@ -38,6 +42,7 @@ const screenHeight = Dimensions.get('window').height;
 
 function HomeScreen(props) {
   let banks = [];
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const [sliderImgs, setSliderImgs] = useState([]);
 
@@ -67,12 +72,15 @@ function HomeScreen(props) {
     React.useCallback(() => {
       // Do something when the screen is focused
       wallet.request();
+      getMyIDs.request();
       return () => {
         // alert('Screen was unfocused');
         // Useful for cleanup functions
       };
     }, []),
   );
+
+
 
   useEffect(() => {
     getUserBanks.data.map(item => {
@@ -91,112 +99,108 @@ function HomeScreen(props) {
     promoImages.data.map(i => {
       slides.push(`${env}${i.promoImage}`);
     });
-    setSliderImgs(slides);
+    //setSliderImgs(slides);
   }, [promoImages.data]);
 
   return (
-    <ScrollView contentContainerStyle={styles.containerMain}>
-      {
-        // refreshControl={
-        //   <RefreshControl
-        //     refreshing={refreshing}
-        //     onRefresh={() => {
-        //       setRefreshing(true);
-        //       getUserBanks.request();
-        //       getMyIDs.request();
-        //       wallet.request();
-        //       setRefreshing(false);
-        //     }}
-        //   />
-        // }>
-      }
-      {/*<ImageBackground*/}
-      {/*    source={Images.homeback}*/}
-      {/*    style={{flex: 1, width: screenWidth}}*/}
-      {/*    resizeMode={'repeat'}>*/}
-      <LinearGradient
-        style={{flex: 1}}
-        start={{x: 0, y: 0}}
-        end={{x: 1, y: 0.5}}
-        colors={['#FCC504', '#FCC504']}>
-        <View style={styles.upperContainer}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginTop: 10,
-            }}>
-            <Typography color={Colors.appThemeTextColor} variant={'title'}>
-              Wallet Balance
-            </Typography>
-            <Button
-              loading={wallet.loading}
-              uppercase={false}
-              icon={'reload'}
-              color={Colors.appThemeTextColor}
-              onPress={() => {
-                wallet.request();
-              }}
-            />
-          </View>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Icon
-              name="rupee"
-              color={Colors.appThemeTextColor}
-              size={16}
-              type={'font-awesome'}
-            />
-            <Typography
-              color={Colors.appThemeTextColor}
-              variant={'H1'}
-              style={{
-                marginLeft: 6,
-                marginTop: 6,
-              }}>
-              {props.wallet}
-            </Typography>
-          </View>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              alignItems: 'center',
-              marginTop: 20,
-            }}>
-            <TouchableOpacity
-              style={styles.depositCard}
-              onPress={() => navigation.navigate('DepositForm', {})}>
-              <Icon
-                name="arrow-down-bold-circle"
-                color={Colors.appThemeTextColor}
-                size={30}
-                type={'material-community'}
-              />
-              <Typography color={Colors.appThemeTextColor} variant="H3">
-                Deposit
-              </Typography>
-            </TouchableOpacity>
+    <ScrollView
+      contentContainerStyle={styles.containerMain}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={() => {
+            setRefreshing(true);
+            getUserBanks.request();
+            getMyIDs.request();
+            wallet.request();
+            setRefreshing(false);
+          }}
+        />
+      }>
+      <View
+        style={{
+          flex: 1,
+        }}>
+        <ImageBackground
+          resizeMode={'cover'} // or cover
+          style={{height: 200}} // must be passed from the parent, the number may vary depending upon your screen size
+          height={200}
+          source={Images.homeback}>
+          <View style={styles.upperContainer}>
             <View
               style={{
-                width: '10%',
-              }}
-            />
-            <TouchableOpacity
-              style={styles.depositCard}
-              onPress={() => navigation.navigate('WithdrawContainer', {})}>
-              <Icon
-                name="arrow-up-bold-circle"
-                color={Colors.appThemeTextColor}
-                size={30}
-                type={'material-community'}
-              />
-              <Typography color={Colors.appThemeTextColor} variant="H3">
-                Withdraw
-              </Typography>
-            </TouchableOpacity>
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <TouchableOpacity
+                style={[
+                  styles.depositCard,
+                  {
+                    borderTopLeftRadius: 10,
+                    borderBottomLeftRadius: 10,
+                  },
+                ]}
+                onPress={() => navigation.navigate('DepositForm', {})}>
+                <Typography color={Colors.appWhiteColor} variant="H4">
+                  Deposit
+                </Typography>
+                <Icon
+                  name="chevron-double-down"
+                  color={Colors.appGreenColor}
+                  size={30}
+                  type={'material-community'}
+                />
+              </TouchableOpacity>
+              <View style={styles.centerCard}>
+                <FGImage
+                  style={{width: 70, height: 70}}
+                  source={Images.newLogoOnly}
+                  resizeMode={'cover'}
+                  height={70}
+                  width={70}
+                />
+                <Typography color={Colors.appWhiteColor} variant="P3">
+                  WALLET BALANCE
+                </Typography>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginTop: 10,
+                  }}>
+                  <Icon
+                    name="rupee"
+                    color={Colors.appWhiteColor}
+                    size={16}
+                    type={'font-awesome'}
+                  />
+                  <Typography color={Colors.appWhiteColor} variant={'H3'}>
+                    {props.wallet}
+                  </Typography>
+                </View>
+              </View>
+              <TouchableOpacity
+                style={[
+                  styles.depositCard,
+                  {
+                    borderTopRightRadius: 10,
+                    borderBottomRightRadius: 10,
+                  },
+                ]}
+                onPress={() => navigation.navigate('WithdrawContainer', {})}>
+                <Typography color={Colors.appWhiteColor} variant="H4">
+                  Withdraw
+                </Typography>
+                <Icon
+                  name="chevron-double-up"
+                  color={Colors.appRedColor}
+                  size={30}
+                  type={'material-community'}
+                />
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
+        </ImageBackground>
         <ScrollView style={styles.lowerContainer}>
           <View style={styles.lowerBox1}>
             <SliderBox
@@ -208,7 +212,7 @@ function HomeScreen(props) {
               resizeMode={'contain'}
               autoplay
               circleLoop
-              autoplayInterval={30000}
+              autoplayInterval={10000}
             />
           </View>
           <View
@@ -249,14 +253,33 @@ function HomeScreen(props) {
                 justifyContent: 'center',
                 backgroundColor: Colors.buttonBackgroundColor,
               }}
-              onPress={() => navigation.navigate("ID's")}>
+              onPress={() => {
+                navigation.navigate("ID's");
+                dispatch(updateIdState({index: 1}));
+              }}>
               <Icon
                 type="antdesign"
                 name="pluscircle"
                 color="white"
-                size={18}
+                size={16}
               />
               <Typography style={styles.createTextOnly}>Create </Typography>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                padding: 10,
+                borderRadius: 20,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginLeft: 10,
+                backgroundColor: Colors.buttonBackgroundColor,
+              }}
+              onPress={() => {
+                navigation.navigate("ID's");
+                dispatch(updateIdState({index: 0}));
+              }}>
+              <Typography style={styles.createTextOnly}>View All</Typography>
             </TouchableOpacity>
           </View>
           <FlatList
@@ -329,7 +352,7 @@ function HomeScreen(props) {
             </Typography>
           </View>
         </ScrollView>
-      </LinearGradient>
+      </View>
     </ScrollView>
   );
 }

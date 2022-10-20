@@ -1,5 +1,4 @@
 import {CommonActions, useNavigation} from '@react-navigation/native';
-import AllInOneSDKManager from 'paytm_allinone_react-native';
 import React, {useEffect, useState} from 'react';
 import {
   View,
@@ -78,7 +77,6 @@ function PaymentOptionScreen({route}) {
       customerEmail: 'cashfree@cashfree.com',
     };
     RNPgReactNativeSDK.startPaymentWEB(map, env, result => {
-      reactotron.log(result);
       const obj = JSON.parse(result, function (key, value) {
         reactotron.log(key + '::' + value);
         // Do something with the result
@@ -143,6 +141,7 @@ function PaymentOptionScreen({route}) {
         CONSTANTS.DEPOSIT_INTO_EXISTING_ID_FROM_PAYMENT_GATEWAY,
         null,
         referenceId,
+        usdid,
       ).then(data => {
         navigation.dispatch(resetAction);
       });

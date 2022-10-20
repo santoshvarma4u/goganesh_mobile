@@ -10,7 +10,6 @@ const LoadingIndicator = ({
   loadingText = 'Loading...',
   ...props
 }) => {
-
   return (
     <Modal
       transparent={true}
@@ -19,7 +18,13 @@ const LoadingIndicator = ({
       onRequestClose={() => {
         console.log('close modal');
       }}>
-      <View style={{flex:1,alignItems:'center',justifyContent:'center',backgroundColor:'#000000AF'}}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#000000AF',
+        }}>
         <LottieView
           autoPlay
           loop

@@ -24,7 +24,6 @@ const ForgotPassWordUI = props => {
   const [newPassword, setNewPassword] = useState();
 
   const sendOtpAndRedirect = async number => {
-    reactotron.log('sendOtpAndRedirect', number);
     return new Promise(async (resolve, reject) => {
       if (number.length === 10) {
         const optSession = await LoginController.sendOTP(number);

@@ -1,5 +1,6 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React, {Component} from 'react';
+import 'react-native-gesture-handler';
 import OneSignal from 'react-native-onesignal';
 import {
   DefaultTheme,
@@ -12,7 +13,6 @@ import {AppContainer, _navigationRef} from './APP/Navigation/navigation';
 import {store} from './APP/Store/Index';
 import Colors from './APP/Theams/Colors';
 // import GlobalFont from './GlobalFont';
-
 if (__DEV__) {
   import('./APP/Modules/Common/ReactotronConfig').then(() =>
     console.log('Reactotron Configured'),

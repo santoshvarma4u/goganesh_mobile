@@ -3,18 +3,20 @@ import {BottomSheet, Icon} from '@rneui/themed';
 import * as React from 'react';
 import {
   View,
-  Image,
   StyleSheet,
   TouchableOpacity,
   Clipboard,
   Linking,
+  Pressable,
 } from 'react-native';
-import {Button, IconButton} from 'react-native-paper';
+import {Button} from 'react-native-paper';
 // import {List} from 'react-native-paper';
 import Colors from '../../../Theams/Colors';
+import {removeHttpOrWww} from '../../../Utils';
+import FGImage from '../../Common/FGImage';
 import {Typography} from '../../Common/Text';
 
-const AccordianListNew = props => {
+const AccordionListNew = props => {
   // const [expanded, setExpanded] = React.useState(false);
   const navigation = useNavigation();
   // const handlePress = () => setExpanded(!expanded);
@@ -24,18 +26,25 @@ const AccordianListNew = props => {
     return (
       <View style={styles.ListTitle}>
         <View style={styles.image}>
-          <Image
+          <FGImage
             style={styles.image}
             source={{uri: props.data.siteimage}}
             resizeMode="contain"
           />
         </View>
-        <View>
-          <Typography style={styles.siteName}>{props.data.sitename}</Typography>
-          <TouchableOpacity
+        <View
+          style={{
+            flex: 1,
+          }}>
+          <Pressable
             onPress={() => {
               Linking.openURL(props.data.siteurl);
-            }}
+            }}>
+            <Typography variant="H4" style={styles.siteName}>
+              {props.data.sitename}
+            </Typography>
+          </Pressable>
+          <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
@@ -45,42 +54,33 @@ const AccordianListNew = props => {
               variant="caption"
               style={{
                 ...styles.url,
-                textDecorationLine: 'underline',
                 textAlign: 'left',
               }}>
-              {props.data?.siteurl?.substring(0, props.data?.siteurl?.length)}
+              {removeHttpOrWww(props.data.siteurl)}
             </Typography>
-            <Icon
-              name="launch"
-              color="white"
-              size={16}
-              style={{
-                marginLeft: 5,
-              }}
-            />
-          </TouchableOpacity>
-          <Button
-            compact
-            mode="contained"
-            uppercase={false}
-            labelStyle={{
-              fontSize: 12,
-              fontWeight: '600',
-            }}
-            style={{
-              marginLeft: 10,
-              marginTop: 10,
-              width: 100,
-            }}
-            onPress={() => {
-              navigation.navigate('CreateID', {
-                sdid: props.data.sdid,
-                requestStatus: 'new',
-              });
-            }}>
-            Create ID
-          </Button>
+          </View>
         </View>
+        <Button
+          compact
+          mode="contained"
+          uppercase={false}
+          labelStyle={{
+            fontSize: 12,
+            fontWeight: '600',
+          }}
+          style={{
+            marginLeft: 10,
+            marginTop: 10,
+            width: 100,
+          }}
+          onPress={() => {
+            navigation.navigate('CreateID', {
+              sdid: props.data.sdid,
+              requestStatus: 'new',
+            });
+          }}>
+          Create
+        </Button>
       </View>
     );
   }
@@ -155,35 +155,10 @@ const AccordianListNew = props => {
   }
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      onPress={() => setIsVisible(true)}
+      style={styles.container}>
       <ListTitle />
-      <View
-        style={{
-          alignItems: 'flex-end',
-          justifyContent: 'space-between',
-        }}>
-        <IconButton
-          size={30}
-          onPress={() => setIsVisible(true)}
-          icon={'arrow-right-circle'}
-          color={Colors.appWhiteColor}
-        />
-        {/* <Button
-          compact
-          mode="contained"
-          uppercase={false}
-          style={{
-            marginLeft: 10,
-          }}
-          onPress={() => {
-            navigation.navigate('CreateID', {
-              sdid: props.data.sdid,
-              requestStatus: 'new',
-            });
-          }}>
-          Create ID
-        </Button> */}
-      </View>
       <BottomSheet
         isVisible={isVisible}
         containerStyle={{backgroundColor: 'rgba(0.5, 0.25, 0, 0.8)'}}
@@ -191,7 +166,7 @@ const AccordianListNew = props => {
         onBackdropPress={() => setIsVisible(false)}>
         <ListCollapse />
       </BottomSheet>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -206,11 +181,11 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   image: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     backgroundColor: Colors.appBlackColor,
     overflow: 'hidden',
-    borderRadius: 10,
+    borderRadius: 30,
   },
   url: {
     marginLeft: 10,
@@ -224,12 +199,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
     margin: 2,
+    alignItems: 'center',
   },
   containerCollapse: {
     padding: 10,
     width: '100%',
     backgroundColor: Colors.appBlackColor,
     alignItems: 'center',
+    borderTopColor: Colors.appWhiteColor + '50',
+    borderTopWidth: 0.5,
   },
   icons: {
     alignItems: 'center',
@@ -263,4 +241,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AccordianListNew;
+export default AccordionListNew;

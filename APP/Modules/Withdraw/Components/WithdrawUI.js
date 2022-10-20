@@ -108,11 +108,6 @@ const WithdrawForm = props => {
     return <ErrorPage onRetryPress={request} />;
   }
 
-  console.log(
-    '🚀 ~ file: WithdrawUI.js ~ line 255 ~ {upiData.map ~ upiData',
-    upiData,
-  );
-
   return (
     <ScrollView contentContainerStyle={styles.withDrawForm}>
       {ListTitle(data)}
@@ -210,12 +205,13 @@ const WithdrawForm = props => {
                   return;
                 }
 
-                if (!amount || amount === '0') {
-                  return alert('Enter amount to Withdraw');
+                if (!amount || amount === '0' || amount < 1000) {
+                  return alert('Minimum amount to withdraw : 1000 ');
                 }
                 setIsLoading(true);
 
                 if (checked === 'wallet') {
+                  reactotron.log(data);
                   depositController
                     .depositIntoWallet(
                       data.uid,
@@ -226,6 +222,9 @@ const WithdrawForm = props => {
                       null,
                       CONSTANTS.WITHDRAW_FROM_EXISTING_ID_TO_WALLET,
                       data.sd.sdid,
+                      null,
+                      null,
+                      data.usdid,
                     )
                     .then(res => {
                       navigation.dispatch(resetAction);
@@ -264,6 +263,7 @@ const WithdrawForm = props => {
                     'DR',
                     banks[0].key,
                     CONSTANTS.WITHDRAW_FROM_EXISTING_ID_TO_BANK,
+                    data?.usdid,
                   ).then(() => {
                     setIsLoading(false);
                     navigation.dispatch(resetAction);

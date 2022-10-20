@@ -19,7 +19,9 @@ import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
+import FGImage from '../../Common/FGImage';
 import {Typography} from '../../Common/Text';
+import {ClipboardItem} from '../../Deposit/Container/PaymentDetail';
 import homeController from '../Controller/homeController';
 
 const screenWidth = Dimensions.get('window').width;
@@ -33,7 +35,6 @@ const HomeListMyIDs = props => {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  reactotron.log(props);
   let banks = [];
   useEffect(() => {
     props.bank.data.map(item => {
@@ -51,9 +52,21 @@ const HomeListMyIDs = props => {
 
   function ListTitle() {
     return (
-      <View style={styles.ListTitle}>
-        <View>
-          <Image
+      <View
+        style={[
+          styles.ListTitle,
+          {justifyContent: 'center', alignItems: 'center'},
+        ]}>
+        <View
+          style={{
+            width: 50,
+            height: 50,
+            backgroundColor: Colors.appBlackColor,
+            overflow: 'hidden',
+            borderRadius: 30,
+            justifyContent: 'center',
+          }}>
+          <FGImage
             style={styles.image}
             source={{uri: props.data.sd.siteimage}}
             resizeMode="stretch"
@@ -65,6 +78,7 @@ const HomeListMyIDs = props => {
               flexDirection: 'row',
               justifyContent: 'space-around',
               alignItems: 'center',
+              marginLeft: 5,
             }}>
             <TouchableOpacity
               onPress={() => {
@@ -88,9 +102,6 @@ const HomeListMyIDs = props => {
               </TouchableOpacity>
             </View>
           </View>
-          <Typography variant={'subheader'} style={styles.url}>
-            {props.data.sd.sitename}
-          </Typography>
         </View>
         <View
           style={{
@@ -117,16 +128,8 @@ const HomeListMyIDs = props => {
           <View style={styles.credsCardID}>
             {/* <Icon name="user" type={'antdesign'} color="white" size={12} /> */}
             <Typography style={styles.credTitle}> Username </Typography>
-            <Typography style={{color: 'white', marginLeft: 'auto'}}>
-              {props.data.username}
-            </Typography>
-            <TouchableOpacity
-              style={{color: 'white', marginLeft: 15}}
-              onPress={() => {
-                Clipboard.setString(props.data.username);
-              }}>
-              <Icon name="content-copy" color="white" size={15} />
-            </TouchableOpacity>
+            <View style={{flex: 1}} />
+            <ClipboardItem text={props.data.username} />
           </View>
           {moment().diff(
             moment(props.data.creadtedtime).utc(),
@@ -162,6 +165,7 @@ const HomeListMyIDs = props => {
               props.navigation.navigate('CreateID', {
                 sdid: props.data.sd.sdid,
                 username: props.data.username,
+                usdid: props.data.usdid,
                 requestStatus: 'old',
               });
             }}>
@@ -449,7 +453,6 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 30,
-    marginRight: 10,
   },
   url: {
     color: Colors.appWhiteColor,
