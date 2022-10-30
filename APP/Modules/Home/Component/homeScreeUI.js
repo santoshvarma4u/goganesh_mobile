@@ -11,15 +11,11 @@ import {
   Linking,
   RefreshControl,
   ImageBackground,
-  Dimensions,
-  Image,
 } from 'react-native';
 // import {SliderBox} from 'react-native-image-slider-box';
 import {SliderBox} from 'react-native-image-slider-box';
-import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-paper';
 import {connect, useDispatch} from 'react-redux';
-import FgPuntLogoName from '../../../Assets/svgs/fgpuntlogoname';
 // import NetworkAPI from '../../../Network/api/server';
 import {env} from '../../../Network/api/server';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
@@ -37,31 +33,15 @@ import HomeListMyIDs from '../Component/homeListMyIDs';
 import HomeController from '../Controller/homeController';
 import styles from './Styles';
 
-const screenWidth = Dimensions.get('window').width;
-const screenHeight = Dimensions.get('window').height;
-
 function HomeScreen(props) {
   let banks = [];
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [sliderImgs, setSliderImgs] = useState([]);
-
-  const [userBanks, setUserBanks] = React.useState([]);
-  // const {data, success} = HomeController.useGetPromoImages();
   const wallet = HomeController.getWalletBalance();
-
   const getUserBanks = IDController.getBankData();
-
   const promoImages = HomeController.useGetPromoImages();
-
-  // const pushFcmToken = async () => {
-  //   let ID = await Storage.getItemSync(StorageKeys.ID);
-  //   let FCMTOKEN = await Storage.getItemSync(StorageKeys.FCMTOKEN);
-
-  //   await NetworkAPI.apiClient.patch(`/users/${ID}`, {fcm_id: FCMTOKEN});
-  // };
   const getMyIDs = IdController.getUserSpecificIDs();
-
   const [refreshing, setRefreshing] = React.useState(false);
 
   useEffect(() => {
@@ -74,13 +54,12 @@ function HomeScreen(props) {
       wallet.request();
       getMyIDs.request();
       return () => {
-        // alert('Screen was unfocused');
+        // Screen was unfocused
         // Useful for cleanup functions
       };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []),
   );
-
-
 
   useEffect(() => {
     getUserBanks.data.map(item => {
@@ -89,17 +68,19 @@ function HomeScreen(props) {
         key: item.bid,
       });
     });
-    setUserBanks(banks);
     props.reduxSetUserBanks(banks);
   }, [getUserBanks.data]);
 
   useEffect(() => {
-    // pushFcmToken();
-    let slides = [];
-    promoImages.data.map(i => {
-      slides.push(`${env}${i.promoImage}`);
-    });
-    //setSliderImgs(slides);
+    if (promoImages.data) {
+      let {data} = promoImages || {
+        data: [],
+      };
+      const images = data?.map(i => {
+        return `${env}${i.promoImage}`;
+      });
+      setSliderImgs(images);
+    }
   }, [promoImages.data]);
 
   return (
@@ -201,7 +182,7 @@ function HomeScreen(props) {
             </View>
           </View>
         </ImageBackground>
-        <ScrollView style={styles.lowerContainer}>
+        <View style={styles.lowerContainer}>
           <View style={styles.lowerBox1}>
             <SliderBox
               images={sliderImgs}
@@ -351,7 +332,7 @@ function HomeScreen(props) {
               support
             </Typography>
           </View>
-        </ScrollView>
+        </View>
       </View>
     </ScrollView>
   );
