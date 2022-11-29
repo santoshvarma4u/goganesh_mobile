@@ -4,7 +4,6 @@ import Colors from '../../../Theams/Colors';
 export default StyleSheet.create({
   containerMain: {
     backgroundColor: Colors.appPrimaryColor,
-    flex: 1,
   },
   containerNotification: {
     backgroundColor: Colors.backgroundColor,
@@ -137,7 +136,6 @@ export default StyleSheet.create({
     backgroundColor: Colors.appBlackColor,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    flex: 1,
   },
   lowerBox1: {
     flexDirection: 'column',
