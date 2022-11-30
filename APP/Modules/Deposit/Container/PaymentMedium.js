@@ -6,6 +6,7 @@ import PhonePeSvg from '../../../Assets/svgs/PhonePeSvg';
 import UpiLogo from '../../../Assets/svgs/UpiLogo';
 import Colors from '../../../Theams/Colors';
 import {Typography} from '../../Common/Text';
+import reactotron from "reactotron-react-native";
 
 export const keyMap = {
   'Google Pay': 'Google Pay',
@@ -46,7 +47,7 @@ const PaymentMedium = ({
       onPress={() => {
         setSelectedMedium({
           type: paymenttype,
-          data: data,
+          ...data,
         });
         setPaymentType(paymenttype);
       }}>

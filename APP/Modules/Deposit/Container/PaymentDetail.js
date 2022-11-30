@@ -2,6 +2,7 @@ import Clipboard from '@react-native-community/clipboard';
 import {Icon} from '@rneui/themed';
 import React from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import reactotron from 'reactotron-react-native';
 import Colors from '../../../Theams/Colors';
 import {Typography} from '../../Common/Text';
 
@@ -39,64 +40,73 @@ export const ClipboardItem = ({text}) => {
 };
 
 const PaymentDetail = ({selectedMedium}) => {
+  const {data, type} = selectedMedium || {};
+  reactotron.log(
+    '🚀 ~ file: PaymentDetail.js ~ line 43 ~ PaymentDetail ~ data',
+    data,
+  );
   return (
-    <View style={styles.mediumContainer}>
-      {selectedMedium.type === 'Bank' ? (
-        <>
-          <View style={styles.bankItems}>
-            <Typography style={styles.text}>Account:</Typography>
-            <View style={styles.flex1} />
-            <ClipboardItem text={selectedMedium?.data?.paymentname} />
-          </View>
-          <View style={styles.bankItems}>
-            <Typography style={styles.text}>Account No:</Typography>
-            <View style={styles.flex1} />
-            <ClipboardItem text={selectedMedium?.data?.paymentkey} />
-          </View>
-          <View style={styles.bankItems}>
-            <Typography style={styles.text}>IFSC Code:</Typography>
-            <View style={styles.flex1} />
-            <ClipboardItem text={selectedMedium?.data?.IFSC} />
-          </View>
-          <View style={styles.bankItems}>
-            <Typography style={styles.text}>Account Type:</Typography>
-            <View style={styles.flex1} />
-            <Typography style={styles.text}>
-              {selectedMedium?.data?.accountType}
-            </Typography>
-          </View>
-          <View style={styles.bankItems}>
-            <Typography style={styles.text}>Bank:</Typography>
-            <View style={styles.flex1} />
-            <Typography style={styles.text}>
-              {selectedMedium?.data?.branch}
-            </Typography>
-          </View>
-        </>
-      ) : (
-        <>
-          <Typography style={styles.text}>
-            {selectedMedium.type || 'Select payment type'}
-          </Typography>
-          {selectedMedium?.data.paymentkey && (
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}>
-              <ClipboardItem text={selectedMedium?.data.paymentkey} />
+    data?.length > 0 &&
+    data?.map(item => {
+      return (
+        <View style={styles.mediumContainer}>
+          {type === 'Bank' ? (
+            <>
+              <View style={styles.bankItems}>
+                <Typography style={styles.text}>Account:</Typography>
+                <View style={styles.flex1} />
+                <ClipboardItem text={item.paymentname} />
+              </View>
+              <View style={styles.bankItems}>
+                <Typography style={styles.text}>Account No:</Typography>
+                <View style={styles.flex1} />
+                <ClipboardItem text={item?.paymentkey} />
+              </View>
+              <View style={styles.bankItems}>
+                <Typography style={styles.text}>IFSC Code:</Typography>
+                <View style={styles.flex1} />
+                <ClipboardItem text={item.IFSC} />
+              </View>
+              <View style={styles.bankItems}>
+                <Typography style={styles.text}>Account Type:</Typography>
+                <View style={styles.flex1} />
+                <Typography style={styles.text}>{item.accountType}</Typography>
+              </View>
+              <View style={styles.bankItems}>
+                <Typography style={styles.text}>Bank:</Typography>
+                <View style={styles.flex1} />
+                <Typography style={styles.text}>{item.branch}</Typography>
+              </View>
+            </>
+          ) : (
+            <View>
+              <Typography style={styles.text}>
+                {type || 'Select payment type'}
+              </Typography>
+              <Typography style={[styles.text, {marginVertical: 10}]}>
+                {item.paymentname}
+              </Typography>
+              {item.paymentkey && (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}>
+                  <ClipboardItem text={item.paymentkey} />
+                </View>
+              )}
             </View>
           )}
-        </>
-      )}
-    </View>
+        </View>
+      );
+    })
   );
 };
 
 const styles = StyleSheet.create({
   mediumContainer: {
-    marginVertical: 10,
+    margin: 1,
     backgroundColor: Colors.appBlackColorLight,
     borderRadius: 5,
     padding: 8,

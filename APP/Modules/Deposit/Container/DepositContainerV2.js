@@ -12,6 +12,7 @@ import {FlatList} from 'react-native-gesture-handler';
 import * as ImagePicker from 'react-native-image-picker';
 import {Button, IconButton} from 'react-native-paper';
 import {connect} from 'react-redux';
+import reactotron from 'reactotron-react-native';
 import CONSTANTS from '../../../Constants';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import Colors from '../../../Theams/Colors';
@@ -43,14 +44,39 @@ const DepositContainerV2 = props => {
     type: '',
     data: {},
   });
+
   const [filePath, setFilePath] = useState('');
   const [uploadProgress, setUploadProgress] = useState(0);
   const [paymentType, setPaymentType] = useState('');
   const [isCreatingId, setIsCreatingID] = useState(false);
+  const [paymentMasters, setPaymentMasters] = useState([]);
 
   const ButtonEx = withPreventDoubleClick(Button);
 
   const {data, request, loading, error} = depositController.getPayeeDetails();
+
+  useEffect(() => {
+    if (data) {
+      const masters = [];
+      data.map(item => {
+        const index = masters.findIndex(
+          master => master.paymenttype === item.paymenttype,
+        );
+        if (index > -1) {
+          masters[index].data.push(item);
+        } else {
+          masters.push({
+            paymenttype: item.paymenttype,
+            data: [item],
+          });
+        }
+      });
+      setPaymentMasters(masters);
+      masters.length > 0 &&
+        setSelectedMedium({type: masters[0].paymenttype, ...masters[0]});
+    }
+  }, [data]);
+
   useEffect(() => {
     setAmount(depositCoins);
     getUID();
@@ -126,8 +152,8 @@ const DepositContainerV2 = props => {
         CONSTANTS.DEPOSIT_INTO_WALLET_UPI,
         null,
         setImageUpLoadProgress,
-          null,
-          usdid
+        null,
+        usdid,
       ).then(data => {
         setProgress(false);
         setIsCreatingID(false);
@@ -222,7 +248,7 @@ const DepositContainerV2 = props => {
             padding: 5,
           }}>
           <FlatList
-            data={data}
+            data={paymentMasters}
             horizontal
             renderItem={({item}) => {
               return (
