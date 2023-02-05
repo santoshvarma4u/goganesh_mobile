@@ -3,7 +3,6 @@ import {useFormik} from 'formik';
 import React, {useEffect} from 'react';
 import {KeyboardAvoidingView, Platform, View} from 'react-native';
 import {Button} from 'react-native-paper';
-import reactotron from 'reactotron-react-native';
 import GooglePaySvg from '../../../Assets/svgs/GooglePaySvg';
 import PaytmSvg from '../../../Assets/svgs/PaytmSvg';
 import PhonePeSvg from '../../../Assets/svgs/PhonePeSvg';
@@ -111,7 +110,8 @@ const UPINumberPicker = () => {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
       <View style={styles.bankCardDetails}>
         <Icon type="material-community" name="bank" color="white" />
         <Typography style={{color: 'white', padding: 5, left: 10}}>

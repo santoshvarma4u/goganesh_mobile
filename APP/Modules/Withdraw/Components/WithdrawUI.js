@@ -18,7 +18,6 @@ import {
   TouchableRipple,
 } from 'react-native-paper';
 import {connect} from 'react-redux';
-import reactotron from 'reactotron-react-native';
 import GooglePaySvg from '../../../Assets/svgs/GooglePaySvg';
 import PaytmSvg from '../../../Assets/svgs/PaytmSvg';
 import PhonePeSvg from '../../../Assets/svgs/PhonePeSvg';
@@ -46,13 +45,15 @@ function ListTitle(props) {
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
-          }}>
+          }}
+        >
           <Typography style={styles.url}>{props?.sd?.siteurl}</Typography>
           <View style={styles.credIcon}>
             <TouchableOpacity
               onPress={() => {
                 Linking.openURL('https://' + props?.sd?.siteurl);
-              }}>
+              }}
+            >
               <Icon name="launch" color="white" size={14} />
             </TouchableOpacity>
           </View>
@@ -123,10 +124,12 @@ const WithdrawForm = props => {
             style={{
               marginVertical: 20,
               width: '100%',
-            }}>
+            }}
+          >
             <RadioButton.Group
               onValueChange={value => setChecked(value)}
-              value={checked}>
+              value={checked}
+            >
               <RadioButton.Item
                 label="Wallet"
                 value="wallet"
@@ -161,7 +164,8 @@ const WithdrawForm = props => {
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                  }}>
+                  }}
+                >
                   <View>
                     <View
                       style={{
@@ -169,12 +173,14 @@ const WithdrawForm = props => {
                         flexDirection: 'row',
                         height: 80,
                         alignItems: 'center',
-                      }}>
+                      }}
+                    >
                       {upiSvg[item.upiName]}
                       <View
                         style={{
                           marginLeft: 10,
-                        }}>
+                        }}
+                      >
                         <Typography color={Colors.appWhiteColor}>
                           {upiMap[item.upiName]}
                         </Typography>
@@ -192,7 +198,8 @@ const WithdrawForm = props => {
             style={{
               alignItems: 'center',
               marginTop: 20,
-            }}>
+            }}
+          >
             <Button
               mode="contained"
               disabled={isLoading}
@@ -211,7 +218,6 @@ const WithdrawForm = props => {
                 setIsLoading(true);
 
                 if (checked === 'wallet') {
-                  reactotron.log(data);
                   depositController
                     .depositIntoWallet(
                       data.uid,
@@ -270,11 +276,13 @@ const WithdrawForm = props => {
                     alert('WithDraw Request Sent Successfully ');
                   });
                 }
-              }}>
+              }}
+            >
               <Typography
                 variant="H3"
                 color={Colors.appWhiteColor}
-                style={{alignItems: 'center'}}>
+                style={{alignItems: 'center'}}
+              >
                 {isLoading ? 'Please wait ...' : 'Request Withdraw'}
               </Typography>
             </Button>
@@ -303,7 +311,8 @@ const WithdrawForm = props => {
                 marginHorizontal: 30,
                 marginTop: 20,
                 textAlign: 'center',
-              }}>
+              }}
+            >
               You have pending withdraw requests , you can withdraw after the
               previous requests are approved.
             </Typography>

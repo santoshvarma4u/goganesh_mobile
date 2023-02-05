@@ -12,8 +12,6 @@ import {
   RefreshControl,
   ImageBackground,
 } from 'react-native';
-// import {SliderBox} from 'react-native-image-slider-box';
-import {SliderBox} from 'react-native-image-slider-box';
 import {Button} from 'react-native-paper';
 import {connect, useDispatch} from 'react-redux';
 // import NetworkAPI from '../../../Network/api/server';
@@ -26,6 +24,7 @@ import Colors from '../../../Theams/Colors';
 // import StorageKeys from '../../Common/StorageKeys';
 import Images from '../../../Theams/Images';
 import FGImage from '../../Common/FGImage';
+import FGSliderBox from '../../Common/SliderBox';
 import {Typography} from '../../Common/Text';
 import IDController from '../../IDs/Controller/IdController';
 import IdController from '../../IDs/Controller/IdController';
@@ -184,7 +183,7 @@ function HomeScreen(props) {
         </ImageBackground>
         <View style={styles.lowerContainer}>
           <View style={styles.lowerBox1}>
-            <SliderBox
+            <FGSliderBox
               images={sliderImgs}
               dotColor={Colors.appPrimaryColor}
               inactiveDotColor={Colors.appPrimaryColor}

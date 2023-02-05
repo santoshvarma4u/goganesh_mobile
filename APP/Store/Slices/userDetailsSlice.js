@@ -1,6 +1,5 @@
 // Create slice from redux-tool-kit
 import {createSlice} from '@reduxjs/toolkit';
-import reactotron from 'reactotron-react-native';
 
 const slice = createSlice({
   name: 'userdetails',

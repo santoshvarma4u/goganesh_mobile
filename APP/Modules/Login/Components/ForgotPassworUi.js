@@ -3,12 +3,9 @@ import {Input} from '@rneui/themed';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import React, {useState} from 'react';
 import {Alert} from 'react-native';
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
-import reactotron from 'reactotron-react-native';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import Colors from '../../../Theams/Colors';
-import authKey from '../../Common/JWT';
 import {Typography} from '../../Common/Text';
-import sendOTP from '../Controllers/LoginController';
 import LoginController from '../Controllers/LoginController';
 
 const ForgotPassWordUI = props => {
@@ -91,7 +88,8 @@ const ForgotPassWordUI = props => {
         style={{
           flexDirection: 'row',
           padding: 10,
-        }}>
+        }}
+      >
         <TouchableOpacity
           style={styles.buttonStyle}
           onPress={() => {
@@ -101,7 +99,8 @@ const ForgotPassWordUI = props => {
               Alert.alert('Password mismatch');
             }
           }}
-          underlayColor="transparent">
+          underlayColor="transparent"
+        >
           <Typography style={{color: 'black', fontSize: 16}}>
             Update Password
           </Typography>
@@ -145,7 +144,8 @@ const ForgotPassWordUI = props => {
         style={{
           flexDirection: 'row',
           padding: 10,
-        }}>
+        }}
+      >
         <TouchableOpacity
           style={styles.buttonStyle}
           onPress={() => {
@@ -155,7 +155,8 @@ const ForgotPassWordUI = props => {
               verifyOtp(otp);
             }
           }}
-          underlayColor="transparent">
+          underlayColor="transparent"
+        >
           <Typography style={{color: 'black', fontSize: 16}}>
             {!otpRequest ? 'Request OTP' : 'Submit OTP'}
           </Typography>

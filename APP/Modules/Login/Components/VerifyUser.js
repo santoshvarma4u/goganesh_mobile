@@ -26,7 +26,8 @@ const VerifyUser = ({onSubmit, howItWorksClick}) => {
         variant={'title'}
         style={{
           textAlign: 'center',
-        }}>
+        }}
+      >
         Let's get started!
       </Typography>
       <Formik
@@ -34,7 +35,8 @@ const VerifyUser = ({onSubmit, howItWorksClick}) => {
           phoneNumber: '',
         }}
         validationSchema={userSchema}
-        onSubmit={onSubmit}>
+        onSubmit={onSubmit}
+      >
         {({
           handleChange,
           handleBlur,
@@ -47,11 +49,13 @@ const VerifyUser = ({onSubmit, howItWorksClick}) => {
             style={{
               alignItems: 'center',
               marginTop: 20,
-            }}>
+            }}
+          >
             <View
               style={{
                 width: screenWidth - 60,
-              }}>
+              }}
+            >
               <CommonTextInput
                 label="Phone Number"
                 placeholder={'Enter your phone number'}
@@ -79,7 +83,8 @@ const VerifyUser = ({onSubmit, howItWorksClick}) => {
               uppercase={false}
               labelStyle={{
                 color: Colors.appWhiteColor,
-              }}>
+              }}
+            >
               Submit
             </Button>
           </View>
@@ -88,13 +93,15 @@ const VerifyUser = ({onSubmit, howItWorksClick}) => {
       <TouchableHighlight
         onPress={() => {
           howItWorksClick();
-        }}>
+        }}
+      >
         <Typography
           style={{
             color: Colors.appWhiteColor,
             textAlign: 'center',
             marginTop: 20,
-          }}>
+          }}
+        >
           How to use ?
         </Typography>
       </TouchableHighlight>

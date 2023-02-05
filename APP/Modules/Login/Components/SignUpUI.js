@@ -1,6 +1,5 @@
 import {CommonActions, useNavigation} from '@react-navigation/native';
 import {Formik} from 'formik';
-import LottieView from 'lottie-react-native';
 import React, {useState} from 'react';
 import {
   Pressable,
@@ -13,12 +12,14 @@ import * as Yup from 'yup';
 import Animations from '../../../Theams/Animations';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
+import LottieView from '../../Common/Lottie';
 import {Typography} from '../../Common/Text';
 import LoginController from '../Controllers/LoginController';
 import SignupController from '../Controllers/SignupController';
 import styles from './Styles';
 
-const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()

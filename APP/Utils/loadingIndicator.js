@@ -1,6 +1,6 @@
-import LottieView from 'lottie-react-native';
 import React from 'react';
 import {Modal, View} from 'react-native';
+import LottieView from '../Modules/Common/Lottie';
 import {Typography} from '../Modules/Common/Text';
 // Modal to loading indicator
 

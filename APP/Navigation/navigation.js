@@ -1,13 +1,14 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import {HeaderBackButton} from '@react-navigation/elements';
 import {CommonActions, DrawerActions} from '@react-navigation/native';
-import {createStackNavigator, HeaderBackButton} from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import {Icon} from '@rneui/themed';
 import React, {useRef} from 'react';
 import {View} from 'react-native';
 import {Appbar} from 'react-native-paper';
 import SmallLogo from '../Assets/svgs/SmallLogo';
-import ChatContainer from '../Modules/Chat/Container/ChatContainer';
+// import ChatContainer from '../Modules/Chat/Container/ChatContainer';
 import {Typography} from '../Modules/Common/Text';
 import TypographyStyles from '../Modules/Common/Text/Text.styles';
 import CreateIDScreen from '../Modules/CreateID/Container/createIDIndex';
@@ -133,10 +134,12 @@ function AuthNavigator() {
   );
 }
 
-function AppContainer() {
+export function AppContainer() {
   return (
-    <Stack.Navigator initialRouteName="Splash" headerMode="none">
-      <Stack.Screen name="Spalsh" component={Splash} />
+    <Stack.Navigator
+      initialRouteName="Splash"
+      screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Splash" component={Splash} />
       <Stack.Screen name="Auth" component={AuthNavigator} />
       <Stack.Screen name="App" component={MyDrawer} />
     </Stack.Navigator>
@@ -149,6 +152,9 @@ const HomeStackNavigator = () => {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
+        screenOptions={{
+          headerShown: false,
+        }}
         options={({navigation}) => ({
           headerStyle: {backgroundColor: Colors.appPrimaryColor, height: 50},
           headerTitle: props => (
@@ -411,7 +417,7 @@ const HomeStackNavigator = () => {
           ),
         })}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Support"
         component={ChatContainer}
         options={({navigation}) => ({
@@ -429,7 +435,7 @@ const HomeStackNavigator = () => {
             />
           ),
         })}
-      />
+      /> */}
       <Stack.Screen
         name="Rules"
         component={RulesScreen}
@@ -625,6 +631,9 @@ function MyDrawer() {
       drawerContentOptions={{
         activeBackgroundColor: 'transparent', //here change it
       }}
+      screenOptions={{
+        headerShown: false,
+      }}
       drawerStyle={{
         marginVertical: 80,
         borderTopRightRadius: 30,
@@ -658,6 +667,7 @@ const BottomTabNavigator = () => {
         },
       }}
       screenOptions={({route}) => ({
+        headerShown: false,
         tabBarIcon: ({focused, color, size}) => {
           let iconName, type;
           if (route.name === 'Home') {
@@ -687,4 +697,4 @@ const BottomTabNavigator = () => {
   );
 };
 
-export {AppContainer, logoutAndResetNavigation};
+export {logoutAndResetNavigation};

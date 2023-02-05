@@ -1,4 +1,3 @@
-import reactotron from 'reactotron-react-native';
 import useAPI from '../../../Hooks/useAPI';
 import Storage from '../../../Modules/Common/Storage';
 import StorageKeys from '../../../Modules/Common/StorageKeys';

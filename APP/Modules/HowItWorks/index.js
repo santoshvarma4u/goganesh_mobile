@@ -1,10 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
 import {Header, Icon} from '@rneui/themed';
-import LottieView from 'lottie-react-native';
 import React from 'react';
 import {Dimensions, Text, View, Modal, FlatList, Pressable} from 'react-native';
 import Animations from '../../Theams/Animations';
 import Colors from '../../Theams/Colors';
+import LottieView from '../Common/Lottie';
 import {Typography} from '../Common/Text';
 import TypographyStyles from '../Common/Text/Text.styles';
 import FGVideoPlayer from '../Common/VideoPlayer';

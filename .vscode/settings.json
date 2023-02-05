@@ -9,6 +9,7 @@
     "formik",
     "paymenttype",
     "Pressable",
+    "rneui",
     "sitename"
   ]
 }

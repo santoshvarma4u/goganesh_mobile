@@ -1,5 +1,4 @@
 import react from 'react';
-import reactotron from 'reactotron-react-native';
 import useAPI from '../../../Hooks/useAPI';
 import IDsApi from '../../../Network/IDs/IDs';
 import payeeApi from '../../../Network/payee/payeeApi';
@@ -93,7 +92,6 @@ const depositIntoWallet = async (
   referenceId,
   usdid,
 ) => {
-  reactotron.log('usdid', usdid);
   const data = new FormData();
   data.append('uid', uid);
   data.append('paymentType', paymentType);
@@ -136,7 +134,6 @@ const submitDataForMyID = async (
   referenceId,
   usdid,
 ) => {
-  reactotron.log('usdid', usdid);
   const data = new FormData();
   data.append('uid', uid);
   data.append('sdid', sdid);
@@ -154,8 +151,6 @@ const submitDataForMyID = async (
   }
 
   data.append('paymentAmount', paymentAmount);
-
-  reactotron.log('payment Amount', data);
 
   const result = await paymentDepositApi.createDepositPayment(
     data,

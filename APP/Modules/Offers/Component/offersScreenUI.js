@@ -1,15 +1,16 @@
-import LottieView from 'lottie-react-native';
 import React, {useState, useEffect} from 'react';
 import {Text, Image, View, StyleSheet} from 'react-native';
-import {SliderBox} from 'react-native-image-slider-box';
-import LinearGradient from 'react-native-linear-gradient';
 import {env} from '../../../Network/api/server';
 import Animations from '../../../Theams/Animations';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
+import LinearGradient from '../../Common/LinearGradient';
+import LottieView from '../../Common/Lottie';
+import FGSliderBox from '../../Common/SliderBox';
 import {Typography} from '../../Common/Text';
 import OffersController from '../Controller/offeresController';
 import styles from './Styles';
+
 function OffersScreen({navigation}) {
   const [offerImages, setOfferImages] = useState(false);
   const {data, success} = OffersController.useGetOfferImages();
@@ -30,7 +31,7 @@ function OffersScreen({navigation}) {
       <View style={styles.offersContainer}>
         {offerImages.length > 0 ? (
           <View style={styles.offersCard}>
-            <SliderBox
+            <FGSliderBox
               images={offerImages}
               dotColor={Colors.appPrimaryColor}
               inactiveDotColor={Colors.appPrimaryColor}

@@ -9,7 +9,6 @@ import {
   View,
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
-import * as ImagePicker from 'react-native-image-picker';
 import {Button, IconButton} from 'react-native-paper';
 import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
@@ -19,6 +18,7 @@ import Colors from '../../../Theams/Colors';
 import LoadingIndicator from '../../../Utils/loadingIndicator';
 import withPreventDoubleClick from '../../../Utils/withPreventDoubleClick';
 import ErrorPage from '../../Common/ErrorPage';
+import FGImagePicker from '../../Common/ImagePicker';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
@@ -72,8 +72,6 @@ const DepositContainerV2 = props => {
         }
       });
       setPaymentMasters(masters);
-      masters.length > 0 &&
-        setSelectedMedium({type: masters[0].paymenttype, ...masters[0]});
     }
   }, [data]);
 
@@ -117,7 +115,7 @@ const DepositContainerV2 = props => {
         path: 'images',
       },
     };
-    ImagePicker.launchImageLibrary(options, response => {
+    FGImagePicker.launchImageLibrary(options, response => {
       if (response.didCancel) {
       } else if (response.error) {
       } else if (response.customButton) {
@@ -248,6 +246,7 @@ const DepositContainerV2 = props => {
             padding: 5,
           }}>
           <FlatList
+            data={paymentMasters}
             data={paymentMasters}
             horizontal
             renderItem={({item}) => {

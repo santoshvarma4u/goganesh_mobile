@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {ScrollView} from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
 import {Button} from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as yup from 'yup';
 import Colors from '../../Theams/Colors';
 import CommonTextInput from './CommonTextInput';
+import Picker from './DropDownPicker';
 import {Typography} from './Text';
 import {banksList} from './banks';
 
@@ -40,7 +40,8 @@ const EnterBankDetails = props => {
         IFSC: bankData ? bankData.IFSC : '',
         AccountHolderName: bankData ? bankData.accountHolderName : '',
       }}
-      onSubmit={onSubmit}>
+      onSubmit={onSubmit}
+    >
       {({
         handleChange,
         handleBlur,
@@ -59,11 +60,13 @@ const EnterBankDetails = props => {
             paddingVertical: 30,
             paddingHorizontal: 20,
             color: Colors.appWhiteColor,
-          }}>
+          }}
+        >
           <View
             style={{
               flexDirection: 'row',
-            }}>
+            }}
+          >
             <View
               style={{
                 flex: 1,
@@ -83,7 +86,7 @@ const EnterBankDetails = props => {
             Adding your bank account details is mandatory for processing your
             withdrawals.
           </Typography>
-          <DropDownPicker
+          <Picker
             items={items}
             open={open}
             setOpen={setOpen}
@@ -159,7 +162,8 @@ const EnterBankDetails = props => {
                 backgroundColor: Colors.appPrimaryColor,
                 color: Colors.appBlackColor,
               }}
-              onPress={handleSubmit}>
+              onPress={handleSubmit}
+            >
               <Typography color={Colors.appBlackColor}>Submit</Typography>
             </Button>
           </View>

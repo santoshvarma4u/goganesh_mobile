@@ -7,9 +7,6 @@ import {
   ScrollView,
   RefreshControl,
 } from 'react-native';
-import RNPgReactNativeSDK from 'react-native-pg-react-native-sdk';
-import Toast from 'react-native-root-toast';
-import reactotron from 'reactotron-react-native';
 import CONSTANTS, {APPID} from '../../../Constants';
 import images from '../../../Theams/Images';
 import Storage from '../../Common/Storage';
@@ -76,28 +73,6 @@ function PaymentOptionScreen({route}) {
       customerPhone: '9999999999',
       customerEmail: 'cashfree@cashfree.com',
     };
-    RNPgReactNativeSDK.startPaymentWEB(map, env, result => {
-      const obj = JSON.parse(result, function (key, value) {
-        reactotron.log(key + '::' + value);
-        // Do something with the result
-        // Payment succeeded
-        if (key === 'txStatus' && value === 'SUCCESS') {
-          depositAmount(result.referenceId);
-          setIsPaymentSuccess(true);
-        } else {
-          setIsPaymentSuccess(false);
-          Toast.show('Sorry Payment Failed! Please retry', {
-            duration: Toast.durations.LONG,
-            position: Toast.positions.BOTTOM,
-            shadow: true,
-            animation: true,
-            hideOnPress: true,
-            delay: 0,
-          });
-        }
-        setIsPaymentLoading(false);
-      });
-    });
   };
 
   // Deposit amount
@@ -175,7 +150,8 @@ function PaymentOptionScreen({route}) {
         contentContainerStyle={styles.paymentOptionsContainer}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }>
+        }
+      >
         <View style={styles.PaymentTitle}>
           <Typography variant="title" style={{color: 'white'}}>
             Choose Your Payment Method
@@ -199,7 +175,8 @@ function PaymentOptionScreen({route}) {
                     : 'Payment gateway currently disabled',
                 );
               }
-            }}>
+            }}
+          >
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.gateway} />
               <Typography style={styles.paymentTypeTitle}>
@@ -223,7 +200,8 @@ function PaymentOptionScreen({route}) {
               } else {
                 alert('Payment Option Not Available');
               }
-            }}>
+            }}
+          >
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.gpay} />
               <Typography style={styles.paymentTypeTitle}>
@@ -248,7 +226,8 @@ function PaymentOptionScreen({route}) {
               } else {
                 alert('Payment Option Not Available');
               }
-            }}>
+            }}
+          >
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.phonepe} />
               <Typography style={styles.paymentTypeTitle}>Phone Pay</Typography>
@@ -270,7 +249,8 @@ function PaymentOptionScreen({route}) {
               } else {
                 alert('Payment Option Not Available');
               }
-            }}>
+            }}
+          >
             <View style={styles.paymentMethod}>
               <Image style={styles.paymentIcon} source={images.banktransfer} />
               <Typography style={styles.paymentTypeTitle}>

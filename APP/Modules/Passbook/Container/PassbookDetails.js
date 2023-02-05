@@ -1,7 +1,6 @@
 import moment from 'moment';
 import React, {useState} from 'react';
 import {Dimensions, ScrollView, StyleSheet, Text, View} from 'react-native';
-import ImageModal from 'react-native-image-modal';
 import {Chip, Divider} from 'react-native-paper';
 import {Modal} from 'react-native-paper';
 import {userFriendlyPaymentMessage} from '../../../Constants';
@@ -9,34 +8,11 @@ import {env} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
 import {convertSecondsToHHMMSS, removeHttpOrWww} from '../../../Utils';
 import FGImage from '../../Common/FGImage';
+import FGImageModal from '../../Common/ImageModal';
 import {Typography} from '../../Common/Text';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
-
-// pymid:24
-// uid:31
-// sdid:null
-// bid:null
-// upiId:null
-// paymentMethod:Bank
-// paymentAmount:100
-// paymentType:CR
-// paymentStatus:Rejected
-// referral_code:FGAG01
-// paymentReciept:images/regSite-deposits/depositpayreciept-1663988844980-927531935rn_image_picker_lib_temp_71e862a4-9d6a-4ec7-bc03-15e6e8c6b52b.jpg
-// creadtedtime:2022-09-24T03:07:25.000Z
-// updatedtime:2022-09-24T03:07:25.000Z
-// isWallet:true
-// remarks:Deposit into wallet - UPI- screenshot approval
-// reason:Duplicate Payment Screenshot
-// botVerified:false
-// utr:NA
-// referenceId:null
-// approved_rejected_time:null
-// processing_time:null
-// updated_by:null
-// sd:null
 
 const RenderDetails = ({title, value}) => {
   return (
@@ -86,7 +62,8 @@ const PassBookDetails = ({route}) => {
               backgroundColor:
                 item.paymentStatus === 'Accepted' ? 'green' : 'red',
             }}
-            textStyle={{color: Colors.appWhiteColor}}>
+            textStyle={{color: Colors.appWhiteColor}}
+          >
             <Typography variant="caption">{item.paymentStatus}</Typography>
           </Chip>
           <Typography variant="caption" style={{color: Colors.appWhiteColor}}>
@@ -110,7 +87,8 @@ const PassBookDetails = ({route}) => {
           style={{
             color: Colors.appWhiteColor,
           }}
-          variant={'subheader'}>
+          variant={'subheader'}
+        >
           Transactions Details
         </Typography>
         <Divider style={{backgroundColor: Colors.appWhiteColor, height: 1}} />
@@ -144,14 +122,16 @@ const PassBookDetails = ({route}) => {
           style={{
             color: Colors.appWhiteColor,
           }}
-          variant={'subheader'}>
+          variant={'subheader'}
+        >
           Remarks
         </Typography>
         <Divider style={{backgroundColor: Colors.appWhiteColor, height: 1}} />
         <Typography
           style={{
             color: Colors.appWhiteColor,
-          }}>
+          }}
+        >
           {item.remarks}
         </Typography>
         {item.reason && (
@@ -159,7 +139,8 @@ const PassBookDetails = ({route}) => {
             variant={'caption'}
             style={{
               color: Colors.appWhiteColor,
-            }}>
+            }}
+          >
             Reason: {item.reason}
           </Typography>
         )}
@@ -172,7 +153,8 @@ const PassBookDetails = ({route}) => {
           style={{
             color: Colors.appWhiteColor,
           }}
-          variant={'subheader'}>
+          variant={'subheader'}
+        >
           Payment Details
         </Typography>
         <Divider
@@ -182,7 +164,7 @@ const PassBookDetails = ({route}) => {
             marginBottom: 14,
           }}
         />
-        <ImageModal
+        <FGImageModal
           resizeMode="contain"
           imageBackgroundColor="#000000"
           style={{
@@ -200,7 +182,8 @@ const PassBookDetails = ({route}) => {
         dismissable={true}
         onDismiss={() => {
           showImageModel(false);
-        }}>
+        }}
+      >
         <FGImage
           style={{
             marginHorizontal: 20,

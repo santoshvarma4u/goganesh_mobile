@@ -41,12 +41,12 @@ export const ClipboardItem = ({text}) => {
 
 const PaymentDetail = ({selectedMedium}) => {
   const {data, type} = selectedMedium || {};
-  reactotron.log(
+  console.log(
     '🚀 ~ file: PaymentDetail.js ~ line 43 ~ PaymentDetail ~ data',
     data,
   );
   return (
-    data?.length > 0 &&
+    data &&
     data?.map(item => {
       return (
         <View style={styles.mediumContainer}>
@@ -79,12 +79,9 @@ const PaymentDetail = ({selectedMedium}) => {
               </View>
             </>
           ) : (
-            <View>
+            <>
               <Typography style={styles.text}>
                 {type || 'Select payment type'}
-              </Typography>
-              <Typography style={[styles.text, {marginVertical: 10}]}>
-                {item.paymentname}
               </Typography>
               {item.paymentkey && (
                 <View
@@ -96,7 +93,7 @@ const PaymentDetail = ({selectedMedium}) => {
                   <ClipboardItem text={item.paymentkey} />
                 </View>
               )}
-            </View>
+            </>
           )}
         </View>
       );

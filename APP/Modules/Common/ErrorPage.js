@@ -1,10 +1,10 @@
-import LottieView from 'lottie-react-native';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {View} from 'react-native';
 import {Button} from 'react-native-paper';
 import animations from '../../Theams/Animations';
 import Colors from '../../Theams/Colors';
+import LottieView from './Lottie';
 import {Typography} from './Text';
 
 const ErrorPage = props => {

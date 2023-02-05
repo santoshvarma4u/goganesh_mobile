@@ -16,7 +16,6 @@ import {
 import {Button, Modal as PaperModal, Portal, Card} from 'react-native-paper';
 import WebView from 'react-native-webview';
 import {connect} from 'react-redux';
-import reactotron from 'reactotron-react-native';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
 import FGImage from '../../Common/FGImage';
@@ -56,7 +55,8 @@ const HomeListMyIDs = props => {
         style={[
           styles.ListTitle,
           {justifyContent: 'center', alignItems: 'center'},
-        ]}>
+        ]}
+      >
         <View
           style={{
             width: 50,
@@ -65,7 +65,8 @@ const HomeListMyIDs = props => {
             overflow: 'hidden',
             borderRadius: 30,
             justifyContent: 'center',
-          }}>
+          }}
+        >
           <FGImage
             style={styles.image}
             source={{uri: props.data.sd.siteimage}}
@@ -79,12 +80,14 @@ const HomeListMyIDs = props => {
               justifyContent: 'space-around',
               alignItems: 'center',
               marginLeft: 5,
-            }}>
+            }}
+          >
             <TouchableOpacity
               onPress={() => {
                 // onSiteUrlPress();
                 Linking.openURL(props.data.sd.siteurl);
-              }}>
+              }}
+            >
               <Typography variant={'subheader'} style={styles.url}>
                 {props.data.sd.siteurl.substring(
                   8,
@@ -97,7 +100,8 @@ const HomeListMyIDs = props => {
                 onPress={() => {
                   // onSiteUrlPress();
                   Linking.openURL(props.data.sd.siteurl);
-                }}>
+                }}
+              >
                 <Icon name="launch" color="white" size={14} />
               </TouchableOpacity>
             </View>
@@ -146,7 +150,8 @@ const HomeListMyIDs = props => {
                 style={{color: 'white', marginLeft: 15}}
                 onPress={() => {
                   Clipboard.setString(props.data.password);
-                }}>
+                }}
+              >
                 <Icon name="content-copy" color="white" size={15} />
               </TouchableOpacity>
             </View>
@@ -168,7 +173,8 @@ const HomeListMyIDs = props => {
                 usdid: props.data.usdid,
                 requestStatus: 'old',
               });
-            }}>
+            }}
+          >
             <Typography style={{alignItems: 'center', color: 'white'}}>
               Deposit
             </Typography>
@@ -188,7 +194,8 @@ const HomeListMyIDs = props => {
                 banks: banks,
                 data: props.data,
               });
-            }}>
+            }}
+          >
             <Typography style={{alignItems: 'center', color: 'white'}}>
               Withdraw
             </Typography>
@@ -251,19 +258,22 @@ const HomeListMyIDs = props => {
           padding: 20,
           backgroundColor: 'white',
           height: screenHeight,
-        }}>
+        }}
+      >
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-around',
             alignItems: 'center',
-          }}>
+          }}
+        >
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-            }}>
+            }}
+          >
             <Icon
               name="user"
               type={'antdesign'}
@@ -280,7 +290,8 @@ const HomeListMyIDs = props => {
               justifyContent: 'center',
               alignItems: 'center',
               marginVertical: 10,
-            }}>
+            }}
+          >
             <Icon
               name="wallet"
               type={'fontisto'}
@@ -297,7 +308,8 @@ const HomeListMyIDs = props => {
             alignItems: 'center',
             justifyContent: 'space-around',
             marginVertical: 10,
-          }}>
+          }}
+        >
           <Button
             color={Colors.appGreenColor}
             onPress={() => {
@@ -308,7 +320,8 @@ const HomeListMyIDs = props => {
                 requestStatus: 'old',
               });
             }}
-            mode="contained">
+            mode="contained"
+          >
             <Typography style={{alignItems: 'center', color: 'white'}}>
               Deposit
             </Typography>
@@ -322,7 +335,8 @@ const HomeListMyIDs = props => {
               });
             }}
             color={Colors.appRedColor}
-            mode="contained">
+            mode="contained"
+          >
             <Typography style={{alignItems: 'center', color: 'white'}}>
               Withdraw
             </Typography>
@@ -333,12 +347,14 @@ const HomeListMyIDs = props => {
       </Modal>
       <BottomSheet
         isVisible={isVisible}
-        containerStyle={{backgroundColor: 'rgba(0.5, 0.25, 0, 0.7)'}}>
+        containerStyle={{backgroundColor: 'rgba(0.5, 0.25, 0, 0.7)'}}
+      >
         {list.map((l, i) => (
           <ListItem
             key={i}
             containerStyle={l.containerStyle}
-            onPress={l.onPress}>
+            onPress={l.onPress}
+          >
             <ListItem.Content>
               <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
             </ListItem.Content>
@@ -354,7 +370,8 @@ const HomeListMyIDs = props => {
           }}
           onDismiss={() => {
             setShowPasswordModal(false);
-          }}>
+          }}
+        >
           <Card style={styles.modalContainer}>
             <Card.Title
               title={'Change Password'}
@@ -416,7 +433,8 @@ const HomeListMyIDs = props => {
                   } else {
                     alert('Password does not match');
                   }
-                }}>
+                }}
+              >
                 Change password
               </Button>
               <Button
@@ -429,7 +447,8 @@ const HomeListMyIDs = props => {
                   setShowPasswordModal(false);
                   setNewPassword('');
                   setConfirmPassword('');
-                }}>
+                }}
+              >
                 Cancel
               </Button>
             </Card.Actions>

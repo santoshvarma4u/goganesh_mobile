@@ -1,20 +1,17 @@
 /* eslint-disable react-native/no-inline-styles */
 import {CommonActions} from '@react-navigation/native';
-import LottieView from 'lottie-react-native';
 import React, {useEffect, useState} from 'react';
 import {ScrollView, View} from 'react-native';
 import {Button, Modal, ActivityIndicator} from 'react-native-paper';
-import RNPgReactNativeSDK from 'react-native-pg-react-native-sdk';
-import Toast from 'react-native-root-toast';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
-import reactotron from 'reactotron-react-native';
 import CONSTANTS from '../../../Constants';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import animations from '../../../Theams/Animations';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
 import ErrorPage from '../../Common/ErrorPage';
+import LottieView from '../../Common/Lottie';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
@@ -66,7 +63,6 @@ const DepositContainer = props => {
       });
     } catch (e) {
       //Error
-      reactotron.log(e);
     }
 
     let name1 = await Storage.getItemSync(StorageKeys.NAME);
@@ -84,29 +80,6 @@ const DepositContainer = props => {
       customerPhone: '9999999999',
       customerEmail: 'cashfree@cashfree.com',
     };
-    RNPgReactNativeSDK.startPaymentWEB(map, env, result => {
-      reactotron.log(result);
-      const obj = JSON.parse(result, function (key, value) {
-        reactotron.log(key + '::' + value);
-        // Do something with the result
-        // Payment succeeded
-        if (key === 'txStatus' && value === 'SUCCESS') {
-          depositAmountIntoWallet(amount, result.referenceId);
-          setIsPaymentSuccess(true);
-        } else {
-          setIsPaymentLoading(false);
-          setIsPaymentSuccess(false);
-          Toast.show('Sorry Payment Failed! Please retry', {
-            duration: Toast.durations.LONG,
-            position: Toast.positions.BOTTOM,
-            shadow: true,
-            animation: true,
-            hideOnPress: true,
-            delay: 0,
-          });
-        }
-      });
-    });
   };
 
   const depositAmountIntoWallet = (amount, referenceId) => {
@@ -122,7 +95,7 @@ const DepositContainer = props => {
       null,
       null,
       referenceId,
-        data?.usdid
+      data?.usdid,
     ).then(data => {
       setIsPaymentLoading(false);
       navigation.dispatch(resetAction);

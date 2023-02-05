@@ -46,14 +46,14 @@ const Text = ({children = '', variant = P1, style, color, ...restProps}) => (
       },
       style,
     ]}
-    {...restProps}>
+    {...restProps}
+  >
     {children}
   </RNText>
 );
 
 Text.propTypes = {
   children: oneOfType([string, instanceOf(Text), instanceOf(RNText)]),
-  style: oneOfType([arrayOf(RNText.propTypes.style), RNText.propTypes.style]),
   variant: typeShape,
   color: string,
   ...RNText.propTypes,

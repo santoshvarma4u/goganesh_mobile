@@ -1,12 +1,10 @@
 import {useNavigation} from '@react-navigation/native';
 import {CommonActions} from '@react-navigation/native';
 import {Formik} from 'formik';
-import AnimatedLottieView from 'lottie-react-native';
 import React, {useEffect, useState} from 'react';
 import {TouchableWithoutFeedback, View, ScrollView, Image} from 'react-native';
 import {ActivityIndicator, Button, Checkbox} from 'react-native-paper';
 import {connect} from 'react-redux';
-import reactotron from 'reactotron-react-native';
 import * as Yup from 'yup';
 import FGPUNTLOGO from '../../../Assets/svgs/fgpuntlogo';
 import CONSTANTS from '../../../Constants';
@@ -20,6 +18,7 @@ import LoadingIndicator from '../../../Utils/loadingIndicator';
 import withPreventDoubleClick from '../../../Utils/withPreventDoubleClick';
 import CommonTextInput from '../../Common/CommonTextInput';
 import ErrorPage from '../../Common/ErrorPage';
+import LottieView from '../../Common/Lottie';
 import {Typography} from '../../Common/Text';
 import DepositController from '../../Deposit/Controller/depositController';
 import paymentDetailsController from '../../PaymentDetails/Controller/paymentDetailsController';
@@ -100,7 +99,6 @@ function CreateIDScreen({route, wallet}) {
         setIsLoading(false);
         return alert('Insufficient Balance');
       }
-      reactotron.log('usdid', usdid);
       DepositController.submitDataForMyID(
         parseInt(uid),
         sdid,
@@ -187,7 +185,7 @@ function CreateIDScreen({route, wallet}) {
             backgroundColor: Colors.appBlackColor,
             paddingHorizontal: 20,
           }}>
-          <AnimatedLottieView
+          <LottieView
             source={animations.timer}
             autoPlay
             loop

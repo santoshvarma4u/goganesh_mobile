@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {useDispatch, useSelector} from 'react-redux';
-import reactotron from 'reactotron-react-native';
 import {updateIdState} from '../../../Store/Slices/idStateSlice';
 import Colors from '../../../Theams/Colors';
 import {Typography} from '../../Common/Text';
@@ -88,7 +87,8 @@ function IDs({navigation, route}) {
           {getMyIDs.error && (
             <>
               <Typography
-                style={{alignItems: 'center', color: Colors.appPrimaryColor}}>
+                style={{alignItems: 'center', color: Colors.appPrimaryColor}}
+              >
                 No IDs Found
               </Typography>
               <TouchableOpacity
@@ -103,7 +103,8 @@ function IDs({navigation, route}) {
                 onPress={() => {
                   getMyIDs.request();
                 }}
-                underlayColor="transparent">
+                underlayColor="transparent"
+              >
                 <Typography style={{color: Colors.appWhiteColor, fontSize: 16}}>
                   Retry
                 </Typography>
