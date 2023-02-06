@@ -5,7 +5,6 @@ import React, {useEffect, useState} from 'react';
 
 import {
   View,
-  Image,
   StyleSheet,
   TouchableOpacity,
   Clipboard,
@@ -55,18 +54,30 @@ const HomeListMyIDs = props => {
         style={[
           styles.ListTitle,
           {justifyContent: 'center', alignItems: 'center'},
-        ]}
-      >
+        ]}>
         <View
           style={{
-            width: 50,
-            height: 50,
+            width: 40,
+            height: 40,
+            backgroundColor: Colors.appBlackColor,
+            overflow: 'hidden',
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'absolute',
+            left: 10,
+            top: 0,
+          }}
+        />
+        <View
+          style={{
+            width: 40,
+            height: 40,
             backgroundColor: Colors.appBlackColor,
             overflow: 'hidden',
             borderRadius: 30,
             justifyContent: 'center',
-          }}
-        >
+            alignItems: 'center',
+          }}>
           <FGImage
             style={styles.image}
             source={{uri: props.data.sd.siteimage}}
@@ -76,34 +87,43 @@ const HomeListMyIDs = props => {
         <View>
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              alignItems: 'center',
               marginLeft: 5,
-            }}
-          >
+            }}>
             <TouchableOpacity
-              onPress={() => {
-                // onSiteUrlPress();
-                Linking.openURL(props.data.sd.siteurl);
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
               }}
-            >
+              onPress={() => {
+                Linking.openURL(props.data.sd.siteurl);
+              }}>
               <Typography variant={'subheader'} style={styles.url}>
                 {props.data.sd.siteurl.substring(
                   8,
                   props.data.sd.siteurl.length,
                 )}
               </Typography>
+              <Icon name="launch" color="white" size={14} />
             </TouchableOpacity>
-            <View style={styles.credIcon}>
-              <TouchableOpacity
-                onPress={() => {
-                  // onSiteUrlPress();
-                  Linking.openURL(props.data.sd.siteurl);
-                }}
-              >
-                <Icon name="launch" color="white" size={14} />
-              </TouchableOpacity>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: Colors.appBlackColorLight,
+                  borderRadius: 5,
+                  padding: 3,
+                  marginRight: 5,
+                }}>
+                <Icon name="user" type={'antdesign'} color="white" size={12} />
+                <Typography style={styles.credTitle}> ID </Typography>
+              </View>
+              <ClipboardItem text={props.data.username} needCopyText={false} />
             </View>
           </View>
         </View>
@@ -127,80 +147,47 @@ const HomeListMyIDs = props => {
 
   function ListCollapse() {
     return (
-      <View style={styles.containerCollapse}>
-        <View style={styles.credsCard}>
-          <View style={styles.credsCardID}>
-            {/* <Icon name="user" type={'antdesign'} color="white" size={12} /> */}
-            <Typography style={styles.credTitle}> Username </Typography>
-            <View style={{flex: 1}} />
-            <ClipboardItem text={props.data.username} />
-          </View>
-          {moment().diff(
-            moment(props.data.creadtedtime).utc(),
-            'hours',
-            false,
-          ) <= 2 && (
-            <View style={styles.credsCardPassword}>
-              <Typography style={styles.credTitle}> Password </Typography>
-              <View style={{flex: 1}} />
-              <Typography style={{color: 'white', marginLeft: 10}}>
-                {props.data.password}
-              </Typography>
-              <TouchableOpacity
-                style={{color: 'white', marginLeft: 15}}
-                onPress={() => {
-                  Clipboard.setString(props.data.password);
-                }}
-              >
-                <Icon name="content-copy" color="white" size={15} />
-              </TouchableOpacity>
-            </View>
-          )}
-        </View>
-        <View style={styles.depositWithdraw}>
-          <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              flex: 1,
-              paddingTop: 5,
-              alignItems: 'center',
-              flexDirection: 'row',
-            }}
-            onPress={() => {
-              props.navigation.navigate('CreateID', {
-                sdid: props.data.sd.sdid,
-                username: props.data.username,
-                usdid: props.data.usdid,
-                requestStatus: 'old',
-              });
-            }}
-          >
-            <Typography style={{alignItems: 'center', color: 'white'}}>
-              Deposit
-            </Typography>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              flex: 1,
-              paddingTop: 5,
-              flexDirection: 'row',
-              borderColor: Colors.appBlackColorLight,
-              borderLeftWidth: 1,
-            }}
-            onPress={() => {
-              props.navigation.navigate('Withdraw', {
-                banks: banks,
-                data: props.data,
-              });
-            }}
-          >
-            <Typography style={{alignItems: 'center', color: 'white'}}>
-              Withdraw
-            </Typography>
-          </TouchableOpacity>
-        </View>
+      <View style={styles.depositWithdraw}>
+        <TouchableOpacity
+          style={{
+            justifyContent: 'center',
+            flex: 1,
+            paddingTop: 5,
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}
+          onPress={() => {
+            props.navigation.navigate('CreateID', {
+              sdid: props.data.sd.sdid,
+              username: props.data.username,
+              usdid: props.data.usdid,
+              requestStatus: 'old',
+            });
+          }}>
+          <Typography style={{alignItems: 'center', color: 'white'}}>
+            Deposit
+          </Typography>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            flex: 1,
+            paddingTop: 5,
+            flexDirection: 'row',
+            borderColor: Colors.appBlackColor,
+            borderLeftWidth: 1,
+          }}
+          onPress={() => {
+            props.navigation.navigate('Withdraw', {
+              banks: banks,
+              data: props.data,
+            });
+          }}>
+          <Typography style={{alignItems: 'center', color: 'white'}}>
+            Withdraw
+          </Typography>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -258,22 +245,19 @@ const HomeListMyIDs = props => {
           padding: 20,
           backgroundColor: 'white',
           height: screenHeight,
-        }}
-      >
+        }}>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-around',
             alignItems: 'center',
-          }}
-        >
+          }}>
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-            }}
-          >
+            }}>
             <Icon
               name="user"
               type={'antdesign'}
@@ -290,8 +274,7 @@ const HomeListMyIDs = props => {
               justifyContent: 'center',
               alignItems: 'center',
               marginVertical: 10,
-            }}
-          >
+            }}>
             <Icon
               name="wallet"
               type={'fontisto'}
@@ -308,8 +291,7 @@ const HomeListMyIDs = props => {
             alignItems: 'center',
             justifyContent: 'space-around',
             marginVertical: 10,
-          }}
-        >
+          }}>
           <Button
             color={Colors.appGreenColor}
             onPress={() => {
@@ -320,8 +302,7 @@ const HomeListMyIDs = props => {
                 requestStatus: 'old',
               });
             }}
-            mode="contained"
-          >
+            mode="contained">
             <Typography style={{alignItems: 'center', color: 'white'}}>
               Deposit
             </Typography>
@@ -335,8 +316,7 @@ const HomeListMyIDs = props => {
               });
             }}
             color={Colors.appRedColor}
-            mode="contained"
-          >
+            mode="contained">
             <Typography style={{alignItems: 'center', color: 'white'}}>
               Withdraw
             </Typography>
@@ -347,14 +327,12 @@ const HomeListMyIDs = props => {
       </Modal>
       <BottomSheet
         isVisible={isVisible}
-        containerStyle={{backgroundColor: 'rgba(0.5, 0.25, 0, 0.7)'}}
-      >
+        containerStyle={{backgroundColor: 'rgba(0.5, 0.25, 0, 0.7)'}}>
         {list.map((l, i) => (
           <ListItem
             key={i}
             containerStyle={l.containerStyle}
-            onPress={l.onPress}
-          >
+            onPress={l.onPress}>
             <ListItem.Content>
               <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
             </ListItem.Content>
@@ -370,8 +348,7 @@ const HomeListMyIDs = props => {
           }}
           onDismiss={() => {
             setShowPasswordModal(false);
-          }}
-        >
+          }}>
           <Card style={styles.modalContainer}>
             <Card.Title
               title={'Change Password'}
@@ -433,8 +410,7 @@ const HomeListMyIDs = props => {
                   } else {
                     alert('Password does not match');
                   }
-                }}
-              >
+                }}>
                 Change password
               </Button>
               <Button
@@ -447,8 +423,7 @@ const HomeListMyIDs = props => {
                   setShowPasswordModal(false);
                   setNewPassword('');
                   setConfirmPassword('');
-                }}
-              >
+                }}>
                 Cancel
               </Button>
             </Card.Actions>
@@ -461,63 +436,36 @@ const HomeListMyIDs = props => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.appBlackColorLight,
-    borderRadius: 30,
-    padding: 16,
+    backgroundColor: Colors.appBlackColorLight + 'aa',
+    borderRadius: 20,
     width: screenWidth,
     borderWidth: 10,
     borderColor: Colors.appBlackColor,
   },
   image: {
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     borderRadius: 30,
   },
   url: {
     color: Colors.appWhiteColor,
     fontSize: 13,
   },
-  siteName: {
-    marginLeft: 10,
-    marginTop: 10,
-    color: Colors.appWhiteColor,
-  },
   ListTitle: {
     flexDirection: 'row',
-  },
-
-  containerCollapse: {
-    width: '100%',
-    alignItems: 'center',
-    backgroundColor: Colors.appBlackColor,
-    padding: 10,
-    borderRadius: 10,
-  },
-  credsCard: {
-    marginTop: 10,
-    padding: 8,
-    backgroundColor: Colors.appBlackColor,
-    width: '100%',
-  },
-  credIcon: {
-    marginLeft: 10,
+    paddingHorizontal: 10,
+    paddingTop: 10,
+    paddingBottom: 20,
   },
   credTitle: {
     color: 'white',
     fontSize: 12,
   },
-  credsCardID: {
-    flexDirection: 'row',
-  },
-  credsCardPassword: {
-    paddingTop: 10,
-    flexDirection: 'row',
-  },
   depositWithdraw: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.appBlackColor,
+    backgroundColor: Colors.appBlackColorLight,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     borderTopWidth: 1,

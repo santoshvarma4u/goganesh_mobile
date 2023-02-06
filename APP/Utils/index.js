@@ -53,3 +53,10 @@ export function convertSecondsToHHMMSS(seconds) {
   }
   return final;
 }
+
+export const getWhatsappMessageUrl = () => {
+  return (
+    'whatsapp://send?text= Please raise your concern here' +
+    '&phone=919777087770'
+  );
+};

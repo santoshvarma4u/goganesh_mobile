@@ -1,15 +1,14 @@
+/* eslint-disable react-native/no-inline-styles */
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {HeaderBackButton} from '@react-navigation/elements';
 import {CommonActions, DrawerActions} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Icon} from '@rneui/themed';
-import React, {useRef} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 import {Appbar} from 'react-native-paper';
-import SmallLogo from '../Assets/svgs/SmallLogo';
 // import ChatContainer from '../Modules/Chat/Container/ChatContainer';
-import {Typography} from '../Modules/Common/Text';
 import TypographyStyles from '../Modules/Common/Text/Text.styles';
 import CreateIDScreen from '../Modules/CreateID/Container/createIDIndex';
 import DepositContainer from '../Modules/Deposit/Container/DepositContainer';
@@ -50,12 +49,31 @@ const appHeaderStyle = {
 
 export const _navigationRef = React.createRef();
 
-function CustomNavigationBar({navigation, back, route}) {
-  const {name} = route;
+export function CustomNavigationBar({
+  navigation,
+  back = true,
+  route,
+  headerName,
+}) {
+  const {name} = route || {};
   return (
-    <Appbar.Header>
-      {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
-      <Appbar.Content title={name} />
+    <Appbar.Header
+      style={{
+        backgroundColor: Colors.appBlackColor,
+      }}>
+      <View
+        style={{
+          backgroundColor: Colors.appWhiteColor,
+          height: 30,
+          width: 30,
+          borderRadius: 20,
+          marginLeft: 18,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
+      </View>
+      <Appbar.Content title={headerName ?? name} />
     </Appbar.Header>
   );
 }
@@ -86,20 +104,28 @@ function AuthNavigator() {
         name="SignIn"
         component={SignInContainer}
         options={({navigation}) => ({
-          headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitle: 'Login',
-          headerTitleAlign: 'center',
-          headerTitleStyle: appHeaderStyle,
+          header: props => (
+            <CustomNavigationBar
+              {...props}
+              navigation={navigation}
+              back={true}
+              headerName="Login"
+            />
+          ),
         })}
       />
       <Stack.Screen
         name="SignUp"
         component={SignUpContainer}
         options={({navigation}) => ({
-          headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitle: 'Sign Up',
-          headerTitleAlign: 'center',
-          headerTitleStyle: appHeaderStyle,
+          header: props => (
+            <CustomNavigationBar
+              {...props}
+              navigation={navigation}
+              back={true}
+              headerName="Register"
+            />
+          ),
         })}
       />
       <Stack.Screen
@@ -124,10 +150,33 @@ function AuthNavigator() {
         name="HowItWorks"
         component={HowItWorks}
         options={({navigation}) => ({
+          header: props => (
+            <CustomNavigationBar
+              {...props}
+              navigation={navigation}
+              back={true}
+              headerName="How to use"
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Rules"
+        component={RulesScreen}
+        options={({navigation}) => ({
+          headerTitle: 'Terms & Conditions',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitle: 'How to use',
           headerTitleAlign: 'center',
           headerTitleStyle: appHeaderStyle,
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              tintColor={Colors.appWhiteColor}
+              onPress={() => {
+                navigation.pop();
+              }}
+            />
+          ),
         })}
       />
     </Stack.Navigator>
@@ -176,11 +225,21 @@ const HomeStackNavigator = () => {
           headerLeft: () => (
             {marginLeft: 'auto'},
             (
-              <View style={{marginLeft: 10}}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: 30,
+                  width: 30,
+                  borderRadius: 20,
+                  backgroundColor: Colors.appWhiteColor,
+                  marginLeft: 10,
+                }}>
                 <Icon
                   name="menu"
                   size={24}
-                  color={Colors.appThemeTextColor}
+                  color={Colors.appPrimaryColor}
                   onPress={() =>
                     navigation.dispatch(DrawerActions.openDrawer())
                   }
@@ -189,19 +248,21 @@ const HomeStackNavigator = () => {
             )
           ),
           headerRight: () => (
-            <View style={{marginRight: 10, flexDirection: 'row'}}>
-              <Icon
-                name="bank"
-                size={24}
-                style={{marginHorizontal: 20}}
-                color={Colors.appThemeTextColor}
-                type={'material-community'}
-                onPress={() => navigation.navigate('Payments')}
-              />
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 30,
+                width: 30,
+                borderRadius: 20,
+                backgroundColor: Colors.appWhiteColor,
+                marginRight: 10,
+              }}>
               <Icon
                 name="notifications"
                 size={24}
-                color={Colors.appThemeTextColor}
+                color={Colors.appPrimaryColor}
                 onPress={() => navigation.navigate('Notification')}
               />
             </View>
@@ -210,6 +271,7 @@ const HomeStackNavigator = () => {
       />
       <Stack.Screen
         name="CreateID"
+        // hide tabBar
         component={CreateIDScreen}
         options={({navigation}) => ({
           headerTitle: 'Create ID',
@@ -225,6 +287,14 @@ const HomeStackNavigator = () => {
               }}
             />
           ),
+        })}
+      />
+      <Stack.Screen
+        name="Offers"
+        component={OffersScreen}
+        options={() => ({
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitleStyle: appHeaderStyle,
         })}
       />
       <Stack.Screen
@@ -440,7 +510,7 @@ const HomeStackNavigator = () => {
         name="Rules"
         component={RulesScreen}
         options={({navigation}) => ({
-          headerTitle: 'Rules',
+          headerTitle: 'Terms & Conditions',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
           headerTitleStyle: appHeaderStyle,
@@ -459,10 +529,14 @@ const HomeStackNavigator = () => {
         name="HowItWorks"
         component={HowItWorks}
         options={({navigation}) => ({
-          headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitle: 'How to use',
-          headerTitleAlign: 'center',
-          headerTitleStyle: appHeaderStyle,
+          header: props => (
+            <CustomNavigationBar
+              {...props}
+              navigation={navigation}
+              back={true}
+              headerName="How to use"
+            />
+          ),
         })}
       />
       <Stack.Screen
@@ -487,18 +561,7 @@ const HomeStackNavigator = () => {
   );
 };
 const OffersStackNavigator = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Top Offers"
-        component={OffersScreen}
-        options={() => ({
-          headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitleStyle: appHeaderStyle,
-        })}
-      />
-    </Stack.Navigator>
-  );
+  return <Stack.Navigator />;
 };
 const PassbookStackNavigator = () => {
   return (
@@ -633,13 +696,6 @@ function MyDrawer() {
       }}
       screenOptions={{
         headerShown: false,
-      }}
-      drawerStyle={{
-        marginVertical: 80,
-        borderTopRightRadius: 30,
-        backgroundColor: Colors.appWhiteColor,
-        borderBottomRightRadius: 30,
-        paddingTop: 0,
       }}>
       <Drawer.Screen
         name="Home"
@@ -655,26 +711,16 @@ function MyDrawer() {
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
-      tabBarOptions={{
-        activeTintColor: Colors.appPrimaryColor,
-        inactiveTintColor: Colors.appWhiteColor,
-        labelStyle: {
-          fontSize: 14,
-        },
-        style: {
-          backgroundColor: Colors.appBlackColorLight,
-          borderTopWidth: 0,
-        },
-      }}
       screenOptions={({route}) => ({
         headerShown: false,
+        tabBarStyle: {
+          backgroundColor: Colors.appBlackColorLight,
+        },
         tabBarIcon: ({focused, color, size}) => {
           let iconName, type;
           if (route.name === 'Home') {
             iconName = 'home';
             type = 'foundation';
-          } else if (route.name === 'Offers') {
-            iconName = 'local-offer';
           } else if (route.name === 'Passbook') {
             iconName = 'book';
           } else if (route.name === "ID's") {
@@ -682,11 +728,10 @@ const BottomTabNavigator = () => {
           }
           return <Icon size={28} type={type} name={iconName} color={color} />;
         },
-        tabBarActiveTintColor: 'tomato',
+        tabBarActiveTintColor: Colors.appPrimaryColor,
         tabBarInactiveTintColor: 'gray',
       })}>
       <Tab.Screen name="Home" component={HomeStackNavigator} />
-      <Tab.Screen name="Offers" component={OffersStackNavigator} />
       <Tab.Screen name="Passbook" component={PassbookStackNavigator} />
       <Tab.Screen
         name="ID's"

@@ -1,8 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
+import {Input} from '@rneui/themed';
 import React from 'react';
 import {View} from 'react-native';
-import {Caption, TextInput} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import Colors from '../../Theams/Colors';
+import {Typography} from './Text';
+import {APP_FONTS} from './Text/Text.styles';
 
 const CommonTextInput = props => {
   const {
@@ -13,19 +16,24 @@ const CommonTextInput = props => {
 
   return (
     <View>
-      <TextInput
+      <Input
         mode="outlined"
-        theme={{
-          colors: {
-            primary: Colors.appPrimaryColor,
-            background: Colors.appBlackColorLight,
-            placeholder: Colors.appWhiteColor,
-            text: Colors.appWhiteColor,
-          },
+        labelStyle={{
+          color: Colors.appWhiteColor,
+          fontFamily: APP_FONTS.REGULAR,
+          fontWeight: 'normal',
+        }}
+        style={{backgroundColor: Colors.appBlackColor + 'aa'}}
+        inputStyle={{
+          color: Colors.appWhiteColor,
+          fontFamily: APP_FONTS.REGULAR,
+        }}
+        errorMessage={helperText}
+        errorStyle={{
+          color: helperTextColor,
         }}
         {...props}
       />
-      <Caption style={{color: helperTextColor}}>{helperText}</Caption>
     </View>
   );
 };

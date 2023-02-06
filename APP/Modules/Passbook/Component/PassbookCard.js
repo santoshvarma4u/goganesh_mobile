@@ -71,6 +71,7 @@ const PassbookCard = ({item, navigation}) => {
         <View
           style={{
             flex: 1,
+            padding: 10,
           }}>
           <Typography
             variant="H5"
@@ -80,7 +81,7 @@ const PassbookCard = ({item, navigation}) => {
             {userFriendlyPaymentMessage(item.remarks, 'Remark')}
           </Typography>
           {item?.sd?.sitename && (
-            <Typography style={{color: Colors.appWhiteColor}}>
+            <Typography style={{color: Colors.appWhiteColor}} variant="P3">
               {item.sd.sitename}
             </Typography>
           )}
@@ -90,7 +91,7 @@ const PassbookCard = ({item, navigation}) => {
         </View>
         <View>
           <Typography
-            variant="H4"
+            variant="H5"
             style={{
               color: Colors.appWhiteColor,
               textAlign: 'right',
@@ -133,7 +134,7 @@ const styles = {
     margin: 5,
     padding: 8,
     borderRadius: 10,
-    backgroundColor: Colors.backgroundColorLight,
+    backgroundColor: Colors.appBlackColorLight,
   },
   mainView: {
     alignItems: 'center',
@@ -141,10 +142,10 @@ const styles = {
     height: 50,
   },
   transactionsCardImage: {
-    height: 50,
-    width: 50,
+    height: 40,
+    width: 40,
     borderRadius: 25,
-    backgroundColor: Colors.appBlackColor,
+    backgroundColor: Colors.buttonBackgroundColor,
   },
   accordionView: {
     margin: 5,

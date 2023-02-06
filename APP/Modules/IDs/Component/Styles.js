@@ -3,12 +3,12 @@ import Colors from '../../../Theams/Colors';
 export default StyleSheet.create({
   containerMain: {
     flex: 1,
-    padding: 15,
+    padding: 10,
     backgroundColor: Colors.appBlackColor,
   },
   searchBar: {
-    padding: 5,
-    backgroundColor: Colors.appWhiteColor,
+    backgroundColor: Colors.appBlackColor,
+    marginBottom: 8,
   },
   list: {
     padding: 5,

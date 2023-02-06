@@ -1,5 +1,5 @@
-import {useNavigation} from '@react-navigation/native';
-import React, {useContext, useState} from 'react';
+import {SearchBar} from '@rneui/themed';
+import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   View,
@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {useDispatch, useSelector} from 'react-redux';
+import reactotron from 'reactotron-react-native';
 import {updateIdState} from '../../../Store/Slices/idStateSlice';
 import Colors from '../../../Theams/Colors';
 import {Typography} from '../../Common/Text';
@@ -22,7 +23,28 @@ const IDRoute = props => {
   const getIDs = IdController.useGetIDs();
 
   const [refresh, setRefresh] = useState(false);
-
+  const [search, setSearch] = useState('');
+  const [data, setData] = useState([]);
+  const onSearch = text => {
+    setSearch(text);
+    if (text === '') {
+      setData(getIDs.data);
+      return;
+    }
+    reactotron.log(getIDs.data);
+    const filter = getIDs.data.filter(item => {
+      return (
+        item.sitename.toLowerCase().includes(search.toLowerCase()) ||
+        item.siteurl.toString().includes(search.toLowerCase())
+      );
+    });
+    setData(filter);
+  };
+  useEffect(() => {
+    if (getIDs.data && getIDs.data.length > 0) {
+      setData(getIDs.data);
+    }
+  }, [getIDs.data]);
   return (
     <View style={styles.containerMain}>
       <View style={styles.list}>
@@ -44,8 +66,14 @@ const IDRoute = props => {
             color="white"
           />
         ) : null}
+        <SearchBar
+          placeholder="Search"
+          onChangeText={onSearch}
+          value={search}
+          containerStyle={styles.searchBar}
+        />
         <FlatList
-          data={getIDs.data}
+          data={data}
           onRefresh={() => {
             getIDs.request();
             setRefresh(false);
@@ -55,7 +83,7 @@ const IDRoute = props => {
           ItemSeparatorComponent={() => (
             <View
               style={{
-                height: 10,
+                height: 8,
                 width: '100%',
               }}
             />
@@ -81,14 +109,37 @@ function IDs({navigation, route}) {
 
     const [refresh, setRefresh] = useState(false);
 
+    const [search, setSearch] = useState('');
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+      if (getMyIDs.data && getMyIDs.data.length > 0) {
+        setData(getMyIDs.data);
+      }
+    }, [getMyIDs.data]);
+
+    const onSearch = text => {
+      setSearch(text);
+      if (text === '') {
+        setData(getMyIDs.data);
+        return;
+      }
+      const filter = getMyIDs.data.filter(item => {
+        return (
+          item.username.toLowerCase().includes(search.toLowerCase()) ||
+          item.sd.siteurl.toString().includes(search.toLowerCase())
+        );
+      });
+      setData(filter);
+    };
+
     return (
       <View style={styles.containerMain}>
         <View style={styles.list}>
           {getMyIDs.error && (
             <>
               <Typography
-                style={{alignItems: 'center', color: Colors.appPrimaryColor}}
-              >
+                style={{alignItems: 'center', color: Colors.appPrimaryColor}}>
                 No IDs Found
               </Typography>
               <TouchableOpacity
@@ -103,8 +154,7 @@ function IDs({navigation, route}) {
                 onPress={() => {
                   getMyIDs.request();
                 }}
-                underlayColor="transparent"
-              >
+                underlayColor="transparent">
                 <Typography style={{color: Colors.appWhiteColor, fontSize: 16}}>
                   Retry
                 </Typography>
@@ -118,8 +168,14 @@ function IDs({navigation, route}) {
               color="white"
             />
           ) : null}
+          <SearchBar
+            placeholder="Search"
+            onChangeText={onSearch}
+            value={search}
+            containerStyle={styles.searchBar}
+          />
           <FlatList
-            data={getMyIDs.data}
+            data={data}
             refreshing={refresh}
             removeClippedSubviews={true}
             keyboardShouldPersistTaps={'always'}
@@ -132,7 +188,7 @@ function IDs({navigation, route}) {
             ItemSeparatorComponent={() => (
               <View
                 style={{
-                  height: 10,
+                  height: 8,
                   width: '100%',
                 }}
               />

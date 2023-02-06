@@ -46,8 +46,7 @@ const Text = ({children = '', variant = P1, style, color, ...restProps}) => (
       },
       style,
     ]}
-    {...restProps}
-  >
+    {...restProps}>
     {children}
   </RNText>
 );

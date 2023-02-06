@@ -67,19 +67,19 @@ function SignIn(props) {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       {!isError ? (
         <>
-          <View
+          {/* <View
             style={{
               marginTop: '30%',
               marginHorizontal: 20,
             }}>
             {/* <FgPuntLogoName width={200} height={50} /> */}
-            <Typography color={Colors.appWhiteColor} variant="H2">
+          {/* <Typography color={Colors.appWhiteColor} variant="H2">
               Welcome back ,
             </Typography>
             <Typography color={Colors.appWhiteColor} variant="H3">
               Login in to start Punting
-            </Typography>
-          </View>
+            </Typography> */}
+          {/* </View> */}
           <Formik
             initialValues={{
               phoneNumber: props.route.params?.phoneNumber || '',
@@ -173,7 +173,9 @@ function SignIn(props) {
                   <Button
                     mode="contained"
                     onPress={handleSubmit}
-                    labelStyle={{color: Colors.appWhiteColor}}
+                    labelStyle={{
+                      backgroundColor: Colors.appWhiteColor,
+                    }}
                     style={{
                       minWidth: '40%',
                     }}>

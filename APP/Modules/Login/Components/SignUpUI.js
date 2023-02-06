@@ -8,11 +8,13 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
+import {Checkbox} from 'react-native-paper';
 import * as Yup from 'yup';
 import Animations from '../../../Theams/Animations';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
 import LottieView from '../../Common/Lottie';
+import PhoneInput from '../../Common/PhoneInput';
 import {Typography} from '../../Common/Text';
 import LoginController from '../Controllers/LoginController';
 import SignupController from '../Controllers/SignupController';
@@ -52,6 +54,7 @@ function SingUp({route}) {
   const [isLoading, setIsLoading] = useState(false);
   const [otpSession, setOtpSession] = useState(false);
   const [showOTP, setShowOTP] = useState(false);
+  const [checked, setChecked] = useState(false);
   const submitUser = async values => {
     //Validate OTP
     if (!showOTP) {
@@ -101,9 +104,6 @@ function SingUp({route}) {
       <ScrollView>
         <View style={styles.bankDetails}>
           <View>
-            <Typography color={Colors.appWhiteColor} variant="title">
-              Register
-            </Typography>
             <Formik
               validationSchema={SignupSchema}
               initialValues={{
@@ -125,25 +125,29 @@ function SingUp({route}) {
               }) => (
                 <>
                   <CommonTextInput
-                    keyboardType="numeric"
-                    label="Phone Number"
-                    maxLength={10}
-                    placeholder={'Enter Your Phone Number'}
-                    onChangeText={handleChange('phone')}
-                    disabled
-                    value={values.phone}
-                    error={touched.phone && errors.phone ? errors.phone : false}
-                    helperText={
-                      touched.phone && errors.phone ? errors.phone : ' '
-                    }
-                  />
-                  <CommonTextInput
                     label="Name"
                     placeholder={'Enter Your name'}
                     onChangeText={handleChange('name')}
                     value={values.name}
                     error={touched.name && errors.name ? errors.name : false}
                     helperText={touched.name && errors.name ? errors.name : ' '}
+                  />
+                  <PhoneInput
+                    value={values.phoneNumber}
+                    defaultCode="IN"
+                    layout="second"
+                    onChangeText={handleChange('phoneNumber')}
+                    withDarkTheme
+                    textInputProps={{
+                      error:
+                        touched.phoneNumber && errors.phoneNumber
+                          ? errors.phoneNumber
+                          : '',
+                      helperText:
+                        touched.phoneNumber && errors.phoneNumber
+                          ? errors.phoneNumber
+                          : '',
+                    }}
                   />
                   <CommonTextInput
                     label={'Password'}
@@ -193,9 +197,35 @@ function SingUp({route}) {
                       onChangeText={handleChange('otp')}
                     />
                   )}
+                  {/*    Terms and Conditions
+                   */}
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                    }}>
+                    <Checkbox
+                      status={checked ? 'checked' : 'unchecked'}
+                      color={Colors.appPrimaryColor}
+                      uncheckedColor={Colors.appWhiteColor}
+                      onPress={() => {
+                        setChecked(!checked);
+                      }}
+                    />
+                    <Typography
+                      style={{marginTop: 5, color: Colors.appWhiteColor}}>
+                      I've read and accept the{' '}
+                      <Typography
+                        style={{color: Colors.appPrimaryColor}}
+                        onPress={() => {
+                          navigation.navigate('Rules');
+                        }}>
+                        Terms and Conditions
+                      </Typography>
+                    </Typography>
+                  </View>
                   <Pressable
                     style={{
-                      backgroundColor: Colors.appPrimaryColor,
+                      backgroundColor: Colors.appWhiteColor,
                       paddingHorizontal: 60,
                       paddingVertical: 10,
                       marginTop: 20,
@@ -206,7 +236,7 @@ function SingUp({route}) {
                     underlayColor="transparent">
                     <Typography
                       style={{
-                        color: '#fff',
+                        color: Colors.appBlackColor,
                         fontSize: 16,
                         alignItems: 'center',
                       }}>

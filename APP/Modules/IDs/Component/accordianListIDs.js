@@ -60,18 +60,14 @@ const AccordionListNew = props => {
             </Typography>
           </View>
         </View>
-        <Button
-          compact
-          mode="contained"
-          uppercase={false}
-          labelStyle={{
-            fontSize: 12,
-            fontWeight: '600',
-          }}
+        <Pressable
           style={{
-            marginLeft: 10,
-            marginTop: 10,
             width: 100,
+            height: 22,
+            backgroundColor: Colors.appPrimaryColor,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 5,
           }}
           onPress={() => {
             navigation.navigate('CreateID', {
@@ -79,8 +75,8 @@ const AccordionListNew = props => {
               requestStatus: 'new',
             });
           }}>
-          Create
-        </Button>
+          <Typography variant="H4">Create</Typography>
+        </Pressable>
       </View>
     );
   }
@@ -173,8 +169,8 @@ const AccordionListNew = props => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.appBlackColorLight,
-    borderRadius: 10,
-    padding: 14,
+    borderRadius: 8,
+    padding: 8,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',

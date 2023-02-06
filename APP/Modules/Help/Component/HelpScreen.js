@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
+import {getWhatsappMessageUrl} from '../../../Utils';
 import FGImage from '../../Common/FGImage';
 import {Typography} from '../../Common/Text';
 import styles from '../../Splash/Component/Styles';
@@ -48,9 +49,7 @@ function HelpScreen({route}) {
         </Typography>
         <TouchableOpacity
           onPress={() => {
-            let url =
-              'whatsapp://send?text= Please raise your concern here' +
-              '&phone=919777087770';
+            let url = getWhatsappMessageUrl();
             Linking.openURL(url);
           }}>
           <View

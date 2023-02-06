@@ -16,7 +16,6 @@ const screenHeight = Dimensions.get('window').height;
 function PassbookScreen({navigation}) {
   const [refresh, setRefresh] = useState(false);
   const [imageModal, showImageModel] = useState(false);
-  const [imageUrl, setImageUrl] = useState('');
   const {data, request} = PassBookController.useGetUserTransactions();
   return (
     <View style={styles.containerMain}>

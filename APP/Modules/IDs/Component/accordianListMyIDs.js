@@ -20,6 +20,7 @@ import {
   Modal as PaperModal,
   Portal,
 } from 'react-native-paper';
+import Popover from 'react-native-popover-view';
 import WebView from 'react-native-webview';
 
 import {connect} from 'react-redux';
@@ -37,6 +38,8 @@ const AccordianListNew = props => {
   const [password, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isVisible, setIsVisible] = useState(false);
+  const [showPopover, setShowPopover] = useState(false);
+
   const [isLoading, setIsLoading] = useState(false);
 
   const [showCloseIDAlert, setShowCloseIDAlert] = useState(false);
@@ -68,6 +71,35 @@ const AccordianListNew = props => {
       .done();
   };
 
+  const list = [
+    {
+      title: 'Deposit',
+      onPress: () => {
+        navigation.navigate('CreateID', {
+          sdid: props.data.sd.sdid,
+          username: props.data.username,
+          requestStatus: 'old',
+          usdid: props.data?.usdid,
+        });
+      },
+    },
+    {
+      title: 'Withdraw',
+      onPress: () => {
+        navigation.navigate('Withdraw', {
+          banks: banks,
+          data: props.data,
+        });
+      },
+    },
+    {
+      title: 'Change Password',
+      onPress: () => {
+        setShowPasswordModal(true);
+      },
+    },
+  ];
+
   function ListTitle() {
     return (
       <View style={styles.ListTitle}>
@@ -88,8 +120,7 @@ const AccordianListNew = props => {
               flexDirection: 'row',
               alignItems: 'center',
               paddingRight: 10,
-            }}
-          >
+            }}>
             <Typography variant="caption" style={styles.url}>
               {removeHttpOrWww(props.data.sd.siteurl)}
             </Typography>
@@ -111,7 +142,6 @@ const AccordianListNew = props => {
             flex: 1,
           }}
         />
-
         <View
           style={[
             styles.credIcon,
@@ -121,8 +151,7 @@ const AccordianListNew = props => {
               justifyContent: 'center',
               marginHorizontal: 5,
             },
-          ]}
-        >
+          ]}>
           <TouchableOpacity
             style={{
               height: 30,
@@ -140,8 +169,7 @@ const AccordianListNew = props => {
                 requestStatus: 'old',
                 usdid: props.data?.usdid,
               });
-            }}
-          >
+            }}>
             <Typography variant={'H4'} style={styles.credTitle}>
               D
             </Typography>
@@ -160,22 +188,64 @@ const AccordianListNew = props => {
                 banks: banks,
                 data: props.data,
               });
-            }}
-          >
+            }}>
             <Typography variant={'H4'} style={styles.credTitle}>
               W
             </Typography>
           </TouchableOpacity>
         </View>
-        <Icon
-          name="dots-vertical"
-          type="material-community"
-          color={Colors.appWhiteColor}
-          size={25}
-          onPress={() => {
-            setIsVisible(true);
-          }}
-        />
+        <Popover
+          isVisible={showPopover}
+          onRequestClose={() => setShowPopover(false)}
+          from={
+            <TouchableOpacity onPress={() => setShowPopover(true)}>
+              <Icon
+                name="dots-vertical"
+                type="material-community"
+                color={Colors.appWhiteColor}
+                size={25}
+              />
+            </TouchableOpacity>
+          }>
+          <View
+            style={{
+              backgroundColor: Colors.appWhiteColor,
+              borderRadius: 10,
+              padding: 10,
+            }}>
+            <FlatList
+              data={list}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({item}) => {
+                return (
+                  <View style={{}}>
+                    <Typography
+                      onPress={() => {
+                        setShowPopover(false);
+                        item.onPress();
+                      }}
+                      mode="contained"
+                      style={{
+                        margin: 5,
+                      }}>
+                      <Typography>{item.title}</Typography>
+                    </Typography>
+                  </View>
+                );
+              }}
+            />
+            <Typography
+              style={{
+                margin: 5,
+              }}
+              onPress={() => {
+                setIsVisible(false);
+                setShowCloseIDAlert(true);
+              }}>
+              <Typography>Close ID</Typography>
+            </Typography>
+          </View>
+        </Popover>
       </View>
     );
   }
@@ -192,8 +262,7 @@ const AccordianListNew = props => {
               <TouchableOpacity
                 onPress={() => {
                   setShowWebView(true);
-                }}
-              >
+                }}>
                 <Icon name="launch" color="white" size={20} />
               </TouchableOpacity>
             </View>
@@ -214,8 +283,7 @@ const AccordianListNew = props => {
               style={{color: 'white', marginLeft: 15}}
               onPress={() => {
                 Clipboard.setString(props.data.username);
-              }}
-            >
+              }}>
               <Icon name="content-copy" color="white" size={20} />
             </TouchableOpacity>
           </View>
@@ -233,8 +301,7 @@ const AccordianListNew = props => {
                 style={{color: 'white', marginLeft: 15}}
                 onPress={() => {
                   Clipboard.setString(props.data.password);
-                }}
-              >
+                }}>
                 <Icon name="content-copy" color="white" size={20} />
               </TouchableOpacity>
             </View>
@@ -244,46 +311,13 @@ const AccordianListNew = props => {
     );
   }
 
-  const list = [
-    {
-      title: 'Deposit',
-      onPress: () => {
-        setIsVisible(false);
-        navigation.navigate('CreateID', {
-          sdid: props.data.sd.sdid,
-          username: props.data.username,
-          requestStatus: 'old',
-          usdid: props.data?.usdid,
-        });
-      },
-    },
-    {
-      title: 'Withdraw',
-      onPress: () => {
-        setIsVisible(false);
-        navigation.navigate('Withdraw', {
-          banks: banks,
-          data: props.data,
-        });
-      },
-    },
-    {
-      title: 'Change Password',
-      onPress: () => {
-        setIsVisible(false);
-        setShowPasswordModal(true);
-      },
-    },
-  ];
-
   return (
     <View style={styles.container}>
       <View
         style={{
           padding: 10,
           flex: 1,
-        }}
-      >
+        }}>
         <ListTitle />
       </View>
       <Modal
@@ -294,22 +328,19 @@ const AccordianListNew = props => {
         }}
         contentContainerStyle={{
           padding: 20,
-        }}
-      >
+        }}>
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-around',
             alignItems: 'center',
-          }}
-        >
+          }}>
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-            }}
-          >
+            }}>
             <Icon
               name="user"
               type={'antdesign'}
@@ -326,8 +357,7 @@ const AccordianListNew = props => {
               justifyContent: 'center',
               alignItems: 'center',
               marginVertical: 10,
-            }}
-          >
+            }}>
             <Icon
               name="wallet"
               type={'fontisto'}
@@ -344,8 +374,7 @@ const AccordianListNew = props => {
             alignItems: 'center',
             justifyContent: 'space-around',
             marginVertical: 10,
-          }}
-        >
+          }}>
           <Button
             color={Colors.appGreenColor}
             onPress={() => {
@@ -356,8 +385,7 @@ const AccordianListNew = props => {
                 requestStatus: 'old',
               });
             }}
-            mode="contained"
-          >
+            mode="contained">
             <Typography style={{alignItems: 'center', color: 'white'}}>
               Deposit
             </Typography>
@@ -371,8 +399,7 @@ const AccordianListNew = props => {
               });
             }}
             color={Colors.appRedColor}
-            mode="contained"
-          >
+            mode="contained">
             <Typography style={{alignItems: 'center', color: 'white'}}>
               Withdraw
             </Typography>
@@ -390,8 +417,7 @@ const AccordianListNew = props => {
           }}
           onDismiss={() => {
             setShowCloseIDAlert(false);
-          }}
-        >
+          }}>
           <Card style={styles.modalContainer}>
             <Card.Title
               title={'Close ID'}
@@ -412,8 +438,7 @@ const AccordianListNew = props => {
                     closeID(props.data.usdid); // close ID
                   }}
                   color={Colors.appGreenColor}
-                  mode="contained"
-                >
+                  mode="contained">
                   <Typography style={{alignItems: 'center', color: 'white'}}>
                     Yes
                   </Typography>
@@ -424,8 +449,7 @@ const AccordianListNew = props => {
                     setShowCloseIDAlert(false);
                   }}
                   color={Colors.appRedColor}
-                  mode="contained"
-                >
+                  mode="contained">
                   <Typography style={{alignItems: 'center', color: 'white'}}>
                     No
                   </Typography>
@@ -444,60 +468,19 @@ const AccordianListNew = props => {
       <BottomSheet
         isVisible={isVisible}
         onBackdropPress={() => setIsVisible(false)}
-        containerStyle={{backgroundColor: 'rgba(0.5, 0.25, 0, 0.8)'}}
-      >
+        containerStyle={{backgroundColor: 'rgba(0.5, 0.25, 0, 0.8)'}}>
         <View
           style={{
             backgroundColor: Colors.appBlackColor,
-          }}
-        >
+          }}>
           <ElementsCard.Title>{props.data.sd.sitename}</ElementsCard.Title>
           <ListCollapse />
-          <FlatList
-            data={list}
-            keyExtractor={(item, index) => index.toString()}
-            numColumns={2}
-            renderItem={({item}) => {
-              return (
-                <View
-                  style={{
-                    flex: 1,
-                  }}
-                >
-                  <Button
-                    onPress={item.onPress}
-                    mode="contained"
-                    style={{
-                      margin: 5,
-                    }}
-                    color={Colors.appBlackColorLight}
-                  >
-                    <Typography>{item.title}</Typography>
-                  </Button>
-                </View>
-              );
-            }}
-          />
-          <Button
-            style={{
-              margin: 5,
-              backgroundColor: Colors.appRedColor,
-            }}
-            color={Colors.appWhiteColor}
-            onPress={() => {
-              setIsVisible(false);
-              setShowCloseIDAlert(true);
-            }}
-          >
-            <Typography>Close ID</Typography>
-          </Button>
 
           <Button
             color={Colors.appRedColor}
             onPress={() => {
               setIsVisible(false);
-            }}
-          >
+            }}>
             cancel
           </Button>
         </View>
@@ -511,8 +494,7 @@ const AccordianListNew = props => {
           }}
           onDismiss={() => {
             setShowPasswordModal(false);
-          }}
-        >
+          }}>
           <Card style={styles.modalContainer}>
             <Card.Title
               title={'Change Password'}
@@ -574,8 +556,7 @@ const AccordianListNew = props => {
                   } else {
                     alert('Password does not match');
                   }
-                }}
-              >
+                }}>
                 Change password
               </Button>
               <Button
@@ -588,8 +569,7 @@ const AccordianListNew = props => {
                   setShowPasswordModal(false);
                   setNewPassword('');
                   setConfirmPassword('');
-                }}
-              >
+                }}>
                 Cancel
               </Button>
             </Card.Actions>

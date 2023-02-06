@@ -3,10 +3,9 @@ import {CommonActions} from '@react-navigation/native';
 import {Formik} from 'formik';
 import React, {useEffect, useState} from 'react';
 import {TouchableWithoutFeedback, View, ScrollView, Image} from 'react-native';
-import {ActivityIndicator, Button, Checkbox} from 'react-native-paper';
+import {Button, Checkbox} from 'react-native-paper';
 import {connect} from 'react-redux';
 import * as Yup from 'yup';
-import FGPUNTLOGO from '../../../Assets/svgs/fgpuntlogo';
 import CONSTANTS from '../../../Constants';
 import Storage from '../../../Modules/Common/Storage';
 import StorageKeys from '../../../Modules/Common/StorageKeys';
@@ -72,10 +71,9 @@ function CreateIDScreen({route, wallet}) {
   } = paymentDetailsController.getPendingDepositRequestsForUser();
 
   const [planDetails, setPlanDetails] = useState({
-    planHeader: 'FG Plan',
-    MinRefill: '1,000',
-    MinWidthdrawl: '1,000',
-    MinMaintainBalance: '1,000',
+    'Min Refill': '1,000',
+    'Min Withdrawal': '1,000',
+    'Min Maintaining Balance': '1,000',
     MaxWithDrawl: '25,00,000 per day',
   });
 
@@ -329,78 +327,77 @@ function CreateIDScreen({route, wallet}) {
               </View>
             </TouchableWithoutFeedback>
           </View>
-          {/*<View style={styles.planDeatils}>*/}
-          {/*  <Typography*/}
-          {/*    style={{*/}
-          {/*      color: Colors.appWhiteColor,*/}
-          {/*      marginLeft: 20,*/}
-          {/*      marginTop: 8,*/}
-          {/*      fontSize: 16,*/}
-          {/*    }}>*/}
-          {/*    {planDetails.planHeader}*/}
-          {/*  </Typography>*/}
-          {/*  <View*/}
-          {/*    style={{*/}
-          {/*      borderBottomColor: Colors.appPrimaryColor,*/}
-          {/*      borderBottomWidth: 3,*/}
-          {/*      marginTop: 5,*/}
-          {/*      width: 40,*/}
-          {/*      marginLeft: 20,*/}
-          {/*    }}*/}
-          {/*  />*/}
-          {/*  <View style={{flexDirection: 'row', marginTop: 10}}>*/}
-          {/*    <Typography*/}
-          {/*      style={{*/}
-          {/*        color: Colors.appWhiteColor,*/}
-          {/*        marginLeft: 20,*/}
-          {/*        marginTop: 10,*/}
-          {/*      }}>*/}
-          {/*      Min Refill*/}
-          {/*    </Typography>*/}
-          {/*    <Typography style={[styles.planDetailsText, {marginTop: 6}]}>*/}
-          {/*      {planDetails.MinRefill}*/}
-          {/*    </Typography>*/}
-          {/*  </View>*/}
-          {/*  <View style={{flexDirection: 'row'}}>*/}
-          {/*    <Typography*/}
-          {/*      style={{*/}
-          {/*        color: Colors.appWhiteColor,*/}
-          {/*        marginLeft: 20,*/}
-          {/*        marginTop: 6,*/}
-          {/*      }}>*/}
-          {/*      Min Withdrawal*/}
-          {/*    </Typography>*/}
-          {/*    <Typography style={[styles.planDetailsText, {marginTop: 4}]}>*/}
-          {/*      {planDetails.MinRefill}*/}
-          {/*    </Typography>*/}
-          {/*  </View>*/}
-          {/*  <View style={{flexDirection: 'row'}}>*/}
-          {/*    <Typography*/}
-          {/*      style={{*/}
-          {/*        color: Colors.appWhiteColor,*/}
-          {/*        marginLeft: 20,*/}
-          {/*        marginTop: 6,*/}
-          {/*      }}>*/}
-          {/*      Min Maintaining Balance*/}
-          {/*    </Typography>*/}
-          {/*    <Typography style={[styles.planDetailsText, {marginTop: 4}]}>*/}
-          {/*      {planDetails.MinRefill}*/}
-          {/*    </Typography>*/}
-          {/*  </View>*/}
-          {/*  <View style={{flexDirection: 'row'}}>*/}
-          {/*    <Typography*/}
-          {/*      style={{*/}
-          {/*        color: Colors.appWhiteColor,*/}
-          {/*        marginLeft: 20,*/}
-          {/*        marginTop: 6,*/}
-          {/*      }}>*/}
-          {/*      Max Withdrawal*/}
-          {/*    </Typography>*/}
-          {/*    <Typography style={[styles.planDetailsText, {marginTop: 4}]}>*/}
-          {/*      {planDetails.MaxWithDrawl}*/}
-          {/*    </Typography>*/}
-          {/*  </View>*/}
-          {/*</View>*/}
+          <View
+            style={{
+              marginTop: 10,
+              backgroundColor: Colors.appBlackColorLight,
+              width: '90%',
+              padding: 10,
+              borderRadius: 10,
+            }}>
+            <View>
+              <Typography
+                style={{
+                  color: Colors.appWhiteColor,
+                  marginLeft: 20,
+                  marginTop: 8,
+                  fontSize: 16,
+                }}>
+                ID Details
+              </Typography>
+              <View
+                style={{
+                  borderBottomColor: Colors.appPrimaryColor,
+                  borderBottomWidth: 3,
+                  marginTop: 5,
+                  width: 40,
+                  marginLeft: 20,
+                }}
+              />
+            </View>
+            <View style={{marginTop: 10}}>
+              {/* <View style={{flexDirection: 'row'}}>
+                <Typography>Min Refill</Typography>
+                <Typography style={[styles.planDetailsText, {marginTop: 4}]}>
+                  {planDetails.MinRefill}
+                </Typography>
+              </View>
+              <View style={{flexDirection: 'row'}}>
+                <Typography>Min Withdrawal</Typography>
+                <Typography style={[styles.planDetailsText, {marginTop: 4}]}>
+                  {planDetails.MinRefill}
+                </Typography>
+              </View>
+              <View style={{flexDirection: 'row'}}>
+                <Typography>Min Maintaining Balance</Typography>
+                <Typography style={[styles.planDetailsText, {marginTop: 4}]}>
+                  {planDetails.MinRefill}
+                </Typography>
+              </View>
+              <View style={{flexDirection: 'row'}}>
+                <Typography>Max Withdrawal</Typography>
+                <Typography style={[styles.planDetailsText, {marginTop: 4}]}>
+                  {planDetails.MaxWithDrawl}
+                </Typography>
+              </View> */}
+              {Object.keys(planDetails).map((key, index) => {
+                return (
+                  <View style={{flexDirection: 'row'}} key={index}>
+                    <Typography
+                      style={{marginTop: 4, color: Colors.appWhiteColor}}
+                      variant="H5">
+                      {key}
+                    </Typography>
+                    <Typography
+                      variant="P3"
+                      style={[styles.planDetailsText, {marginTop: 4}]}>
+                      {planDetails[key]}
+                    </Typography>
+                  </View>
+                );
+              })}
+            </View>
+          </View>
 
           <View style={styles.planDeatils}>
             <Formik
@@ -460,7 +457,6 @@ function CreateIDScreen({route, wallet}) {
                       onChangeText={handleChange('UserName')}
                     />
                   )}
-
                   {!route.params.username && (
                     <CommonTextInput
                       style={styles.modalText}

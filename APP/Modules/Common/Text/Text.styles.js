@@ -5,6 +5,13 @@ const PRIMARY_FONT_BOLD = 'Montserrat-Bold';
 const PRIMARY_FONT_MEDIUM = 'Montserrat-Medium';
 const PRIMARY_FONT_LIGHT = 'Montserrat-Light';
 
+export const APP_FONTS = {
+  REGULAR: PRIMARY_FONT_REGULAR,
+  BOLD: PRIMARY_FONT_BOLD,
+  MEDIUM: PRIMARY_FONT_MEDIUM,
+  LIGHT: PRIMARY_FONT_LIGHT,
+};
+
 /*
 	For any common styles you can add them to base.
 	Define a rule group for each of the types defined in Text.js
@@ -53,10 +60,10 @@ const TypographyStyles = StyleSheet.create({
   },
   caption: {
     fontFamily: PRIMARY_FONT_LIGHT,
-    fontSize: 12,
-    lineHeight: 20,
+    fontSize: 11,
+    lineHeight: 18,
     marginVertical: 2,
-    letterSpacing: 0.4,
+    letterSpacing: 0.2,
   },
   header: {
     fontFamily: PRIMARY_FONT_BOLD,

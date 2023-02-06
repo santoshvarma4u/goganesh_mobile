@@ -10,7 +10,6 @@ import {
   ScrollView,
   Linking,
   RefreshControl,
-  ImageBackground,
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import {connect, useDispatch} from 'react-redux';
@@ -23,6 +22,7 @@ import Colors from '../../../Theams/Colors';
 // import Storage from '../../Common/Storage';
 // import StorageKeys from '../../Common/StorageKeys';
 import Images from '../../../Theams/Images';
+import {getWhatsappMessageUrl} from '../../../Utils';
 import FGImage from '../../Common/FGImage';
 import FGSliderBox from '../../Common/SliderBox';
 import {Typography} from '../../Common/Text';
@@ -97,48 +97,41 @@ function HomeScreen(props) {
           }}
         />
       }>
-      <View
-        style={{
-          flex: 1,
-        }}>
-        <ImageBackground
-          resizeMode={'cover'} // or cover
-          style={{height: 200}} // must be passed from the parent, the number may vary depending upon your screen size
-          height={200}
-          source={Images.homeback}>
-          <View style={styles.upperContainer}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <TouchableOpacity
-                style={[
-                  styles.depositCard,
-                  {
-                    borderTopLeftRadius: 10,
-                    borderBottomLeftRadius: 10,
-                  },
-                ]}
-                onPress={() => navigation.navigate('DepositForm', {})}>
-                <Typography color={Colors.appWhiteColor} variant="H4">
-                  Deposit
-                </Typography>
-                <Icon
-                  name="chevron-double-down"
-                  color={Colors.appGreenColor}
-                  size={30}
-                  type={'material-community'}
-                />
-              </TouchableOpacity>
-              <View style={styles.centerCard}>
-                <FGImage
-                  style={{width: 70, height: 70}}
-                  source={Images.newLogoOnly}
-                  resizeMode={'cover'}
-                  height={70}
-                  width={70}
-                />
+      <View>
+        <View style={styles.upperContainer}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <TouchableOpacity
+              style={[
+                styles.depositCard,
+                {
+                  borderTopLeftRadius: 10,
+                  borderBottomLeftRadius: 10,
+                },
+              ]}
+              onPress={() => navigation.navigate('DepositForm', {})}>
+              <Typography color={Colors.appWhiteColor} variant="P3">
+                DEPOSIT
+              </Typography>
+              <Icon
+                name="chevron-double-down"
+                color={Colors.appGreenColor}
+                size={40}
+                type={'material-community'}
+              />
+            </TouchableOpacity>
+            <View style={styles.centerCard}>
+              <FGImage
+                style={{width: 50, height: 50}}
+                source={Images.newLogoOnly}
+                resizeMode={'cover'}
+                height={50}
+                width={50}
+              />
+              <View>
                 <Typography color={Colors.appWhiteColor} variant="P3">
                   WALLET BALANCE
                 </Typography>
@@ -146,41 +139,45 @@ function HomeScreen(props) {
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    marginTop: 10,
+                    marginTop: 5,
                   }}>
                   <Icon
                     name="rupee"
                     color={Colors.appWhiteColor}
                     size={16}
+                    style={{marginRight: 5}}
                     type={'font-awesome'}
                   />
-                  <Typography color={Colors.appWhiteColor} variant={'H3'}>
-                    {props.wallet}
+                  <Typography color={Colors.appWhiteColor} variant={'H5'}>
+                    {/*
+                    round
+                  */}
+                    {Number(props.wallet)?.toFixed(2)}
                   </Typography>
                 </View>
               </View>
-              <TouchableOpacity
-                style={[
-                  styles.depositCard,
-                  {
-                    borderTopRightRadius: 10,
-                    borderBottomRightRadius: 10,
-                  },
-                ]}
-                onPress={() => navigation.navigate('WithdrawContainer', {})}>
-                <Typography color={Colors.appWhiteColor} variant="H4">
-                  Withdraw
-                </Typography>
-                <Icon
-                  name="chevron-double-up"
-                  color={Colors.appRedColor}
-                  size={30}
-                  type={'material-community'}
-                />
-              </TouchableOpacity>
             </View>
+            <TouchableOpacity
+              style={[
+                styles.depositCard,
+                {
+                  borderTopRightRadius: 10,
+                  borderBottomRightRadius: 10,
+                },
+              ]}
+              onPress={() => navigation.navigate('WithdrawContainer', {})}>
+              <Typography color={Colors.appWhiteColor} variant="P3">
+                WITHDRAW
+              </Typography>
+              <Icon
+                name="chevron-double-up"
+                color={Colors.appRedColor}
+                size={40}
+                type={'material-community'}
+              />
+            </TouchableOpacity>
           </View>
-        </ImageBackground>
+        </View>
         <View style={styles.lowerContainer}>
           <View style={styles.lowerBox1}>
             <FGSliderBox
@@ -316,9 +313,7 @@ function HomeScreen(props) {
               icon={'whatsapp'}
               color={Colors.appGreenColor}
               onPress={() => {
-                let url =
-                  'whatsapp://send?text= Please raise your concern here' +
-                  '&phone=919777087770';
+                let url = getWhatsappMessageUrl();
                 Linking.openURL(url);
               }}>
               WhatsApp Support

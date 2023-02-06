@@ -1,7 +1,6 @@
 import React from 'react';
 import {Dimensions, Image, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import FgPuntLogoName from '../../../../Assets/svgs/fgpuntlogoname';
 import Colors from '../../../../Theams/Colors';
 import VerifyUser from '../../Components/VerifyUser';
 import LoginController from '../../Controllers/LoginController';
@@ -40,7 +39,7 @@ const VerifyUserContainer = props => {
       style={{
         flex: 1,
         backgroundColor: Colors.appBlackColor,
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
       }}>
       <Image

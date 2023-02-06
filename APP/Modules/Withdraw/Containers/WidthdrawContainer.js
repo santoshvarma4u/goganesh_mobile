@@ -8,7 +8,6 @@ import {
   Divider,
   Modal,
   RadioButton,
-  TouchableRipple,
 } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';

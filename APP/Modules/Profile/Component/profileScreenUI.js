@@ -1,12 +1,12 @@
-import {Chip, Icon} from '@rneui/themed';
+import {Button} from '@rneui/base';
+import {Icon} from '@rneui/themed';
 import React, {useState, useEffect} from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import Colors from '../../../Theams/Colors';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
 import styles from './Styles';
-import {Button} from "@rneui/base";
 function ProfileScreen({navigation}) {
   const [name, setName] = useState(false);
   const [phone, setPhone] = useState(false);

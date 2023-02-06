@@ -6,7 +6,7 @@ import reactotron from 'reactotron-react-native';
 import Colors from '../../../Theams/Colors';
 import {Typography} from '../../Common/Text';
 
-export const ClipboardItem = ({text}) => {
+export const ClipboardItem = ({text, needCopyText = true}) => {
   return (
     <TouchableOpacity
       style={{
@@ -16,25 +16,29 @@ export const ClipboardItem = ({text}) => {
         Clipboard.setString(text || '');
       }}>
       <Typography style={styles.text}>{text}</Typography>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          paddingVertical: 2,
-          paddingHorizontal: 4,
-          borderRadius: 5,
-          backgroundColor: Colors.appPrimaryColor,
-        }}>
-        <Typography
-          variant="H5"
+      {needCopyText ? (
+        <View
           style={{
-            color: Colors.appWhiteColor,
-            marginRight: 4,
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingVertical: 2,
+            paddingHorizontal: 4,
+            borderRadius: 5,
+            backgroundColor: Colors.appPrimaryColor,
           }}>
-          Copy
-        </Typography>
+          <Typography
+            variant="H5"
+            style={{
+              color: Colors.appWhiteColor,
+              marginRight: 4,
+            }}>
+            Copy
+          </Typography>
+          <Icon name="content-copy" color="white" size={18} />
+        </View>
+      ) : (
         <Icon name="content-copy" color="white" size={18} />
-      </View>
+      )}
     </TouchableOpacity>
   );
 };

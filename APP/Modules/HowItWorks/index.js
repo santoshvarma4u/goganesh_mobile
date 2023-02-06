@@ -67,23 +67,36 @@ export const ModalView = ({modalVisible, videoUrl, onBackClick, title}) => {
         <Header
           centerComponent={{
             text: title,
-            style: {...TypographyStyles.H3, color: Colors.appWhiteColor},
+            style: {
+              ...TypographyStyles.H3,
+              color: Colors.appWhiteColor,
+              marginTop: 4,
+            },
           }}
-          elevated
           containerStyle={{
-            backgroundColor: Colors.appPrimaryColor,
+            backgroundColor: Colors.appBlackColor,
+            borderBottomWidth: 0,
           }}
           leftComponent={
-            <Icon
-              name="arrow-back"
-              size={30}
-              color={Colors.appWhiteColor}
-              onPress={() => {
-                onBackClick();
-              }}
-            />
+            <View
+              style={{
+                backgroundColor: Colors.appWhiteColor,
+                borderRadius: 50,
+                height: 30,
+                width: 30,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Icon
+                name="arrow-back"
+                size={24}
+                color={Colors.appBlackColor}
+                onPress={() => {
+                  onBackClick();
+                }}
+              />
+            </View>
           }
-          placement="center"
         />
         <View
           style={{
