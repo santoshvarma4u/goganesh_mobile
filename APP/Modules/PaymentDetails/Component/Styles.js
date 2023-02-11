@@ -6,7 +6,6 @@ export default StyleSheet.create({
     backgroundColor: Colors.appPrimaryColor,
     flex: 1,
   },
-
   profileContainer: {
     flex: 1,
     flexDirection: 'column',
@@ -114,5 +113,12 @@ export default StyleSheet.create({
   itemContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  saveButton: {
+    backgroundColor: Colors.appPrimaryColor,
+    height: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 'auto',
   },
 });

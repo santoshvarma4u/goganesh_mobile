@@ -40,8 +40,7 @@ const EnterBankDetails = props => {
         IFSC: bankData ? bankData.IFSC : '',
         AccountHolderName: bankData ? bankData.accountHolderName : '',
       }}
-      onSubmit={onSubmit}
-    >
+      onSubmit={onSubmit}>
       {({
         handleChange,
         handleBlur,
@@ -60,13 +59,11 @@ const EnterBankDetails = props => {
             paddingVertical: 30,
             paddingHorizontal: 20,
             color: Colors.appWhiteColor,
-          }}
-        >
+          }}>
           <View
             style={{
               flexDirection: 'row',
-            }}
-          >
+            }}>
             <View
               style={{
                 flex: 1,
@@ -162,8 +159,7 @@ const EnterBankDetails = props => {
                 backgroundColor: Colors.appPrimaryColor,
                 color: Colors.appBlackColor,
               }}
-              onPress={handleSubmit}
-            >
+              onPress={handleSubmit}>
               <Typography color={Colors.appBlackColor}>Submit</Typography>
             </Button>
           </View>

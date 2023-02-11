@@ -14,6 +14,7 @@ import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import animations from '../../../Theams/Animations';
 import Colors from '../../../Theams/Colors';
 import LoadingIndicator from '../../../Utils/loadingIndicator';
+import useHideBottomBar from '../../../Utils/useHideBottomBar';
 import withPreventDoubleClick from '../../../Utils/withPreventDoubleClick';
 import CommonTextInput from '../../Common/CommonTextInput';
 import ErrorPage from '../../Common/ErrorPage';
@@ -62,6 +63,7 @@ function CreateIDScreen({route, wallet}) {
     index: 0,
     routes: [{name: "ID's"}],
   });
+  useHideBottomBar();
 
   const {
     data,
@@ -449,40 +451,60 @@ function CreateIDScreen({route, wallet}) {
                 <>
                   {route.params.username && (
                     <CommonTextInput
-                      style={styles.modalText}
                       placeholder="Username *"
                       placeholderTextColor="#d5d1d1"
                       defaultValue={route.params.username}
                       editable={false}
+                      style={{
+                        backgroundColor: Colors.appBlackColorLight,
+                        borderRadius: 10,
+                        padding: 10,
+                        marginTop: 10,
+                      }}
+                      inputContainerStyle={{
+                        borderBottomWidth: 0,
+                      }}
                       onChangeText={handleChange('UserName')}
                     />
                   )}
                   {!route.params.username && (
                     <CommonTextInput
-                      style={styles.modalText}
                       placeholder="Username *"
+                      label="Username *"
                       placeholderTextColor="#d5d1d1"
                       defaultValue={route.params.username}
                       onChangeText={handleChange('UserName')}
+                      style={{
+                        backgroundColor: Colors.appBlackColorLight,
+                        borderRadius: 10,
+                        padding: 5,
+                        marginTop: 10,
+                      }}
+                      inputContainerStyle={{
+                        borderBottomWidth: 0,
+                      }}
+                      helperText={errors.UserName}
+                      error={errors.UserName && touched.UserName}
                     />
                   )}
-                  {errors.UserName && touched.UserName && (
-                    <Typography color={Colors.appRedColor}>
-                      {errors.UserName}
-                    </Typography>
-                  )}
                   <CommonTextInput
-                    style={styles.modalText}
                     keyboardType="numeric"
                     placeholder="Deposit Coins *"
+                    label="Deposit Coins *"
+                    style={{
+                      backgroundColor: Colors.appBlackColorLight,
+                      borderRadius: 10,
+                      padding: 5,
+                      marginTop: 10,
+                    }}
+                    inputContainerStyle={{
+                      borderBottomWidth: 0,
+                    }}
                     placeholderTextColor="#d5d1d1"
                     onChangeText={handleChange('DepositCoins')}
+                    helperText={errors.DepositCoins}
+                    error={errors.DepositCoins && touched.DepositCoins}
                   />
-                  {errors.DepositCoins && touched.DepositCoins && (
-                    <Typography color={Colors.appRedColor}>
-                      {errors.DepositCoins}
-                    </Typography>
-                  )}
                   <View
                     style={{
                       flexDirection: 'row',

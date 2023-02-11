@@ -9,6 +9,7 @@ import CONSTANTS from '../../../Constants';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import animations from '../../../Theams/Animations';
 import Colors from '../../../Theams/Colors';
+import useHideBottomBar from '../../../Utils/useHideBottomBar';
 import CommonTextInput from '../../Common/CommonTextInput';
 import ErrorPage from '../../Common/ErrorPage';
 import LottieView from '../../Common/Lottie';
@@ -34,7 +35,7 @@ const DepositContainer = props => {
     index: 0,
     routes: [{name: 'Home'}],
   });
-
+  useHideBottomBar();
   const {
     data,
     error: depositVerifyError,
@@ -200,15 +201,21 @@ const DepositContainer = props => {
           <CommonTextInput
             label="Deposit Coins *"
             mode="outlined"
-            style={{
-              marginTop: 20,
-            }}
             value={amount}
             onChangeText={value => {
               setAmount(value);
               setError(false);
             }}
             keyboardType="numeric"
+            style={{
+              backgroundColor: Colors.appBlackColorLight,
+              borderRadius: 10,
+              padding: 10,
+              marginTop: 10,
+            }}
+            inputContainerStyle={{
+              borderBottomWidth: 0,
+            }}
           />
           <Typography
             variant="paragraph"
@@ -225,7 +232,7 @@ const DepositContainer = props => {
             mode="contained"
             disabled={isPaymentLaoding || !amount || amount < 100}
             style={{
-              marginHorizontal: 30,
+              marginHorizontal: 90,
               marginTop: 20,
               backgroundColor: Colors.appPrimaryColor,
               color: Colors.appBlackColor,

@@ -21,12 +21,8 @@ const UPINumberPicker = () => {
     },
   });
 
-  const {
-    data,
-    loading,
-    error,
-    request,
-  } = paymentDetailsController.fetchUpiDetails();
+  const {data, loading, error, request} =
+    paymentDetailsController.fetchUpiDetails();
 
   const reloadUpiDetails = () => {
     request();
@@ -109,9 +105,7 @@ const UPINumberPicker = () => {
   }
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
+    <View>
       <View style={styles.bankCardDetails}>
         <Icon type="material-community" name="bank" color="white" />
         <Typography style={{color: 'white', padding: 5, left: 10}}>
@@ -121,7 +115,7 @@ const UPINumberPicker = () => {
       {/*
         UI for Upi numbers , for the PhonePay, G pay, Paytm
     */}
-      <View style={{padding: 20}}>
+      <View style={{padding: 10}}>
         <View style={styles.itemContainer}>
           <GooglePaySvg />
           <CommonTextInput
@@ -131,12 +125,12 @@ const UPINumberPicker = () => {
             keyboardType="numeric"
             maxLength={10}
             error={formik.errors.phone_pay}
-            style={{
-              minWidth: 180,
-              marginRight: 30,
-            }}
+            style={{minWidth: 240}}
           />
-          <Button mode={'contained'} onPress={() => onSave('phone_pay')}>
+          <Button
+            mode={'contained'}
+            onPress={() => onSave('phone_pay')}
+            style={styles.saveButton}>
             Save
           </Button>
         </View>
@@ -148,13 +142,13 @@ const UPINumberPicker = () => {
             onChangeText={handleChange('google_pay')}
             keyboardType="numeric"
             maxLength={10}
+            style={{minWidth: 240}}
             error={formik.errors.google_pay}
-            style={{
-              minWidth: 180,
-              marginRight: 30,
-            }}
           />
-          <Button mode={'contained'} onPress={() => onSave('google_pay')}>
+          <Button
+            mode={'contained'}
+            onPress={() => onSave('google_pay')}
+            style={styles.saveButton}>
             Save
           </Button>
         </View>
@@ -171,18 +165,18 @@ const UPINumberPicker = () => {
             onChangeText={handleChange('paytm')}
             keyboardType="numeric"
             maxLength={10}
+            style={{minWidth: 240}}
             error={formik.errors.paytm}
-            style={{
-              minWidth: 180,
-              marginRight: 30,
-            }}
           />
-          <Button mode={'contained'} onPress={() => onSave('paytm')}>
+          <Button
+            mode={'contained'}
+            onPress={() => onSave('paytm')}
+            style={styles.saveButton}>
             Save
           </Button>
         </View>
       </View>
-    </KeyboardAvoidingView>
+    </View>
   );
 };
 

@@ -4,7 +4,6 @@ import {Divider, Icon} from '@rneui/themed';
 import React, {useState, useEffect} from 'react';
 import {
   View,
-  Button,
   ActivityIndicator,
   TouchableOpacity,
   Image,
@@ -187,8 +186,7 @@ function DepositScreen({route}) {
                       style={{color: 'white', marginTop: 10}}
                       onPress={() => {
                         Clipboard.setString(data.paymentkey);
-                      }}
-                    >
+                      }}>
                       <Icon name="content-copy" color="white" size={20} />
                     </TouchableOpacity>
                   </View>
@@ -203,8 +201,7 @@ function DepositScreen({route}) {
                       style={{color: 'white', marginTop: 10}}
                       onPress={() => {
                         Clipboard.setString(data.paymentkey);
-                      }}
-                    >
+                      }}>
                       <Icon name="content-copy" color="white" size={20} />
                     </TouchableOpacity>
                   </View>
@@ -227,8 +224,7 @@ function DepositScreen({route}) {
                       style={{color: 'white', marginTop: 10}}
                       onPress={() => {
                         Clipboard.setString(data.paymentkey);
-                      }}
-                    >
+                      }}>
                       <Icon name="content-copy" color="white" size={20} />
                     </TouchableOpacity>
                   </View>
@@ -258,8 +254,7 @@ function DepositScreen({route}) {
                   <TouchableOpacity
                     activeOpacity={0.5}
                     style={styles.buttonStyle}
-                    onPress={() => chooseFile()}
-                  >
+                    onPress={() => chooseFile()}>
                     <Typography style={styles.textStyleButton} variant="H1">
                       Upload
                     </Typography>
@@ -280,8 +275,7 @@ function DepositScreen({route}) {
                   }}
                   onPress={() => {
                     submitPayment();
-                  }}
-                >
+                  }}>
                   <Typography>
                     {isImageLoading ? 'Please wait....' : 'Submit Payment'}
                   </Typography>
@@ -318,8 +312,7 @@ function DepositScreen({route}) {
               <View style={styles.depositTitle}>
                 <Typography
                   variant="title"
-                  style={{color: Colors.appWhiteColor, textAlign: 'center'}}
-                >
+                  style={{color: Colors.appWhiteColor, textAlign: 'center'}}>
                   Send Payment & Upload ScreenShot
                 </Typography>
               </View>
@@ -344,8 +337,7 @@ function DepositScreen({route}) {
                     style={{color: 'white', marginTop: 10}}
                     onPress={() => {
                       Clipboard.setString(data.paymentkey);
-                    }}
-                  >
+                    }}>
                     <Icon name="content-copy" color="white" size={20} />
                   </TouchableOpacity>
                 </View>
@@ -386,8 +378,7 @@ function DepositScreen({route}) {
                 <TouchableOpacity
                   activeOpacity={0.5}
                   style={styles.buttonStyle}
-                  onPress={() => chooseFile()}
-                >
+                  onPress={() => chooseFile()}>
                   <Typography style={styles.textStyleButton} variant="H1">
                     Upload
                   </Typography>
@@ -408,8 +399,7 @@ function DepositScreen({route}) {
                 }}
                 onPress={() => {
                   submitPayment();
-                }}
-              >
+                }}>
                 <Typography>
                   {isImageLoading ? 'Please wait....' : 'Submit Payment'}
                 </Typography>

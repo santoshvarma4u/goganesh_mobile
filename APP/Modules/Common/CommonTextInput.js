@@ -2,9 +2,7 @@
 import {Input} from '@rneui/themed';
 import React from 'react';
 import {View} from 'react-native';
-import {TextInput} from 'react-native-paper';
 import Colors from '../../Theams/Colors';
-import {Typography} from './Text';
 import {APP_FONTS} from './Text/Text.styles';
 
 const CommonTextInput = props => {
@@ -17,11 +15,11 @@ const CommonTextInput = props => {
   return (
     <View>
       <Input
-        mode="outlined"
         labelStyle={{
-          color: Colors.appWhiteColor,
+          color: Colors.appWhiteColor + 'aa',
           fontFamily: APP_FONTS.REGULAR,
           fontWeight: 'normal',
+          fontSize: 14,
         }}
         style={{backgroundColor: Colors.appBlackColor + 'aa'}}
         inputStyle={{
@@ -39,7 +37,7 @@ const CommonTextInput = props => {
 };
 
 CommonTextInput.propTypes = {
-  ...TextInput.propTypes,
+  ...Input.propTypes,
 };
 
 export default CommonTextInput;

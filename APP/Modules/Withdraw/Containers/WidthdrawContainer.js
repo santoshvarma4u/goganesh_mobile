@@ -17,6 +17,7 @@ import PhonePeSvg from '../../../Assets/svgs/PhonePeSvg';
 import CONSTANTS from '../../../Constants';
 import {setUserBanks} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
+import useHideBottomBar from '../../../Utils/useHideBottomBar';
 import EnterBankDetails from '../../Common/BankDetails';
 import CommonTextInput from '../../Common/CommonTextInput';
 import ErrorPage from '../../Common/ErrorPage';
@@ -65,7 +66,7 @@ const WithDrawContainer = props => {
       props.reduxSetBankDetails([...reduxBankDetails, bankData.data]);
     }
   };
-
+  useHideBottomBar();
   useEffect(() => {
     // Check if the bank details are set, if open a modal to set the bank
     if (!reduxBankDetails || reduxBankDetails.length === 0) {
@@ -141,7 +142,7 @@ const WithDrawContainer = props => {
           </View>
         </View>
         {/* body */}
-        {enableWithdraw ? (
+        {true ? (
           <>
             <View
               style={{
@@ -155,7 +156,13 @@ const WithDrawContainer = props => {
                 label="Withdraw coins"
                 mode="outlined"
                 style={{
-                  marginTop: 20,
+                  backgroundColor: Colors.appBlackColorLight,
+                  borderRadius: 10,
+                  padding: 10,
+                  marginTop: 10,
+                }}
+                inputContainerStyle={{
+                  borderBottomWidth: 0,
                 }}
                 value={amount}
                 onChangeText={value => {
@@ -175,7 +182,7 @@ const WithDrawContainer = props => {
             <Button
               mode="contained"
               style={{
-                marginHorizontal: 30,
+                marginHorizontal: 90,
                 marginTop: 20,
                 backgroundColor: Colors.appPrimaryColor,
                 color: Colors.appBlackColor,

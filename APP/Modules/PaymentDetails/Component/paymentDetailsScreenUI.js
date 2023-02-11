@@ -6,10 +6,12 @@ import {
   View,
   FlatList,
   KeyboardAvoidingView,
+  ScrollView,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {setUserBanks} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
+import useHideBottomBar from '../../../Utils/useHideBottomBar';
 import EnterBankDetails from '../../Common/BankDetails';
 import {Typography} from '../../Common/Text';
 import PaymentDetailsController from '../Controller/paymentDetailsController';
@@ -23,7 +25,7 @@ function PaymentsScreen({navigation, reduxSetUserBanks}) {
   const mybanks = PaymentDetailsController.getBankData();
 
   const [editModelVisible, setEditModelVisible] = useState(false);
-
+  useHideBottomBar();
   const onSubmit = values => {
     PaymentDetailsController.submitBankData(values).then(() => {
       setModalVisible(!modalVisible);
@@ -44,7 +46,7 @@ function PaymentsScreen({navigation, reduxSetUserBanks}) {
   return (
     <View style={styles.containerMain}>
       <View style={styles.profileContainer}>
-        <View style={styles.bankDetails}>
+        <ScrollView style={styles.bankDetails}>
           <FlatList
             data={mybanks.data}
             onRefresh={() => {
@@ -193,7 +195,7 @@ function PaymentsScreen({navigation, reduxSetUserBanks}) {
               </KeyboardAvoidingView>
             </View>
           </Modal>
-        </View>
+        </ScrollView>
       </View>
     </View>
   );
