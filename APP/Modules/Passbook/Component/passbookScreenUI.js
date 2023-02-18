@@ -1,6 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
+import {Icon} from '@rneui/base';
 import React, {useEffect, useState} from 'react';
-import {Modal, ScrollView, View} from 'react-native';
+import {Modal, Pressable, ScrollView, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {
   ActivityIndicator,
@@ -10,7 +11,6 @@ import {
   Divider,
   Badge,
 } from 'react-native-paper';
-import reactotron from 'reactotron-react-native';
 import {useLazyFetchAllTransactionsQuery} from '../../../Network/api/Passbook';
 import {getUid} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
@@ -50,18 +50,10 @@ const AllTransactionsContainer = ({navigation}) => {
     status: '',
     type: '',
     wallet: '',
-    search: '',
   });
 
   const [fetchAllTransactions, {data, isLoading, isFetching, error}] =
     useLazyFetchAllTransactionsQuery();
-  reactotron.log(
-    '🚀 ~ file: passbookScreenUI.js:57 ~ AllTransactionsContainer ~ data',
-    data,
-    isLoading,
-    isFetching,
-    error,
-  );
 
   const fetchDetails = async pageNo => {
     let uid = await getUid();
@@ -103,16 +95,28 @@ const AllTransactionsContainer = ({navigation}) => {
   }
 
   return (
-    <>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: Colors.appBlackColor,
+      }}>
       {isFetching && <LoadingIndicator color={Colors.appPrimaryColor} />}
       <View>
-        <View style={{flexDirection: 'row', padding: 5}}>
+        <Pressable
+          onPress={() => setFilterVisible(true)}
+          style={{
+            flexDirection: 'row',
+            padding: 5,
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+          }}>
+          <Typography>
+            <Typography variant="H3" color={Colors.appWhiteColor}>
+              Filter
+            </Typography>
+          </Typography>
           <View>
-            <IconButton
-              icon="filter"
-              onPress={() => setFilterVisible(true)}
-              size={30}
-            />
+            <IconButton icon="filter" size={20} color={Colors.appWhiteColor} />
             <Badge
               visible={
                 itemFilter.STATUS || itemFilter.type || itemFilter.wallet
@@ -125,7 +129,7 @@ const AllTransactionsContainer = ({navigation}) => {
               }}
             />
           </View>
-        </View>
+        </Pressable>
         <FlatList
           data={transactions}
           renderItem={({item}) => (
@@ -168,18 +172,43 @@ const AllTransactionsContainer = ({navigation}) => {
         <ScrollView
           contentContainerStyle={{
             flex: 1,
-            marginHorizontal: 20,
-            marginTop: 34,
+            paddingHorizontal: 20,
+            backgroundColor: Colors.appBlackColor,
           }}>
-          <Typography variant="H3">Filter items </Typography>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              marginTop: 20,
+            }}>
+            <Icon
+              name="close"
+              size={30}
+              color={Colors.appWhiteColor}
+              onPress={() => setFilterVisible(false)}
+            />
+          </View>
+          <Typography variant="H2" color={Colors.appWhiteColor}>
+            Filter items
+          </Typography>
           {Object.keys(FILTERS).map(key => (
-            <View key={key}>
-              <View>
+            <View
+              key={key}
+              style={{
+                marginTop: 20,
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}>
                 <Typography
                   variant="subheader"
                   style={{
                     marginBottom: 10,
-                    color: Colors.primary,
+                    color: Colors.appWhiteColor,
                   }}>
                   {NAME_MAP[key]}
                 </Typography>
@@ -212,6 +241,11 @@ const AllTransactionsContainer = ({navigation}) => {
                         label={item}
                         value={item}
                         position="leading"
+                        color={Colors.appWhiteColor}
+                        labelStyle={{
+                          color: Colors.appWhiteColor,
+                        }}
+                        uncheckedColor={Colors.appWhiteColor}
                       />
                     </View>
                   ))}
@@ -227,25 +261,32 @@ const AllTransactionsContainer = ({navigation}) => {
               fetchDetails(1);
               setFilterVisible(false);
             }}
+            style={{
+              marginTop: 30,
+            }}
             mode="contained">
             Apply Filters
           </Button>
           <Button
             onPress={() => {
-              setFilterVisible(false);
-              fetchDetails(1, 5);
+              setTransactions([]);
               setItemFilter({
                 status: '',
                 type: '',
                 wallet: '',
               });
+              fetchDetails(1);
+              setFilterVisible(false);
+            }}
+            style={{
+              marginTop: 10,
             }}
             mode="contained">
             Clear Filters
           </Button>
         </ScrollView>
       </Modal>
-    </>
+    </View>
   );
 };
 

@@ -24,6 +24,7 @@ import reducers from './Slices';
 
 const rootReducer = combineReducers({
   ...reducers,
+  api: api.reducer,
   //   ...Object.values(modules).reduce(
   //     (acc, module) => ({
   //       ...acc,

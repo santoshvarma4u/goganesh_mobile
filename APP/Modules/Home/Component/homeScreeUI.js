@@ -125,11 +125,9 @@ function HomeScreen(props) {
             </TouchableOpacity>
             <View style={styles.centerCard}>
               <FGImage
-                style={{width: 50, height: 50}}
+                style={{width: 60, height: 60}}
                 source={Images.newLogoOnly}
-                resizeMode={'cover'}
-                height={50}
-                width={50}
+                resizeMode={'contain'}
               />
               <View>
                 <Typography color={Colors.appWhiteColor} variant="P3">
