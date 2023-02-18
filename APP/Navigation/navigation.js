@@ -197,7 +197,13 @@ export function AppContainer() {
 
 const HomeStackNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: true,
+        headerStyle: {backgroundColor: Colors.appPrimaryColor},
+        headerTitleStyle: appHeaderStyle,
+        headerTitleAlign: 'center',
+      }}>
       <Stack.Screen
         name="Home"
         component={HomeScreen}
@@ -253,18 +259,43 @@ const HomeStackNavigator = () => {
                 flexDirection: 'row',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: 30,
-                width: 30,
-                borderRadius: 20,
-                backgroundColor: Colors.appWhiteColor,
-                marginRight: 10,
               }}>
-              <Icon
-                name="notifications"
-                size={24}
-                color={Colors.appPrimaryColor}
-                onPress={() => navigation.navigate('Notification')}
-              />
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: 30,
+                  width: 30,
+                  borderRadius: 20,
+                  backgroundColor: Colors.appWhiteColor,
+                  marginRight: 10,
+                }}>
+                <Icon
+                  name="bank"
+                  size={20}
+                  color={Colors.appPrimaryColor}
+                  onPress={() => navigation.navigate('Notification')}
+                  type="material-community"
+                />
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: 30,
+                  width: 30,
+                  borderRadius: 20,
+                  backgroundColor: Colors.appWhiteColor,
+                  marginRight: 10,
+                }}>
+                <Icon
+                  name="notifications"
+                  size={24}
+                  color={Colors.appPrimaryColor}
+                  onPress={() => navigation.navigate('Notification')}
+                />
+              </View>
             </View>
           ),
         })}
@@ -565,7 +596,13 @@ const OffersStackNavigator = () => {
 };
 const PassbookStackNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: true,
+        headerStyle: {backgroundColor: Colors.appPrimaryColor},
+        headerTitleStyle: appHeaderStyle,
+        headerTitleAlign: 'center',
+      }}>
       <Stack.Screen
         name="Passbook"
         component={PassbookScreen}
@@ -598,15 +635,14 @@ const PassbookStackNavigator = () => {
 
 const IDsStackNavigator = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="IDs"
-        component={IDsScreenPage}
-        options={() => ({
-          headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitleStyle: appHeaderStyle,
-        })}
-      />
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: true,
+        headerStyle: {backgroundColor: Colors.appPrimaryColor},
+        headerTitleStyle: appHeaderStyle,
+        headerTitleAlign: 'center',
+      }}>
+      <Stack.Screen name="IDs" component={IDsScreenPage} />
       <Stack.Screen
         name="CreateID"
         component={CreateIDScreen}

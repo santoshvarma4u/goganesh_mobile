@@ -171,7 +171,6 @@ export default class PhoneInput extends PureComponent {
             <View style={styles.textContainer}>
               <CommonTextInput
                 style={styles.numberText}
-                placeholder={placeholder ? placeholder : 'Phone Number'}
                 onChangeText={this.onChangeText}
                 value={number}
                 editable={disabled ? false : true}

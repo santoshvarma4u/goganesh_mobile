@@ -1,13 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import {BottomSheet, Divider, Icon, ListItem} from '@rneui/themed';
-import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 
 import {
   View,
   StyleSheet,
   TouchableOpacity,
-  Clipboard,
   Modal,
   Dimensions,
   Linking,
@@ -155,6 +153,7 @@ const HomeListMyIDs = props => {
             paddingTop: 5,
             alignItems: 'center',
             flexDirection: 'row',
+            marginBottom: 8,
           }}
           onPress={() => {
             props.navigation.navigate('CreateID', {
@@ -164,7 +163,14 @@ const HomeListMyIDs = props => {
               requestStatus: 'old',
             });
           }}>
-          <Typography style={{alignItems: 'center', color: 'white'}}>
+          <Icon
+            name="arrow-up"
+            type="material-community"
+            color={Colors.appGreenColor}
+            size={18}
+          />
+          <Typography
+            style={{alignItems: 'center', color: 'white', marginLeft: 4}}>
             Deposit
           </Typography>
         </TouchableOpacity>
@@ -176,6 +182,7 @@ const HomeListMyIDs = props => {
             paddingTop: 5,
             flexDirection: 'row',
             borderColor: Colors.appBlackColor,
+            marginBottom: 8,
             borderLeftWidth: 1,
           }}
           onPress={() => {
@@ -184,7 +191,14 @@ const HomeListMyIDs = props => {
               data: props.data,
             });
           }}>
-          <Typography style={{alignItems: 'center', color: 'white'}}>
+          <Icon
+            name="arrow-down"
+            type="material-community"
+            color={Colors.appRedColor}
+            size={18}
+          />
+          <Typography
+            style={{alignItems: 'center', color: 'white', marginLeft: 4}}>
             Withdraw
           </Typography>
         </TouchableOpacity>

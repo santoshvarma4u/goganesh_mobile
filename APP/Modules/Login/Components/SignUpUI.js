@@ -126,7 +126,6 @@ function SingUp({route}) {
                 <>
                   <CommonTextInput
                     label="Name"
-                    placeholder={'Enter Your name'}
                     onChangeText={handleChange('name')}
                     value={values.name}
                     error={touched.name && errors.name ? errors.name : false}
@@ -151,7 +150,6 @@ function SingUp({route}) {
                   />
                   <CommonTextInput
                     label={'Password'}
-                    placeholder={'Enter Your Password'}
                     type="password"
                     secureTextEntry
                     onChangeText={handleChange('password')}
@@ -169,7 +167,6 @@ function SingUp({route}) {
                   />
                   <CommonTextInput
                     label="Confirm Password"
-                    placeholder={'Confirm Your Password'}
                     type="password"
                     secureTextEntry
                     onChangeText={handleChange('confirmPassword')}
@@ -187,7 +184,6 @@ function SingUp({route}) {
                   />
                   <CommonTextInput
                     label="Enter Referral Code(Optional)"
-                    placeholder={'Enter Referral Code'}
                     onChangeText={handleChange('client')}
                   />
                   {showOTP && (

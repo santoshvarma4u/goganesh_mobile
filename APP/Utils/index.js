@@ -21,19 +21,23 @@ export const generateUnsignedJwt = async () => {
 };
 
 export function removeHttpOrWww(url) {
-  if (url.startsWith('https://')) {
+  let returnUrl = url;
+  if (returnUrl.startsWith('https://')) {
     const https = 'https://';
-    return url.slice(https.length);
+    returnUrl = returnUrl.slice(https.length);
   }
-  if (url.startsWith('http://')) {
+  if (returnUrl.startsWith('http://')) {
     const http = 'http://';
-    return url.slice(http.length);
+    returnUrl = returnUrl.slice(http.length);
   }
-  if (url.startsWith('www.')) {
+  if (returnUrl.startsWith('www.')) {
     const www = 'www.';
-    return url.slice(www.length);
+    returnUrl = returnUrl.slice(www.length);
   }
-  return url;
+  if (returnUrl.endsWith('/')) {
+    returnUrl = returnUrl.slice(0, -1);
+  }
+  return returnUrl;
 }
 
 export function convertSecondsToHHMMSS(seconds) {

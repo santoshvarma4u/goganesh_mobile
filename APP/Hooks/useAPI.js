@@ -6,8 +6,8 @@ export default useAPI = apiFunction => {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [modified, setModified] = useState(false);
-  const request = () => {
-    apiFunction()
+  const request = asd => {
+    apiFunction(asd)
       .then(response => {
         setLoading(false);
 

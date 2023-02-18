@@ -97,11 +97,15 @@ function SignIn(props) {
             }) => (
               <View style={styles.offersContainer}>
                 <View style={styles.SignINCard}>
-                  <View style={{flex: 1}}>
+                  <View
+                    style={{
+                      flex: 1,
+                      marginTop: 100,
+                    }}>
                     <CommonTextInput
                       onChangeText={handleChange('phoneNumber')}
                       value={values.phoneNumber}
-                      label="Enter Phone Number"
+                      label="Phone Number"
                       onBlur={handleBlur('phoneNumber')}
                       keyboardType="numeric"
                       maxLength={10}
@@ -119,7 +123,7 @@ function SignIn(props) {
                       onChangeText={handleChange('password')}
                       value={values.password}
                       secureTextEntry={true}
-                      label="Enter password"
+                      label="Password"
                       error={touched.password && errors.password ? true : false}
                       helperText={
                         touched.password && errors.password
@@ -159,7 +163,6 @@ function SignIn(props) {
                       style={{
                         color: Colors.appWhiteColor,
                         fontSize: 14,
-                        marginVertical: 10,
                       }}>
                       Forgot password ?
                     </Typography>
@@ -173,13 +176,12 @@ function SignIn(props) {
                   <Button
                     mode="contained"
                     onPress={handleSubmit}
-                    labelStyle={{
-                      backgroundColor: Colors.appWhiteColor,
-                    }}
                     style={{
                       minWidth: '40%',
+                      backgroundColor: Colors.appWhiteColor,
+                      marginVertical: 30,
                     }}>
-                    Sign In
+                    Login
                   </Button>
                 </View>
               </View>

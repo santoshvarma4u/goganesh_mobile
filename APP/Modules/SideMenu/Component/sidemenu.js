@@ -2,34 +2,45 @@ import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import {Icon} from '@rneui/themed';
 import React, {useEffect, useState} from 'react';
 import {Image, View} from 'react-native';
+import {useDispatch} from 'react-redux';
 import {useSelector} from 'react-redux';
+import {updateIdState} from '../../../Store/Slices/idStateSlice';
 import Colors from '../../../Theams/Colors';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
-
 const ICON_SIZE = 20;
 
 const TOP_MENU_BAR_ITEMS = [
   {
     label: 'Profile',
-    icon: 'person',
+    icon: 'person-outline',
     onPress: 'Profile',
+    type: 'ionicon',
   },
   {
-    label: 'Banks',
-    icon: 'account-balance',
+    label: 'Create ID',
+    icon: 'person-add-outline',
+    onPress: "ID's",
+    type: 'ionicon',
+  },
+  {
+    label: 'Withdraw Details',
+    icon: 'cash-outline',
     onPress: 'Payments',
+    type: 'ionicon',
   },
   {
     label: 'Terms',
-    icon: 'info',
+    icon: 'information-outline',
+    type: 'ionicon',
     onPress: 'Rules',
   },
   {
     label: 'How to Use',
-    icon: 'help',
+    icon: 'help-circle-outline',
     onPress: 'HowItWorks',
+    type: 'ionicon',
   },
   {
     label: 'Offers',
@@ -72,7 +83,7 @@ function CustomSidebarMenu({...props}) {
 
   // from redux
   const walletBalance = useSelector(state => state.home.walletBalance);
-
+  const dispatch = useDispatch();
   return (
     <DrawerContentScrollView
       {...props}
@@ -83,22 +94,37 @@ function CustomSidebarMenu({...props}) {
       }}>
       <View
         style={{
-          height: 200,
+          height: 220,
           backgroundColor: Colors.appBlackColor,
-          alignItems: 'center',
-          justifyContent: 'center',
+          padding: 10,
         }}>
         <Image
           source={require('../../../Assets/Images/logo_only.png')}
           resizeMode={'contain'}
-          width={20}
-          height={20}
+          width={5}
+          height={5}
+          style={{
+            width: 100,
+            height: 100,
+          }}
         />
-        <View>
-          <Typography style={{color: Colors.appWhiteColor}}>
-            {phone ?? ''}
+        <View
+          style={{
+            alignItems: 'flex-start',
+            padding: 10,
+          }}>
+          <Typography variant="H4" style={{color: Colors.appWhiteColor}}>
+            +91 {phone ?? ''}
           </Typography>
-          <Typography style={{color: Colors.appPrimaryColor}}>
+          <View
+            style={{
+              backgroundColor: Colors.appWhiteColor,
+              marginVertical: 10,
+              height: 0.5,
+              width: '50%',
+            }}
+          />
+          <Typography variant="H4" style={{color: Colors.appPrimaryColor}}>
             Wallet Balance : {walletBalance}
           </Typography>
         </View>
@@ -111,12 +137,25 @@ function CustomSidebarMenu({...props}) {
           return (
             <DrawerItem
               key={index}
-              label={item.label}
+              label={() => {
+                return (
+                  <Typography
+                    variant="P2"
+                    style={{color: Colors.appBlackColor}}>
+                    {item.label}
+                  </Typography>
+                );
+              }}
               onPress={() => {
                 props.navigation.navigate(item.onPress);
+                if (item.onPress === "ID's") {
+                  dispatch(updateIdState({index: 1}));
+                }
               }}
               icon={(color, size) => {
-                return <Icon size={ICON_SIZE} name={item.icon} />;
+                return (
+                  <Icon size={ICON_SIZE} name={item.icon} type={item.type} />
+                );
               }}
             />
           );

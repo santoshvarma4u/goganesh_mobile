@@ -1,3 +1,4 @@
+import reactotron from 'reactotron-react-native';
 import Storage from '../../Modules/Common/Storage';
 import StorageKeys from '../../Modules/Common/StorageKeys';
 import NetworkAPI from '../api/server';
@@ -11,7 +12,11 @@ const getUID = async () => {
   } catch (error) {}
 };
 
-const getUserTransactions = async () => {
+const getUserTransactions = async filter => {
+  reactotron.log(
+    '🚀 ~ file: transactionsPassbook.js:15 ~ getUserTransactions ~ filter',
+    filter,
+  );
   let uid = await getUID();
   const paymentEndPointOfUser = `/payment/${uid}`;
   return NetworkAPI.apiClient.get(paymentEndPointOfUser);

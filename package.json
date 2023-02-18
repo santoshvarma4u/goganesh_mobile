@@ -12,7 +12,10 @@
     "clean": "react-native-clean-project",
     "postinstall": "patch-package",
     "build": "rm -rf dist/ && webpack --mode=production --config webpack.config.js",
-    "web": "webpack serve --mode=development --config webpack.config.js"
+    "web": "webpack serve --mode=development --config webpack.config.js",
+    "run-android": "npx react-native run-android",
+    "run-release": "npx react-native run-android --variant=release",
+    "build-android": "npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/"
   },
   "dependencies": {
     "@babel/preset-env": "^7.20.2",

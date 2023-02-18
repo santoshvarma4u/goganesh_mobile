@@ -14,19 +14,19 @@ export const prod = 'https://api.fgpunt.com/';
 // To list your AVDs use :
 // ./emulator -list-avds
 
-export const env = dev;
+export const env = local;
 
 let deviceID = null;
 
-const getdeviceId = () => {
+export const getdeviceId = () => {
   return DeviceInfo.getUniqueId();
 };
 
-const getUid = async () => {
+export const getUid = async () => {
   return Storage.getItemSync(StorageKeys.ID);
 };
 
-const removeUserDetails = async () => {
+export const removeUserDetails = async () => {
   await Storage.removeItemSync(StorageKeys.JWT);
   await Storage.removeItemSync(StorageKeys.ID);
   await Storage.removeItemSync(StorageKeys.NAME);

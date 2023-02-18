@@ -12,6 +12,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+import {api} from '../Network/api/api';
 import reducers from './Slices';
 
 // import auth from './Auth';
@@ -47,15 +48,11 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat([
-      // add your middlewares here
-    ]);
-
+    }).concat(api.middleware);
     if (__DEV__ && !process.env.JEST_WORKER_ID) {
       const createDebugger = require('redux-flipper').default;
       middlewares.push(createDebugger());
     }
-
     return middlewares;
   },
 });

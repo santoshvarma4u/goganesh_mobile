@@ -75,7 +75,7 @@ function CreateIDScreen({route, wallet}) {
   const [planDetails, setPlanDetails] = useState({
     'Min Refill': '1,000',
     'Min Withdrawal': '1,000',
-    'Min Maintaining Balance': '1,000',
+    'Min Maintaining Balance': '0',
     MaxWithDrawl: '25,00,000 per day',
   });
 
