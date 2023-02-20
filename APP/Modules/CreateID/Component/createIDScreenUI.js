@@ -226,8 +226,10 @@ function CreateIDScreen({route, wallet}) {
             <Image
               source={require('../../../Assets/Images/logo_only.png')}
               resizeMode={'contain'}
-              width={100}
-              height={100}
+              style={{
+                width: 100,
+                height: 100,
+              }}
             />
             <Typography
               style={{alignItems: 'center', color: 'white', marginTop: 5}}>

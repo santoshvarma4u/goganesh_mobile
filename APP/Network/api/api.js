@@ -1,4 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import reactotron from 'reactotron-react-native';
 import {logoutAndResetNavigation} from '../../../APP/Navigation/navigation';
 import Storage from '../../Modules/Common/Storage';
 import StorageKeys from '../../Modules/Common/StorageKeys';
@@ -13,7 +14,7 @@ const baseQuery = fetchBaseQuery({
       headers.set('authorization', token);
       headers.set('uid', uid);
     }
-    headers.set('deviceid', getdeviceId);
+    headers.set('deviceid', getdeviceId());
     return headers;
   },
 });
@@ -26,6 +27,7 @@ const baseQueryWithInterceptor = async (args, api, extraOptions) => {
   ) {
     // here you can deal with 401 error
     // you can redirect to login page or show some message
+    reactotron.log('${1:api.js', '401 error', result.error);
     await removeUserDetails();
     logoutAndResetNavigation();
     throw new Error('Unauthorized');

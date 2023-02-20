@@ -92,8 +92,10 @@ export default class Splash extends PureComponent {
         <Image
           source={require('../../../Assets/Images/logo_only.png')}
           resizeMode={'contain'}
-          width={screenWidth / 2}
-          height={screenHeight / 2}
+          style={{
+            width: screenWidth * 0.5,
+            height: screenHeight * 0.5,
+          }}
         />
 
         {/*<LottieView*/}

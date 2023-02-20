@@ -14,7 +14,7 @@ export const prod = 'https://api.fgpunt.com/';
 // To list your AVDs use :
 // ./emulator -list-avds
 
-export const env = local;
+export const env = prod;
 
 let deviceID = null;
 

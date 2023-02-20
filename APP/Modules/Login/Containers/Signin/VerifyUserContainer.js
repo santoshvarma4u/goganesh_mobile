@@ -45,8 +45,11 @@ const VerifyUserContainer = props => {
       <Image
         source={require('../../../../Assets/Images/logo_only.png')}
         resizeMode={'contain'}
-        width={screenWidth / 2}
-        height={screenHeight / 2}
+        style={{
+          width: screenWidth * 0.4,
+          height: screenHeight * 0.2,
+          marginTop: 20,
+        }}
       />
       <View>
         <VerifyUser onSubmit={onSubmit} howItWorksClick={howItWorksClick} />

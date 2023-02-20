@@ -128,6 +128,7 @@ export default class Splash extends PureComponent {
           resizeMode={'contain'}
           width={screenWidth / 2}
           height={screenHeight / 2}
+          style={{width: screenWidth / 2, height: screenHeight / 2}}
         />
 
         {/*<LottieView*/}
