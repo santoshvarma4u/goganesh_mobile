@@ -1,9 +1,9 @@
 import {StyleSheet} from 'react-native';
 
-const PRIMARY_FONT_REGULAR = 'Montserrat-Regular';
-const PRIMARY_FONT_BOLD = 'Montserrat-Bold';
-const PRIMARY_FONT_MEDIUM = 'Montserrat-Medium';
-const PRIMARY_FONT_LIGHT = 'Montserrat-Light';
+const PRIMARY_FONT_REGULAR = 'Lato-Regular';
+const PRIMARY_FONT_BOLD = 'Lato-Bold';
+const PRIMARY_FONT_MEDIUM = 'Lato-Medium';
+const PRIMARY_FONT_LIGHT = 'Lato-Light';
 
 export const APP_FONTS = {
   REGULAR: PRIMARY_FONT_REGULAR,
@@ -59,7 +59,7 @@ const TypographyStyles = StyleSheet.create({
     lineHeight: 14,
   },
   caption: {
-    fontFamily: PRIMARY_FONT_LIGHT,
+    fontFamily: PRIMARY_FONT_REGULAR,
     fontSize: 11,
     lineHeight: 18,
     marginVertical: 2,

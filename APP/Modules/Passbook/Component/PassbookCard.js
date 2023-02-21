@@ -48,7 +48,7 @@ const RenderTitleAndValue = ({title, value, isButton, onPress}) => {
   );
 };
 
-const PassbookCard = ({item, navigation}) => {
+const PassbookCard = ({item, navigation, needAccordion = true}) => {
   const [accordion, setAccordion] = useState(false);
 
   return (
@@ -108,7 +108,7 @@ const PassbookCard = ({item, navigation}) => {
           </Typography>
         </View>
       </View>
-      {accordion && (
+      {needAccordion && accordion && (
         <View style={styles.accordionView}>
           <RenderTitleAndValue
             title={'Details'}

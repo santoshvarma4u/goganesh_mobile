@@ -22,6 +22,9 @@ export const generateUnsignedJwt = async () => {
 
 export function removeHttpOrWww(url) {
   let returnUrl = url;
+  if (!returnUrl) {
+    return '';
+  }
   if (returnUrl.startsWith('https://')) {
     const https = 'https://';
     returnUrl = returnUrl.slice(https.length);

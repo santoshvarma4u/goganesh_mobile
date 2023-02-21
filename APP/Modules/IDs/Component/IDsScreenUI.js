@@ -14,6 +14,7 @@ import reactotron from 'reactotron-react-native';
 import {updateIdState} from '../../../Store/Slices/idStateSlice';
 import Colors from '../../../Theams/Colors';
 import {Typography} from '../../Common/Text';
+import TypographyStyles from '../../Common/Text/Text.styles';
 import IdController from '../Controller/IdController';
 import styles from './Styles';
 import AccordionListItem from './accordianListIDs';
@@ -231,6 +232,9 @@ function IDs({navigation, route}) {
               backgroundColor: Colors.appBlackColor,
               borderTopRightRadius: 25,
               borderTopLeftRadius: 25,
+            }}
+            labelStyle={{
+              ...TypographyStyles.H5,
             }}
           />
         )}

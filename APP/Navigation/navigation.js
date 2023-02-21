@@ -31,6 +31,7 @@ import PaymentOptionsScreen from '../Modules/PaymentOptions/Container/paymentOpt
 import ProfileScreen from '../Modules/Profile/Container/profileIndex';
 import RulesScreen from '../Modules/Rules/Container/rulesIndex';
 import CustomSidebarMenu from '../Modules/SideMenu/Component/sidemenu';
+import SiteDetailsContainer from '../Modules/SiteDetails/Containers/SiteDetailComponent';
 import Splash from '../Modules/Splash/Container/splashIndex';
 import WithdrawForm from '../Modules/Withdraw/Components/WithdrawUI';
 import WithDrawContainer from '../Modules/Withdraw/Containers/WidthdrawContainer';
@@ -274,7 +275,7 @@ const HomeStackNavigator = () => {
                   name="bank"
                   size={20}
                   color={Colors.appPrimaryColor}
-                  onPress={() => navigation.navigate('Notification')}
+                  onPress={() => navigation.navigate('Payments')}
                   type="material-community"
                 />
               </View>
@@ -455,7 +456,7 @@ const HomeStackNavigator = () => {
               {...props}
               tintColor={Colors.appWhiteColor}
               onPress={() => {
-                navigation.goBack();
+                navigation.pop();
               }}
             />
           ),
@@ -606,9 +607,75 @@ const PassbookStackNavigator = () => {
       <Stack.Screen
         name="Passbook"
         component={PassbookScreen}
-        options={() => ({
-          headerStyle: {backgroundColor: Colors.appPrimaryColor},
-          headerTitleStyle: appHeaderStyle,
+        options={({navigation}) => ({
+          headerStyle: {backgroundColor: Colors.appPrimaryColor, height: 50},
+          headerTitle: 'Passbook',
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 30,
+                width: 30,
+                borderRadius: 20,
+                backgroundColor: Colors.appWhiteColor,
+                marginLeft: 10,
+              }}>
+              <Icon
+                name="menu"
+                size={24}
+                color={Colors.appPrimaryColor}
+                onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+              />
+            </View>
+          ),
+          headerRight: () => (
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: 30,
+                  width: 30,
+                  borderRadius: 20,
+                  backgroundColor: Colors.appWhiteColor,
+                  marginRight: 10,
+                }}>
+                <Icon
+                  name="bank"
+                  size={20}
+                  color={Colors.appPrimaryColor}
+                  onPress={() => navigation.navigate('Payments')}
+                  type="material-community"
+                />
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: 30,
+                  width: 30,
+                  borderRadius: 20,
+                  backgroundColor: Colors.appWhiteColor,
+                  marginRight: 10,
+                }}>
+                <Icon
+                  name="notifications"
+                  size={24}
+                  color={Colors.appPrimaryColor}
+                  onPress={() => navigation.navigate('Notification')}
+                />
+              </View>
+            </View>
+          ),
         })}
       />
       <Stack.Screen
@@ -642,7 +709,80 @@ const IDsStackNavigator = () => {
         headerTitleStyle: appHeaderStyle,
         headerTitleAlign: 'center',
       }}>
-      <Stack.Screen name="IDs" component={IDsScreenPage} />
+      <Stack.Screen
+        name="IDs"
+        component={IDsScreenPage}
+        options={({navigation}) => ({
+          headerStyle: {backgroundColor: Colors.appPrimaryColor, height: 50},
+          headerTitle: 'IDs',
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 30,
+                width: 30,
+                borderRadius: 20,
+                backgroundColor: Colors.appWhiteColor,
+                marginLeft: 10,
+              }}>
+              <Icon
+                name="menu"
+                size={24}
+                color={Colors.appPrimaryColor}
+                onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+              />
+            </View>
+          ),
+          headerRight: () => (
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: 30,
+                  width: 30,
+                  borderRadius: 20,
+                  backgroundColor: Colors.appWhiteColor,
+                  marginRight: 10,
+                }}>
+                <Icon
+                  name="bank"
+                  size={20}
+                  color={Colors.appPrimaryColor}
+                  onPress={() => navigation.navigate('Payments')}
+                  type="material-community"
+                />
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: 30,
+                  width: 30,
+                  borderRadius: 20,
+                  backgroundColor: Colors.appWhiteColor,
+                  marginRight: 10,
+                }}>
+                <Icon
+                  name="notifications"
+                  size={24}
+                  color={Colors.appPrimaryColor}
+                  onPress={() => navigation.navigate('Notification')}
+                />
+              </View>
+            </View>
+          ),
+        })}
+      />
       <Stack.Screen
         name="CreateID"
         component={CreateIDScreen}
@@ -705,6 +845,25 @@ const IDsStackNavigator = () => {
         component={DepositContainerV2}
         options={({navigation}) => ({
           headerTitle: 'Deposit',
+          headerStyle: {backgroundColor: Colors.appPrimaryColor},
+          headerTitleAlign: 'center',
+          headerTitleStyle: appHeaderStyle,
+          headerLeft: props => (
+            <HeaderBackButton
+              {...props}
+              tintColor={Colors.appWhiteColor}
+              onPress={() => {
+                navigation.pop();
+              }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="IDDetails"
+        component={SiteDetailsContainer}
+        options={({navigation}) => ({
+          headerTitle: 'ID Details',
           headerStyle: {backgroundColor: Colors.appPrimaryColor},
           headerTitleAlign: 'center',
           headerTitleStyle: appHeaderStyle,

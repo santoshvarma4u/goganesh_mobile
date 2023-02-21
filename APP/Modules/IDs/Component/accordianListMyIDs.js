@@ -93,6 +93,14 @@ const AccordianListNew = props => {
       },
     },
     {
+      title: 'View Transactions',
+      onPress: () => {
+        navigation.navigate('IDDetails', {
+          sdid: props.data.sd.sdid,
+        });
+      },
+    },
+    {
       title: 'Change Password',
       onPress: () => {
         setShowPasswordModal(true);
