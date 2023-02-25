@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import {Icon} from '@rneui/base';
 import React, {useEffect, useState} from 'react';
-import {Modal, Pressable, ScrollView, View} from 'react-native';
+import {Modal, Pressable, RefreshControl, ScrollView, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {
   ActivityIndicator,
@@ -116,6 +116,7 @@ const AllTransactionsContainer = ({navigation}) => {
       style={{
         flex: 1,
         backgroundColor: Colors.appBlackColor,
+        paddingBottom: 20,
       }}>
       {isFetching && <LoadingIndicator color={Colors.appPrimaryColor} />}
       <View>
@@ -152,12 +153,18 @@ const AllTransactionsContainer = ({navigation}) => {
           renderItem={({item}) => (
             <PassbookCard item={item} navigation={navigation} />
           )}
+          refreshControl={
+            <RefreshControl
+              refreshing={isLoading}
+              onRefresh={() => clearCurrentResultsAndFetch(true)}
+            />
+          }
           onEndReached={onEndReached}
           onEndReachedThreshold={0.2}
           keyExtractor={item => item.id}
           ListFooterComponent={
-            <>
-              {isLoading && (
+            <View>
+              {isFetching && (
                 <View>
                   <ActivityIndicator color={Colors.primary} />
                   <Typography
@@ -178,7 +185,7 @@ const AllTransactionsContainer = ({navigation}) => {
                   No more results
                 </Typography>
               )}
-            </>
+            </View>
           }
         />
       </View>

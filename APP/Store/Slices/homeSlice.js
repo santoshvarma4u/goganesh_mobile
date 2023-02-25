@@ -1,5 +1,6 @@
 // Create slice from redux-tool-kit
 import {createSlice} from '@reduxjs/toolkit';
+import reactotron from 'reactotron-react-native';
 
 const slice = createSlice({
   name: 'home',
@@ -27,6 +28,10 @@ const slice = createSlice({
       state.data = action.payload;
     },
     setWalletBalance: (state, action) => {
+      const {walletBalance} = action.payload;
+      if (!walletBalance || !Number(walletBalance)) {
+        return;
+      }
       state.walletBalance = action.payload.walletBalance;
     },
   },

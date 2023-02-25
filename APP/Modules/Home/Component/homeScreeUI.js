@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import {connect, useDispatch} from 'react-redux';
+import reactotron from 'reactotron-react-native';
 // import NetworkAPI from '../../../Network/api/server';
 import {env} from '../../../Network/api/server';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
@@ -78,6 +79,7 @@ function HomeScreen(props) {
       const images = data?.map(i => {
         return `${env}${i.promoImage}`;
       });
+      reactotron.log('${1:homeScreeUI.js', images);
       setSliderImgs(images);
     }
   }, [promoImages.data]);
@@ -129,7 +131,12 @@ function HomeScreen(props) {
                 source={Images.newLogoOnly}
                 resizeMode={'contain'}
               />
-              <View>
+              <View
+                style={{
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
                 <Typography color={Colors.appWhiteColor} variant="P3">
                   WALLET BALANCE
                 </Typography>
@@ -137,19 +144,15 @@ function HomeScreen(props) {
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
-                    marginTop: 5,
                   }}>
                   <Icon
                     name="rupee"
                     color={Colors.appWhiteColor}
-                    size={16}
-                    style={{marginRight: 5}}
+                    size={14}
+                    style={{marginRight: 3}}
                     type={'font-awesome'}
                   />
-                  <Typography color={Colors.appWhiteColor} variant={'H5'}>
-                    {/*
-                    round
-                  */}
+                  <Typography color={Colors.appWhiteColor} variant={'H4'}>
                     {Number(props.wallet)?.toFixed(2)}
                   </Typography>
                 </View>
@@ -178,17 +181,7 @@ function HomeScreen(props) {
         </View>
         <View style={styles.lowerContainer}>
           <View style={styles.lowerBox1}>
-            <FGSliderBox
-              images={sliderImgs}
-              dotColor={Colors.appPrimaryColor}
-              inactiveDotColor={Colors.appPrimaryColor}
-              paginationBoxVerticalPadding={20}
-              ImageComponentStyle={{overflow: 'hidden'}}
-              resizeMode={'contain'}
-              autoplay
-              circleLoop
-              autoplayInterval={10000}
-            />
+            <FGSliderBox data={sliderImgs} />
           </View>
           <View
             style={{

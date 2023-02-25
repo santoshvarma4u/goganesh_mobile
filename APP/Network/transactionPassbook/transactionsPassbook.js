@@ -13,10 +13,6 @@ const getUID = async () => {
 };
 
 const getUserTransactions = async filter => {
-  reactotron.log(
-    '🚀 ~ file: transactionsPassbook.js:15 ~ getUserTransactions ~ filter',
-    filter,
-  );
   let uid = await getUID();
   const paymentEndPointOfUser = `/payment/${uid}`;
   return NetworkAPI.apiClient.get(paymentEndPointOfUser);

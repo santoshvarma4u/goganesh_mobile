@@ -30,11 +30,6 @@ export default class Splash extends PureComponent {
   learnMorePress = async () => {
     // get current app version of the app
     let version = getVersion();
-    console.log(
-      '🚀 ~ file: splashIndex.web.js ~ line 33 ~ Splash ~ learnMorePress= ~ version',
-      version,
-    );
-
     const {data} = await SplashApi.CheckAppUpdate(version);
 
     if (data?.status === 'update') {

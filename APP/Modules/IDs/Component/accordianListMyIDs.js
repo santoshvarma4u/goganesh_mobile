@@ -13,13 +13,7 @@ import {
   Linking,
 } from 'react-native';
 
-import {
-  Button,
-  Card,
-  Divider,
-  Modal as PaperModal,
-  Portal,
-} from 'react-native-paper';
+import {Button, Card, Modal as PaperModal, Portal} from 'react-native-paper';
 import Popover from 'react-native-popover-view';
 import WebView from 'react-native-webview';
 
@@ -30,6 +24,7 @@ import {removeHttpOrWww} from '../../../Utils';
 import CommonTextInput from '../../Common/CommonTextInput';
 import FGImage from '../../Common/FGImage';
 import {Typography} from '../../Common/Text';
+import TypographyStyles from '../../Common/Text/Text.styles';
 import homeController from '../../Home/Controller/homeController';
 import IdController from '../Controller/IdController';
 const AccordianListNew = props => {
@@ -140,7 +135,7 @@ const AccordianListNew = props => {
             </Typography>
           </View> */}
           <View style={{flexDirection: 'row'}}>
-            <Typography variant="caption" style={styles.siteName}>
+            <Typography variant="H5" style={styles.siteName}>
               {props?.data?.username}
             </Typography>
           </View>
@@ -162,13 +157,13 @@ const AccordianListNew = props => {
           ]}>
           <TouchableOpacity
             style={{
-              height: 30,
-              width: 30,
+              height: 24,
+              width: 24,
               justifyContent: 'center',
               alignItems: 'center',
               backgroundColor: Colors.appGreenColor,
               borderRadius: 20,
-              marginHorizontal: 20,
+              marginHorizontal: 14,
             }}
             onPress={() => {
               props.navigation.navigate('CreateID', {
@@ -178,14 +173,14 @@ const AccordianListNew = props => {
                 usdid: props.data?.usdid,
               });
             }}>
-            <Typography variant={'H4'} style={styles.credTitle}>
+            <Typography variant={'H5'} style={styles.credTitle}>
               D
             </Typography>
           </TouchableOpacity>
           <TouchableOpacity
             style={{
-              height: 30,
-              width: 30,
+              height: 24,
+              width: 24,
               justifyContent: 'center',
               alignItems: 'center',
               backgroundColor: Colors.appRedColor,
@@ -197,7 +192,7 @@ const AccordianListNew = props => {
                 data: props.data,
               });
             }}>
-            <Typography variant={'H4'} style={styles.credTitle}>
+            <Typography variant={'H5'} style={styles.credTitle}>
               W
             </Typography>
           </TouchableOpacity>
@@ -232,10 +227,8 @@ const AccordianListNew = props => {
                         setShowPopover(false);
                         item.onPress();
                       }}
-                      mode="contained"
-                      style={{
-                        margin: 5,
-                      }}>
+                      style={styles.menuItemText}
+                      mode="contained">
                       <Typography>{item.title}</Typography>
                     </Typography>
                   </View>
@@ -243,9 +236,7 @@ const AccordianListNew = props => {
               }}
             />
             <Typography
-              style={{
-                margin: 5,
-              }}
+              style={styles.menuItemText}
               onPress={() => {
                 setIsVisible(false);
                 setShowCloseIDAlert(true);
@@ -375,7 +366,6 @@ const AccordianListNew = props => {
             <Typography variant="H3">{props.wallet}</Typography>
           </View>
         </View>
-        <Divider />
         <View
           style={{
             flexDirection: 'row',
@@ -413,7 +403,6 @@ const AccordianListNew = props => {
             </Typography>
           </Button>
         </View>
-        <Divider />
         <WebView source={{uri: props.data.sd.siteurl}} />
       </Modal>
       <Portal>
@@ -467,12 +456,6 @@ const AccordianListNew = props => {
           </Card>
         </PaperModal>
       </Portal>
-      <View
-        style={{
-          height: 1,
-          backgroundColor: Colors.buttonBackgroundColor,
-        }}
-      />
       <BottomSheet
         isVisible={isVisible}
         onBackdropPress={() => setIsVisible(false)}
@@ -483,7 +466,6 @@ const AccordianListNew = props => {
           }}>
           <ElementsCard.Title>{props.data.sd.sitename}</ElementsCard.Title>
           <ListCollapse />
-
           <Button
             color={Colors.appRedColor}
             onPress={() => {
@@ -592,6 +574,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.appBlackColorLight,
     borderRadius: 6,
+    padding: 8,
   },
   image: {
     width: 50,
@@ -647,14 +630,10 @@ const styles = StyleSheet.create({
     padding: 5,
     flexDirection: 'row',
   },
-  depositWithdraw: {flexDirection: 'row'},
-  bottomButton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-    flexDirection: 'row',
-    height: 40,
-    marginHorizontal: 5,
+  menuItemText: {
+    marginVertical: 8,
+    marginHorizontal: 10,
+    ...TypographyStyles.H4,
   },
 });
 

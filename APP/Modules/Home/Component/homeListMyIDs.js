@@ -85,7 +85,7 @@ const HomeListMyIDs = props => {
         <View>
           <View
             style={{
-              marginLeft: 5,
+              marginLeft: 10,
             }}>
             <TouchableOpacity
               style={{
@@ -130,7 +130,7 @@ const HomeListMyIDs = props => {
             flex: 1,
           }}
         />
-        <Icon
+        {/* <Icon
           name="dots-vertical"
           type="material-community"
           color={Colors.appWhiteColor}
@@ -138,7 +138,7 @@ const HomeListMyIDs = props => {
           onPress={() => {
             setIsVisible(true);
           }}
-        />
+        /> */}
       </View>
     );
   }
@@ -339,7 +339,7 @@ const HomeListMyIDs = props => {
         <Divider />
         <WebView source={{uri: props.data.sd.siteurl}} />
       </Modal>
-      <BottomSheet
+      {/* <BottomSheet
         isVisible={isVisible}
         containerStyle={{backgroundColor: 'rgba(0.5, 0.25, 0, 0.7)'}}>
         {list.map((l, i) => (
@@ -443,7 +443,7 @@ const HomeListMyIDs = props => {
             </Card.Actions>
           </Card>
         </PaperModal>
-      </Portal>
+      </Portal> */}
     </View>
   );
 };

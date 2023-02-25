@@ -32,7 +32,6 @@ const IDRoute = props => {
       setData(getIDs.data);
       return;
     }
-    reactotron.log(getIDs.data);
     const filter = getIDs.data.filter(item => {
       return (
         item.sitename.toLowerCase().includes(search.toLowerCase()) ||

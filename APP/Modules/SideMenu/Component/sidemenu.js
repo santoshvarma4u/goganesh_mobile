@@ -125,7 +125,7 @@ function CustomSidebarMenu({...props}) {
             }}
           />
           <Typography variant="H4" style={{color: Colors.appPrimaryColor}}>
-            Wallet Balance : {walletBalance}
+            Wallet Balance : {walletBalance?.toFixed(2) ?? '-'}
           </Typography>
         </View>
       </View>

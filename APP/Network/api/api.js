@@ -27,7 +27,6 @@ const baseQueryWithInterceptor = async (args, api, extraOptions) => {
   ) {
     // here you can deal with 401 error
     // you can redirect to login page or show some message
-    reactotron.log('${1:api.js', '401 error', result.error);
     await removeUserDetails();
     logoutAndResetNavigation();
     throw new Error('Unauthorized');

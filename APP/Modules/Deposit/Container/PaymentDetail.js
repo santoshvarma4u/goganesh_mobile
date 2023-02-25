@@ -45,10 +45,6 @@ export const ClipboardItem = ({text, needCopyText = true}) => {
 
 const PaymentDetail = ({selectedMedium}) => {
   const {data, type} = selectedMedium || {};
-  console.log(
-    '🚀 ~ file: PaymentDetail.js ~ line 43 ~ PaymentDetail ~ data',
-    data,
-  );
   return (
     data &&
     data?.map(item => {

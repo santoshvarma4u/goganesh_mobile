@@ -101,19 +101,17 @@ export default StyleSheet.create({
     paddingHorizontal: 5,
     paddingVertical: 10,
     height: 100,
-    width: '35%',
+    minWidth: 90,
     alignItems: 'center',
     justifyContent: 'space-around',
   },
   centerCard: {
-    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: Colors.appBlackColorLight,
     borderRadius: 10,
-    width: '48%',
     height: 140,
-    padding: 20,
+    padding: 16,
   },
   blankCard: {
     flex: 0.4,
@@ -129,9 +127,10 @@ export default StyleSheet.create({
     padding: 5,
   },
   upperContainer: {
-    marginBottom: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
     marginHorizontal: 30,
-    width: '75%',
   },
   lowerContainer: {
     backgroundColor: Colors.appBlackColor,
@@ -143,7 +142,6 @@ export default StyleSheet.create({
     marginTop: 20,
     width: '100%',
     overflow: 'hidden',
-    borderRadius: 10,
   },
   carouselCards: {
     flex: 1,

@@ -15,9 +15,7 @@ const LoadingIndicator = ({
       transparent={true}
       animationType="none"
       visible={isLoading}
-      onRequestClose={() => {
-        console.log('close modal');
-      }}>
+      onRequestClose={() => {}}>
       <View
         style={{
           flex: 1,

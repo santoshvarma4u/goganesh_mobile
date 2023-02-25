@@ -316,6 +316,7 @@ const styles = StyleSheet.create({
   withDrawForm: {
     padding: 20,
     backgroundColor: Colors.appBlackColor,
+    minHeight: '100%',
   },
   image: {
     width: 60,
