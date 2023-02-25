@@ -42,7 +42,6 @@ const buildQueryParams = filterObject => {
 };
 
 const AllTransactionsContainer = ({navigation}) => {
-  const [page, setPage] = useState(1);
   const [transactions, setTransactions] = useState([]);
   const [noMoreResults, setNoMoreResults] = useState(false);
   const [filterVisible, setFilterVisible] = useState(false);
@@ -55,31 +54,50 @@ const AllTransactionsContainer = ({navigation}) => {
   const [fetchAllTransactions, {data, isLoading, isFetching, error}] =
     useLazyFetchAllTransactionsQuery();
 
-  const fetchDetails = async pageNo => {
+  const fetchDetails = async (pageNo, ignoreFilters) => {
     let uid = await getUid();
-    fetchAllTransactions({
+    const {data: transactionsData} = await fetchAllTransactions({
       page: pageNo,
-      query: buildQueryParams(itemFilter),
+      query: ignoreFilters
+        ? buildQueryParams({})
+        : buildQueryParams(itemFilter),
       uid,
     });
+    if (transactionsData && transactionsData.details) {
+      if (pageNo === 1) {
+        // setting the data
+        setTransactions(transactionsData.details?.data);
+      } else {
+        // appending the data
+        setTransactions([...transactions, ...transactionsData.details?.data]);
+      }
+      if (
+        // if the current page is the last page
+        transactionsData.details.totalPages ===
+        transactionsData.details.currentPage
+      ) {
+        setNoMoreResults(true);
+      }
+    }
   };
 
   useEffect(() => {
-    if (data?.details?.data?.length) {
-      setTransactions([...transactions, ...data.details.data]);
-    } else if (page > 1) {
-      setNoMoreResults(true);
-    }
-    if (page === 1 && !data?.details?.data?.length) {
-      fetchDetails(1);
-    }
+    fetchDetails(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.details?.data]);
+  }, []);
+
+  const clearCurrentResultsAndFetch = ignoreFilters => {
+    setTransactions([]);
+    setNoMoreResults(false);
+    fetchDetails(1, ignoreFilters);
+    setFilterVisible(false);
+  };
 
   const onEndReached = () => {
     if (!noMoreResults && !isFetching) {
-      fetchDetails(page + 1);
-      setPage(page + 1);
+      if (data && data.details && data.details.currentPage) {
+        fetchDetails(data.details.currentPage + 1);
+      }
     }
   };
 
@@ -88,7 +106,6 @@ const AllTransactionsContainer = ({navigation}) => {
       <ErrorPage
         onRetryPress={() => {
           fetchDetails(1);
-          setPage(1);
         }}
       />
     );
@@ -256,10 +273,7 @@ const AllTransactionsContainer = ({navigation}) => {
           ))}
           <Button
             onPress={() => {
-              setTransactions([]);
-              setPage(1);
-              fetchDetails(1);
-              setFilterVisible(false);
+              clearCurrentResultsAndFetch();
             }}
             style={{
               marginTop: 30,
@@ -269,14 +283,12 @@ const AllTransactionsContainer = ({navigation}) => {
           </Button>
           <Button
             onPress={() => {
-              setTransactions([]);
               setItemFilter({
                 status: '',
                 type: '',
                 wallet: '',
               });
-              fetchDetails(1);
-              setFilterVisible(false);
+              clearCurrentResultsAndFetch(true);
             }}
             style={{
               marginTop: 10,
