@@ -13,7 +13,6 @@ import {
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import {connect, useDispatch} from 'react-redux';
-import reactotron from 'reactotron-react-native';
 // import NetworkAPI from '../../../Network/api/server';
 import {env} from '../../../Network/api/server';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';

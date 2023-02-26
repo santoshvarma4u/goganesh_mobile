@@ -119,35 +119,62 @@ const AllTransactionsContainer = ({navigation}) => {
         paddingBottom: 20,
       }}>
       {isFetching && <LoadingIndicator color={Colors.appPrimaryColor} />}
-      <View>
-        <Pressable
-          onPress={() => setFilterVisible(true)}
+      <View
+        style={{
+          paddingHorizontal: 10,
+        }}>
+        <View
           style={{
             flexDirection: 'row',
-            padding: 5,
+            justifyContent: 'space-between',
             alignItems: 'center',
-            justifyContent: 'flex-end',
           }}>
-          <Typography>
-            <Typography variant="H3" color={Colors.appWhiteColor}>
-              Filter
-            </Typography>
-          </Typography>
           <View>
-            <IconButton icon="filter" size={20} color={Colors.appWhiteColor} />
-            <Badge
-              visible={
-                itemFilter.STATUS || itemFilter.type || itemFilter.wallet
-              }
-              size={14}
+            <Typography variant="H3" color={Colors.appWhiteColor}>
+              Transactions
+            </Typography>
+            <View
               style={{
-                position: 'absolute',
-                right: 10,
-                top: 10,
+                height: 2,
+                width: 50,
+                backgroundColor: Colors.appPrimaryColor,
+                marginTop: 5,
               }}
             />
           </View>
-        </Pressable>
+          <Pressable
+            onPress={() => setFilterVisible(true)}
+            style={{
+              flexDirection: 'row',
+              padding: 5,
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+            }}>
+            <Typography>
+              <Typography variant="H3" color={Colors.appWhiteColor}>
+                Filter
+              </Typography>
+            </Typography>
+            <View>
+              <IconButton
+                icon="filter"
+                size={20}
+                color={Colors.appWhiteColor}
+              />
+              <Badge
+                visible={
+                  itemFilter.STATUS || itemFilter.type || itemFilter.wallet
+                }
+                size={14}
+                style={{
+                  position: 'absolute',
+                  right: 10,
+                  top: 10,
+                }}
+              />
+            </View>
+          </Pressable>
+        </View>
         <FlatList
           data={transactions}
           renderItem={({item}) => (

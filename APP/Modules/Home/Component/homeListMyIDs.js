@@ -14,11 +14,11 @@ import {Button, Modal as PaperModal, Portal, Card} from 'react-native-paper';
 import WebView from 'react-native-webview';
 import {connect} from 'react-redux';
 import Colors from '../../../Theams/Colors';
-import CommonTextInput from '../../Common/CommonTextInput';
+// import CommonTextInput from '../../Common/CommonTextInput';
 import FGImage from '../../Common/FGImage';
 import {Typography} from '../../Common/Text';
 import {ClipboardItem} from '../../Deposit/Container/PaymentDetail';
-import homeController from '../Controller/homeController';
+// import homeController from '../Controller/homeController';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -66,8 +66,7 @@ const HomeListMyIDs = props => {
           style={{
             width: 100,
             height: 100,
-            // light brown color
-            backgroundColor: '#E0BFA0' + '20',
+            backgroundColor: '#E0BFA0' + '30',
             borderRadius: 60,
             right: 0,
             top: -50,
@@ -79,7 +78,7 @@ const HomeListMyIDs = props => {
           style={{
             width: 100,
             height: 100,
-            backgroundColor: Colors.buttonBackgroundColor + '20',
+            backgroundColor: Colors.buttonBackgroundColor,
             borderRadius: 50,
             opacity: 0.2,
             right: -30,
@@ -499,8 +498,8 @@ const styles = StyleSheet.create({
     height: 170,
   },
   image: {
-    width: 30,
-    height: 30,
+    width: 32,
+    height: 32,
     borderRadius: 30,
   },
   url: {
