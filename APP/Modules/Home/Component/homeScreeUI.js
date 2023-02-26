@@ -220,7 +220,7 @@ function HomeScreen(props) {
             <TouchableOpacity
               style={{
                 padding: 10,
-                borderRadius: 20,
+                borderRadius: 5,
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -241,7 +241,7 @@ function HomeScreen(props) {
             <TouchableOpacity
               style={{
                 padding: 10,
-                borderRadius: 20,
+                borderRadius: 5,
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'center',

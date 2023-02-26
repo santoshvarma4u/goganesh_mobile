@@ -130,21 +130,28 @@ const HomeListMyIDs = props => {
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
+                marginTop: 5,
               }}>
               <View
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  backgroundColor: Colors.appBlackColorLight,
+                  backgroundColor: Colors.buttonBackgroundColor,
                   borderRadius: 5,
                   padding: 3,
                   marginRight: 5,
                 }}>
-                <Icon name="user" type={'antdesign'} color="white" size={12} />
+                <Icon name="person" type={'ionicon'} color="white" size={12} />
                 <Typography style={styles.credTitle}> ID </Typography>
               </View>
-              <ClipboardItem text={props.data.username} needCopyText={false} />
+
+              <ClipboardItem
+                style={{flexDirection: 'row', alignItems: 'center', right: 0}}
+                text={props.data.username}
+                isHome={true}
+                needCopyText={false}
+              />
             </View>
           </View>
         </View>

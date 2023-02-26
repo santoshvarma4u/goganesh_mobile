@@ -6,7 +6,7 @@ import reactotron from 'reactotron-react-native';
 import Colors from '../../../Theams/Colors';
 import {Typography} from '../../Common/Text';
 
-export const ClipboardItem = ({text, needCopyText = true}) => {
+export const ClipboardItem = ({text, needCopyText = true, isHome = false}) => {
   return (
     <TouchableOpacity
       style={{
@@ -37,7 +37,12 @@ export const ClipboardItem = ({text, needCopyText = true}) => {
           <Icon name="content-copy" color="white" size={18} />
         </View>
       ) : (
-        <Icon name="content-copy" color="white" size={18} />
+        <Icon
+          name="content-copy"
+          color="white"
+          size={18}
+          style={isHome ? {marginLeft: 80} : ''}
+        />
       )}
     </TouchableOpacity>
   );
