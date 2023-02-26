@@ -247,7 +247,6 @@ const DepositContainerV2 = props => {
           }}>
           <FlatList
             data={paymentMasters}
-            data={paymentMasters}
             horizontal
             renderItem={({item}) => {
               return (

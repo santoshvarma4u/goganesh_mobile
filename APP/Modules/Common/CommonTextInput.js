@@ -16,7 +16,7 @@ const CommonTextInput = props => {
     <View>
       <Input
         labelStyle={{
-          color: Colors.appWhiteColor + 'aa',
+          color: Colors.appWhiteColor,
           fontFamily: APP_FONTS.REGULAR,
           fontWeight: 'normal',
           fontSize: 14,

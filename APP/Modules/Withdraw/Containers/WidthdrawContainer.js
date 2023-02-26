@@ -9,6 +9,7 @@ import {
   Modal,
   RadioButton,
 } from 'react-native-paper';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 import GooglePaySvg from '../../../Assets/svgs/GooglePaySvg';
@@ -113,30 +114,20 @@ const WithDrawContainer = props => {
             borderRadius: 20,
             flexDirection: 'row',
           }}>
-          <MaterialCommunityIcons
-            name={'wallet'}
-            color={Colors.appWhiteColor}
-            size={50}
-          />
+          <FontAwesome5 name={'coins'} color={Colors.appWhiteColor} size={50} />
           <View
             style={{
               marginLeft: 20,
             }}>
-            <Typography variant="paragraph" color={Colors.appWhiteColor}>
+            <Typography variant="paragraph" color={Colors.appPrimaryColor}>
               WALLET BALANCE
             </Typography>
             <Typography
-              variant="H3"
+              variant="H2"
               style={{
                 marginTop: 10,
               }}
               color={Colors.appWhiteColor}>
-              <Icon
-                name="rupee"
-                color={Colors.appWhiteColor}
-                size={16}
-                type={'font-awesome'}
-              />
               {`  ${reduxWallet}`}
             </Typography>
           </View>

@@ -3,6 +3,7 @@ import {CommonActions} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {ScrollView, View} from 'react-native';
 import {Button, Modal, ActivityIndicator} from 'react-native-paper';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 import CONSTANTS from '../../../Constants';
@@ -175,20 +176,16 @@ const DepositContainer = props => {
             borderRadius: 20,
             flexDirection: 'row',
           }}>
-          <MaterialCommunityIcons
-            name={'wallet'}
-            color={Colors.appWhiteColor}
-            size={50}
-          />
+          <FontAwesome5 name={'coins'} color={Colors.appWhiteColor} size={50} />
           <View
             style={{
               marginLeft: 20,
             }}>
-            <Typography variant="paragraph" color={Colors.appWhiteColor}>
+            <Typography variant="paragraph" color={Colors.appPrimaryColor}>
               WALLET BALANCE
             </Typography>
-            <Typography variant="H3" color={Colors.appWhiteColor}>
-              ₹ {walletBalance}
+            <Typography variant="H2" color={Colors.appWhiteColor}>
+              {walletBalance}
             </Typography>
           </View>
         </View>
@@ -221,9 +218,13 @@ const DepositContainer = props => {
             variant="paragraph"
             color={error ? Colors.appRedColor : Colors.appWhiteColor}>
             {error
-              ? 'Enter valid amount, Minimum amount is 100 coins'
-              : '*Minimum Deposit Amount is 100 Coins'}
+              ? 'Enter valid amount, Minimum amount is 1000 coins'
+              : '*Minimum Deposit Amount is 1000 Coins'}
           </Typography>
+
+            <View>
+
+            </View>
         </View>
         {isPaymentLaoding ? (
           <ActivityIndicator animating={true} color={Colors.appPrimaryColor} />
@@ -237,8 +238,9 @@ const DepositContainer = props => {
               backgroundColor: Colors.appPrimaryColor,
               color: Colors.appBlackColor,
             }}
+            uppercase={false}
             onPress={() => {
-              if (amount >= 100) {
+              if (amount >= 1000) {
                 setError(false);
                 navigation.navigate('DepositV2', {
                   depositCoins: amount,
@@ -255,7 +257,7 @@ const DepositContainer = props => {
               }
             }}>
             <Typography variant="button" color={Colors.appWhiteColor}>
-              DEPOSIT COINS
+              Deposit Coins
             </Typography>
           </Button>
         )}
