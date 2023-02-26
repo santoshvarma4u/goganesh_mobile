@@ -74,7 +74,25 @@ export function CustomNavigationBar({
         }}>
         {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
       </View>
-      <Appbar.Content title={headerName ?? name} />
+      <Appbar.Content
+        title={headerName ?? name}
+        titleStyle={{
+          ...TypographyStyles.H3,
+          color: Colors.appWhiteColor,
+          fontSize: 22,
+          marginTop: 10,
+          padding: 0,
+        }}
+        subtitle={'______'}
+        subtitleStyle={{
+          ...TypographyStyles.H3,
+          color: Colors.appPrimaryColor,
+          fontSize: 40,
+          marginTop: 0,
+          padding: 0,
+          lineHeight: 10,
+        }}
+      />
     </Appbar.Header>
   );
 }

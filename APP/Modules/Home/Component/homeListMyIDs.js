@@ -25,11 +25,11 @@ const screenHeight = Dimensions.get('window').height;
 
 const HomeListMyIDs = props => {
   const [showWebView, setShowWebView] = useState(false);
-  const [showPasswordModal, setShowPasswordModal] = useState(false);
-  const [password, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [isVisible, setIsVisible] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [showPasswordModal, setShowPasswordModal] = useState(false);
+  // const [password, setNewPassword] = useState('');
+  // const [confirmPassword, setConfirmPassword] = useState('');
+  // const [isVisible, setIsVisible] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
 
   let banks = [];
   useEffect(() => {
@@ -48,15 +48,11 @@ const HomeListMyIDs = props => {
 
   function ListTitle() {
     return (
-      <View
-        style={[
-          styles.ListTitle,
-          {justifyContent: 'center', alignItems: 'center'},
-        ]}>
+      <View style={styles.ListTitle}>
         <View
           style={{
             width: 40,
-            height: 40,
+            height: 60,
             backgroundColor: Colors.appBlackColor,
             overflow: 'hidden',
             justifyContent: 'center',
@@ -68,6 +64,32 @@ const HomeListMyIDs = props => {
         />
         <View
           style={{
+            width: 100,
+            height: 100,
+            // light brown color
+            backgroundColor: '#E0BFA0' + '20',
+            borderRadius: 60,
+            right: 0,
+            top: -50,
+            overflow: 'hidden',
+            position: 'absolute',
+          }}
+        />
+        <View
+          style={{
+            width: 100,
+            height: 100,
+            backgroundColor: Colors.buttonBackgroundColor + '20',
+            borderRadius: 50,
+            opacity: 0.2,
+            right: -30,
+            top: -10,
+            overflow: 'hidden',
+            position: 'absolute',
+          }}
+        />
+        <View
+          style={{
             width: 40,
             height: 40,
             backgroundColor: Colors.appBlackColor,
@@ -75,6 +97,7 @@ const HomeListMyIDs = props => {
             borderRadius: 30,
             justifyContent: 'center',
             alignItems: 'center',
+            marginTop: 24,
           }}>
           <FGImage
             style={styles.image}
@@ -170,8 +193,14 @@ const HomeListMyIDs = props => {
             size={18}
           />
           <Typography
-            style={{alignItems: 'center', color: 'white', marginLeft: 4}}>
-            Deposit
+            variant="H5"
+            style={{
+              alignItems: 'center',
+              color: 'white',
+              marginLeft: 4,
+              fontSize: 10,
+            }}>
+            DEPOSIT
           </Typography>
         </TouchableOpacity>
         <TouchableOpacity
@@ -183,7 +212,6 @@ const HomeListMyIDs = props => {
             flexDirection: 'row',
             borderColor: Colors.appBlackColor,
             marginBottom: 8,
-            borderLeftWidth: 1,
           }}
           onPress={() => {
             props.navigation.navigate('Withdraw', {
@@ -198,52 +226,58 @@ const HomeListMyIDs = props => {
             size={18}
           />
           <Typography
-            style={{alignItems: 'center', color: 'white', marginLeft: 4}}>
-            Withdraw
+            variant="H5"
+            style={{
+              alignItems: 'center',
+              color: 'white',
+              marginLeft: 4,
+              fontSize: 10,
+            }}>
+            WITHDRAW
           </Typography>
         </TouchableOpacity>
       </View>
     );
   }
 
-  const list = [
-    {
-      title: 'Deposit',
-      onPress: () => {
-        setIsVisible(false);
-        props.navigation.navigate('CreateID', {
-          sdid: props.data.sd.sdid,
-          username: props.data.username,
-          requestStatus: 'old',
-        });
-      },
-    },
-    {
-      title: 'Withdraw',
-      onPress: () => {
-        setIsVisible(false);
-        props.navigation.navigate('Withdraw', {
-          banks: banks,
-          data: props.data,
-        });
-      },
-    },
-    {
-      title: 'Change Password',
-      onPress: () => {
-        setIsVisible(false);
-        setShowPasswordModal(true);
-      },
-    },
-    {
-      title: 'Cancel',
-      containerStyle: {backgroundColor: Colors.appRedColor},
-      titleStyle: {color: Colors.appWhiteColor},
-      onPress: () => {
-        setIsVisible(false);
-      },
-    },
-  ];
+  // const list = [
+  //   {
+  //     title: 'Deposit',
+  //     onPress: () => {
+  //       setIsVisible(false);
+  //       props.navigation.navigate('CreateID', {
+  //         sdid: props.data.sd.sdid,
+  //         username: props.data.username,
+  //         requestStatus: 'old',
+  //       });
+  //     },
+  //   },
+  //   {
+  //     title: 'Withdraw',
+  //     onPress: () => {
+  //       setIsVisible(false);
+  //       props.navigation.navigate('Withdraw', {
+  //         banks: banks,
+  //         data: props.data,
+  //       });
+  //     },
+  //   },
+  //   {
+  //     title: 'Change Password',
+  //     onPress: () => {
+  //       setIsVisible(false);
+  //       setShowPasswordModal(true);
+  //     },
+  //   },
+  //   {
+  //     title: 'Cancel',
+  //     containerStyle: {backgroundColor: Colors.appRedColor},
+  //     titleStyle: {color: Colors.appWhiteColor},
+  //     onPress: () => {
+  //       setIsVisible(false);
+  //     },
+  //   },
+  // ];
 
   return (
     <View style={styles.container}>
@@ -450,11 +484,12 @@ const HomeListMyIDs = props => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.appBlackColorLight + 'aa',
+    backgroundColor: Colors.appBlackColorLight + 'bf',
     borderRadius: 20,
     width: screenWidth,
     borderWidth: 10,
     borderColor: Colors.appBlackColor,
+    height: 170,
   },
   image: {
     width: 30,
@@ -470,6 +505,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 10,
     paddingBottom: 20,
+    flex: 1,
+    overflow: 'hidden',
   },
   credTitle: {
     color: 'white',

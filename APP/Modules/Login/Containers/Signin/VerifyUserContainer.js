@@ -46,7 +46,7 @@ const VerifyUserContainer = props => {
         source={require('../../../../Assets/Images/logo_only.png')}
         resizeMode={'contain'}
         style={{
-          width: screenWidth * 0.4,
+          width: screenWidth * 0.3,
           height: screenHeight * 0.2,
           marginTop: 20,
         }}

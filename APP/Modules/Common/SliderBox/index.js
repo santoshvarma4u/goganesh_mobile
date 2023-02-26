@@ -14,7 +14,7 @@ import {styles} from './style.js';
 const {width} = Dimensions.get('screen');
 const FGSliderBox = ({
   data = [],
-  timer = 10000,
+  timer = 5000,
   autoPlay = true,
   showIndicator = true,
   activeIndicatorStyle = {},

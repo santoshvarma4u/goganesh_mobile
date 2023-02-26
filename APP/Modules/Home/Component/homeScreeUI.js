@@ -79,7 +79,6 @@ function HomeScreen(props) {
       const images = data?.map(i => {
         return `${env}${i.promoImage}`;
       });
-      reactotron.log('${1:homeScreeUI.js', images);
       setSliderImgs(images);
     }
   }, [promoImages.data]);
@@ -119,10 +118,13 @@ function HomeScreen(props) {
                 DEPOSIT
               </Typography>
               <Icon
-                name="chevron-double-down"
-                color={Colors.appGreenColor}
+                name="double-arrow"
+                color={Colors.appWhiteColor}
                 size={40}
-                type={'material-community'}
+                type={'material-icons'}
+                style={{
+                  transform: [{rotate: '-90deg'}],
+                }}
               />
             </TouchableOpacity>
             <View style={styles.centerCard}>
@@ -146,11 +148,11 @@ function HomeScreen(props) {
                     alignItems: 'center',
                   }}>
                   <Icon
-                    name="rupee"
+                    name="coins"
                     color={Colors.appWhiteColor}
                     size={14}
                     style={{marginRight: 3}}
-                    type={'font-awesome'}
+                    type={'font-awesome-5'}
                   />
                   <Typography color={Colors.appWhiteColor} variant={'H4'}>
                     {Number(props.wallet)?.toFixed(2)}
@@ -171,10 +173,13 @@ function HomeScreen(props) {
                 WITHDRAW
               </Typography>
               <Icon
-                name="chevron-double-up"
-                color={Colors.appRedColor}
+                name="double-arrow"
+                color={Colors.appWhiteColor}
                 size={40}
-                type={'material-community'}
+                type={'material-icons'}
+                style={{
+                  transform: [{rotate: '90deg'}],
+                }}
               />
             </TouchableOpacity>
           </View>

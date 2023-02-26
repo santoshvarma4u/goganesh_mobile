@@ -110,7 +110,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: Colors.appBlackColorLight,
     borderRadius: 10,
-    height: 140,
+    height: 150,
     padding: 16,
   },
   blankCard: {

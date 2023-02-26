@@ -1,4 +1,5 @@
 import {CommonActions, useNavigation} from '@react-navigation/native';
+import {Icon} from '@rneui/themed';
 import {Formik} from 'formik';
 import React from 'react';
 import {View, TouchableOpacity, Platform} from 'react-native';
@@ -9,6 +10,7 @@ import authKey from '../../../Modules/Common/JWT';
 import Colors from '../../../Theams/Colors';
 import CommonTextInput from '../../Common/CommonTextInput';
 import ErrorPage from '../../Common/ErrorPage';
+import PhoneInput from '../../Common/PhoneInput';
 import Storage from '../../Common/Storage';
 import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
@@ -33,6 +35,7 @@ function SignIn(props) {
   // const [otpverifyStatus, setOtpVerifyStatus] = React.useState('');
   const [otpSentStatus, setOtpSentStatus] = React.useState(false);
   const [isError, setIsError] = React.useState(false);
+  const [secureTextEntry, setSecureTextEntry] = React.useState(true);
 
   const onSubmit = async values => {
     const {phoneNumber, password} = values;
@@ -102,7 +105,7 @@ function SignIn(props) {
                       flex: 1,
                       marginTop: 100,
                     }}>
-                    <CommonTextInput
+                    <PhoneInput
                       onChangeText={handleChange('phoneNumber')}
                       value={values.phoneNumber}
                       label="Phone Number"
@@ -122,7 +125,33 @@ function SignIn(props) {
                     <CommonTextInput
                       onChangeText={handleChange('password')}
                       value={values.password}
-                      secureTextEntry={true}
+                      rightIcon={
+                        secureTextEntry ? (
+                          <Icon
+                            name="eye"
+                            type="font-awesome"
+                            size={20}
+                            color={Colors.appWhiteColor}
+                            onPress={() => {
+                              setSecureTextEntry(!secureTextEntry);
+                            }}
+                          />
+                        ) : (
+                          <Icon
+                            name="eye-slash"
+                            type="font-awesome"
+                            size={20}
+                            color={Colors.appWhiteColor}
+                            onPress={() => {
+                              setSecureTextEntry(!secureTextEntry);
+                            }}
+                          />
+                        )
+                      }
+                      onRightIconPress={() => {
+                        setSecureTextEntry(!secureTextEntry);
+                      }}
+                      secureTextEntry={secureTextEntry}
                       label="Password"
                       error={touched.password && errors.password ? true : false}
                       helperText={
@@ -132,15 +161,6 @@ function SignIn(props) {
                       }
                     />
                   </View>
-                  {/* <TouchableOpacity
-            style={styles.sendOtpButton}
-            onPress={sendOtpAndRedirect}
-            underlayColor="transparent">
-            <Typography style={{color: '#fff'}}>
-              {' '}
-              {otpSentStatus ? 'Resend OTP' : 'Send OTP'}{' '}
-            </Typography>
-          </TouchableOpacity> */}
                 </View>
                 {otpSentStatus ? (
                   <Typography

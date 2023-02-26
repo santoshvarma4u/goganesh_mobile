@@ -13,6 +13,9 @@ import {Typography} from './Text';
 
 const phoneUtil = PhoneNumberUtil.getInstance();
 
+const DEFAULT_HEIGHT = 51;
+const BORDER_WIDTH = 1;
+
 export default class PhoneInput extends PureComponent {
   constructor(props) {
     super(props);
@@ -134,7 +137,6 @@ export default class PhoneInput extends PureComponent {
     const {
       textInputProps,
       autoFocus,
-      placeholder,
       disableArrowIcon,
       countryPickerProps = {},
       filterProps = {},
@@ -178,6 +180,11 @@ export default class PhoneInput extends PureComponent {
                 maxLength={10}
                 autoFocus={autoFocus}
                 {...textInputProps}
+                inputContainerStyle={{
+                  borderBottomWidth: 0,
+                  borderBottomColor: 'transparent',
+                  paddingBottom: 0,
+                }}
               />
             </View>
           </View>
@@ -203,23 +210,27 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: 'row',
-    height: 50,
-    marginTop: 8,
+    height: DEFAULT_HEIGHT,
+    marginTop: 10,
     marginBottom: 30,
   },
   flagButtonView: {
     minWidth: 32,
     flexDirection: 'row',
-    marginTop: 14,
-    borderBottomColor: BORER_COLOR,
-    borderBottomWidth: 1,
+    borderColor: BORER_COLOR,
+    borderWidth: BORDER_WIDTH,
+    height: DEFAULT_HEIGHT,
+    alignItems: 'center',
+    borderBottomStartRadius: 5,
+    borderTopStartRadius: 5,
   },
   textContainer: {
     flex: 1,
-    borderBottomColor: BORER_COLOR,
-    borderBottomWidth: 1,
-    borderLeftColor: BORER_COLOR,
-    borderLeftWidth: 1,
+    borderColor: BORER_COLOR,
+    borderWidth: BORDER_WIDTH,
+    padding: 0,
+    borderBottomEndRadius: 5,
+    borderTopEndRadius: 5,
   },
   codeText: {
     fontSize: 16,

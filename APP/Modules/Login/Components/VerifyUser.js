@@ -5,7 +5,6 @@ import {Button} from 'react-native-paper';
 import * as Yup from 'yup';
 import Colors from '../../../Theams/Colors';
 import {getWhatsappMessageUrl} from '../../../Utils';
-import CommonTextInput from '../../Common/CommonTextInput';
 import PhoneInput from '../../Common/PhoneInput';
 import {Typography} from '../../Common/Text';
 const screenWidth = Dimensions.get('window').width;
