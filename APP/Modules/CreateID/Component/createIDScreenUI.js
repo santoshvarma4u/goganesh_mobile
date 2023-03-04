@@ -354,7 +354,6 @@ function CreateIDScreen({route, wallet}) {
               <Typography
                 style={{
                   color: Colors.appWhiteColor,
-                  marginLeft: 20,
                   marginTop: 8,
                   fontSize: 16,
                 }}>
@@ -366,7 +365,6 @@ function CreateIDScreen({route, wallet}) {
                   borderBottomWidth: 3,
                   marginTop: 5,
                   width: 40,
-                  marginLeft: 20,
                 }}
               />
             </View>
@@ -389,8 +387,7 @@ function CreateIDScreen({route, wallet}) {
               })}
             </View>
           </View>
-
-          <View style={styles.planDeatils}>
+          <View style={styles.planDetails}>
             <Formik
               validationSchema={
                 route.params.username
@@ -440,16 +437,11 @@ function CreateIDScreen({route, wallet}) {
                 <>
                   {route.params.username && (
                     <CommonTextInput
-                      placeholder="Username *"
+                      label="Username *"
                       placeholderTextColor="#d5d1d1"
                       defaultValue={route.params.username}
                       editable={false}
-                      style={{
-                        backgroundColor: Colors.appBlackColorLight,
-                        borderRadius: 10,
-                        padding: 10,
-                        marginTop: 10,
-                      }}
+                      style={styles.inputCustomBox}
                       inputContainerStyle={{
                         borderBottomWidth: 0,
                       }}
@@ -458,17 +450,11 @@ function CreateIDScreen({route, wallet}) {
                   )}
                   {!route.params.username && (
                     <CommonTextInput
-                      placeholder="Username *"
                       label="Username *"
                       placeholderTextColor="#d5d1d1"
                       defaultValue={route.params.username}
                       onChangeText={handleChange('UserName')}
-                      style={{
-                        backgroundColor: Colors.appBlackColorLight,
-                        borderRadius: 10,
-                        padding: 5,
-                        marginTop: 10,
-                      }}
+                      style={styles.inputCustomBox}
                       inputContainerStyle={{
                         borderBottomWidth: 0,
                       }}
@@ -478,14 +464,8 @@ function CreateIDScreen({route, wallet}) {
                   )}
                   <CommonTextInput
                     keyboardType="numeric"
-                    placeholder="Deposit Coins *"
                     label="Deposit Coins *"
-                    style={{
-                      backgroundColor: Colors.appBlackColorLight,
-                      borderRadius: 10,
-                      padding: 5,
-                      marginTop: 10,
-                    }}
+                    style={styles.inputCustomBox}
                     inputContainerStyle={{
                       borderBottomWidth: 0,
                     }}

@@ -29,12 +29,12 @@ export default StyleSheet.create({
     borderRadius: 10,
     display: 'none',
   },
-  planDeatils: {
-    padding: 5,
+  planDetails: {
     backgroundColor: Colors.appBlackColor,
-    width: '90%',
     borderRadius: 10,
     marginTop: 10,
+    marginHorizontal: 30,
+    width: '94%',
   },
   topIcon: {
     justifyContent: 'center',
@@ -128,5 +128,13 @@ export default StyleSheet.create({
     borderRightColor: 'transparent',
     borderBottomWidth: 12,
     borderBottomColor: 'red',
+  },
+  inputCustomBox: {
+    backgroundColor: Colors.appBlackColorLight,
+    borderRadius: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    marginTop: 10,
+    fontSize: 16,
   },
 });

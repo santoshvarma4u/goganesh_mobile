@@ -80,9 +80,9 @@ const PassbookCard = ({item, navigation, needAccordion = true}) => {
             }}>
             {userFriendlyPaymentMessage(item.remarks, 'Remark')}
           </Typography>
-          {(item?.sd?.siteName || item?.sd?.sitename) && (
+          {item?.bid_userSiteDetail?.username && (
             <Typography style={{color: Colors.appWhiteColor}} variant="P3">
-              {item.sd.siteName || item.sd.sitename}
+              {item?.bid_userSiteDetail?.username}
             </Typography>
           )}
           <Typography variant="caption" style={{color: Colors.appWhiteColor}}>
@@ -90,14 +90,23 @@ const PassbookCard = ({item, navigation, needAccordion = true}) => {
           </Typography>
         </View>
         <View>
-          <Typography
-            variant="H5"
+          <View
             style={{
-              color: Colors.appWhiteColor,
-              textAlign: 'right',
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
             }}>
-            {item.paymentAmount}
-          </Typography>
+            <Typography>{item.paymentType === 'DR' ? '+' : '-'}</Typography>
+            <Typography
+              variant="H5"
+              style={{
+                color: Colors.appWhiteColor,
+                textAlign: 'right',
+                marginLeft: 5,
+              }}>
+              {item.paymentAmount}
+            </Typography>
+          </View>
           <Typography
             style={
               item.paymentStatus === 'Accepted'
