@@ -131,7 +131,7 @@ const PassbookCard = ({item, navigation, needAccordion = true}) => {
 
 const styles = {
   transactionsCard: {
-    margin: 5,
+    marginVertical: 5,
     padding: 8,
     borderRadius: 10,
     backgroundColor: Colors.appBlackColorLight,

@@ -1,20 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
 import {Icon} from '@rneui/base';
 import React, {useEffect, useState} from 'react';
-import {Modal, Pressable, RefreshControl, ScrollView, View} from 'react-native';
+import {Alert, Pressable, RefreshControl, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
+import {ActivityIndicator, Button, Badge} from 'react-native-paper';
 import {
-  ActivityIndicator,
-  IconButton,
-  RadioButton,
-  Button,
-  Divider,
-  Badge,
-} from 'react-native-paper';
-import {useLazyFetchAllTransactionsQuery} from '../../../Network/api/Passbook';
+  useLazyFetchAllTransactionsQuery,
+  useFetchAllSiteIdsQuery,
+} from '../../../Network/api/Passbook';
 import {getUid} from '../../../Network/api/server';
 import Colors from '../../../Theams/Colors';
 import LoadingIndicator from '../../../Utils/loadingIndicator';
+import FGDatePicker from '../../Common/DatePicker';
+import Picker from '../../Common/DropDownPicker';
 import ErrorPage from '../../Common/ErrorPage';
 import {Typography} from '../../Common/Text';
 import PassbookCard from './PassbookCard';
@@ -22,13 +20,6 @@ import PassbookCard from './PassbookCard';
 const FILTERS = {
   status: ['Accepted', 'Pending', 'Rejected', 'Processing'],
   type: ['Deposit', 'Withdrawal'],
-  wallet: ['Yes', 'No'],
-};
-
-const NAME_MAP = {
-  status: 'Status of Transaction',
-  type: 'Type of Transaction',
-  wallet: 'Wallet',
 };
 
 const buildQueryParams = filterObject => {
@@ -48,11 +39,22 @@ const AllTransactionsContainer = ({navigation}) => {
   const [itemFilter, setItemFilter] = useState({
     status: '',
     type: '',
-    wallet: '',
+    id: '',
+    startDate: '',
+    endDate: '',
+  });
+  const [open, setOpen] = useState({
+    status: false,
+    type: false,
+    id: false,
   });
 
   const [fetchAllTransactions, {data, isLoading, isFetching, error}] =
     useLazyFetchAllTransactionsQuery();
+
+  // fetch Site names
+  const {data: siteNames, isLoading: siteNamesLoading} =
+    useFetchAllSiteIdsQuery();
 
   const fetchDetails = async (pageNo, ignoreFilters) => {
     let uid = await getUid();
@@ -111,227 +113,338 @@ const AllTransactionsContainer = ({navigation}) => {
     );
   }
 
+  const setOpenItem = (key, value) => {
+    setOpen({
+      ...open,
+      [key]: value,
+    });
+  };
+
+  const setValue = (key, value) => {
+    if (typeof value === 'function') {
+      setItemFilter({
+        ...itemFilter,
+        [key]: value(itemFilter[key]),
+      });
+      return;
+    }
+    setItemFilter({
+      ...itemFilter,
+      [key]: value,
+    });
+  };
+
   return (
     <View
       style={{
         flex: 1,
         backgroundColor: Colors.appBlackColor,
         paddingBottom: 20,
+        paddingHorizontal: 20,
       }}>
       {isFetching && <LoadingIndicator color={Colors.appPrimaryColor} />}
       <View
         style={{
-          paddingHorizontal: 10,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
         }}>
-        <View
+        <View>
+          <Typography variant="H3" color={Colors.appWhiteColor}>
+            Transactions
+          </Typography>
+          <View
+            style={{
+              height: 2,
+              width: 50,
+              backgroundColor: Colors.appPrimaryColor,
+              marginTop: 5,
+            }}
+          />
+        </View>
+        <Pressable
+          onPress={() => {
+            setFilterVisible(!filterVisible);
+          }}
           style={{
             flexDirection: 'row',
-            justifyContent: 'space-between',
             alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: Colors.appBlackColorLight,
+            height: 30,
+            borderRadius: 5,
+            marginVertical: 10,
+            paddingVertical: 5,
+            paddingHorizontal: 12,
           }}>
-          <View>
-            <Typography variant="H3" color={Colors.appWhiteColor}>
-              Transactions
+          <Typography>
+            <Typography variant="H4" color={Colors.appWhiteColor}>
+              {filterVisible ? 'Close' : 'Filter'}
             </Typography>
-            <View
-              style={{
-                height: 2,
-                width: 50,
-                backgroundColor: Colors.appPrimaryColor,
-                marginTop: 5,
-              }}
-            />
-          </View>
-          <Pressable
-            onPress={() => setFilterVisible(true)}
+          </Typography>
+          <Icon
+            name="filter"
+            size={20}
+            color={Colors.appWhiteColor}
+            type="material-community"
+          />
+          <Badge
+            visible={itemFilter.STATUS || itemFilter.type || itemFilter.id}
+            size={10}
             style={{
-              flexDirection: 'row',
-              padding: 5,
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-            }}>
-            <Typography>
-              <Typography variant="H3" color={Colors.appWhiteColor}>
-                Filter
-              </Typography>
-            </Typography>
-            <View>
-              <IconButton
-                icon="filter"
-                size={20}
-                color={Colors.appWhiteColor}
-              />
-              <Badge
-                visible={
-                  itemFilter.STATUS || itemFilter.type || itemFilter.wallet
-                }
-                size={14}
-                style={{
-                  position: 'absolute',
-                  right: 10,
-                  top: 10,
-                }}
-              />
-            </View>
-          </Pressable>
-        </View>
-        <FlatList
-          data={transactions}
-          renderItem={({item}) => (
-            <PassbookCard item={item} navigation={navigation} />
-          )}
-          refreshControl={
-            <RefreshControl
-              refreshing={isLoading}
-              onRefresh={() => clearCurrentResultsAndFetch(true)}
-            />
-          }
-          onEndReached={onEndReached}
-          onEndReachedThreshold={0.2}
-          keyExtractor={item => item.id}
-          ListFooterComponent={
-            <View>
-              {isFetching && (
-                <View>
-                  <ActivityIndicator color={Colors.primary} />
-                  <Typography
-                    style={{
-                      marginTop: 10,
-                      textAlign: 'center',
-                    }}>
-                    Fetching more results...
-                  </Typography>
-                </View>
-              )}
-              {noMoreResults && (
-                <Typography
-                  variant="title"
-                  style={{
-                    textAlign: 'center',
-                  }}>
-                  No more results
-                </Typography>
-              )}
-            </View>
-          }
-        />
+              position: 'absolute',
+              right: 10,
+              top: 10,
+            }}
+          />
+        </Pressable>
       </View>
-      <Modal
-        visible={filterVisible}
-        onRequestClose={() => setFilterVisible(false)}
-        animationType="slide">
-        <ScrollView
-          contentContainerStyle={{
-            flex: 1,
-            paddingHorizontal: 20,
-            backgroundColor: Colors.appBlackColor,
-          }}>
+      {/*
+      FILTERS =================================================================================================
+      */}
+      {filterVisible && (
+        <View>
+          {/*
+          Dates
+          */}
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
-              justifyContent: 'flex-end',
-              marginTop: 20,
+              justifyContent: 'space-between',
             }}>
-            <Icon
-              name="close"
-              size={30}
-              color={Colors.appWhiteColor}
-              onPress={() => setFilterVisible(false)}
+            <View>
+              <Typography variant="P2" color={Colors.appWhiteColor}>
+                From
+              </Typography>
+              <FGDatePicker
+                date={itemFilter.startDate}
+                onDateChange={date => {
+                  setItemFilter({
+                    ...itemFilter,
+                    startDate: date,
+                  });
+                }}
+              />
+            </View>
+            <View>
+              <Typography variant="P2" color={Colors.appWhiteColor}>
+                To
+              </Typography>
+              <FGDatePicker
+                date={itemFilter.endDate}
+                onDateChange={date => {
+                  if (date < itemFilter.startDate) {
+                    Alert.alert(
+                      'Invalid Date',
+                      'End date cannot be less than start date',
+                    );
+                    return;
+                  }
+                  setItemFilter({
+                    ...itemFilter,
+                    endDate: date,
+                  });
+                }}
+              />
+            </View>
+          </View>
+          {/*
+          transaction type
+        */}
+          <View>
+            <Typography variant="P2" color={Colors.appWhiteColor}>
+              Transaction Type
+            </Typography>
+            <Picker
+              open={open.type}
+              setOpen={value => {
+                setOpenItem('type', value);
+              }}
+              placeholder={'All'}
+              value={itemFilter.type}
+              setValue={value => {
+                setValue('type', value);
+              }}
+              zIndex={5000}
+              zIndexInverse={1000}
+              textStyle={{
+                color: Colors.appWhiteColor,
+              }}
+              style={{
+                backgroundColor: Colors.appBlackColorLight,
+                marginTop: 5,
+                borderRadius: 5,
+                color: Colors.appWhiteColor,
+              }}
+              items={[
+                ...FILTERS.type.map(key => ({
+                  label: key,
+                  value: key,
+                })),
+                {
+                  label: 'All',
+                  value: '',
+                },
+              ]}
+              theme="DARK"
             />
           </View>
-          <Typography variant="H2" color={Colors.appWhiteColor}>
-            Filter items
-          </Typography>
-          {Object.keys(FILTERS).map(key => (
-            <View
-              key={key}
+          {/*
+          Id's
+        */}
+          <View>
+            <Typography variant="P2" color={Colors.appWhiteColor}>
+              Id's
+            </Typography>
+            <Picker
+              open={open.id}
+              setOpen={value => {
+                setOpenItem('id', value);
+              }}
+              zIndex={2000}
+              zIndexInverse={2000}
+              placeholder={'All'}
+              value={itemFilter.id}
+              setValue={value => {
+                setValue('id', value);
+              }}
+              textStyle={{
+                color: Colors.appWhiteColor,
+              }}
               style={{
-                marginTop: 20,
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}>
-                <Typography
-                  variant="subheader"
-                  style={{
-                    marginBottom: 10,
-                    color: Colors.appWhiteColor,
-                  }}>
-                  {NAME_MAP[key]}
-                </Typography>
+                backgroundColor: Colors.appBlackColorLight,
+                marginTop: 5,
+                borderRadius: 5,
+                color: Colors.appWhiteColor,
+              }}
+              loading={siteNamesLoading}
+              items={[
+                ...siteNames?.details?.data.map(item => ({
+                  label: item.sitename,
+                  value: item.sdid,
+                })),
                 {
-                  <Button
-                    compact
-                    key={key}
-                    uppercase={false}
-                    mode={'text'}
-                    color="blue"
-                    onPress={() => {
-                      setItemFilter({
-                        ...itemFilter,
-                        [key]: '',
-                      });
-                    }}>
-                    Clear
-                  </Button>
-                }
+                  label: 'All',
+                  value: '',
+                },
+              ]}
+              theme="DARK"
+            />
+          </View>
+          {/*
+          Status
+        */}
+          <View>
+            <Typography variant="P2" color={Colors.appWhiteColor}>
+              Status
+            </Typography>
+            <Picker
+              open={open.status}
+              setOpen={value => {
+                setOpenItem('status', value);
+              }}
+              zIndex={1000}
+              zIndexInverse={3000}
+              placeholder={'All'}
+              value={itemFilter.status}
+              setValue={value => {
+                setValue('status', value);
+              }}
+              textStyle={{
+                color: Colors.appWhiteColor,
+              }}
+              style={{
+                backgroundColor: Colors.appBlackColorLight,
+                marginTop: 5,
+                borderRadius: 5,
+                color: Colors.appWhiteColor,
+              }}
+              items={[
+                ...FILTERS.status.map(key => ({
+                  label: key,
+                  value: key,
+                })),
+                {
+                  label: 'All',
+                  value: '',
+                },
+              ]}
+              theme="DARK"
+            />
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              marginVertical: 10,
+            }}>
+            <Button
+              onPress={() => {
+                setFilterVisible(false);
+              }}
+              uppercase={false}
+              style={{
+                backgroundColor: Colors.appBlackColorLight,
+                width: 120,
+              }}>
+              Close
+            </Button>
+            <Button
+              onPress={() => {
+                clearCurrentResultsAndFetch();
+              }}
+              uppercase={false}
+              style={{
+                backgroundColor: Colors.appBlackColorLight,
+                width: 120,
+              }}>
+              Apply
+            </Button>
+          </View>
+        </View>
+      )}
+      <FlatList
+        data={transactions}
+        renderItem={({item}) => (
+          <PassbookCard item={item} navigation={navigation} />
+        )}
+        refreshControl={
+          <RefreshControl
+            refreshing={isLoading}
+            onRefresh={() => clearCurrentResultsAndFetch(true)}
+          />
+        }
+        onEndReached={onEndReached}
+        onEndReachedThreshold={0.2}
+        keyExtractor={item => item.id}
+        ListFooterComponent={
+          <View>
+            {isFetching && (
+              <View>
+                <ActivityIndicator color={Colors.primary} />
+                <Typography
+                  style={{
+                    marginTop: 10,
+                    textAlign: 'center',
+                  }}>
+                  Fetching more results...
+                </Typography>
               </View>
-              <RadioButton.Group
-                onValueChange={value =>
-                  setItemFilter({...itemFilter, [key]: value})
-                }
-                value={itemFilter[key]}>
-                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                  {FILTERS[key].map(item => (
-                    <View>
-                      <RadioButton.Item
-                        label={item}
-                        value={item}
-                        position="leading"
-                        color={Colors.appWhiteColor}
-                        labelStyle={{
-                          color: Colors.appWhiteColor,
-                        }}
-                        uncheckedColor={Colors.appWhiteColor}
-                      />
-                    </View>
-                  ))}
-                </View>
-              </RadioButton.Group>
-              <Divider />
-            </View>
-          ))}
-          <Button
-            onPress={() => {
-              clearCurrentResultsAndFetch();
-            }}
-            style={{
-              marginTop: 30,
-            }}
-            mode="contained">
-            Apply Filters
-          </Button>
-          <Button
-            onPress={() => {
-              setItemFilter({
-                status: '',
-                type: '',
-                wallet: '',
-              });
-              clearCurrentResultsAndFetch(true);
-            }}
-            style={{
-              marginTop: 10,
-            }}
-            mode="contained">
-            Clear Filters
-          </Button>
-        </ScrollView>
-      </Modal>
+            )}
+            {noMoreResults && (
+              <Typography
+                variant="caption"
+                color={Colors.appWhiteColor}
+                style={{
+                  textAlign: 'center',
+                }}>
+                -- No more results --
+              </Typography>
+            )}
+          </View>
+        }
+      />
     </View>
   );
 };

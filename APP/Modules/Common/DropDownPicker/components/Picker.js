@@ -603,10 +603,10 @@ function Picker({
    * The placeholder.
    * @returns {string}
    */
-  const _placeholder = useMemo(() => placeholder ?? _('PLACEHOLDER'), [
-    placeholder,
-    _,
-  ]);
+  const _placeholder = useMemo(
+    () => placeholder ?? _('PLACEHOLDER'),
+    [placeholder, _],
+  );
 
   /**
    * The multiple text.
@@ -696,10 +696,10 @@ function Picker({
   /**
    * The label of the selected item / placeholder.
    */
-  const _selectedItemLabel = useMemo(() => getLabel(_placeholder), [
-    getLabel,
-    _placeholder,
-  ]);
+  const _selectedItemLabel = useMemo(
+    () => getLabel(_placeholder),
+    [getLabel, _placeholder],
+  );
 
   /**
    * The icon of the selected item.
@@ -816,10 +816,10 @@ function Picker({
    * The disabled style.
    * @returns {object}
    */
-  const _disabledStyle = useMemo(() => disabled && disabledStyle, [
-    disabled,
-    disabledStyle,
-  ]);
+  const _disabledStyle = useMemo(
+    () => disabled && disabledStyle,
+    [disabled, disabledStyle],
+  );
 
   /**
    * The zIndex.
@@ -1965,8 +1965,7 @@ function Picker({
         ref={scrollViewRef}
         nestedScrollEnabled={true}
         stickyHeaderIndices={stickyHeaderIndices}
-        {...scrollViewProps}
-      >
+        {...scrollViewProps}>
         {_items.map((item, index) => {
           return (
             <Fragment key={item[_itemKey]}>
@@ -1990,8 +1989,7 @@ function Picker({
         visible={open}
         presentationStyle="fullScreen"
         onRequestClose={onRequestCloseModal}
-        {...modalProps}
-      >
+        {...modalProps}>
         <SafeAreaView style={_modalContentContainerStyle}>
           {SearchComponent}
           {DropDownFlatListComponent}
@@ -2057,8 +2055,7 @@ function Picker({
         ref={onRef}
         pointerEvents={pointerEvents}
         disabled={disabled}
-        testID={testID}
-      >
+        testID={testID}>
         {_BodyComponent}
         {_ArrowComponent}
       </TouchableOpacity>
