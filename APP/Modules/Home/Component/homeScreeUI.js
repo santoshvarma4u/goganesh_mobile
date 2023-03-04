@@ -119,7 +119,7 @@ function HomeScreen(props) {
               <Icon
                 name="double-arrow"
                 color={Colors.appWhiteColor}
-                size={40}
+                size={64}
                 type={'material-icons'}
                 style={{
                   transform: [{rotate: '-90deg'}],
@@ -128,7 +128,7 @@ function HomeScreen(props) {
             </TouchableOpacity>
             <View style={styles.centerCard}>
               <FGImage
-                style={{width: 60, height: 60}}
+                style={{width: 100, height: 100}}
                 source={Images.newLogoOnly}
                 resizeMode={'contain'}
               />
@@ -145,6 +145,7 @@ function HomeScreen(props) {
                   style={{
                     flexDirection: 'row',
                     alignItems: 'center',
+                    marginTop: 5,
                   }}>
                   <Icon
                     name="coins"
@@ -174,7 +175,7 @@ function HomeScreen(props) {
               <Icon
                 name="double-arrow"
                 color={Colors.appWhiteColor}
-                size={40}
+                size={64}
                 type={'material-icons'}
                 style={{
                   transform: [{rotate: '90deg'}],
