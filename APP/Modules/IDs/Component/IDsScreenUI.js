@@ -71,6 +71,8 @@ const IDRoute = props => {
           onChangeText={onSearch}
           value={search}
           containerStyle={styles.searchBar}
+          inputContainerStyle={styles.searchInput}
+          inputStyle={styles.searchInputStyle}
         />
         <FlatList
           data={data}
@@ -173,6 +175,8 @@ function IDs({navigation, route}) {
             onChangeText={onSearch}
             value={search}
             containerStyle={styles.searchBar}
+            inputContainerStyle={styles.searchInput}
+            inputStyle={styles.searchInputStyle}
           />
           <FlatList
             data={data}

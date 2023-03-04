@@ -161,7 +161,7 @@ const AccordianListNew = props => {
               width: 24,
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor: Colors.appGreenColor,
+              backgroundColor: Colors.appGreenColor + '90',
               borderRadius: 20,
               marginHorizontal: 14,
             }}
@@ -183,7 +183,7 @@ const AccordianListNew = props => {
               width: 24,
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor: Colors.appRedColor,
+              backgroundColor: Colors.appRedColor + '90',
               borderRadius: 20,
             }}
             onPress={() => {
@@ -205,8 +205,13 @@ const AccordianListNew = props => {
               <Icon
                 name="dots-vertical"
                 type="material-community"
-                color={Colors.appWhiteColor}
+                color={Colors.appPrimaryColor + '90'}
                 size={25}
+                style={{
+                  backgroundColor: Colors.buttonBackgroundColor,
+                  borderRadius: 50,
+                  marginLeft: 10,
+                }}
               />
             </TouchableOpacity>
           }>
