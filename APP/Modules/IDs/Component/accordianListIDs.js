@@ -73,6 +73,9 @@ const AccordionListNew = props => {
             navigation.navigate('CreateID', {
               sdid: props.data.sdid,
               requestStatus: 'new',
+              url: props.data.siteurl,
+              sitename: props.data.sitename,
+              siteimage: props.data.siteimage,
             });
           }}>
           <Typography variant="H4">Create</Typography>
@@ -136,6 +139,9 @@ const AccordionListNew = props => {
             navigation.navigate('CreateID', {
               sdid: props.data.sdid,
               requestStatus: 'new',
+              sitename: props.data.sitename,
+              siteimage: props.data.siteimage,
+              url: props.data.siteurl,
             });
           }}>
           Create ID

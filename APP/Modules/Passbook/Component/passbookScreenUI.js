@@ -1,7 +1,6 @@
-/* eslint-disable react-native/no-inline-styles */
 import {Icon} from '@rneui/base';
 import React, {useEffect, useState} from 'react';
-import {Alert, Pressable, RefreshControl, View} from 'react-native';
+import {Alert, Pressable, RefreshControl, View, StyleSheet} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {ActivityIndicator, Button, Badge} from 'react-native-paper';
 import {
@@ -135,13 +134,7 @@ const AllTransactionsContainer = ({navigation}) => {
   };
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: Colors.appBlackColor,
-        paddingBottom: 20,
-        paddingHorizontal: 20,
-      }}>
+    <View style={styles.container}>
       {isFetching && <LoadingIndicator color={Colors.appPrimaryColor} />}
       <View
         style={{
@@ -153,30 +146,13 @@ const AllTransactionsContainer = ({navigation}) => {
           <Typography variant="H3" color={Colors.appWhiteColor}>
             Transactions
           </Typography>
-          <View
-            style={{
-              height: 2,
-              width: 50,
-              backgroundColor: Colors.appPrimaryColor,
-              marginTop: 5,
-            }}
-          />
+          <View style={styles.underline} />
         </View>
         <Pressable
           onPress={() => {
             setFilterVisible(!filterVisible);
           }}
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: Colors.appBlackColorLight,
-            height: 30,
-            borderRadius: 5,
-            marginVertical: 10,
-            paddingVertical: 5,
-            paddingHorizontal: 12,
-          }}>
+          style={styles.filterButton}>
           <Typography>
             <Typography variant="H4" color={Colors.appWhiteColor}>
               {filterVisible ? 'Close' : 'Filter'}
@@ -191,11 +167,7 @@ const AllTransactionsContainer = ({navigation}) => {
           <Badge
             visible={itemFilter.STATUS || itemFilter.type || itemFilter.id}
             size={10}
-            style={{
-              position: 'absolute',
-              right: 10,
-              top: 10,
-            }}
+            style={styles.badge}
           />
         </Pressable>
       </View>
@@ -252,7 +224,7 @@ const AllTransactionsContainer = ({navigation}) => {
           {/*
           transaction type
         */}
-          <View>
+          <View style={styles.filterItemContainer}>
             <Typography variant="P2" color={Colors.appWhiteColor}>
               Transaction Type
             </Typography>
@@ -293,9 +265,9 @@ const AllTransactionsContainer = ({navigation}) => {
           {/*
           Id's
         */}
-          <View>
+          <View style={styles.filterItemContainer}>
             <Typography variant="P2" color={Colors.appWhiteColor}>
-              Id's
+              IDs
             </Typography>
             <Picker
               open={open.id}
@@ -335,7 +307,7 @@ const AllTransactionsContainer = ({navigation}) => {
           {/*
           Status
         */}
-          <View>
+          <View style={styles.filterItemContainer}>
             <Typography variant="P2" color={Colors.appWhiteColor}>
               Status
             </Typography>
@@ -380,25 +352,27 @@ const AllTransactionsContainer = ({navigation}) => {
               marginVertical: 10,
             }}>
             <Button
+              mode="contained"
               onPress={() => {
                 setFilterVisible(false);
               }}
+              color={Colors.appBlackColorLight}
               uppercase={false}
               style={{
-                backgroundColor: Colors.appBlackColorLight,
                 width: 120,
               }}>
               Close
             </Button>
             <Button
+              mode="contained"
               onPress={() => {
                 clearCurrentResultsAndFetch();
               }}
               uppercase={false}
               style={{
-                backgroundColor: Colors.appBlackColorLight,
                 width: 120,
-              }}>
+              }}
+              color={Colors.appBlackColorLight}>
               Apply
             </Button>
           </View>
@@ -448,5 +422,39 @@ const AllTransactionsContainer = ({navigation}) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.appBlackColor,
+    paddingBottom: 20,
+    paddingHorizontal: 20,
+  },
+  filterButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.appBlackColorLight,
+    height: 30,
+    borderRadius: 5,
+    marginVertical: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 12,
+  },
+  badge: {
+    position: 'absolute',
+    right: 10,
+    top: 10,
+  },
+  underline: {
+    height: 3,
+    width: 50,
+    backgroundColor: Colors.appPrimaryColor,
+    marginTop: 5,
+  },
+  filterItemContainer: {
+    marginTop: 10,
+  },
+});
 
 export default AllTransactionsContainer;

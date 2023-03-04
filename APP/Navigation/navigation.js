@@ -8,6 +8,7 @@ import {Icon} from '@rneui/themed';
 import React from 'react';
 import {View} from 'react-native';
 import {Appbar} from 'react-native-paper';
+import PassbookIcon from '../Assets/svgs/passbookIcon';
 // import ChatContainer from '../Modules/Chat/Container/ChatContainer';
 import TypographyStyles from '../Modules/Common/Text/Text.styles';
 import CreateIDScreen from '../Modules/CreateID/Container/createIDIndex';
@@ -935,7 +936,7 @@ const BottomTabNavigator = () => {
             iconName = 'home';
             type = 'foundation';
           } else if (route.name === 'Passbook') {
-            iconName = 'book';
+            return <PassbookIcon color={color} />;
           } else if (route.name === "ID's") {
             iconName = 'switch-account';
           }

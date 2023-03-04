@@ -161,7 +161,7 @@ const AccordianListNew = props => {
               width: 24,
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor: Colors.appGreenColor + '90',
+              backgroundColor: '#0E8735',
               borderRadius: 20,
               marginHorizontal: 14,
             }}
@@ -183,7 +183,8 @@ const AccordianListNew = props => {
               width: 24,
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor: Colors.appRedColor + '90',
+              // medium red
+              backgroundColor: '#DE4C45',
               borderRadius: 20,
             }}
             onPress={() => {

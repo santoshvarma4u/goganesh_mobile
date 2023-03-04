@@ -80,9 +80,9 @@ const PassbookCard = ({item, navigation, needAccordion = true}) => {
             }}>
             {userFriendlyPaymentMessage(item.remarks, 'Remark')}
           </Typography>
-          {item?.sd?.sitename && (
+          {(item?.sd?.siteName || item?.sd?.sitename) && (
             <Typography style={{color: Colors.appWhiteColor}} variant="P3">
-              {item.sd.sitename}
+              {item.sd.siteName || item.sd.sitename}
             </Typography>
           )}
           <Typography variant="caption" style={{color: Colors.appWhiteColor}}>
@@ -145,7 +145,7 @@ const styles = {
     height: 40,
     width: 40,
     borderRadius: 25,
-    backgroundColor: Colors.buttonBackgroundColor,
+    backgroundColor: Colors.appBlackColor + '33',
   },
   accordionView: {
     margin: 5,

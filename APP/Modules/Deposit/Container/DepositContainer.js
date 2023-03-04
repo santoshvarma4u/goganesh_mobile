@@ -4,7 +4,6 @@ import React, {useEffect, useState} from 'react';
 import {ScrollView, View} from 'react-native';
 import {Button, Modal, ActivityIndicator} from 'react-native-paper';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {connect} from 'react-redux';
 import CONSTANTS from '../../../Constants';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
@@ -29,7 +28,7 @@ const DepositContainer = props => {
   const [error, setError] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
   const [paymentMethod, setPaymentMethod] = React.useState('');
-  const [isPaymentLaoding, setIsPaymentLoading] = React.useState(false);
+  const [isPaymentLoading, setIsPaymentLoading] = React.useState(false);
   const [isPaymentSuccess, setIsPaymentSuccess] = React.useState(false);
   const [uid, setUid] = useState('');
   const resetAction = CommonActions.reset({
@@ -184,7 +183,7 @@ const DepositContainer = props => {
             <Typography variant="paragraph" color={Colors.appPrimaryColor}>
               WALLET BALANCE
             </Typography>
-            <Typography variant="H2" color={Colors.appWhiteColor}>
+            <Typography variant="H3" color={Colors.appWhiteColor}>
               {walletBalance}
             </Typography>
           </View>
@@ -197,8 +196,7 @@ const DepositContainer = props => {
           }}>
           <CommonTextInput
             label="Deposit Coins *"
-            mode="outlined"
-            value={amount}
+            value={`${amount}`}
             onChangeText={value => {
               setAmount(value);
               setError(false);
@@ -213,34 +211,91 @@ const DepositContainer = props => {
             inputContainerStyle={{
               borderBottomWidth: 0,
             }}
+            error={error}
+            helperText={
+              error
+                ? 'Enter valid amount, Minimum amount is 1000 coins'
+                : '*Minimum Deposit Amount is 1000 Coins'
+            }
           />
-          <Typography
-            variant="paragraph"
-            color={error ? Colors.appRedColor : Colors.appWhiteColor}>
-            {error
-              ? 'Enter valid amount, Minimum amount is 1000 coins'
-              : '*Minimum Deposit Amount is 1000 Coins'}
-          </Typography>
+          <View
+            style={{
+              justifyContent: 'space-between',
+              marginTop: 10,
+            }}>
+            <Typography variant="P2" color={Colors.appWhiteColor}>
+              Choose From Your Recent Transactions
+            </Typography>
+            <View
+              style={{
+                flexDirection: 'row',
+                height: 5,
+                width: 50,
+                borderRadius: 2,
+                backgroundColor: Colors.appPrimaryColor,
+              }}
+            />
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginTop: 10,
+            }}>
+            <Button
+              mode="contained"
+              color={Colors.appBlackColorLight}
+              style={{
+                width: 100,
+              }}
+              uppercase={false}
+              onPress={() => {
+                setAmount(1000);
+              }}>
+              1000
+            </Button>
+            <Button
+              mode="contained"
+              color={Colors.appBlackColorLight}
+              style={{
+                width: 100,
+              }}
+              uppercase={false}
+              onPress={() => {
+                setAmount(2000);
+              }}>
+              2000
+            </Button>
+            <Button
+              mode="contained"
+              color={Colors.appBlackColorLight}
+              style={{
+                width: 100,
+              }}
+              uppercase={false}
+              onPress={() => {
+                setAmount(5000);
+              }}>
+              5000
+            </Button>
+          </View>
 
-            <View>
-
-            </View>
+          <View />
         </View>
-        {isPaymentLaoding ? (
+        {isPaymentLoading ? (
           <ActivityIndicator animating={true} color={Colors.appPrimaryColor} />
         ) : (
           <Button
             mode="contained"
-            disabled={isPaymentLaoding || !amount || amount < 100}
+            disabled={isPaymentLoading}
             style={{
               marginHorizontal: 90,
               marginTop: 20,
               backgroundColor: Colors.appPrimaryColor,
               color: Colors.appBlackColor,
             }}
-            uppercase={false}
             onPress={() => {
-              if (amount >= 1000) {
+              if (Number(amount) >= 1000) {
                 setError(false);
                 navigation.navigate('DepositV2', {
                   depositCoins: amount,
@@ -299,7 +354,7 @@ const DepositContainer = props => {
               backgroundColor: Colors.appPrimaryColor,
               color: Colors.appBlackColor,
             }}
-            disabled={isPaymentLaoding}
+            disabled={isPaymentLoading}
             onPress={() => {
               setModalVisible(false);
               if (paymentMethod === 'gateway') {

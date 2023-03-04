@@ -54,7 +54,14 @@ const userNameValidation = Yup.object().shape({
 
 function CreateIDScreen({route, wallet}) {
   const navigation = useNavigation();
-  const {sdid, url, sitename, requestStatus, usdid = null} = route.params;
+  const {
+    sdid,
+    url,
+    sitename,
+    requestStatus,
+    usdid = null,
+    siteimage,
+  } = route.params;
   const [checked, setChecked] = React.useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [disablePayment, setDisablePayment] = useState(false);
@@ -224,7 +231,11 @@ function CreateIDScreen({route, wallet}) {
         <View style={styles.createIDContainer}>
           <View style={styles.topIcon}>
             <Image
-              source={require('../../../Assets/Images/logo_only.png')}
+              source={
+                siteimage
+                  ? {uri: siteimage}
+                  : require('../../../Assets/Images/logo_only.png')
+              }
               resizeMode={'contain'}
               style={{
                 width: 100,
@@ -360,30 +371,6 @@ function CreateIDScreen({route, wallet}) {
               />
             </View>
             <View style={{marginTop: 10}}>
-              {/* <View style={{flexDirection: 'row'}}>
-                <Typography>Min Refill</Typography>
-                <Typography style={[styles.planDetailsText, {marginTop: 4}]}>
-                  {planDetails.MinRefill}
-                </Typography>
-              </View>
-              <View style={{flexDirection: 'row'}}>
-                <Typography>Min Withdrawal</Typography>
-                <Typography style={[styles.planDetailsText, {marginTop: 4}]}>
-                  {planDetails.MinRefill}
-                </Typography>
-              </View>
-              <View style={{flexDirection: 'row'}}>
-                <Typography>Min Maintaining Balance</Typography>
-                <Typography style={[styles.planDetailsText, {marginTop: 4}]}>
-                  {planDetails.MinRefill}
-                </Typography>
-              </View>
-              <View style={{flexDirection: 'row'}}>
-                <Typography>Max Withdrawal</Typography>
-                <Typography style={[styles.planDetailsText, {marginTop: 4}]}>
-                  {planDetails.MaxWithDrawl}
-                </Typography>
-              </View> */}
               {Object.keys(planDetails).map((key, index) => {
                 return (
                   <View style={{flexDirection: 'row'}} key={index}>
@@ -546,7 +533,7 @@ function CreateIDScreen({route, wallet}) {
                     onPress={handleSubmit}>
                     {isLoading
                       ? 'Please wait...'
-                      : 'Continue to Pay ' + values.DepositCoins + ' Rs'}
+                      : 'Continue to Pay ₹ ' + values.DepositCoins}
                   </ButtonEx>
                 </>
               )}

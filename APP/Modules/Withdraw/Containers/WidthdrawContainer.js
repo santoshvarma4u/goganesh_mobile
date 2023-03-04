@@ -123,7 +123,7 @@ const WithDrawContainer = props => {
               WALLET BALANCE
             </Typography>
             <Typography
-              variant="H2"
+              variant="H3"
               style={{
                 marginTop: 10,
               }}
