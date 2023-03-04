@@ -96,7 +96,9 @@ const PassbookCard = ({item, navigation, needAccordion = true}) => {
               justifyContent: 'flex-end',
               alignItems: 'center',
             }}>
-            <Typography>{item.paymentType === 'DR' ? '+' : '-'}</Typography>
+            <Typography variant="H4" color={Colors.appWhiteColor}>
+              {item.paymentType === 'DR' ? '+' : '-'}
+            </Typography>
             <Typography
               variant="H5"
               style={{
@@ -108,10 +110,11 @@ const PassbookCard = ({item, navigation, needAccordion = true}) => {
             </Typography>
           </View>
           <Typography
+            variant="caption"
             style={
               item.paymentStatus === 'Accepted'
-                ? {color: 'green', margin: 5}
-                : {color: 'red', margin: 5}
+                ? {color: Colors.appGreenColor, margin: 5}
+                : {color: Colors.appRedColor, margin: 5}
             }>
             {item.paymentStatus}
           </Typography>
