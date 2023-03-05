@@ -21,8 +21,12 @@ const UserOtpLoginContainer = props => {
   const onOtpRequest = async phoneNumber => {
     // Status:Success
     // Details:c65278a1-bb15-11ed-81b6-0200cd936042
-    // const session = await LoginController.sendOTP(phoneNumber ?? phone);
-    // setOptSession(session.Details);
+    try {
+      const session = await LoginController.sendOTP(phoneNumber ?? phone);
+      setOptSession(session.Details);
+    } catch (error) {
+      alert('Something went wrong. Please try resending OTP.');
+    }
   };
 
   const onVerifyOtpAndLogin = async otp => {
