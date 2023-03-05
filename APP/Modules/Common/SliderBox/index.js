@@ -136,6 +136,7 @@ const FGSliderBox = ({
                   <Image
                     // @ts-ignore
                     source={localImg ? item : {uri: item}}
+                    resizeMode="contain"
                     style={styles.carouselImageStyle}
                   />
                 </TouchableOpacity>

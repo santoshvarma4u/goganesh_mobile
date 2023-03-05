@@ -80,6 +80,7 @@ const IDRoute = props => {
             getIDs.request();
             setRefresh(false);
           }}
+          contentContainerStyle={{paddingBottom: 50}}
           refreshing={refresh}
           renderItem={({item}) => <AccordionListItem data={item} />}
           ItemSeparatorComponent={() => (
@@ -181,6 +182,7 @@ function IDs({navigation, route}) {
           <FlatList
             data={data}
             refreshing={refresh}
+            contentContainerStyle={{paddingBottom: 50}}
             removeClippedSubviews={true}
             keyboardShouldPersistTaps={'always'}
             keyExtractor={(item, index) => index.toString()}

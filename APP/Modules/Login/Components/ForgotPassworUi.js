@@ -88,8 +88,7 @@ const ForgotPassWordUI = props => {
         style={{
           flexDirection: 'row',
           padding: 10,
-        }}
-      >
+        }}>
         <TouchableOpacity
           style={styles.buttonStyle}
           onPress={() => {
@@ -99,8 +98,7 @@ const ForgotPassWordUI = props => {
               Alert.alert('Password mismatch');
             }
           }}
-          underlayColor="transparent"
-        >
+          underlayColor="transparent">
           <Typography style={{color: 'black', fontSize: 16}}>
             Update Password
           </Typography>
@@ -144,8 +142,7 @@ const ForgotPassWordUI = props => {
         style={{
           flexDirection: 'row',
           padding: 10,
-        }}
-      >
+        }}>
         <TouchableOpacity
           style={styles.buttonStyle}
           onPress={() => {
@@ -155,8 +152,7 @@ const ForgotPassWordUI = props => {
               verifyOtp(otp);
             }
           }}
-          underlayColor="transparent"
-        >
+          underlayColor="transparent">
           <Typography style={{color: 'black', fontSize: 16}}>
             {!otpRequest ? 'Request OTP' : 'Submit OTP'}
           </Typography>

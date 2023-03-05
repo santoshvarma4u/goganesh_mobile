@@ -36,4 +36,19 @@ const verifyUser = phonenumber => {
   });
 };
 
-export default {loginCheck, sendOtp, verifyOtp, updatePassword, verifyUser};
+const loginWithOtp = (session, otp, phone) => {
+  return NetworkAPI.apiLoginClient.post('/users/loginWithOtp', {
+    session: session,
+    otp: otp,
+    phone: phone,
+  });
+};
+
+export default {
+  loginCheck,
+  sendOtp,
+  verifyOtp,
+  updatePassword,
+  verifyUser,
+  loginWithOtp,
+};
