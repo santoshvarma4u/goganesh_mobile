@@ -23,6 +23,7 @@ import IDsScreenPage from '../Modules/IDs/Container/IDsIndex';
 import ForgotPassWord from '../Modules/Login/Containers/Signin/ForgotPassword';
 import SignInContainer from '../Modules/Login/Containers/Signin/SignInindex';
 import SignUpContainer from '../Modules/Login/Containers/Signin/SignUpContainer';
+import UserOtpLoginContainer from '../Modules/Login/Containers/Signin/UserOtpLoginContainer';
 import VerifyUserContainer from '../Modules/Login/Containers/Signin/VerifyUserContainer';
 import OffersScreen from '../Modules/Offers/Container/offersIndex';
 import PassBookDetails from '../Modules/Passbook/Container/PassbookDetails';
@@ -36,7 +37,6 @@ import SiteDetailsContainer from '../Modules/SiteDetails/Containers/SiteDetailCo
 import Splash from '../Modules/Splash/Container/splashIndex';
 import WithdrawForm from '../Modules/Withdraw/Components/WithdrawUI';
 import WithDrawContainer from '../Modules/Withdraw/Containers/WidthdrawContainer';
-
 import Colors from '../Theams/Colors';
 
 const Stack = createStackNavigator();
@@ -144,6 +144,20 @@ function AuthNavigator() {
               navigation={navigation}
               back={true}
               headerName="Register"
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="OTPLogin"
+        component={UserOtpLoginContainer}
+        options={({navigation}) => ({
+          header: props => (
+            <CustomNavigationBar
+              {...props}
+              navigation={navigation}
+              back={true}
+              headerName="Enter Verification Code"
             />
           ),
         })}

@@ -125,12 +125,24 @@ export default StyleSheet.create({
   textStyle: {
     color: 'white',
   },
-
   modalText: {
     borderRadius: 10,
     backgroundColor: 'white',
     fontSize: 16,
     paddingHorizontal: 15,
     marginBottom: 15,
+  },
+  underlineWhite: {
+    height: 1,
+    backgroundColor: Colors.appWhiteColor,
+    width: '30%',
+    marginHorizontal: 10,
+    alignItems: 'center',
+  },
+  flexRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 30,
+    justifyContent: 'center',
   },
 });

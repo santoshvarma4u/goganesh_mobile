@@ -207,6 +207,35 @@ function SignIn(props) {
               </View>
             )}
           </Formik>
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <View style={styles.flexRow}>
+              <View style={styles.underlineWhite} />
+              <Typography color={Colors.appWhiteColor}>Or</Typography>
+              <View style={styles.underlineWhite} />
+            </View>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('OTPLogin', {
+                  phoneNumber: props.route.params?.phoneNumber,
+                });
+              }}
+              underlayColor="transparent">
+              <Typography color={Colors.appWhiteColor}>
+                Login With
+                <Typography
+                  variant="H4"
+                  style={{color: Colors.appPrimaryColor}}>
+                  {' '}
+                  OTP
+                </Typography>
+              </Typography>
+            </TouchableOpacity>
+          </View>
         </>
       ) : (
         <ErrorPage

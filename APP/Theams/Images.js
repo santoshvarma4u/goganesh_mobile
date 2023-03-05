@@ -17,6 +17,7 @@ const images = {
   gateway: require('../../assets/Images/gatway.png'),
   homeback: require('../../assets/Images/yellow-bg.jpg'),
   newLogoOnly: require('../../assets/Images/logo_only.png'),
+  otplogin: require('../../assets/Images/otplogin.png'),
 };
 
 export default images;
