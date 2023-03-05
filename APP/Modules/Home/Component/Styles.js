@@ -1,5 +1,6 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import Colors from '../../../Theams/Colors';
+import metrics from '../../../Theams/Metrics';
 
 export default StyleSheet.create({
   containerMain: {
@@ -78,8 +79,17 @@ export default StyleSheet.create({
   },
   createTextOnly: {
     color: Colors.appWhiteColor,
-    marginHorizontal: 10,
-    fontSize: 12,
+    marginHorizontal: 5,
+    fontSize: 14,
+  },
+  createButton: {
+    padding: 6,
+    borderRadius: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.appBlackColorLight + '99',
+    marginHorizontal: 3,
   },
   myids: {
     color: 'white',
@@ -100,7 +110,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.appBlackColor + 'cf',
     paddingHorizontal: 5,
     paddingVertical: 10,
-    height: 140,
+    height: 120,
     minWidth: 80,
     alignItems: 'center',
     justifyContent: 'space-around',
@@ -109,7 +119,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: Colors.appBlackColorLight,
-    borderRadius: 10,
+    borderRadius: metrics.borderRadius,
     height: 190,
     padding: 24,
   },
@@ -136,10 +146,10 @@ export default StyleSheet.create({
     backgroundColor: Colors.appBlackColor,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
+    overflow: 'hidden',
   },
   lowerBox1: {
     flexDirection: 'column',
-    marginTop: 20,
     width: '100%',
     overflow: 'hidden',
   },

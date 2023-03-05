@@ -10,7 +10,9 @@ import {
   ScrollView,
   Linking,
   RefreshControl,
+  Pressable,
 } from 'react-native';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {Button} from 'react-native-paper';
 import {connect, useDispatch} from 'react-redux';
 // import NetworkAPI from '../../../Network/api/server';
@@ -22,6 +24,7 @@ import Colors from '../../../Theams/Colors';
 // import Storage from '../../Common/Storage';
 // import StorageKeys from '../../Common/StorageKeys';
 import Images from '../../../Theams/Images';
+import metrics from '../../../Theams/Metrics';
 import {getWhatsappMessageUrl} from '../../../Utils';
 import FGImage from '../../Common/FGImage';
 import FGSliderBox from '../../Common/SliderBox';
@@ -31,6 +34,8 @@ import IdController from '../../IDs/Controller/IdController';
 import HomeListMyIDs from '../Component/homeListMyIDs';
 import HomeController from '../Controller/homeController';
 import styles from './Styles';
+
+const BORDER_RADIUS = metrics.borderRadius;
 
 function HomeScreen(props) {
   let banks = [];
@@ -104,12 +109,12 @@ function HomeScreen(props) {
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            <TouchableOpacity
+            <Pressable
               style={[
                 styles.depositCard,
                 {
-                  borderTopLeftRadius: 10,
-                  borderBottomLeftRadius: 10,
+                  borderTopLeftRadius: BORDER_RADIUS,
+                  borderBottomLeftRadius: BORDER_RADIUS,
                 },
               ]}
               onPress={() => navigation.navigate('DepositForm', {})}>
@@ -125,7 +130,7 @@ function HomeScreen(props) {
                   transform: [{rotate: '-90deg'}],
                 }}
               />
-            </TouchableOpacity>
+            </Pressable>
             <View style={styles.centerCard}>
               <FGImage
                 style={{width: 100, height: 100}}
@@ -160,12 +165,12 @@ function HomeScreen(props) {
                 </View>
               </View>
             </View>
-            <TouchableOpacity
+            <Pressable
               style={[
                 styles.depositCard,
                 {
-                  borderTopRightRadius: 10,
-                  borderBottomRightRadius: 10,
+                  borderTopRightRadius: BORDER_RADIUS,
+                  borderBottomRightRadius: BORDER_RADIUS,
                 },
               ]}
               onPress={() => navigation.navigate('WithdrawContainer', {})}>
@@ -181,7 +186,7 @@ function HomeScreen(props) {
                   transform: [{rotate: '90deg'}],
                 }}
               />
-            </TouchableOpacity>
+            </Pressable>
           </View>
         </View>
         <View style={styles.lowerContainer}>
@@ -218,14 +223,7 @@ function HomeScreen(props) {
             </View>
             <View style={{flex: 1}} />
             <TouchableOpacity
-              style={{
-                padding: 10,
-                borderRadius: 5,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: Colors.buttonBackgroundColor,
-              }}
+              style={styles.createButton}
               onPress={() => {
                 navigation.navigate("ID's");
                 dispatch(updateIdState({index: 1}));
@@ -239,15 +237,7 @@ function HomeScreen(props) {
               <Typography style={styles.createTextOnly}>Create </Typography>
             </TouchableOpacity>
             <TouchableOpacity
-              style={{
-                padding: 10,
-                borderRadius: 5,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginLeft: 10,
-                backgroundColor: Colors.buttonBackgroundColor,
-              }}
+              style={styles.createButton}
               onPress={() => {
                 navigation.navigate("ID's");
                 dispatch(updateIdState({index: 0}));

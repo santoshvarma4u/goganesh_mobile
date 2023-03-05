@@ -20,6 +20,7 @@ import WebView from 'react-native-webview';
 import {connect} from 'react-redux';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import Colors from '../../../Theams/Colors';
+import metrics from '../../../Theams/Metrics';
 import {removeHttpOrWww} from '../../../Utils';
 import CommonTextInput from '../../Common/CommonTextInput';
 import FGImage from '../../Common/FGImage';
@@ -219,12 +220,15 @@ const AccordianListNew = props => {
           <View
             style={{
               backgroundColor: Colors.appWhiteColor,
-              borderRadius: 10,
-              padding: 10,
+              borderRadius: metrics.borderRadius,
+              width: 150,
             }}>
             <FlatList
               data={list}
               keyExtractor={(item, index) => index.toString()}
+              ItemSeparatorComponent={() => (
+                <View style={styles.menuItemDivider} />
+              )}
               renderItem={({item}) => {
                 return (
                   <View style={{}}>
@@ -241,6 +245,7 @@ const AccordianListNew = props => {
                 );
               }}
             />
+            <View style={styles.menuItemDivider} />
             <Typography
               style={styles.menuItemText}
               onPress={() => {
@@ -639,7 +644,13 @@ const styles = StyleSheet.create({
   menuItemText: {
     marginVertical: 8,
     marginHorizontal: 10,
-    ...TypographyStyles.H4,
+    color: Colors.appBlackColor,
+    ...TypographyStyles.H5,
+  },
+  menuItemDivider: {
+    height: 1,
+    backgroundColor: Colors.disabled + '50',
+    marginVertical: 2,
   },
 });
 
