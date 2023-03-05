@@ -151,41 +151,41 @@ const WithdrawForm = props => {
                 />
               ) : null}
             </RadioButton.Group>
-            <Typography color={Colors.appWhiteColor}>
-              If bank fails we will try one of the following
-            </Typography>
-            {upiData.map((item, index) => {
-              return (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}>
-                  <View>
-                    <View
-                      style={{
-                        padding: 10,
-                        flexDirection: 'row',
-                        height: 80,
-                        alignItems: 'center',
-                      }}>
-                      {upiSvg[item.upiName]}
-                      <View
-                        style={{
-                          marginLeft: 10,
-                        }}>
-                        <Typography color={Colors.appWhiteColor}>
-                          {upiMap[item.upiName]}
-                        </Typography>
-                        <Typography color={Colors.appWhiteColor}>
-                          {item.upiNumber}
-                        </Typography>
-                      </View>
-                    </View>
-                  </View>
-                </View>
-              );
-            })}
+            {/*<Typography color={Colors.appWhiteColor}>*/}
+            {/*  If bank fails we will try one of the following*/}
+            {/*</Typography>*/}
+            {/*{upiData.map((item, index) => {*/}
+            {/*  return (*/}
+            {/*    <View*/}
+            {/*      style={{*/}
+            {/*        flexDirection: 'row',*/}
+            {/*        alignItems: 'center',*/}
+            {/*      }}>*/}
+            {/*      <View>*/}
+            {/*        <View*/}
+            {/*          style={{*/}
+            {/*            padding: 10,*/}
+            {/*            flexDirection: 'row',*/}
+            {/*            height: 80,*/}
+            {/*            alignItems: 'center',*/}
+            {/*          }}>*/}
+            {/*          {upiSvg[item.upiName]}*/}
+            {/*          <View*/}
+            {/*            style={{*/}
+            {/*              marginLeft: 10,*/}
+            {/*            }}>*/}
+            {/*            <Typography color={Colors.appWhiteColor}>*/}
+            {/*              {upiMap[item.upiName]}*/}
+            {/*            </Typography>*/}
+            {/*            <Typography color={Colors.appWhiteColor}>*/}
+            {/*              {item.upiNumber}*/}
+            {/*            </Typography>*/}
+            {/*          </View>*/}
+            {/*        </View>*/}
+            {/*      </View>*/}
+            {/*    </View>*/}
+            {/*  );*/}
+            {/*})}*/}
           </View>
           <View
             style={{
@@ -271,7 +271,7 @@ const WithdrawForm = props => {
               }}>
               <Typography
                 variant="H3"
-                color={Colors.appWhiteColor}
+                color={Colors.appBlackColor}
                 style={{alignItems: 'center'}}>
                 {isLoading ? 'Please wait ...' : 'Request Withdraw'}
               </Typography>

@@ -311,7 +311,7 @@ const DepositContainer = props => {
                 setError(true);
               }
             }}>
-            <Typography variant="button" color={Colors.appWhiteColor}>
+            <Typography variant="button" color={Colors.appBlackColor}>
               Deposit Coins
             </Typography>
           </Button>

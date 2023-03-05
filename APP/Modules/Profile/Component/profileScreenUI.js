@@ -48,15 +48,20 @@ function ProfileScreen({navigation}) {
             Phone : {phone}
           </Typography>
           <Button
-            title="Change Password"
+            mode="contained"
+            color={Colors.appPrimaryColor}
+            style={{width: '50%', alignSelf: 'center', marginTop: 20}}
             onPress={() => {
               navigation.navigate('ChangePassword', {
                 name: name,
                 phone: phone,
                 type: 'profile',
               });
-            }}
-          />
+            }}>
+            <Typography variant={'H3'} color={Colors.appBlackColor}>
+              Change Password
+            </Typography>
+          </Button>
         </View>
       </View>
     </View>

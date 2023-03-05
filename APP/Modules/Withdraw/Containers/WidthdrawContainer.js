@@ -186,7 +186,9 @@ const WithDrawContainer = props => {
                   setError(true);
                 }
               }}>
-              WITHDRAW COINS
+              <Typography variant="button" color={Colors.appBlackColor}>
+                Withdraw Coins
+              </Typography>
             </Button>
           </>
         ) : (

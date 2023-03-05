@@ -200,10 +200,7 @@ function HomeScreen(props) {
               justifyContent: 'space-around',
               marginHorizontal: 20,
             }}>
-            <View
-              style={{
-                alignItems: 'center',
-              }}>
+            <View>
               <Typography
                 variant="H3"
                 style={{
@@ -265,10 +262,7 @@ function HomeScreen(props) {
               alignItems: 'center',
               marginHorizontal: 20,
             }}>
-            <View
-              style={{
-                alignItems: 'center',
-              }}>
+            <View>
               <Typography
                 variant="H3"
                 style={{

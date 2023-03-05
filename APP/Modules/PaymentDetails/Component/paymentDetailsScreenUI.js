@@ -7,14 +7,18 @@ import {
   FlatList,
   KeyboardAvoidingView,
   ScrollView,
+  Alert,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {setUserBanks} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
 import useHideBottomBar from '../../../Utils/useHideBottomBar';
 import EnterBankDetails from '../../Common/BankDetails';
+import Storage from '../../Common/Storage';
+import StorageKeys from '../../Common/StorageKeys';
 import {Typography} from '../../Common/Text';
 import PaymentDetailsController from '../Controller/paymentDetailsController';
+import paymentDetailsController from '../Controller/paymentDetailsController';
 import UPINumberPicker from './PickUpiNumbers';
 import styles from './Styles';
 
@@ -23,9 +27,45 @@ function PaymentsScreen({navigation, reduxSetUserBanks}) {
   const [bankVales, setBankVales] = useState({});
   const [refresh, setRefresh] = useState(false);
   const mybanks = PaymentDetailsController.getBankData();
-
+  const [enableWithdraw, setEnableWithdraw] = useState(false);
   const [editModelVisible, setEditModelVisible] = useState(false);
   useHideBottomBar();
+
+  const [name, setName] = useState(false);
+  const [phone, setPhone] = useState(false);
+
+  const getName = async () => {
+    try {
+      let name1 = await Storage.getItemSync(StorageKeys.NAME);
+
+      return name1;
+    } catch (error) {}
+  };
+  const getPhone = async () => {
+    try {
+      let phone = await Storage.getItemSync(StorageKeys.PHONE);
+      return phone;
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    getName().then(data => setName(data));
+    getPhone().then(data => setPhone(data));
+  }, []);
+
+  const {
+    data: withDrawData,
+    error: withDrawVerifyError,
+    loading: withDrawVerifyLoading,
+    request,
+  } = paymentDetailsController.getPendingWithdrawRequestsForUser();
+
+  useEffect(() => {
+    if (withDrawData && withDrawData?.length === 0 && !withDrawVerifyLoading) {
+      setEnableWithdraw(true);
+    }
+  }, [withDrawData, withDrawVerifyError, withDrawVerifyLoading]);
+
   const onSubmit = values => {
     PaymentDetailsController.submitBankData(values).then(() => {
       setModalVisible(!modalVisible);
@@ -147,8 +187,23 @@ function PaymentsScreen({navigation, reduxSetUserBanks}) {
                 <TouchableOpacity
                   style={{position: 'absolute', right: 10, top: 10}}
                   onPress={() => {
-                    setBankVales(item);
-                    setEditModelVisible(true);
+                    if (enableWithdraw) {
+                      setBankVales(item);
+                      setEditModelVisible(true);
+                    } else {
+                      Alert.alert(
+                        'Withdrawal Request',
+                        'You have already requested for withdrawal, please wait for the admin to approve your request',
+                        [
+                          {
+                            text: 'OK',
+                            onPress: () => console.log('OK Pressed'),
+                            style: 'cancel',
+                          },
+                        ],
+                        {cancelable: false},
+                      );
+                    }
                   }}>
                   <Icon name="edit" color={Colors.appPrimaryColor} size={24} />
                 </TouchableOpacity>
@@ -158,7 +213,7 @@ function PaymentsScreen({navigation, reduxSetUserBanks}) {
           {/*
             UI for Upi numbers , for the PhonePay, Gpay, Paytm
           */}
-          <UPINumberPicker />
+          {/*<UPINumberPicker />*/}
           <Modal
             animationType="slide"
             transparent={true}

@@ -62,12 +62,12 @@ const AccordionListNew = props => {
         </View>
         <Pressable
           style={{
-            width: 100,
             height: 22,
             backgroundColor: Colors.appPrimaryColor,
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: 5,
+            paddingHorizontal: 10,
           }}
           onPress={() => {
             navigation.navigate('CreateID', {
@@ -78,7 +78,7 @@ const AccordionListNew = props => {
               siteimage: props.data.siteimage,
             });
           }}>
-          <Typography variant="H4">Create</Typography>
+          <Typography variant="H4" color={Colors.appBlackColor}>Create</Typography>
         </Pressable>
       </View>
     );
