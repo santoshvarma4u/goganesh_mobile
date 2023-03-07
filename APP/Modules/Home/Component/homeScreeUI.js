@@ -12,17 +12,13 @@ import {
   RefreshControl,
   Pressable,
 } from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {Button} from 'react-native-paper';
 import {connect, useDispatch} from 'react-redux';
-// import NetworkAPI from '../../../Network/api/server';
 import {env} from '../../../Network/api/server';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import {updateIdState} from '../../../Store/Slices/idStateSlice';
 import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
-// import Storage from '../../Common/Storage';
-// import StorageKeys from '../../Common/StorageKeys';
 import Images from '../../../Theams/Images';
 import metrics from '../../../Theams/Metrics';
 import {getWhatsappMessageUrl} from '../../../Utils';

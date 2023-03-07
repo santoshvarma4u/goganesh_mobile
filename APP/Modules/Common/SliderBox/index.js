@@ -48,7 +48,8 @@ const FGSliderBox = ({
         startAutoPlay(imageViewer ? true : false);
       }
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data?.length]);
 
   useEffect(() => {
     if (!imageViewer) {
@@ -60,6 +61,7 @@ const FGSliderBox = ({
     } else {
       clearTimeout(timerRef?.current);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex, imageViewer]);
 
   const changeSliderListIndex = () => {

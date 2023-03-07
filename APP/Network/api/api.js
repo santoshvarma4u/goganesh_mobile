@@ -1,5 +1,4 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import reactotron from 'reactotron-react-native';
 import {logoutAndResetNavigation} from '../../../APP/Navigation/navigation';
 import Storage from '../../Modules/Common/Storage';
 import StorageKeys from '../../Modules/Common/StorageKeys';
