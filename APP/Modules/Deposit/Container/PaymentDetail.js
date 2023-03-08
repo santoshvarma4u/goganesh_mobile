@@ -5,12 +5,14 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import reactotron from 'reactotron-react-native';
 import Colors from '../../../Theams/Colors';
 import {Typography} from '../../Common/Text';
+import PaymentIcon from './PaymentIcon';
 
 export const ClipboardItem = ({text, needCopyText = true, isHome = false}) => {
   return (
     <TouchableOpacity
       style={{
         flexDirection: 'row',
+        alignItems: 'center',
       }}
       onPress={() => {
         Clipboard.setString(text || '');
@@ -24,16 +26,16 @@ export const ClipboardItem = ({text, needCopyText = true, isHome = false}) => {
             paddingVertical: 2,
             paddingHorizontal: 4,
             borderRadius: 5,
-            backgroundColor: Colors.appPrimaryColor,
+            // backgroundColor: Colors.appPrimaryColor,
           }}>
-          <Typography
+          {/* <Typography
             variant="H5"
             style={{
               color: Colors.appWhiteColor,
               marginRight: 4,
             }}>
             Copy
-          </Typography>
+          </Typography> */}
           <Icon name="content-copy" color="white" size={18} />
         </View>
       ) : (
@@ -50,6 +52,7 @@ export const ClipboardItem = ({text, needCopyText = true, isHome = false}) => {
 
 const PaymentDetail = ({selectedMedium}) => {
   const {data, type} = selectedMedium || {};
+
   return (
     data &&
     data?.map(item => {
@@ -85,19 +88,47 @@ const PaymentDetail = ({selectedMedium}) => {
             </>
           ) : (
             <>
-              <Typography style={styles.text}>
-                {type || 'Select payment type'}
-              </Typography>
-              {item.paymentkey && (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}>
-                  <ClipboardItem text={item.paymentkey} />
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Typography style={styles.text}>Mode</Typography>
+                <View style={styles.displayName}>
+                  <Typography style={styles.text}>Display Name</Typography>
+                  <Typography style={styles.text}>Details</Typography>
                 </View>
-              )}
+              </View>
+              <View
+                style={{
+                  width: '100%',
+                  height: 1,
+                  backgroundColor: Colors.appWhiteColor,
+                  marginVertical: 2,
+                }}
+              />
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}>
+                <PaymentIcon paymenttype={item?.paymenttype} />
+                <View style={styles.displayName}>
+                  <Typography style={styles.text}>
+                    {item.paymentname}
+                  </Typography>
+                  {item.paymentkey && (
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                      }}>
+                      <ClipboardItem text={item.paymentkey} />
+                    </View>
+                  )}
+                </View>
+              </View>
             </>
           )}
         </View>
@@ -120,9 +151,17 @@ const styles = StyleSheet.create({
   },
   text: {
     color: Colors.appWhiteColor,
+    fontSize: 12,
     marginRight: 4,
   },
   flex1: {
+    flex: 1,
+  },
+  displayName: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginLeft: 14,
     flex: 1,
   },
 });

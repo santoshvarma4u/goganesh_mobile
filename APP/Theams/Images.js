@@ -18,6 +18,8 @@ const images = {
   homeback: require('../../assets/Images/yellow-bg.jpg'),
   newLogoOnly: require('../../assets/Images/logo_only.png'),
   otplogin: require('../../assets/Images/otplogin.png'),
+  upi: require('../../assets/Images/upi.png'),
+  banktransfer1: require('../../assets/Images/bank_transfer.png'),
 };
 
 export default images;

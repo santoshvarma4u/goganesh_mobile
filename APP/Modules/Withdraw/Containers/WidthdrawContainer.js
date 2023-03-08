@@ -173,7 +173,7 @@ const WithDrawContainer = props => {
             <Button
               mode="contained"
               style={{
-                marginHorizontal: 90,
+                marginHorizontal: 70,
                 marginTop: 20,
                 backgroundColor: Colors.appPrimaryColor,
                 color: Colors.appBlackColor,

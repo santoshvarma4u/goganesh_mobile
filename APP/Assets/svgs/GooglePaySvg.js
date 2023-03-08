@@ -3,7 +3,12 @@ import * as React from 'react';
 import Svg, {Path} from 'react-native-svg';
 
 const GooglePaySvg = props => (
-  <Svg xmlns="http://www.w3.org/2000/svg" width={48} height={48} {...props}>
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={36}
+    height={36}
+    viewBox="0 0 48 48"
+    {...props}>
     <Path
       fill="#cfd8dc"
       d="M42 37a5 5 0 0 1-5 5H11a5 5 0 0 1-5-5V11a5 5 0 0 1 5-5h26a5 5 0 0 1 5 5v26z"

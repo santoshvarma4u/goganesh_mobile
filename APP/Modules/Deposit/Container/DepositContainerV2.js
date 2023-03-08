@@ -15,6 +15,7 @@ import reactotron from 'reactotron-react-native';
 import CONSTANTS from '../../../Constants';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import Colors from '../../../Theams/Colors';
+import metrics from '../../../Theams/Metrics';
 import LoadingIndicator from '../../../Utils/loadingIndicator';
 import withPreventDoubleClick from '../../../Utils/withPreventDoubleClick';
 import ErrorPage from '../../Common/ErrorPage';
@@ -42,7 +43,7 @@ const DepositContainerV2 = props => {
 
   const [selectedMedium, setSelectedMedium] = useState({
     type: '',
-    data: {},
+    data: [],
   });
 
   const [filePath, setFilePath] = useState('');
@@ -231,19 +232,28 @@ const DepositContainerV2 = props => {
         <LoadingIndicator loadingText={'Please wait....'} />
       ) : null}
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Typography variant="H2" style={styles.text}>
-          Pay amount ₹ {amount}
+        <Typography
+          variant="H2"
+          style={[
+            styles.text,
+            {
+              textAlign: 'center',
+            },
+          ]}>
+          Pay ₹{amount}/-
         </Typography>
         <View style={styles.payRow}>
-          <Typography style={styles.text}>Pay manually</Typography>
+          <Typography style={styles.text} variant="H3">
+            Pay Manually
+          </Typography>
         </View>
         <View style={styles.underline} />
         <View
           style={{
             marginVertical: 10,
-            height: 100,
-            backgroundColor: Colors.backgroundColorLight,
-            padding: 5,
+            backgroundColor: Colors.appBlackColorLight,
+            padding: 10,
+            borderRadius: metrics.borderRadius / 2,
           }}>
           <FlatList
             data={paymentMasters}
@@ -291,15 +301,13 @@ const DepositContainerV2 = props => {
             style={styles.depositScreenshotCard}
             onPress={() => chooseFile()}>
             <Icon
-              name="add-to-photos"
-              color={Colors.appPrimaryColor}
-              size={48}
+              name="plus-circle"
+              color={Colors.appWhiteColor}
+              size={36}
+              type="material-community"
             />
-            <Typography style={styles.textCenter} variant="H4">
-              Upload
-            </Typography>
             <Typography style={styles.textCenter}>
-              Payment Screenshot here
+              Click here to upload payment screenshot
             </Typography>
           </TouchableOpacity>
         )}
@@ -308,7 +316,7 @@ const DepositContainerV2 = props => {
             mode="contained"
             disabled={!filePath.uri || progress}
             onPress={handlePayment}>
-            <Typography>Confirm</Typography>
+            <Typography>Submit</Typography>
           </ButtonEx>
         </View>
       </ScrollView>
@@ -342,8 +350,8 @@ const styles = StyleSheet.create({
   },
   underline: {
     borderBottomColor: Colors.appPrimaryColor,
-    borderBottomWidth: 3,
-    marginVertical: 10,
+    borderBottomWidth: 2,
+    marginVertical: 5,
     width: 60,
   },
   depositScreenshotCard: {
@@ -353,6 +361,9 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderWidth: 1,
     borderColor: Colors.appPrimaryColor,
+    minHeight: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   imageStyle: {
     padding: 5,

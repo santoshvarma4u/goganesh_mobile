@@ -116,12 +116,12 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
   },
   centerCard: {
-    alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: Colors.appBlackColorLight,
     borderRadius: metrics.borderRadius,
     height: 190,
-    padding: 24,
+    paddingHorizontal: 24,
+    paddingVertical: 14,
   },
   blankCard: {
     flex: 0.4,
