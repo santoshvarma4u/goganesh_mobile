@@ -19,6 +19,7 @@ const setUserDetails = async (data, phoneNumber, result) => {
   await Storage.setItemSync(StorageKeys.NAME, data.full_name);
   await Storage.setItemSync(StorageKeys.JWT, data.token);
   await Storage.setItemSync(StorageKeys.PHONE, phoneNumber);
+  await Storage.setItemSync(StorageKeys.MEMBER_SINCE, data.creadtedtime);
   authKey.token = data.token;
   authKey.usertype = data.usertype;
   NetworkAPI.apiClient.setHeader('authorization', authKey.token);

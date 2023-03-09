@@ -5,6 +5,7 @@ import React, {useState} from 'react';
 import {Alert} from 'react-native';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import Colors from '../../../Theams/Colors';
+import PhoneInput from '../../Common/PhoneInput';
 import {Typography} from '../../Common/Text';
 import LoginController from '../Controllers/LoginController';
 
@@ -87,7 +88,8 @@ const ForgotPassWordUI = props => {
       <View
         style={{
           flexDirection: 'row',
-          padding: 10,
+          alignItems: 'center',
+          justifyContent: 'center',
         }}>
         <TouchableOpacity
           style={styles.buttonStyle}
@@ -112,8 +114,7 @@ const ForgotPassWordUI = props => {
           <Typography style={styles.mainText}>
             Please enter your Phone Number
           </Typography>
-          <Input
-            style={styles.textInput}
+          <PhoneInput
             label={'Phone Number'}
             value={phone}
             onChangeText={value => {
@@ -141,7 +142,6 @@ const ForgotPassWordUI = props => {
       <View
         style={{
           flexDirection: 'row',
-          padding: 10,
         }}>
         <TouchableOpacity
           style={styles.buttonStyle}
@@ -165,13 +165,11 @@ const ForgotPassWordUI = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     paddingTop: 30,
     padding: 20,
     backgroundColor: Colors.backgroundColor,
   },
   textInput: {
-    width: '80%',
     color: Colors.appBlackColor,
   },
   containerStyle: {
@@ -200,11 +198,13 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     backgroundColor: Colors.appPrimaryColor,
-    paddingHorizontal: 60,
+    paddingHorizontal: 20,
     paddingVertical: 10,
-    marginHorizontal: 10,
-    marginTop: 20,
+    marginHorizontal: '25%',
     borderRadius: 10,
+    width: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

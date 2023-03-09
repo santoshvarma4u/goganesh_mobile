@@ -20,6 +20,7 @@ const images = {
   otplogin: require('../../assets/Images/otplogin.png'),
   upi: require('../../assets/Images/upi.png'),
   banktransfer1: require('../../assets/Images/bank_transfer.png'),
+  userprofile: require('../../assets/Images/user-profile-icon.png'),
 };
 
 export default images;

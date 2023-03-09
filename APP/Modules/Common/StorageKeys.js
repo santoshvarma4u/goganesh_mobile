@@ -5,5 +5,6 @@ const keys = {
   PHONE: 'phone',
   NAME: 'name',
   FCMTOKEN: 'fcmtoken',
+  MEMBER_SINCE: 'member_since',
 };
 export default {...keys};

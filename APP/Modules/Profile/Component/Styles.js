@@ -14,18 +14,21 @@ export default StyleSheet.create({
     backgroundColor: Colors.appBlackColor,
     alignItems: 'center',
     padding: 5,
+    marginTop: 50,
   },
   profileDetails: {
     padding: 10,
     alignItems: 'center',
-    marginTop: 20,
-    backgroundColor: Colors.appBlackColorLight,
     width: '90%',
     borderRadius: 10,
   },
   profileIcon: {
-    backgroundColor: 'white',
-    padding: 10,
+    borderRadius: 100,
+    marginTop: -60,
+    shadowRadius: 10,
+  },
+  profileIconInner: {
+    backgroundColor: Colors.appWhiteColor,
     borderRadius: 100,
   },
 });
