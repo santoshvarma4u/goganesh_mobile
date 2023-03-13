@@ -107,7 +107,9 @@ function ProfileScreen({navigation}) {
             </Typography>
           </Button>
           <Typography color={Colors.appWhiteColor} variant={'P1'}>
-            Member Since {moment(memberSince).format('D MMMM YY')}
+            {memberSince
+              ? `Member Since ${moment(memberSince).format('D MMMM YY')}`
+              : ''}
           </Typography>
         </View>
       </View>
