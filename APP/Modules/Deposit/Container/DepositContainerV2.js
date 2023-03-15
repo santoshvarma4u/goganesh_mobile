@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import {CommonActions, useNavigation} from '@react-navigation/native';
 import {Icon} from '@rneui/themed';
 import React, {useEffect, useState} from 'react';
@@ -46,7 +47,7 @@ const DepositContainerV2 = props => {
     data: [],
   });
 
-  const [filePath, setFilePath] = useState('');
+  const [filePath, setFilePath] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [paymentType, setPaymentType] = useState('');
   const [isCreatingId, setIsCreatingID] = useState(false);
@@ -96,10 +97,9 @@ const DepositContainerV2 = props => {
   });
 
   const setImageUpLoadProgress = progressEvent => {
-    const percentCompleted = Math.round(
-      (progressEvent.loaded * 100) / progressEvent.total,
-    );
-    setUploadProgress(percentCompleted);
+    const {loaded, total} = progressEvent;
+    let percent = Math.floor((loaded * 100) / total);
+    setUploadProgress(percent);
   };
 
   const chooseFile = () => {
@@ -117,26 +117,37 @@ const DepositContainerV2 = props => {
       },
     };
     FGImagePicker.launchImageLibrary(options, response => {
+      /**
+       * response {
+       *  didCancel: boolean,
+       *  error: string,
+       *  errorMessage: string,
+       *  assets: array of selected media
+       * }
+       */
+
       if (response.didCancel) {
+        alert('Please select image to upload');
       } else if (response.error) {
-      } else if (response.customButton) {
-        alert(response.customButton);
+        alert(response.error);
       } else {
-        let source = response;
-        setFilePath(source);
+        if (response.assets.length > 0) {
+          setFilePath(response.assets[0]);
+        } else {
+          alert('Please select image to upload');
+        }
       }
     });
   };
 
   const handlePayment = () => {
     // Handle Payment
-    if (filePath.length <= 0) {
+    if (!filePath) {
       return alert('please upload payment reference image');
     }
     if (!paymentType) {
       return alert('please select payment type');
     }
-
     setIsCreatingID(true);
     setProgress(true);
     if (requestStatus === 'wallet') {
@@ -229,7 +240,7 @@ const DepositContainerV2 = props => {
   return (
     <View style={styles.container}>
       {isCreatingId ? (
-        <LoadingIndicator loadingText={'Please wait....'} />
+        <LoadingIndicator loadingText={'Please wait....' + uploadProgress} />
       ) : null}
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Typography
@@ -279,7 +290,7 @@ const DepositContainerV2 = props => {
         {/*
         upload component for proof of payment
       */}
-        {filePath.uri ? (
+        {filePath?.uri ? (
           <View
             style={[
               styles.depositScreenshotCard,
@@ -314,7 +325,7 @@ const DepositContainerV2 = props => {
         <View>
           <ButtonEx
             mode="contained"
-            disabled={!filePath.uri || progress}
+            disabled={!filePath?.uri || progress}
             onPress={handlePayment}>
             <Typography>Submit</Typography>
           </ButtonEx>

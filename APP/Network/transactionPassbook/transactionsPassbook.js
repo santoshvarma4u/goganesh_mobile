@@ -17,13 +17,16 @@ const getUserTransactions = async filter => {
   const paymentEndPointOfUser = `/payment/${uid}`;
   return NetworkAPI.apiClient.get(paymentEndPointOfUser);
 };
-const createDepositPayment = data => {
+const createDepositPayment = (data, progress = () => {}) => {
   const headers = {
     'Content-Type': 'multipart/form-data',
   };
   // const tempApi = NetworkAPI.apiClient;
   // tempApi.setHeader('Content-Type', 'multipart/form-data');
-  return NetworkAPI.apiClient.post(paymentEndPoint, data, {headers});
+  return NetworkAPI.apiClient.post(paymentEndPoint, data, {
+    headers,
+    onUploadProgress: progress,
+  });
 };
 
 const createWithdrawPayment = data => {

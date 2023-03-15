@@ -27,7 +27,7 @@ const LoadingIndicator = ({
           autoPlay
           loop
           style={{
-            height: 250,
+            height: 150,
             width: '100%',
           }}
           source={require('../Assets/Animations/loadingball.json')}
