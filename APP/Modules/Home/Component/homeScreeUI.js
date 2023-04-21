@@ -2,6 +2,7 @@
 import {useNavigation} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
 import {Icon} from '@rneui/themed';
+import {setIn} from 'formik';
 import React, {useState, useEffect} from 'react';
 import {
   View,
@@ -14,6 +15,7 @@ import {
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import {connect, useDispatch} from 'react-redux';
+import reactotron from 'reactotron-react-native';
 import {env} from '../../../Network/api/server';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import {updateIdState} from '../../../Store/Slices/idStateSlice';
@@ -43,6 +45,12 @@ function HomeScreen(props) {
   const promoImages = HomeController.useGetPromoImages();
   const getMyIDs = IdController.getUserSpecificIDs();
   const [refreshing, setRefreshing] = React.useState(false);
+
+  useEffect(() => {
+    setInterval(() => {
+      wallet.request();
+    }, 5000);
+  }, []);
 
   useEffect(() => {
     props.setWallet({walletBalance: wallet.data});

@@ -29,10 +29,12 @@ const slice = createSlice({
     },
     setWalletBalance: (state, action) => {
       const {walletBalance} = action.payload;
-      if (!walletBalance || !Number(walletBalance)) {
+
+      if (typeof walletBalance === 'object') {
         return;
       }
       state.walletBalance = action.payload.walletBalance;
+      reactotron.log('state.walletBalance', state.walletBalance);
     },
   },
 });
