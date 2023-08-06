@@ -54,10 +54,12 @@ const styles = StyleSheet.create({
     color: Colors.appWhiteColor,
     fontSize: 16,
     marginVertical: 5,
+    marginBottom: 20,
   },
   button: {
     flexDirection: 'row',
-    height: 50,
+    height: 40,
+    marginVertical: 10,
     paddingHorizontal: 20,
     backgroundColor: Colors.appPrimaryColor,
     alignItems: 'center',

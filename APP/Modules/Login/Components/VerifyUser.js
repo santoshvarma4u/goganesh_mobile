@@ -5,6 +5,7 @@ import {Button} from 'react-native-paper';
 import * as Yup from 'yup';
 import Colors from '../../../Theams/Colors';
 import {getWhatsappMessageUrl} from '../../../Utils';
+import ChatScreen from '../../Chat/ChatScreen';
 import PhoneInput from '../../Common/PhoneInput';
 import {Typography} from '../../Common/Text';
 const screenWidth = Dimensions.get('window').width;
@@ -101,6 +102,7 @@ const VerifyUser = ({onSubmit, howItWorksClick}) => {
             How to use ?
           </Typography>
         </TouchableHighlight>
+        <ChatScreen />
         <Button
           style={{
             borderRadius: 20,

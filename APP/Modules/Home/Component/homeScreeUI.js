@@ -24,6 +24,7 @@ import Colors from '../../../Theams/Colors';
 import Images from '../../../Theams/Images';
 import metrics from '../../../Theams/Metrics';
 import {getWhatsappMessageUrl} from '../../../Utils';
+import ChatScreen from '../../Chat/ChatScreen';
 import FGImage from '../../Common/FGImage';
 import FGSliderBox from '../../Common/SliderBox';
 import {Typography} from '../../Common/Text';
@@ -291,6 +292,7 @@ function HomeScreen(props) {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
+            <ChatScreen />
             <Button
               style={[styles.marginVertical, {width: '80%'}]}
               mode={'contained'}
