@@ -46,11 +46,11 @@ function HomeScreen(props) {
   const getMyIDs = IdController.getUserSpecificIDs();
   const [refreshing, setRefreshing] = React.useState(false);
 
-  useEffect(() => {
-    setInterval(() => {
-      wallet.request();
-    }, 5000);
-  }, []);
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     wallet.request();
+  //   }, 5000);
+  // }, []);
 
   useEffect(() => {
     props.setWallet({walletBalance: wallet.data});
