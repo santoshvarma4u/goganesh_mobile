@@ -1,6 +1,8 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React, {Component} from 'react';
 import 'react-native-gesture-handler';
+import {Text, View} from 'react-native';
+import CodePush from 'react-native-code-push';
 import OneSignal from 'react-native-onesignal';
 import {
   DefaultTheme,
@@ -12,6 +14,8 @@ import CONSTANTS from './APP/Constants';
 import {AppContainer, _navigationRef} from './APP/Navigation/navigation';
 import {store} from './APP/Store/Index';
 import Colors from './APP/Theams/Colors';
+// eslint-disable-next-line import/order
+import Bugsnag from '@bugsnag/react-native';
 // import GlobalFont from './GlobalFont';
 if (__DEV__) {
   import('./APP/Modules/Common/ReactotronConfig').then(() =>
@@ -21,6 +25,16 @@ if (__DEV__) {
 /**
  * One Signal Setup
  */
+
+Bugsnag.start();
+
+const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React);
+
+const ErrorView = () => (
+  <View>
+    <Text>Something went wrong.</Text>
+  </View>
+);
 
 //OneSignal Init Code
 OneSignal.setLogLevel(6, 0);
@@ -99,19 +113,28 @@ const theme = {
   fonts: configureFonts(fontConfig),
 };
 // open "rndebugger://set-debugger-loc?host=localhost&port=8081"
-export default class App extends Component {
+class App extends Component {
   render() {
     // Setting a global font here for more refer https://github.com/nguyenhuynghia/react-native-global-font
     //Provider from redux
 
     return (
-      <Provider store={store}>
-        <PaperProvider theme={theme}>
-          <NavigationContainer ref={_navigationRef}>
-            <AppContainer />
-          </NavigationContainer>
-        </PaperProvider>
-      </Provider>
+      <ErrorBoundary FallbackComponent={ErrorView}>
+        <Provider store={store}>
+          <PaperProvider theme={theme}>
+            <NavigationContainer ref={_navigationRef}>
+              <AppContainer />
+            </NavigationContainer>
+          </PaperProvider>
+        </Provider>
+      </ErrorBoundary>
     );
   }
 }
+
+const codePushOptions = {
+  checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME,
+  installMode: CodePush.InstallMode.IMMEDIATE,
+};
+
+export default CodePush(codePushOptions)(App);

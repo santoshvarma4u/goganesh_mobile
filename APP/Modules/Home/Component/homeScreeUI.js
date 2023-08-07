@@ -273,7 +273,7 @@ function HomeScreen(props) {
                 style={{
                   color: '#d5d1d1',
                 }}>
-                Explore More
+                Support
               </Typography>
               <View
                 style={{

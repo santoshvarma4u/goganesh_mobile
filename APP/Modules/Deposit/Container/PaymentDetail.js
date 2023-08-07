@@ -17,7 +17,7 @@ export const ClipboardItem = ({text, needCopyText = true, isHome = false}) => {
       onPress={() => {
         Clipboard.setString(text || '');
       }}>
-      <Typography style={styles.text}>{text}</Typography>
+      <Typography style={styles.detailsText}>{text}</Typography>
       {needCopyText ? (
         <View
           style={{
@@ -112,6 +112,8 @@ const PaymentDetail = ({selectedMedium}) => {
                   flexDirection: 'row',
                   alignItems: 'center',
                   justifyContent: 'space-between',
+                  width: '100%',
+                  flex: 1,
                 }}>
                 <PaymentIcon paymenttype={item?.paymenttype} />
                 <View style={styles.displayName}>
@@ -119,13 +121,10 @@ const PaymentDetail = ({selectedMedium}) => {
                     {item.paymentname}
                   </Typography>
                   {item.paymentkey && (
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                      }}>
+                    <>
                       <ClipboardItem text={item.paymentkey} />
-                    </View>
+                      {/*<ClipboardItem text="asdfghjklwertyuiopasdfghjklasdfghjklwertyuiopasdfghjkl" />*/}
+                    </>
                   )}
                 </View>
               </View>
@@ -153,6 +152,12 @@ const styles = StyleSheet.create({
     color: Colors.appWhiteColor,
     fontSize: 12,
     marginRight: 4,
+  },
+  detailsText: {
+    color: Colors.appWhiteColor,
+    fontSize: 12,
+    marginRight: 4,
+    maxWidth: 120,
   },
   flex1: {
     flex: 1,

@@ -92,7 +92,9 @@ const ChatScreen = () => {
         style={styles.button}
         onPress={() => toggleWidget(true)}>
         <Icon name="chat" size={20} style={{marginRight: 5}} />
-        <Typography variant="P1">Chat with us</Typography>
+        <Typography variant="P1" color={Colors.appBlackColor}>
+          Chat with us
+        </Typography>
       </TouchableOpacity>
       {userDetails && (
         <ChatWootWidget

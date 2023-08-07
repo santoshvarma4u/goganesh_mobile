@@ -951,11 +951,18 @@ const BottomTabNavigator = () => {
             iconName = 'home';
             type = 'foundation';
           } else if (route.name === 'Passbook') {
-            return <PassbookIcon color={color} />;
+            return (
+              <PassbookIcon
+                width={30}
+                height={26}
+                color={color}
+                style={{marginLeft: 7}}
+              />
+            );
           } else if (route.name === "ID's") {
             iconName = 'switch-account';
           }
-          return <Icon size={28} type={type} name={iconName} color={color} />;
+          return <Icon size={24} type={type} name={iconName} color={color} />;
         },
         tabBarActiveTintColor: Colors.appPrimaryColor,
         tabBarInactiveTintColor: 'gray',

@@ -182,7 +182,6 @@ const HomeListMyIDs = props => {
             style={{
               alignItems: 'center',
               color: 'white',
-              marginLeft: 4,
               fontSize: 10,
               paddingBottom: 10,
             }}>
@@ -192,7 +191,7 @@ const HomeListMyIDs = props => {
             style={{
               backgroundColor: Colors.appGreenColor,
               height: 3,
-              width: 80,
+              width: 70,
             }}
           />
         </TouchableOpacity>
@@ -222,7 +221,6 @@ const HomeListMyIDs = props => {
             style={{
               alignItems: 'center',
               color: 'white',
-              marginLeft: 4,
               fontSize: 10,
               paddingBottom: 10,
             }}>
@@ -232,8 +230,8 @@ const HomeListMyIDs = props => {
             style={{
               backgroundColor: Colors.appRedColor,
               borderRadius: 5,
-              height: 3,
-              width: 80,
+              height: 2,
+              width: 70,
             }}
           />
         </TouchableOpacity>
