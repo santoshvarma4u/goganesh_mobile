@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import {BottomSheet, Divider, Icon, ListItem} from '@rneui/themed';
+import {Divider, Icon} from '@rneui/themed';
 import React, {useEffect, useState} from 'react';
 
 import {
@@ -164,12 +164,10 @@ const HomeListMyIDs = props => {
       <View style={styles.depositWithdraw}>
         <TouchableOpacity
           style={{
-            justifyContent: 'center',
+            justifyContent: 'space-between',
             flex: 1,
             paddingTop: 5,
             alignItems: 'center',
-            flexDirection: 'row',
-            marginBottom: 8,
           }}
           onPress={() => {
             props.navigation.navigate('CreateID', {
@@ -179,12 +177,6 @@ const HomeListMyIDs = props => {
               requestStatus: 'old',
             });
           }}>
-          <Icon
-            name="arrow-up"
-            type="material-community"
-            color={Colors.appGreenColor}
-            size={18}
-          />
           <Typography
             variant="H5"
             style={{
@@ -192,19 +184,32 @@ const HomeListMyIDs = props => {
               color: 'white',
               marginLeft: 4,
               fontSize: 10,
+              paddingBottom: 10,
             }}>
-            DEPOSIT
+            Deposit
           </Typography>
+          <View
+            style={{
+              backgroundColor: Colors.appGreenColor,
+              height: 3,
+              width: 80,
+            }}
+          />
         </TouchableOpacity>
+        <View
+          style={{
+            width: 1,
+            backgroundColor: Colors.appBlackColor,
+            height: 20,
+            marginTop: 5,
+          }}
+        />
         <TouchableOpacity
           style={{
-            justifyContent: 'center',
-            alignItems: 'center',
+            justifyContent: 'space-between',
             flex: 1,
             paddingTop: 5,
-            flexDirection: 'row',
-            borderColor: Colors.appBlackColor,
-            marginBottom: 8,
+            alignItems: 'center',
           }}
           onPress={() => {
             props.navigation.navigate('Withdraw', {
@@ -212,12 +217,6 @@ const HomeListMyIDs = props => {
               data: props.data,
             });
           }}>
-          <Icon
-            name="arrow-down"
-            type="material-community"
-            color={Colors.appRedColor}
-            size={18}
-          />
           <Typography
             variant="H5"
             style={{
@@ -225,9 +224,18 @@ const HomeListMyIDs = props => {
               color: 'white',
               marginLeft: 4,
               fontSize: 10,
+              paddingBottom: 10,
             }}>
-            WITHDRAW
+            Withdraw
           </Typography>
+          <View
+            style={{
+              backgroundColor: Colors.appRedColor,
+              borderRadius: 5,
+              height: 3,
+              width: 80,
+            }}
+          />
         </TouchableOpacity>
       </View>
     );
@@ -364,14 +372,13 @@ const styles = StyleSheet.create({
   },
   depositWithdraw: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: Colors.appBlackColorLight,
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     borderTopWidth: 1,
     borderColor: Colors.appBlackColorLight,
-    padding: 4,
+    paddingTop: 4,
   },
 });
 
