@@ -1,74 +1,72 @@
-import {Divider, Icon} from '@rneui/themed';
-import React, {useState, useEffect} from 'react';
-import {
-  Text,
-  View,
-  Button,
-  ActivityIndicator,
-  TouchableOpacity,
-  Image,
-  Modal,
-  Linking,
-} from 'react-native';
+import React from 'react';
+import {View, TouchableOpacity, Image, Linking, StyleSheet} from 'react-native';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
 import {getWhatsappMessageUrl} from '../../../Utils';
+import ChatScreen from '../../Chat/ChatScreen';
 import FGImage from '../../Common/FGImage';
 import {Typography} from '../../Common/Text';
-import styles from '../../Splash/Component/Styles';
+
 function HelpScreen({route}) {
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        backgroundColor: Colors.appBlackColor,
-      }}>
-      <View style={{flex: 1, alignItems: 'center'}}>
+    <View style={styles.container}>
+      <View style={styles.flexCenter}>
         <Image
           source={images.concern}
-          style={{height: 200, width: 200, marginTop: 100}}
+          style={styles.image}
           resizeMode={'contain'}
         />
-        <Typography
-          style={{
-            color: Colors.appPrimaryColor,
-            fontSize: 20,
-            marginVertical: 10,
-          }}>
-          Raise your concern
-        </Typography>
-        <Typography
-          style={{
-            color: Colors.appWhiteColor,
-            fontSize: 16,
-            marginVertical: 5,
-          }}>
-          {' '}
-          How can we help you{' '}
-        </Typography>
+        <Typography style={styles.title}>Raise your concern</Typography>
+        <Typography style={styles.subTitle}> How can we help you </Typography>
+        <ChatScreen />
         <TouchableOpacity
           onPress={() => {
             let url = getWhatsappMessageUrl();
             Linking.openURL(url);
-          }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              width: 120,
-              height: 50,
-              marginTop: 100,
-              backgroundColor: Colors.appPrimaryColor,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <FGImage style={{height: 20, width: 20}} source={images.whatsapp} />
-            <Typography> Whatsapp </Typography>
-          </View>
+          }}
+          style={styles.button}>
+          <FGImage style={{height: 20, width: 20}} source={images.whatsapp} />
+          <Typography variant="P1"> Whatsapp </Typography>
         </TouchableOpacity>
       </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: Colors.appBlackColor,
+  },
+  flexCenter: {flex: 1, alignItems: 'center'},
+  image: {
+    height: 200,
+    width: 200,
+    marginTop: 100,
+  },
+  title: {
+    color: Colors.appWhiteColor,
+    fontSize: 20,
+    marginVertical: 10,
+  },
+  subTitle: {
+    color: Colors.appWhiteColor,
+    fontSize: 16,
+    marginVertical: 5,
+    marginBottom: 20,
+  },
+  button: {
+    flexDirection: 'row',
+    height: 40,
+    marginVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: Colors.appPrimaryColor,
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: 200,
+    borderRadius: 5,
+  },
+});
 
 export default HelpScreen;

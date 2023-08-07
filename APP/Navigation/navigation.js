@@ -10,6 +10,7 @@ import {View} from 'react-native';
 import {Appbar} from 'react-native-paper';
 import PassbookIcon from '../Assets/svgs/passbookIcon';
 // import ChatContainer from '../Modules/Chat/Container/ChatContainer';
+import ChatScreen from '../Modules/Chat/ChatScreen';
 import TypographyStyles from '../Modules/Common/Text/Text.styles';
 import CreateIDScreen from '../Modules/CreateID/Container/createIDIndex';
 import DepositContainer from '../Modules/Deposit/Container/DepositContainer';
@@ -966,6 +967,7 @@ const BottomTabNavigator = () => {
         component={IDsStackNavigator}
         initialRouteName="ID's"
       />
+      {/* <Tab.Screen name="Chat" component={ChatScreen} /> */}
     </Tab.Navigator>
   );
 };

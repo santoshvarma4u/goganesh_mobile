@@ -6,6 +6,8 @@
   "docwriter.progress.trackFunctions": true,
   "cSpell.words": [
     "Appbar",
+    "chatwoot",
+    "fgpunt",
     "fgpuntlogo",
     "formik",
     "Ionicons",
@@ -14,6 +16,7 @@
     "Pressable",
     "rneui",
     "sitename",
-    "Theams"
+    "Theams",
+    "Woot"
   ]
 }

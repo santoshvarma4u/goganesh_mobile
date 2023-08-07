@@ -78,7 +78,9 @@ const AccordionListNew = props => {
               siteimage: props.data.siteimage,
             });
           }}>
-          <Typography variant="H4" color={Colors.appBlackColor}>Create</Typography>
+          <Typography variant="H4" color={Colors.appBlackColor}>
+            Create
+          </Typography>
         </Pressable>
       </View>
     );

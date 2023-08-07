@@ -21,6 +21,7 @@ const images = {
   upi: require('../../assets/Images/upi.png'),
   banktransfer1: require('../../assets/Images/bank_transfer.png'),
   userprofile: require('../../assets/Images/user-profile-icon.png'),
+  arrowMsg: require('../../assets/Images/msg-arrow.png'),
 };
 
 export default images;
