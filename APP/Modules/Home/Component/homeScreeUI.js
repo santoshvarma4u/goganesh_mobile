@@ -13,7 +13,7 @@ import {
   RefreshControl,
   Pressable,
 } from 'react-native';
-import {Button} from 'react-native-paper';
+import {Button, IconButton} from 'react-native-paper';
 import {connect, useDispatch} from 'react-redux';
 import reactotron from 'reactotron-react-native';
 import {env} from '../../../Network/api/server';
@@ -293,25 +293,26 @@ function HomeScreen(props) {
               alignItems: 'center',
             }}>
             <ChatScreen />
-            <Button
-              style={[styles.marginVertical, {width: '80%'}]}
-              mode={'contained'}
-              icon={'whatsapp'}
-              color={Colors.appGreenColor}
-              onPress={() => {
-                let url = getWhatsappMessageUrl();
-                Linking.openURL(url);
-              }}>
-              WhatsApp Support
-            </Button>
-            <Typography
-              color={Colors.appWhiteColor}
-              style={styles.marginVertical}
-              variant="caption">
-              Get your Queries,new updates and latest offers via WhatsApp
-              support
-            </Typography>
           </View>
+          <IconButton
+            style={[
+              styles.marginVertical,
+              {
+                borderRadius: 50,
+                backgroundColor: Colors.appGreenColor,
+                position: 'absolute',
+                bottom: 10,
+                right: 10,
+              },
+            ]}
+            icon={'whatsapp'}
+            size={30}
+            color={Colors.appWhiteColor}
+            onPress={() => {
+              let url = getWhatsappMessageUrl();
+              Linking.openURL(url);
+            }}
+          />
         </View>
       </View>
     </ScrollView>
