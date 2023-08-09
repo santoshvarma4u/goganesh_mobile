@@ -4,6 +4,7 @@ import {Icon} from '@rneui/themed';
 import CryptoJS from 'crypto-js';
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
+import {connect} from 'react-redux';
 import {getUid} from '../../Network/api/server';
 import Colors from '../../Theams/Colors';
 import images from '../../Theams/Images';
@@ -43,7 +44,7 @@ const customAttributes = {
   status: 'active',
 };
 
-const ChatScreen = () => {
+const ChatScreen = ({wallet = 0}) => {
   const [showWidget, toggleWidget] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -69,6 +70,7 @@ const ChatScreen = () => {
     setUserDetails(name !== 'Unknown User' ? user : {});
     customAttributes.userID = userId;
     customAttributes.phone = phone;
+    customAttributes.walletBalance = wallet;
     const deviceDetails = await getDeviceData();
     customAttributes.deviceDetails = deviceDetails;
     const isOnboarding = await getChatOnboardingStatus();
@@ -168,4 +170,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChatScreen;
+const mapStateToProps = state => {
+  return {
+    wallet: state.home.walletBalance,
+    userBanks: state.userdetails.userBanks,
+  };
+};
+
+export default connect(mapStateToProps)(ChatScreen);
