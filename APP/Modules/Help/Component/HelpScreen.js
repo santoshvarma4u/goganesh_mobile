@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, TouchableOpacity, Image, Linking, StyleSheet} from 'react-native';
+import {getUid} from '../../../Network/api/server';
+import {useLazyGetSupportNumberQuery} from '../../../Network/api/user';
 import Colors from '../../../Theams/Colors';
 import images from '../../../Theams/Images';
 import {getWhatsappMessageUrl} from '../../../Utils';
@@ -8,6 +10,16 @@ import FGImage from '../../Common/FGImage';
 import {Typography} from '../../Common/Text';
 
 function HelpScreen({route}) {
+  const [getSupportNumber, {data: supportNumber}] =
+    useLazyGetSupportNumberQuery();
+
+  useEffect(() => {
+    getUid().then(uid => {
+      getSupportNumber({uid});
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.flexCenter}>
@@ -21,7 +33,7 @@ function HelpScreen({route}) {
         <ChatScreen />
         <TouchableOpacity
           onPress={() => {
-            let url = getWhatsappMessageUrl();
+            let url = getWhatsappMessageUrl(supportNumber?.data?.phone);
             Linking.openURL(url);
           }}
           style={styles.button}>

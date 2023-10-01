@@ -36,10 +36,16 @@ const resetUserSitePassword = async data => {
   );
 };
 
+const getSupportNumber = async () => {
+  let userid = await getUID();
+  return NetworkAPI.apiClient.get(`/users/support/${userid}`);
+};
+
 export default {
   getUsers,
   createUser,
   getWalletBalance,
   getAllNotifications,
   resetUserSitePassword,
+  getSupportNumber,
 };

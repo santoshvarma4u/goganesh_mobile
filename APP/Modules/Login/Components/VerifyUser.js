@@ -4,7 +4,6 @@ import {Dimensions, Linking, TouchableHighlight, View} from 'react-native';
 import {Button} from 'react-native-paper';
 import * as Yup from 'yup';
 import Colors from '../../../Theams/Colors';
-import {getWhatsappMessageUrl} from '../../../Utils';
 import ChatScreen from '../../Chat/ChatScreen';
 import PhoneInput from '../../Common/PhoneInput';
 import {Typography} from '../../Common/Text';
@@ -103,7 +102,7 @@ const VerifyUser = ({onSubmit, howItWorksClick}) => {
           </Typography>
         </TouchableHighlight>
         <ChatScreen />
-        <Button
+        {/* <Button
           style={{
             borderRadius: 20,
             marginTop: 10,
@@ -117,7 +116,7 @@ const VerifyUser = ({onSubmit, howItWorksClick}) => {
             Linking.openURL(url);
           }}>
           Whatsapp Support
-        </Button>
+        </Button> */}
       </View>
     </View>
   );

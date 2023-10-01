@@ -22,6 +22,7 @@ import styles from './Styles';
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+const alphaNumRegExp = /^[a-zA-Z0-9]*$/;
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
@@ -47,6 +48,11 @@ const SignupSchema = Yup.object().shape({
       ),
     }),
   otp: Yup.string(),
+  client: Yup.string()
+    .min(6, 'Referral Code is Too Short!')
+    .max(6, 'Referral Code is Too Long!')
+    .matches(alphaNumRegExp, 'Referral Code is Invalid')
+    .required('Referral Code is Required'),
 });
 
 function SingUp({route}) {
@@ -132,20 +138,16 @@ function SingUp({route}) {
                     helperText={touched.name && errors.name ? errors.name : ' '}
                   />
                   <PhoneInput
-                    value={values.phoneNumber}
+                    value={values.phone}
                     defaultCode="IN"
                     layout="second"
-                    onChangeText={handleChange('phoneNumber')}
+                    disabled={true}
+                    onChangeText={handleChange('phone')}
                     withDarkTheme
                     textInputProps={{
-                      error:
-                        touched.phoneNumber && errors.phoneNumber
-                          ? errors.phoneNumber
-                          : '',
+                      error: touched.phone && errors.phone ? errors.phone : '',
                       helperText:
-                        touched.phoneNumber && errors.phoneNumber
-                          ? errors.phoneNumber
-                          : '',
+                        touched.phone && errors.phone ? errors.phone : '',
                     }}
                   />
                   <CommonTextInput
@@ -183,8 +185,12 @@ function SingUp({route}) {
                     }
                   />
                   <CommonTextInput
-                    label="Enter Referral Code(Optional)"
+                    label="Enter Referral Code"
                     onChangeText={handleChange('client')}
+                    value={values.client}
+                    error={errors.client ? errors.client : false}
+                    maxLength={6}
+                    helperText={errors.client ? errors.client : ' '}
                   />
                   {showOTP && (
                     <CommonTextInput

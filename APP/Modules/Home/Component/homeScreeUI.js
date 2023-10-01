@@ -2,7 +2,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {useFocusEffect} from '@react-navigation/native';
 import {Icon} from '@rneui/themed';
-import {setIn} from 'formik';
 import React, {useState, useEffect} from 'react';
 import {
   View,
@@ -13,10 +12,11 @@ import {
   RefreshControl,
   Pressable,
 } from 'react-native';
-import {Button, IconButton} from 'react-native-paper';
+import {IconButton} from 'react-native-paper';
 import {connect, useDispatch} from 'react-redux';
 import reactotron from 'reactotron-react-native';
-import {env} from '../../../Network/api/server';
+import {env, getUid} from '../../../Network/api/server';
+import {useLazyGetSupportNumberQuery} from '../../../Network/api/user';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import {updateIdState} from '../../../Store/Slices/idStateSlice';
 import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetailsSlice';
@@ -46,12 +46,15 @@ function HomeScreen(props) {
   const promoImages = HomeController.useGetPromoImages();
   const getMyIDs = IdController.getUserSpecificIDs();
   const [refreshing, setRefreshing] = React.useState(false);
+  const [getSupportNumber, {data: supportNumber}] =
+    useLazyGetSupportNumberQuery();
 
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     wallet.request();
-  //   }, 5000);
-  // }, []);
+  useEffect(() => {
+    getUid().then(uid => {
+      getSupportNumber({uid});
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     props.setWallet({walletBalance: wallet.data});
@@ -309,7 +312,7 @@ function HomeScreen(props) {
             size={30}
             color={Colors.appWhiteColor}
             onPress={() => {
-              let url = getWhatsappMessageUrl();
+              let url = getWhatsappMessageUrl(supportNumber?.data?.phone);
               Linking.openURL(url);
             }}
           />

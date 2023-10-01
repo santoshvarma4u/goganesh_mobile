@@ -61,9 +61,14 @@ export function convertSecondsToHHMMSS(seconds) {
   return final;
 }
 
-export const getWhatsappMessageUrl = () => {
+export const getWhatsappMessageUrl = phone => {
+  const DEFAULT = '919777087770';
+  if (phone && phone.length === 10) {
+    phone = `91${phone}`;
+  }
   return (
     'whatsapp://send?text= Please raise your concern here' +
-    '&phone=919777087770'
+      '&phone=' +
+      phone ?? DEFAULT
   );
 };
