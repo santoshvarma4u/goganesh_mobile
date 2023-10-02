@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import {Divider, Icon} from '@rneui/themed';
+import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 
 import {
@@ -125,7 +126,7 @@ const HomeListMyIDs = props => {
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
-                marginTop: 5,
+                marginTop: 10,
               }}>
               <View
                 style={{
@@ -148,6 +149,44 @@ const HomeListMyIDs = props => {
                 needCopyText={false}
               />
             </View>
+            {props.data.creadtedtime &&
+              moment().diff(moment(props.data.creadtedtime), 'hours') <= 5 && (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginTop: 15,
+                  }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor: Colors.buttonBackgroundColor,
+                      borderRadius: 5,
+                      padding: 3,
+                      marginRight: 5,
+                    }}>
+                    <Icon
+                      name="person"
+                      type={'ionicon'}
+                      color="white"
+                      size={12}
+                    />
+                    <Typography style={styles.credTitle}> Password </Typography>
+                  </View>
+                  <ClipboardItem
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      right: 0,
+                    }}
+                    text={props.data.password}
+                    isHome={true}
+                    needCopyText={false}
+                  />
+                </View>
+              )}
           </View>
         </View>
         <View
@@ -344,7 +383,7 @@ const styles = StyleSheet.create({
     width: screenWidth,
     borderWidth: 10,
     borderColor: Colors.appBlackColor,
-    height: 150,
+    height: 180,
     overflow: 'hidden',
   },
   image: {
