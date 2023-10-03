@@ -3,7 +3,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
-target 'demoPractice' do
+target 'GoGanesh' do
   config = use_native_modules!
 
   use_react_native!(
@@ -14,7 +14,7 @@ target 'demoPractice' do
 
   pod 'ReactNativeExceptionHandler', :path => '../node_modules/react-native-exception-handler'
 
-  target 'demoPracticeTests' do
+  target 'GoGaneshTests' do
     inherit! :complete
     # Pods for testing
   end

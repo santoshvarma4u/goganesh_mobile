@@ -124,7 +124,7 @@ export default class Splash extends PureComponent {
         ]}
         style={styles.splashContainer}>
         <Image
-          source={require('../../../Assets/Images/logo_only.png')}
+          source={require('../../../Assets/Images/goganeshlogo.png')}
           resizeMode={'contain'}
           width={screenWidth / 2}
           height={screenHeight / 2}

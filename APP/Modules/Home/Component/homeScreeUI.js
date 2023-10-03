@@ -295,7 +295,7 @@ function HomeScreen(props) {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <ChatScreen />
+            {/*<ChatScreen />*/}
           </View>
           <IconButton
             style={[

@@ -28,9 +28,9 @@ function HelpScreen({route}) {
           style={styles.image}
           resizeMode={'contain'}
         />
-        <Typography style={styles.title}>Raise your concern</Typography>
-        <Typography style={styles.subTitle}> How can we help you </Typography>
-        <ChatScreen />
+        {/*<Typography style={styles.title}>Raise your concern</Typography>*/}
+        {/*<Typography style={styles.subTitle}> How can we help you </Typography>*/}
+        {/*<ChatScreen />*/}
         <TouchableOpacity
           onPress={() => {
             let url = getWhatsappMessageUrl(supportNumber?.data?.phone);

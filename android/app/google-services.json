@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "285872690248",
-    "project_id": "go-ganesh-user",
-    "storage_bucket": "go-ganesh-user.appspot.com"
+    "project_number": "997722872234",
+    "project_id": "goganesh-588bd",
+    "storage_bucket": "goganesh-588bd.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:285872690248:android:144a816a38c10abaed747d",
+        "mobilesdk_app_id": "1:997722872234:android:d8be4cbb2524893cfe33d3",
         "android_client_info": {
-          "package_name": "com.demopractice"
+          "package_name": "com.goganesh"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "285872690248-j8gqchodd1dtju5h29hmc1g1maachm2q.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC0E5m0DY0WKe8NbicY4_UE4kyS3aNa0vE"
+          "current_key": "AIzaSyDwCXH9CScVGuVetMkOScH8vZZR6dYD4i8"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "285872690248-j8gqchodd1dtju5h29hmc1g1maachm2q.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

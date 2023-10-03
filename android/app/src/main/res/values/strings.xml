@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">FG Punt</string>
+    <string name="app_name">Go Ganesh</string>
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
-    <string moduleConfig="true" name="CodePushDeploymentKey">I_FCrMGzJL52aJ5NokDMb90RIIhy2ECdJHNsu</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">bUEM2m9xny2QZeEQSSLO322xe1qzHBLkrzZSF</string>
 </resources>

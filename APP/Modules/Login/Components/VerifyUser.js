@@ -96,12 +96,12 @@ const VerifyUser = ({onSubmit, howItWorksClick}) => {
             style={{
               color: Colors.appWhiteColor,
               textAlign: 'center',
-              marginTop: 20,
+              marginVertical: 20,
             }}>
             How to use ?
           </Typography>
         </TouchableHighlight>
-        <ChatScreen />
+        {/*<ChatScreen />*/}
         {/* <Button
           style={{
             borderRadius: 20,

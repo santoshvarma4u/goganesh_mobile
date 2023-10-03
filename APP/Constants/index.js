@@ -1,5 +1,5 @@
 const CONSTANTS = {
-  ONE_SIGNAL_APP_ID: 'e62eb896-543c-4aee-838f-31db6f53a214',
+  ONE_SIGNAL_APP_ID: '9e64e364-b867-45a8-b7b4-4d3ae22a62ae',
   CASHFREE_APPID: '2028452d9b12aac9cd7c1e39b2548202',
   DEPOSIT_INTO_WALLET_UPI: 'Deposit into wallet - UPI- screenshot approval',
   DEPOSIT_INTO_WALLET_PAYMENT_GATEWAY: 'Deposit into wallet - Payment Gateway',
