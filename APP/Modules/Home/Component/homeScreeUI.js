@@ -21,6 +21,7 @@ import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import {updateIdState} from '../../../Store/Slices/idStateSlice';
 import {setUserBanks as reduxSetUserBank} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
+import colors from '../../../Theams/Colors';
 import Images from '../../../Theams/Images';
 import metrics from '../../../Theams/Metrics';
 import {getWhatsappMessageUrl} from '../../../Utils';
@@ -97,7 +98,10 @@ function HomeScreen(props) {
 
   return (
     <ScrollView
-      contentContainerStyle={styles.containerMain}
+      contentContainerStyle={[
+        styles.containerMain,
+        {height: metrics.screenHeight},
+      ]}
       refreshControl={
         <RefreshControl
           refreshing={refreshing}
@@ -110,7 +114,27 @@ function HomeScreen(props) {
           }}
         />
       }>
-      <View>
+      <View style={{backgroundColor: colors.appPrimaryColor}}>
+        <IconButton
+          style={[
+            styles.marginVertical,
+            {
+              borderRadius: 50,
+              backgroundColor: Colors.appGreenColor,
+              position: 'absolute',
+              top: metrics.screenHeight - 180,
+              zIndex: 1000,
+              right: 10,
+            },
+          ]}
+          icon={'whatsapp'}
+          size={30}
+          color={Colors.appWhiteColor}
+          onPress={() => {
+            let url = getWhatsappMessageUrl(supportNumber?.data?.phone);
+            Linking.openURL(url);
+          }}
+        />
         <View style={styles.upperContainer}>
           <View
             style={{
@@ -264,30 +288,30 @@ function HomeScreen(props) {
             )}
             keyExtractor={(item, index) => index.toString()}
           />
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginHorizontal: 20,
-            }}>
-            <View>
-              <Typography
-                variant="H3"
-                style={{
-                  color: '#d5d1d1',
-                }}>
-                Support
-              </Typography>
-              <View
-                style={{
-                  borderBottomColor: Colors.appPrimaryColor,
-                  borderBottomWidth: 2,
-                  marginTop: 5,
-                  width: 40,
-                }}
-              />
-            </View>
-          </View>
+          {/*<View*/}
+          {/*  style={{*/}
+          {/*    flexDirection: 'row',*/}
+          {/*    alignItems: 'center',*/}
+          {/*    marginHorizontal: 20,*/}
+          {/*  }}>*/}
+          {/*  <View>*/}
+          {/*    <Typography*/}
+          {/*      variant="H3"*/}
+          {/*      style={{*/}
+          {/*        color: '#d5d1d1',*/}
+          {/*      }}>*/}
+          {/*      Support*/}
+          {/*    </Typography>*/}
+          {/*    <View*/}
+          {/*      style={{*/}
+          {/*        borderBottomColor: Colors.appPrimaryColor,*/}
+          {/*        borderBottomWidth: 2,*/}
+          {/*        marginTop: 5,*/}
+          {/*        width: 40,*/}
+          {/*      }}*/}
+          {/*    />*/}
+          {/*  </View>*/}
+          {/*</View>*/}
           <View
             style={{
               marginHorizontal: 10,
@@ -297,25 +321,6 @@ function HomeScreen(props) {
             }}>
             {/*<ChatScreen />*/}
           </View>
-          <IconButton
-            style={[
-              styles.marginVertical,
-              {
-                borderRadius: 50,
-                backgroundColor: Colors.appGreenColor,
-                position: 'absolute',
-                bottom: 10,
-                right: 10,
-              },
-            ]}
-            icon={'whatsapp'}
-            size={30}
-            color={Colors.appWhiteColor}
-            onPress={() => {
-              let url = getWhatsappMessageUrl(supportNumber?.data?.phone);
-              Linking.openURL(url);
-            }}
-          />
         </View>
       </View>
     </ScrollView>

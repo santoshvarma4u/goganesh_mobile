@@ -4,7 +4,7 @@ import metrics from '../../../Theams/Metrics';
 
 export default StyleSheet.create({
   containerMain: {
-    backgroundColor: Colors.appPrimaryColor,
+    backgroundColor: Colors.appBlackColor,
   },
   containerNotification: {
     backgroundColor: Colors.backgroundColor,
