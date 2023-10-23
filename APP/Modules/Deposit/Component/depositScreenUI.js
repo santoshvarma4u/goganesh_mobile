@@ -171,7 +171,7 @@ function DepositScreen({route}) {
               <View style={styles.offersContainer}>
                 <View style={styles.depositDetailsCardForBank}>
                   <Typography style={styles.depositTitile}>
-                    Send INR {planMoney} to FG Punt on {paymentType}
+                    Send INR {planMoney} to Go Ganesh on {paymentType}
                   </Typography>
                   <Divider style={{backgroundColor: 'black', height: 5}} />
                   <View style={{flexDirection: 'row'}}>
@@ -318,7 +318,7 @@ function DepositScreen({route}) {
               </View>
               <View style={styles.depositDetailsCard}>
                 <Typography style={styles.depositTitile}>
-                  Send INR {planMoney} to FG Punt on {data.paymentkey}
+                  Send INR {planMoney} to Go Ganesh on {data.paymentkey}
                 </Typography>
                 <Divider
                   style={{

@@ -23,56 +23,56 @@ const CONSTANTS = {
 const USER_FRIENDLY_PAYMENT_MESSAGE = {
   [CONSTANTS.DEPOSIT_INTO_WALLET_UPI]: {
     Accepted:
-      'Yay!! Congratulations!! You have deposited into your wallet from UPI. Enjoy with FG Punt 😍',
+      'Yay!! Congratulations!! You have deposited into your wallet from UPI. Enjoy with Go Ganesh 😍',
     Rejected: 'Nay!! Your deposit request into wallet from UPI is Rejected 😥',
     Pending: 'Wait!! Your deposit request into wallet from UPI is Pending 😞',
     Remark: 'Wallet Deposit',
   },
   [CONSTANTS.DEPOSIT_INTO_WALLET_PAYMENT_GATEWAY]: {
     Accepted:
-      'Yay!! Congratulations!! You have deposited into your wallet from UPI. Enjoy with FG Punt 😍',
+      'Yay!! Congratulations!! You have deposited into your wallet from UPI. Enjoy with Go Ganesh 😍',
     Rejected: 'Nay!! Your deposit request into wallet from UPI is Rejected 😥',
     Pending: 'Wait!! Your deposit request into wallet from UPI is Pending 😞',
     Remark: 'Wallet Deposit',
   },
   [CONSTANTS.DEPOSIT_INTO_SITE_UPI_CREATE_ID]: {
     Accepted:
-      'Yay!! Congratulations!! Your new SITE ID is Available now, Login from MY IDs Screen Enjoy with FG Punt 😍',
+      'Yay!! Congratulations!! Your new SITE ID is Available now, Login from MY IDs Screen Enjoy with Go Ganesh 😍',
     Rejected: 'Nay!! your new SITE ID request has been rejected 😥',
     Pending: 'Wait!! Your new SITE ID request is Pending 😞',
     Remark: 'Create ID',
   },
   [CONSTANTS.DEPOSIT_INTO_SITE_CREATE_ID_PAYMENT_GATEWAY]: {
     Accepted:
-      'Yay!! Congratulations!! Your new SITE ID is Available now, Login from MY IDs Screen Enjoy with FG Punt 😍',
+      'Yay!! Congratulations!! Your new SITE ID is Available now, Login from MY IDs Screen Enjoy with Go Ganesh 😍',
     Rejected: 'Nay!! your new SITE ID request has been rejected 😥',
     Pending: 'Wait!! Your new SITE ID request is Pending 😞',
     Remark: 'Create ID',
   },
   [CONSTANTS.DEPOSIT_INTO_SITE_WALLET_CREATE_ID]: {
     Accepted:
-      'Yay!! Congratulations!! Your new SITE ID is Available now, Login from MY IDs Screen Enjoy with FG Punt 😍',
+      'Yay!! Congratulations!! Your new SITE ID is Available now, Login from MY IDs Screen Enjoy with Go Ganesh 😍',
     Rejected: 'Nay!! your new SITE ID request has been rejected 😥',
     Pending: 'Wait!! Your new SITE ID request is Pending 😞',
     Remark: 'Create ID',
   },
   [CONSTANTS.DEPOSIT_INTO_EXISTING_ID_FROM_WALLET]: {
     Accepted:
-      'Yay!! Congratulations!! Your deposit into ID from wallet has been approved Enjoy with FG Punt 😍',
+      'Yay!! Congratulations!! Your deposit into ID from wallet has been approved Enjoy with Go Ganesh 😍',
     Rejected: 'Nay!! Your deposit into ID from wallet has been rejected 😥',
     Pending: 'Wait!! Your deposit into ID from wallet is Pending 😞',
     Remark: 'Deposit into ID',
   },
   [CONSTANTS.DEPOSIT_INTO_EXISTING_ID_FROM_UPI]: {
     Accepted:
-      'Yay!! Congratulations!! Your deposit into ID from UPI has been approved Enjoy with FG Punt 😍',
+      'Yay!! Congratulations!! Your deposit into ID from UPI has been approved Enjoy with Go Ganesh 😍',
     Rejected: 'Nay!! Your deposit into ID from UPI has been rejected 😥',
     Pending: 'Wait!! Your deposit into ID from UPI is Pending 😞',
     Remark: 'Deposit into ID',
   },
   [CONSTANTS.DEPOSIT_INTO_EXISTING_ID_FROM_PAYMENT_GATEWAY]: {
     Accepted:
-      'Yay!! Congratulations!! Your deposit into ID from Payment Gateway has been approved Enjoy with FG Punt 😍',
+      'Yay!! Congratulations!! Your deposit into ID from Payment Gateway has been approved Enjoy with Go Ganesh 😍',
     Rejected: 'Nay!! Your deposit into ID from UPI has been rejected 😥',
     Pending: 'Wait!! Your deposit into ID from UPI is Pending 😞',
     Remark: 'Deposit into ID',
@@ -80,35 +80,35 @@ const USER_FRIENDLY_PAYMENT_MESSAGE = {
   [CONSTANTS.WITHDRAW_FROM_EXISTING_ID_TO_WALLET]: {
     Accepted:
       'Yay!! Congratulations!! Your withdraw from ID to wallet has been approved. Please check wallet balance.' +
-      'Enjoy with FG Punt 😍',
+      'Enjoy with Go Ganesh 😍',
     Rejected: 'Nay!! Your withdraw from ID to wallet has been rejected 😥',
     Pending: 'Wait!! Your withdraw from ID to wallet is Pending 😞',
     Remark: 'Withdraw from ID',
   },
   [CONSTANTS.WITHDRAW_FROM_EXISTING_ID_TO_BANK]: {
     Accepted:
-      'Yay!! Congratulations!! Your withdraw from ID to bank has been approved. Please check bank balance Enjoy with FG Punt 😍',
+      'Yay!! Congratulations!! Your withdraw from ID to bank has been approved. Please check bank balance Enjoy with Go Ganesh 😍',
     Rejected: 'Nay!! Your withdraw from ID to bank has been rejected 😥',
     Pending: 'Wait!! Your withdraw from ID to bank is Pending 😞',
     Remark: 'Withdraw from ID',
   },
   [CONSTANTS.WITHDRAW_FROM_WALLET_TO_BANK]: {
     Accepted:
-      'Yay!! Congratulations!! Your withdraw from wallet to bank has been approved. Please check bank balance Enjoy with FG Punt 😍',
+      'Yay!! Congratulations!! Your withdraw from wallet to bank has been approved. Please check bank balance Enjoy with Go Ganesh 😍',
     Rejected: 'Nay!! Your withdraw from wallet to bank has been rejected 😥',
     Pending: 'Wait!! Your withdraw from wallet to bank is Pending 😞',
     Remark: 'Withdraw from wallet',
   },
   [CONSTANTS.WITHDRAW_FROM_WALLET_TO_UPI]: {
     Accepted:
-      'Yay!! Congratulations!! Your withdraw from wallet to UPI has been approved. Please check UPI balance Enjoy with FG Punt 😍',
+      'Yay!! Congratulations!! Your withdraw from wallet to UPI has been approved. Please check UPI balance Enjoy with Go Ganesh 😍',
     Rejected: 'Nay!! Your withdraw from wallet to UPI has been rejected 😥',
     Pending: 'Wait!! Your withdraw from wallet to UPI is Pending 😞',
     Remark: 'Withdraw from wallet',
   },
   [CONSTANTS.WITHDRAW_FROM_EXISTING_ID_TO_UPI]: {
     Accepted:
-      'Yay!! Congratulations!! Your withdraw from ID to UPI has been approved. Please check UPI balance Enjoy with FG Punt 😍',
+      'Yay!! Congratulations!! Your withdraw from ID to UPI has been approved. Please check UPI balance Enjoy with Go Ganesh 😍',
     Rejected: 'Nay!! Your withdraw from ID to UPI has been rejected 😥',
     Pending: 'Wait!! Your withdraw from ID to UPI is Pending 😞',
     Remark: 'Withdraw from ID',

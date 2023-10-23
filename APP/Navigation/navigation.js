@@ -258,7 +258,7 @@ const HomeStackNavigator = () => {
               {/*  color={Colors.appThemeTextColor}*/}
               {/*/>*/}
               {/* <Typography variant="title" color={Colors.appThemeTextColor}>
-                FG Punt
+                Go Ganesh
               </Typography> */}
             </View>
           ),

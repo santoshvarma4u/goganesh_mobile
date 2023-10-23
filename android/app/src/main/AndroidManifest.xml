@@ -23,7 +23,7 @@
     </queries>
     <application
       android:name=".MainApplication"
-      android:label="FG Punt"
+      android:label="Go Ganesh"
       android:icon="@mipmap/ic_launcher"
       android:usesCleartextTraffic="true"
       android:roundIcon="@mipmap/ic_launcher"
