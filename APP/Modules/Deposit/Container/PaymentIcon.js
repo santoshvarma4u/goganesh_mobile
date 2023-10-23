@@ -1,5 +1,7 @@
 import React from 'react';
+import BhimSvg from '../../../Assets/svgs/BhimSvg';
 import GooglePaySvg from '../../../Assets/svgs/GooglePaySvg';
+import PaytmSvg from '../../../Assets/svgs/PaytmSvg';
 import PhonePeSvg from '../../../Assets/svgs/PhonePeSvg';
 import UpiLogo from '../../../Assets/svgs/UpiLogo';
 import images from '../../../Theams/Images';
@@ -9,6 +11,8 @@ export const keyMap = {
   'Phone Pay': 'Phone Pay',
   UPI: 'UPI',
   Bank: 'Bank',
+  Paytm: 'Paytm',
+  Bhim: 'Bhim',
 };
 
 const imageStyle = {
@@ -17,14 +21,18 @@ const imageStyle = {
   marginTop: 5,
 };
 
-const PaymentIcon = ({paymenttype}) => {
+const PaymentIcon = ({paymenttype, width = 36, height = 36}) => {
   let svg = <FGImage source={images.banktransfer1} style={imageStyle} />;
   if (paymenttype === keyMap['Google Pay']) {
-    svg = <GooglePaySvg width={36} height={36} />;
+    svg = <GooglePaySvg width={width} height={height} />;
   } else if (paymenttype === keyMap['Phone Pay']) {
-    svg = <PhonePeSvg width={36} height={36} />;
+    svg = <PhonePeSvg width={width} height={height} />;
   } else if (paymenttype === keyMap.UPI) {
     svg = <UpiLogo style={imageStyle} />;
+  } else if (paymenttype === keyMap.Paytm) {
+    svg = <PaytmSvg width={width} height={height} />;
+  } else if (paymenttype === keyMap.Bhim) {
+    svg = <BhimSvg width={width} height={height} />;
   }
   return svg;
 };

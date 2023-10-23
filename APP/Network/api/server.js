@@ -76,6 +76,13 @@ const NetworkAPI = {
       deviceid: getdeviceId(),
     },
   }),
+
+  paymentGatewayClient: create({
+    baseURL: 'https://api.ekqr.in/api/',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }),
 };
 
 export default NetworkAPI;

@@ -25,6 +25,7 @@ import CONSTANTS from '../../../Constants';
 import {env} from '../../../Network/api/server';
 import {setUserBanks} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
+import {universalDeposits} from '../../../Utils';
 import CommonTextInput from '../../Common/CommonTextInput';
 import ErrorPage from '../../Common/ErrorPage';
 import {Typography} from '../../Common/Text';
@@ -137,7 +138,7 @@ const WithdrawForm = props => {
                   color: Colors.appWhiteColor,
                 }}
               />
-              {banks?.length > 0 ? (
+              {banks?.length > 0 && universalDeposits ? (
                 <RadioButton.Item
                   label={`Bank  (${banks[0].value})`}
                   value="bank"

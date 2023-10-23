@@ -13,6 +13,7 @@ import siteApi from '../../../Network/sites/sites';
 import {setWalletBalance} from '../../../Store/Slices/homeSlice';
 import animations from '../../../Theams/Animations';
 import Colors from '../../../Theams/Colors';
+import {universalDeposits} from '../../../Utils';
 import LoadingIndicator from '../../../Utils/loadingIndicator';
 import useHideBottomBar from '../../../Utils/useHideBottomBar';
 import withPreventDoubleClick from '../../../Utils/withPreventDoubleClick';
@@ -66,6 +67,7 @@ function CreateIDScreen({route, wallet}) {
   const [isLoading, setIsLoading] = useState(false);
   const [disablePayment, setDisablePayment] = useState(false);
   const [isCreatingId, setIsCreatingID] = useState(false);
+  const [disableDirectPayment, setDisableDirectPayment] = useState(false);
   const resetAction = CommonActions.reset({
     index: 0,
     routes: [{name: "ID's"}],
@@ -85,6 +87,14 @@ function CreateIDScreen({route, wallet}) {
     'Min Maintaining Balance': '0',
     MaxWithDrawl: '25,00,000 per day',
   });
+
+  useEffect(() => {
+    if (!universalDeposits) {
+      // Auto checking wallet when user comes to this screen
+      setChecked(true);
+      setDisableDirectPayment(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (requestStatus === 'old') {
@@ -118,18 +128,10 @@ function CreateIDScreen({route, wallet}) {
         null,
         usdid,
       ).then(({data}) => {
-        DepositController.debitFromWallet(
-          parseInt(uid),
-          values.DepositCoins,
-          'DR',
-          'Wallet',
-          data.data.paymentID,
-        ).then(() => {
-          setIsCreatingID(false);
-          setIsLoading(false);
-          navigation.dispatch(resetAction);
-          alert('success');
-        });
+        setIsCreatingID(false);
+        setIsLoading(false);
+        navigation.dispatch(resetAction);
+        alert('Success! Amount will be deposit to ID');
       });
     } else {
       DepositController.submitIntialDeposit(
@@ -416,16 +418,18 @@ function CreateIDScreen({route, wallet}) {
                           submitRequest(sdid, values);
                         }
                       } else {
-                        setIsCreatingID(false);
-                        navigation.navigate('DepositV2', {
-                          sdid: sdid,
-                          planMoney: planDetails.MinRefill,
-                          planType: planDetails.planHeader,
-                          userName: values.UserName,
-                          depositCoins: values.DepositCoins,
-                          requestStatus: requestStatus,
-                          usdid: usdid,
-                        });
+                        if (universalDeposits) {
+                          setIsCreatingID(false);
+                          navigation.navigate('DepositV2', {
+                            sdid: sdid,
+                            planMoney: planDetails.MinRefill,
+                            planType: planDetails.planHeader,
+                            userName: values.UserName,
+                            depositCoins: values.DepositCoins,
+                            requestStatus: requestStatus,
+                            usdid: usdid,
+                          });
+                        }
                       }
                     } else {
                       setIsCreatingID(false);
@@ -484,6 +488,7 @@ function CreateIDScreen({route, wallet}) {
                       status={checked ? 'checked' : 'unchecked'}
                       color={Colors.appPrimaryColor}
                       uncheckedColor="white"
+                      disabled={disableDirectPayment}
                       onPress={() => {
                         setChecked(!checked);
                       }}
