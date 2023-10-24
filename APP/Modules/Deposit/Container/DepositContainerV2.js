@@ -110,8 +110,9 @@ const DepositContainerV2 = props => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     setAmount(depositCoins);
-    await getPGSettings();
     getUID();
+
+    await getPGSettings();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -260,7 +261,9 @@ const DepositContainerV2 = props => {
     try {
       let UID = await Storage.getItemSync(StorageKeys.ID);
       setUid(UID);
-    } catch (error) {}
+    } catch (error) {
+      reactotron.log('error', error);
+    }
   };
   const navigation = useNavigation();
 
@@ -419,6 +422,22 @@ const DepositContainerV2 = props => {
     setProgress(true);
     if (requestStatus === 'wallet') {
       const paymentMethod = paymentType;
+
+      reactotron.log(
+        'requestStatus',
+        requestStatus,
+        parseInt(uid),
+        paymentMethod,
+        depositCoins,
+        'CR',
+        true,
+        filePath,
+        CONSTANTS.DEPOSIT_INTO_WALLET_UPI,
+        null,
+        setImageUpLoadProgress,
+        null,
+        usdid,
+      );
       DepositController.depositIntoWallet(
         parseInt(uid),
         paymentMethod,
