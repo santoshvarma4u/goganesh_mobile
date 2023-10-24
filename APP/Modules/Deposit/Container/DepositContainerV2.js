@@ -60,7 +60,7 @@ const DepositContainerV2 = props => {
   const [isCreatingId, setIsCreatingID] = useState(false);
   const [paymentMasters, setPaymentMasters] = useState([]);
   const [enableGateway, setEnableGateway] = useState(false);
-  const [selectedPaymentMode, setSelectedPaymentMode] = useState(null);
+  const [selectedPaymentMode, setSelectedPaymentMode] = useState('manual');
   const [paymentApiKey, setPaymentApiKey] = useState('');
   const [paymentMaxAmount, setPaymentMaxAmount] = useState(null);
   const [pgProgress, setPgProgress] = useState(false);
@@ -127,7 +127,7 @@ const DepositContainerV2 = props => {
   const getPGSettings = async () => {
     const {apiKey, maxAmount, gatewayStatus} =
       await paymentGatewayApi.getPaymentGatewaySettings();
-    if (apiKey) {
+    if (apiKey && gatewayStatus) {
       setPaymentApiKey(apiKey);
       setPaymentMaxAmount(maxAmount);
       setEnableGateway(gatewayStatus);
@@ -139,6 +139,9 @@ const DepositContainerV2 = props => {
       } else {
         setSelectedPaymentMode('manual');
       }
+    } else {
+      setEnableGateway(false);
+      selectedPaymentMode('manual');
     }
   };
 
