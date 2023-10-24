@@ -115,13 +115,12 @@ const DepositContainerV2 = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  async function checkStatus() {
-    if (retryCount > 0 && retryCount < 10 && pgWaitingStatus) {
-      await checkOrderStatus();
-    }
-  }
-
   useEffect(() => {
+    async function checkStatus() {
+      if (retryCount <= 5 && pgWaitingStatus) {
+        await checkOrderStatus();
+      }
+    }
     checkStatus();
   }, [pgWaitingStatus, retryCount]);
 
@@ -176,6 +175,8 @@ const DepositContainerV2 = props => {
   };
 
   const checkOrderStatus = async () => {
+    reactotron.log('checkOrderStatus', pgWaitingStatus);
+
     if (pgWaitingStatus) {
       const data = {
         key: paymentApiKey,
@@ -185,10 +186,11 @@ const DepositContainerV2 = props => {
       const response = await paymentGatewayApi.checkOrderStatus(data);
       reactotron.log('response--->', response);
       const {status = {}} = response;
-      if (retryCount >= 10) {
+      if (retryCount >= 5) {
         setPgWaitingStatus(false);
         setRetryCount(0);
         setPaymentStatus(false);
+        navigation.dispatch(resetAction);
       } else {
         if (status) {
           // payment success
@@ -212,6 +214,7 @@ const DepositContainerV2 = props => {
           setPgWaitingStatus(false);
           setRetryCount(0);
           setPaymentStatus(false);
+          navigation.dispatch(resetAction);
         }
       }
     }
