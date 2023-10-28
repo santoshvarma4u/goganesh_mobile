@@ -4,6 +4,7 @@ import {Icon} from '@rneui/themed';
 import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 import {
+  Dimensions,
   Image,
   Linking,
   ScrollView,
@@ -13,6 +14,7 @@ import {
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {Button, IconButton} from 'react-native-paper';
+import {WebView} from 'react-native-webview';
 import {connect} from 'react-redux';
 import reactotron from 'reactotron-react-native';
 import CONSTANTS from '../../../Constants';
@@ -49,6 +51,8 @@ const DepositContainerV2 = props => {
 
   const paymentButtonSize = 64;
 
+  const screenHeight = Dimensions.get('window').height;
+
   const [selectedMedium, setSelectedMedium] = useState({
     type: '',
     data: [],
@@ -69,6 +73,7 @@ const DepositContainerV2 = props => {
   const [pgPhonePaylink, setPgPhonePaylink] = useState(null);
   const [pgPaytmLink, setPgPaytmLink] = useState(null);
   const [pgBhimLink, setPgBhimLink] = useState(null);
+  const [universalPaymentUrl, setUniversalPaymentUrl] = useState(null);
   const [currentTransactionId, setCurrentTransactionId] = useState(null);
   const [paymentStatus, setPaymentStatus] = useState(null);
 
@@ -118,9 +123,7 @@ const DepositContainerV2 = props => {
 
   useEffect(() => {
     async function checkStatus() {
-      if (retryCount <= 5 && pgWaitingStatus) {
-        await checkOrderStatus();
-      }
+      await checkOrderStatus();
     }
     checkStatus();
   }, [pgWaitingStatus, retryCount]);
@@ -151,7 +154,7 @@ const DepositContainerV2 = props => {
     const data = {
       key: apiKey,
       client_txn_id: generateTransactionId(10),
-      amount: depositCoins.toString(),
+      amount: '1',
       p_info: 'GoGanesh',
       customer_name: 'Goganesh' + generateTransactionId(1),
       customer_email: 'go@goganesh.com',
@@ -167,12 +170,13 @@ const DepositContainerV2 = props => {
     const response = await paymentGatewayApi.createOrder(data);
     reactotron.log('response', response);
     if (response.data.status === true) {
-      const {upi_intent = {}} = response.data.data;
+      const {upi_intent = {}, payment_url = null} = response.data.data;
       const {bhim_link, gpay_link, phonepe_link, paytm_link} = upi_intent;
       setPgGpaylink(gpay_link);
       setPgPhonePaylink(phonepe_link);
       setPgPaytmLink(paytm_link);
       setPgBhimLink(bhim_link);
+      setUniversalPaymentUrl(payment_url);
     }
     setPgProgress(false);
     reactotron.log(response);
@@ -180,7 +184,6 @@ const DepositContainerV2 = props => {
 
   const checkOrderStatus = async () => {
     reactotron.log('checkOrderStatus', pgWaitingStatus);
-
     if (pgWaitingStatus) {
       const data = {
         key: paymentApiKey,
@@ -208,10 +211,6 @@ const DepositContainerV2 = props => {
             setPgWaitingStatus(false);
             setPaymentStatus(false);
             setRetryCount(0);
-          } else {
-            setTimeout(() => {
-              setRetryCount(retryCount + 1);
-            }, 10000);
           }
         } else {
           // payment failed
@@ -523,23 +522,34 @@ const DepositContainerV2 = props => {
     );
   }
 
-  const renderPaymentGatway = () => {
-    return pgProgress || pgWaitingStatus ? (
-      <LoadingIndicator
-        loadingText={
-          pgProgress ? 'Please wait....' : 'Waiting for payment ....'
-        }
-      />
-    ) : (
+  const renderPaymentGatewayV2 = () => {
+    return universalPaymentUrl && !pgWaitingStatus ? (
       <View
         style={{
           flex: 1,
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'center',
-          border: 1,
         }}>
+        <WebView
+          style={{
+            height: (screenHeight * 3) / 4 + 10,
+          }}
+          source={{uri: universalPaymentUrl}}
+          onNavigationStateChange={navState => {
+            reactotron.log('navState', navState);
+            if (
+              navState.url.includes('client_txn_id') &&
+              navState.url.includes('txn_id')
+            ) {
+              setPgWaitingStatus(true);
+              setRetryCount(1);
+            }
+          }}
+          javaScriptEnabled={true}
+          domStorageEnabled={true}
+          startInLoadingState={true}
+        />
+      </View>
+    ) : (
+      <View>
         <Typography
           variant="H3"
           style={{
@@ -548,56 +558,8 @@ const DepositContainerV2 = props => {
             width: '100%',
             marginBottom: 10,
           }}>
-          Please select any one of the payment method
+          Please wait, we are verifying payment link for you
         </Typography>
-
-        <Typography
-          variant="H3"
-          style={{
-            textAlign: 'center',
-            color: Colors.appWhiteColor,
-            width: '100%',
-            marginVertical: 20,
-          }}>
-          Transaction No : {currentTransactionId}
-        </Typography>
-
-        <TouchableOpacity
-          style={styles.paymentButtonStyle}
-          onPress={() => openRelevantUpiApp('gpay')}>
-          <PaymentIcon
-            paymenttype={'Google Pay'}
-            width={paymentButtonSize}
-            height={paymentButtonSize}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.paymentButtonStyle}
-          onPress={() => openRelevantUpiApp('phonepay')}>
-          <PaymentIcon
-            paymenttype={'Phone Pay'}
-            width={paymentButtonSize}
-            height={paymentButtonSize}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.paymentButtonStyle}
-          onPress={() => openRelevantUpiApp('paytm')}>
-          <PaymentIcon
-            paymenttype={'Paytm'}
-            width={paymentButtonSize}
-            height={paymentButtonSize}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.paymentButtonStyle}
-          onPress={() => openRelevantUpiApp('bhim')}>
-          <PaymentIcon
-            paymenttype={'Bhim'}
-            width={paymentButtonSize}
-            height={paymentButtonSize}
-          />
-        </TouchableOpacity>
       </View>
     );
   };
@@ -735,7 +697,7 @@ const DepositContainerV2 = props => {
         </View>
         {selectedPaymentMode === 'manual'
           ? renderManualPayment()
-          : renderPaymentGatway()}
+          : renderPaymentGatewayV2()}
       </ScrollView>
     </View>
   );
