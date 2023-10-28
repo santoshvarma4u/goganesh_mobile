@@ -154,7 +154,7 @@ const DepositContainerV2 = props => {
     const data = {
       key: apiKey,
       client_txn_id: generateTransactionId(10),
-      amount: '1',
+      amount: depositCoins.toString(),
       p_info: 'GoGanesh',
       customer_name: 'Goganesh' + generateTransactionId(1),
       customer_email: 'go@goganesh.com',
