@@ -22,6 +22,7 @@ import AccordionMyIDs from './accordianListMyIDs';
 
 const IDRoute = props => {
   const getIDs = IdController.useGetIDs();
+  const getMyIDs = IdController.getUserSpecificIDs();
 
   const [refresh, setRefresh] = useState(false);
   const [search, setSearch] = useState('');
@@ -82,7 +83,9 @@ const IDRoute = props => {
           }}
           contentContainerStyle={{paddingBottom: 50}}
           refreshing={refresh}
-          renderItem={({item}) => <AccordionListItem data={item} />}
+          renderItem={({item}) => (
+            <AccordionListItem data={item} userIds={getMyIDs} />
+          )}
           ItemSeparatorComponent={() => (
             <View
               style={{

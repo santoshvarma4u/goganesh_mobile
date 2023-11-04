@@ -1,3 +1,4 @@
+import {useFocusEffect} from '@react-navigation/native';
 import {Icon} from '@rneui/base';
 import React, {useEffect, useState} from 'react';
 import {Alert, Pressable, RefreshControl, View, StyleSheet} from 'react-native';
@@ -86,6 +87,12 @@ const AllTransactionsContainer = ({navigation}) => {
     fetchDetails(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchDetails(1, true);
+    }, []),
+  );
 
   const clearCurrentResultsAndFetch = ignoreFilters => {
     setTransactions([]);

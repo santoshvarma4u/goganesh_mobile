@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import {BottomSheet, Icon} from '@rneui/themed';
 import * as React from 'react';
+import {useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -20,6 +21,16 @@ const AccordionListNew = props => {
   // const [expanded, setExpanded] = React.useState(false);
   const navigation = useNavigation();
   // const handlePress = () => setExpanded(!expanded);
+  const {userIds = null} = props;
+
+  const [myIds, setMyIds] = React.useState([]);
+
+  useEffect(() => {
+    if (userIds) {
+      setMyIds(userIds?.data || []);
+    }
+  }, [props]);
+
   const [isVisible, setIsVisible] = React.useState(false);
 
   function ListTitle() {
@@ -70,13 +81,25 @@ const AccordionListNew = props => {
             paddingHorizontal: 10,
           }}
           onPress={() => {
-            navigation.navigate('CreateID', {
-              sdid: props.data.sdid,
-              requestStatus: 'new',
-              url: props.data.siteurl,
-              sitename: props.data.sitename,
-              siteimage: props.data.siteimage,
+            let isExist = false;
+            myIds.forEach(element => {
+              if (element.sd.sdid === props.data.sdid) {
+                isExist = true;
+              }
             });
+            if (myIds.length > 0 && isExist) {
+              alert(
+                'Same ID already exists! Please close existing ID first to create new one',
+              );
+            } else {
+              navigation.navigate('CreateID', {
+                sdid: props.data.sdid,
+                requestStatus: 'new',
+                url: props.data.siteurl,
+                sitename: props.data.sitename,
+                siteimage: props.data.siteimage,
+              });
+            }
           }}>
           <Typography variant="H4" color={Colors.appBlackColor}>
             Create
@@ -138,13 +161,26 @@ const AccordionListNew = props => {
         <Button
           mode="contained"
           onPress={() => {
-            navigation.navigate('CreateID', {
-              sdid: props.data.sdid,
-              requestStatus: 'new',
-              sitename: props.data.sitename,
-              siteimage: props.data.siteimage,
-              url: props.data.siteurl,
+            // validate if there is exiting ID
+            let isExist = false;
+            myIds.forEach(element => {
+              if (element.sd.sdid === props.data.sdid) {
+                isExist = true;
+              }
             });
+            if (myIds.length > 0 && isExist) {
+              alert(
+                'Same ID already exists! Please close existing ID first to create new one',
+              );
+            } else {
+              navigation.navigate('CreateID', {
+                sdid: props.data.sdid,
+                requestStatus: 'new',
+                sitename: props.data.sitename,
+                siteimage: props.data.siteimage,
+                url: props.data.siteurl,
+              });
+            }
           }}>
           Create ID
         </Button>
