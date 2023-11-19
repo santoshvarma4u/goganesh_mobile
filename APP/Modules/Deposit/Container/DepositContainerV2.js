@@ -615,15 +615,15 @@ const DepositContainerV2 = props => {
             height={paymentButtonSize}
           />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.paymentButtonStyle}
-          onPress={() => openRelevantUpiApp('phonepay')}>
-          <PaymentIcon
-            paymenttype={'Phone Pay'}
-            width={paymentButtonSize}
-            height={paymentButtonSize}
-          />
-        </TouchableOpacity>
+        {/*<TouchableOpacity*/}
+        {/*  style={styles.paymentButtonStyle}*/}
+        {/*  onPress={() => openRelevantUpiApp('phonepay')}>*/}
+        {/*  <PaymentIcon*/}
+        {/*    paymenttype={'Phone Pay'}*/}
+        {/*    width={paymentButtonSize}*/}
+        {/*    height={paymentButtonSize}*/}
+        {/*  />*/}
+        {/*</TouchableOpacity>*/}
         <TouchableOpacity
           style={styles.paymentButtonStyle}
           onPress={() => openRelevantUpiApp('bhim')}>
