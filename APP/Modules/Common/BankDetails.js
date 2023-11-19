@@ -14,9 +14,7 @@ import {banksList} from './banks';
 
 const bankValidationSchema = yup.object().shape({
   bankName: yup.string().required('Bank is required'),
-  AccountNumber: yup
-    .number('Account Number should be number')
-    .required('Account Number is required'),
+  AccountNumber: yup.string().required('Account Number is required'),
   IFSC: yup.string().required('IFSC is required'),
   AccountHolderName: yup.string().required('Account holder name is required'),
 });

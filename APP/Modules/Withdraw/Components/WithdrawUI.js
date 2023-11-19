@@ -114,7 +114,12 @@ const WithdrawForm = props => {
       {enableWithdraw ? (
         <>
           <CommonTextInput
-            onChangeText={onAmountChange}
+            onChangeText={text => {
+              const validated = text.match(/^[0-9]*$/);
+              if (validated) {
+                onAmountChange(text);
+              }
+            }}
             value={amount}
             label="Enter Amount to Withdraw"
             keyboardType="numeric"

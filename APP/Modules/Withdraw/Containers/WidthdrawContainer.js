@@ -157,8 +157,11 @@ const WithDrawContainer = props => {
                 }}
                 value={amount}
                 onChangeText={value => {
-                  setAmount(value);
-                  setError(false);
+                  const validated = value.match(/^[0-9]*$/);
+                  if (validated) {
+                    setAmount(value);
+                    setError(false);
+                  }
                 }}
                 keyboardType="numeric"
               />

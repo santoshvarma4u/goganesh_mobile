@@ -10,6 +10,7 @@ import {
   Alert,
 } from 'react-native';
 import {connect} from 'react-redux';
+import reactotron from 'reactotron-react-native';
 import {setUserBanks} from '../../../Store/Slices/userDetailsSlice';
 import Colors from '../../../Theams/Colors';
 import useHideBottomBar from '../../../Utils/useHideBottomBar';
@@ -235,6 +236,7 @@ function PaymentsScreen({navigation, reduxSetUserBanks}) {
                   }}
                   bankData={bankVales}
                   onSubmit={values => {
+                    reactotron.log('values', values);
                     PaymentDetailsController.updateBankData(
                       values,
                       bankVales.bid,
