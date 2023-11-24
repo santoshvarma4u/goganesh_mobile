@@ -85,4 +85,4 @@ export const generateTransactionId = length => {
   return result;
 };
 
-export const universalDeposits = false;
+export const universalDeposits = true;
