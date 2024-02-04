@@ -13,7 +13,7 @@ const CommonTextInput = props => {
   } = props;
 
   return (
-    <View>
+    <View style={props.style}>
       <Input
         labelStyle={{
           color: Colors.appWhiteColor,

@@ -36,12 +36,12 @@ const TOP_MENU_BAR_ITEMS = [
     type: 'ionicon',
     onPress: 'Rules',
   },
-  {
-    label: 'How to Use',
-    icon: 'help-circle-outline',
-    onPress: 'HowItWorks',
-    type: 'ionicon',
-  },
+  // {
+  //   label: 'How to Use',
+  //   icon: 'help-circle-outline',
+  //   onPress: 'HowItWorks',
+  //   type: 'ionicon',
+  // },
   {
     label: 'Offers',
     icon: 'local-offer',

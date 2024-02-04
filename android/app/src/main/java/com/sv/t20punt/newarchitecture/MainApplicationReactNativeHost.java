@@ -1,4 +1,4 @@
-package com.goganesh.newarchitecture;
+package com.sv.t20punt.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.goganesh.BuildConfig;
-import com.goganesh.newarchitecture.components.MainComponentsRegistry;
-import com.goganesh.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.sv.t20punt.BuildConfig;
+import com.sv.t20punt.newarchitecture.components.MainComponentsRegistry;
+import com.sv.t20punt.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

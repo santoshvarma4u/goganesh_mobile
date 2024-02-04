@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "997722872234",
-    "project_id": "goganesh-588bd",
-    "storage_bucket": "goganesh-588bd.appspot.com"
+    "project_number": "407712378454",
+    "project_id": "t20punt",
+    "storage_bucket": "t20punt.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:997722872234:android:d8be4cbb2524893cfe33d3",
+        "mobilesdk_app_id": "1:407712378454:android:aa06b5e05f916de72955f7",
         "android_client_info": {
-          "package_name": "com.goganesh"
+          "package_name": "com.sv.t20punt"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDwCXH9CScVGuVetMkOScH8vZZR6dYD4i8"
+          "current_key": "AIzaSyBImtNn6e3vJy4NLVDS_NHLs92Ec5-jao4"
         }
       ],
       "services": {

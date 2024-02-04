@@ -48,11 +48,6 @@ const SignupSchema = Yup.object().shape({
       ),
     }),
   otp: Yup.string(),
-  client: Yup.string()
-    .min(6, 'Referral Code is Too Short!')
-    .max(6, 'Referral Code is Too Long!')
-    .matches(alphaNumRegExp, 'Referral Code is Invalid')
-    .required('Referral Code is Required'),
 });
 
 function SingUp({route}) {
@@ -117,6 +112,7 @@ function SingUp({route}) {
                 phone: route.params?.phoneNumber || '',
                 password: '',
                 confirmPassword: '',
+                client: 'T2PUNT',
               }}
               onSubmit={values => {
                 submitUser(values);
@@ -187,9 +183,11 @@ function SingUp({route}) {
                   <CommonTextInput
                     label="Enter Referral Code"
                     onChangeText={handleChange('client')}
-                    value={values.client}
+                    value={'T20Punt'}
+                    defaultValue={'T20Punt'}
+                    disabled
                     error={errors.client ? errors.client : false}
-                    maxLength={6}
+                    maxLength={7}
                     helperText={errors.client ? errors.client : ' '}
                   />
                   {showOTP && (
@@ -225,6 +223,14 @@ function SingUp({route}) {
                       </Typography>
                     </Typography>
                   </View>
+                  {showOTP && (
+                    <View>
+                      <Typography
+                        style={{marginLeft: 10, color: Colors.appPrimaryColor}}>
+                        Please answer OTP call
+                      </Typography>
+                    </View>
+                  )}
                   <Pressable
                     style={{
                       backgroundColor: Colors.appWhiteColor,

@@ -155,17 +155,9 @@ function CreateIDScreen({route, wallet}) {
           values.DepositCoins,
           data.data.paymentID,
         ).then(data1 => {
-          DepositController.debitFromWallet(
-            parseInt(uid),
-            values.DepositCoins,
-            'DR',
-            'Wallet',
-            data.data.paymentID,
-          ).then(() => {
-            setIsLoading(false);
-            setIsCreatingID(false);
-            navigation.dispatch(resetAction);
-          });
+          setIsLoading(false);
+          setIsCreatingID(false);
+          navigation.dispatch(resetAction);
         });
       });
     }

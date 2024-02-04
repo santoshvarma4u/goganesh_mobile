@@ -1,4 +1,4 @@
-package com.goganesh;
+package com.sv.t20punt;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "GoGanesh";
+    return "t20punt";
   }
 
   /**

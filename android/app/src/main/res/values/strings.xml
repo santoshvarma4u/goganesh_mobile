@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Go Ganesh</string>
+    <string name="app_name">T20 Punt</string>
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
     <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>
-    <string moduleConfig="true" name="CodePushDeploymentKey">bUEM2m9xny2QZeEQSSLO322xe1qzHBLkrzZSF</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">1mKD8aS2L8sEWfZaTpV0HS7iRbya1CgNFywB9</string>
 </resources>

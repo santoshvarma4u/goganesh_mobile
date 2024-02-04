@@ -117,7 +117,7 @@ export default StyleSheet.create({
   },
   centerCard: {
     justifyContent: 'space-between',
-    backgroundColor: Colors.appBlackColorLight,
+    backgroundColor: Colors.appBlackColor,
     borderRadius: metrics.borderRadius,
     height: 190,
     paddingHorizontal: 24,
