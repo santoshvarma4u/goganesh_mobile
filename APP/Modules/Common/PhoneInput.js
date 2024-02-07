@@ -241,5 +241,6 @@ const styles = StyleSheet.create({
   numberText: {
     color: BORER_COLOR,
     backgroundColor: 'black',
+    height: DEFAULT_HEIGHT - 5,
   },
 });

@@ -88,19 +88,19 @@ const VerifyUser = ({onSubmit, howItWorksClick}) => {
         style={{
           alignItems: 'center',
         }}>
-        <TouchableHighlight
-          onPress={() => {
-            howItWorksClick();
-          }}>
-          <Typography
-            style={{
-              color: Colors.appWhiteColor,
-              textAlign: 'center',
-              marginVertical: 20,
-            }}>
-            How to use ?
-          </Typography>
-        </TouchableHighlight>
+        {/*<TouchableHighlight*/}
+        {/*  onPress={() => {*/}
+        {/*    howItWorksClick();*/}
+        {/*  }}>*/}
+        {/*  <Typography*/}
+        {/*    style={{*/}
+        {/*      color: Colors.appWhiteColor,*/}
+        {/*      textAlign: 'center',*/}
+        {/*      marginVertical: 20,*/}
+        {/*    }}>*/}
+        {/*    How to use ?*/}
+        {/*  </Typography>*/}
+        {/*</TouchableHighlight>*/}
         {/*<ChatScreen />*/}
         {/* <Button
           style={{

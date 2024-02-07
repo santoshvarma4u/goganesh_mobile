@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 import Colors from '../../../Theams/Colors';
 export default StyleSheet.create({
   containerMain: {
-    backgroundColor: Colors.appWhiteColor,
+    backgroundColor: Colors.appBlackColor,
     flex: 1,
   },
   offersContainer: {
