@@ -16,6 +16,25 @@ const updatePassword = (phonenumber, password) => {
 
 export const sendOtp = phone => {
   const apiKey = '17dd9445-cbc5-11ec-9c12-0200cd936042';
+  let twoFactorApi = '/twoFactorAuth/sendOtp';
+  return NetworkAPI.apiLoginClient.post(twoFactorApi, {
+    phone: phone,
+    apiKey: apiKey,
+  });
+};
+
+export const verifyOtp = (session, otp) => {
+  const apiKey = '17dd9445-cbc5-11ec-9c12-0200cd936042';
+  let twoFactorApi = '/twoFactorAuth/verifyOtp';
+  return NetworkAPI.apiLoginClient.post(twoFactorApi, {
+    session: session,
+    otp: otp,
+    apiKey: apiKey,
+  });
+};
+
+export const sendOtpV1 = phone => {
+  const apiKey = '17dd9445-cbc5-11ec-9c12-0200cd936042';
   let twoFactorApi =
     '2factor.in/API/V1/' + apiKey + '/SMS/' + phone + '/AUTOGEN3';
   return NetworkAPI.authApiClient.post(twoFactorApi, {
@@ -23,7 +42,7 @@ export const sendOtp = phone => {
   });
 };
 
-export const verifyOtp = (session, otp) => {
+export const verifyOtpV1 = (session, otp) => {
   const apiKey = '17dd9445-cbc5-11ec-9c12-0200cd936042';
   let twoFactorApi =
     '2factor.in/API/V1/' + apiKey + '/SMS/VERIFY/' + session + '/' + otp;
