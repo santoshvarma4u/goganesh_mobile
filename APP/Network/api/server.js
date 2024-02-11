@@ -5,7 +5,7 @@ import Storage from '../../Modules/Common/Storage';
 import StorageKeys from '../../Modules/Common/StorageKeys';
 
 export const dev = 'http://159.89.171.125:3000/';
-export const local = 'http://192.168.0.101:3000';
+export const local = 'http://192.168.1.3:4000/';
 export const prod = 'https://api.t20punt.com/';
 //cd .. &&  cd home/admin/web/goganesh.bet/public_html/freelanceBackend/
 // cd ~/Library/Android/sdk/emulator
