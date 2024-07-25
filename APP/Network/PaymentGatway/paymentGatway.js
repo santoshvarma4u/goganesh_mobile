@@ -31,9 +31,19 @@ const savePaymentTransaction = async body => {
   return data;
 };
 
+const getPaymentGatewayForm = async body => {
+  const response = await NetworkAPI.apiClient.post(
+    'paymentGatewaySettings/getPaymentGatewayForm',
+    body,
+  );
+  const {details: {data = null} = {}} = response.data;
+  return data;
+};
+
 export default {
   createOrder,
   checkOrderStatus,
   getPaymentGatewaySettings,
   savePaymentTransaction,
+  getPaymentGatewayForm,
 };

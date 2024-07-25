@@ -189,6 +189,7 @@ function SingUp({route}) {
                     error={errors.client ? errors.client : false}
                     maxLength={7}
                     helperText={errors.client ? errors.client : ' '}
+                    style={{display: 'none'}}
                   />
                   {showOTP && (
                     <CommonTextInput

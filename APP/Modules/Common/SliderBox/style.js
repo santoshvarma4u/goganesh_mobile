@@ -4,7 +4,7 @@ const width = Dimensions.get('screen').width;
 export const styles = StyleSheet.create({
   carouselImageStyle: {
     width: width,
-    resizeMode: 'contain',
+    resizeMode: 'stretch',
     height: 200,
   },
   previewImageContainerStyle: {

@@ -8,7 +8,11 @@ const FGSliderBox = props => {
     <Carousel axis="horizontal" autoPlay infiniteLoop {...rest}>
       {images.map((i, index) => (
         <div key={index}>
-          <img src={i} />
+          <img
+            src={i}
+            style={{width: '100%', height: '80%', objectFit: 'fill'}}
+            alt={'img'}
+          />
         </div>
       ))}
     </Carousel>
