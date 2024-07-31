@@ -81,6 +81,7 @@ const DepositContainerV2 = props => {
   const [paymentStatus, setPaymentStatus] = useState(null);
   const [paymentGatewayForm, setPaymentGatewayForm] = useState(null);
   const [pgOrderId, setPgOrderId] = useState(null);
+  const [showWebview, setShowWebview] = useState(false);
 
   const [retryCount, setRetryCount] = useState(0);
 
@@ -111,15 +112,6 @@ const DepositContainerV2 = props => {
     }
   }, [data]);
 
-  useEffect(() => {
-    if (paymentStatus === true) {
-      handlePaymentGatewayResponse();
-    } else if (paymentStatus === false) {
-      alert('Payment Failed! ');
-      setPaymentStatus(null);
-    }
-  }, [paymentStatus]);
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     setAmount(depositCoins);
@@ -129,42 +121,24 @@ const DepositContainerV2 = props => {
   }, []);
 
   useEffect(() => {
-    async function checkStatus() {
-      if (retryCount <= 10 && pgWaitingStatus) {
-        await checkOrderStatus();
-      }
-    }
-    checkStatus();
+    // async function checkStatus() {
+    //   if (retryCount <= 10 && pgWaitingStatus) {
+    //     await checkOrderStatus();
+    //   }
+    // }
+    // checkStatus();
   }, [pgWaitingStatus, retryCount]);
 
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', nextAppState => {
-      if (
-        appState.current.match(/inactive|background/) &&
-        nextAppState === 'active'
-      ) {
-        reactotron.log('App has come to the foreground!');
-        checkOrderStatus();
-      }
-
-      appState.current = nextAppState;
-      setAppStateVisible(appState.current);
-      reactotron.log('AppState', appState.current);
-    });
-
-    return () => {
-      subscription.remove();
-    };
-  }, []);
-
   const getPGSettings = async () => {
-    const {maxAmount, gatewayStatus = false} =
-      await paymentGatewayApi.getPaymentGatewaySettings();
+    const {maxAmount} = await paymentGatewayApi.getPaymentGatewaySettings();
+
+    const gatewayStatus = true;
+
     if (gatewayStatus) {
       setPaymentMaxAmount(maxAmount);
       setEnableGateway(gatewayStatus);
       reactotron.log('gatewayStatus', gatewayStatus, depositCoins);
-      if (gatewayStatus && parseInt(depositCoins) <= maxAmount) {
+      if (gatewayStatus) {
         setSelectedPaymentMode('automatic');
         setPgProgress(true);
         await initPaymentGatewayOrder(maxAmount, gatewayStatus);
@@ -193,6 +167,7 @@ const DepositContainerV2 = props => {
       reactotron.log('PGOrderID', PGOrderID);
       setPaymentGatewayForm(PreparePOSTForm);
       setPgOrderId(PGOrderID);
+      setCurrentTransactionId(PGOrderID);
     }
     setPgProgress(false);
   };
@@ -207,41 +182,34 @@ const DepositContainerV2 = props => {
     reactotron.log('checkOrderStatus', pgWaitingStatus);
     if (pgWaitingStatus) {
       const data = {
-        key: paymentApiKey,
-        client_txn_id: currentTransactionId,
-        txn_date: moment().format('DD-MM-YYYY'),
+        OrderID: pgOrderId,
       };
       const response = await paymentGatewayApi.checkOrderStatus(data);
       reactotron.log('response--->', response);
-      const {status = {}} = response;
+      const {Status, paidAmount = 0} = response;
       if (retryCount >= 10) {
         setPgWaitingStatus(false);
         setRetryCount(0);
         setPaymentStatus(false);
         navigation.dispatch(resetAction);
       } else {
-        if (status) {
-          // payment success
-          if (response.data?.data?.status === 'success') {
-            // payment success
-            setPaymentStatus(true);
-            setPgWaitingStatus(false);
-            setRetryCount(0);
-          } else if (response?.data?.data?.status === 'failure') {
-            // payment failed
-            setPgWaitingStatus(false);
-            setPaymentStatus(false);
-            setRetryCount(0);
-          } else {
-            setTimeout(() => {
-              setRetryCount(retryCount + 1);
-            }, 2000);
-          }
+        if (
+          Status === 'SUCCESS' &&
+          parseFloat(paidAmount) >= parseFloat(depositCoins)
+        ) {
+          setPaymentStatus(true);
+          setPgWaitingStatus(false);
+          setRetryCount(0);
+          handlePaymentGatewayResponse();
         } else {
-          // payment failed
+          alert('Payment failed !!');
+          // Payment failed
           setPgWaitingStatus(false);
           setRetryCount(0);
           setPaymentStatus(false);
+          setPaymentGatewayForm(null);
+          setCurrentTransactionId(null);
+          setPgOrderId(null);
           navigation.dispatch(resetAction);
         }
       }
@@ -578,6 +546,12 @@ const DepositContainerV2 = props => {
             source={{html: paymentGatewayForm}}
             javaScriptEnabled={true}
             domStorageEnabled={true}
+            onNavigationStateChange={navState => {
+              // if (navState.url.includes('SabPaisaCallbk')) {
+              //   setPgWaitingStatus(true);
+              //   setRetryCount(0);
+              // }
+            }}
             injectedJavaScript={`
   (function() {
     var attemptClick = setInterval(function() {
@@ -690,7 +664,7 @@ const DepositContainerV2 = props => {
           Pay ₹{amount}/-
         </Typography>
         <View style={styles.payRow}>
-          {enableGateway && (
+          {!enableGateway && (
             <TouchableOpacity
               style={
                 selectedPaymentMode === 'automatic'
@@ -698,8 +672,8 @@ const DepositContainerV2 = props => {
                   : styles.unSelectedStyle
               }
               onPress={async () => {
-                // setSelectedPaymentMode('automatic');
-                // await getPGSettings();
+                setSelectedPaymentMode('automatic');
+                await getPGSettings();
               }}>
               <Typography style={styles.text} variant="H3">
                 Pay Automatically

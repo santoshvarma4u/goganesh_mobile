@@ -295,7 +295,7 @@ const DepositContainer = props => {
               color: Colors.appBlackColor,
             }}
             onPress={() => {
-              if (Number(amount) >= 1000) {
+              if (Number(amount) >= 100) {
                 setError(false);
                 navigation.navigate('DepositV2', {
                   depositCoins: amount,

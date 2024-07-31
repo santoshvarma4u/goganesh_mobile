@@ -10,10 +10,9 @@ const createOrder = async data => {
   return response;
 };
 
-const checkOrderStatus = async data => {
-  const response = await NetworkAPI.paymentGatewayClient.post(
-    'check_order_status',
-    data,
+const checkOrderStatus = async id => {
+  const response = await NetworkAPI.paymentGatewayClient.get(
+    'paymentGatewaySettings/check_order_status/' + id,
   );
   reactotron.log('response', response);
   return response;
